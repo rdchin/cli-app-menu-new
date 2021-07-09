@@ -1,0 +1,709 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# Usage: bash README
+#
+# +----------------------------------------+
+# |         Function f_script_path         |
+# +----------------------------------------+
+#
+#  Inputs: $BASH_SOURCE (System variable)
+#    Uses: None
+# Outputs: SCRIPT_PATH
+#
+f_script_path () {
+# BASH_SOURCE[0] gives the filename of the script.
+# dirname "{$BASH_SOURCE[0]}" gives the directory of the script
+# Execute commands: cd <script directory> and then pwd
+# to get the directory of the script.
+# NOTE: This code does not work with symlinks in directory path.
+#
+SCRIPT_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+} # End of function f_script_path
+#
+# **************************************
+# ***     Start of Main Program      ***
+# **************************************
+#
+SCRIPT_PATH="~" #Initialize path.
+#
+THIS_FILE="README"
+#
+# Set SCRIPT_PATH to directory path of script.
+f_script_path
+#
+clear
+# sed substitutes null for #: at beginning of each line so it is not printed.
+# less -P customizes prompt for %f <FILENAME> page <num> of <pages> (Spacebar, PgUp/PgDn . . .)
+sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/PgDn, Up/Dn arrows, press q to quit)'
+#
+# The "#:" at the beginning of lines below are used 
+# to delineate the Help Instructions.
+#
+#: +----------------------------------------+
+#: |            Table of contents           |
+#: +----------------------------------------+
+#:
+#:   Revision number and Revision Date
+#:   Brief Description
+#:   HOW-TO Install this script
+#:   HOW-TO Set the PATH with file locations
+#:   Why did I write this script?
+#:   Why is this menu so complex?
+#:   Script features
+#:   HOW-TO Add a new menu item
+#:   HOW-TO Add a new sub-menu
+#:   Trouble-shooting a new menu item
+#:   Known problems and limitations
+#:   For more help
+#:
+#: +----------------------------------------+
+#: |    Revision number and Revision Date   |
+#: +----------------------------------------+
+#:
+#:
+#: After each edit made, update the CODE_HISTORY of code changes/edits.
+#:
+#: If you are releasing a new release version of the project, then the
+#: files CODE_HISTORY and EDIT_HISTORY must have the project revision date
+#: and project version number updated also.
+#: 
+#:
+#: +----------------------------------------+
+#: |            Brief Description           |
+#: +----------------------------------------+
+#:
+#: Script cliappmenu.sh is a menu of CLI applications and commands
+#: to help CLI newbies to discover what a command line can do.
+#:
+#: The typical user is anyone who wants to learn about what types of
+#: command line applications are available.
+#:
+#: This version 4.x IS NOT BACKWARD COMPATIBLE with 3.1 and earlier since
+#: all the menus are now array driven and created as needed by creating
+#: temporary menu files which are deleted when each menu is exited.
+#:
+#: Reading the text menu data into arrays is more efficient and it allows
+#: menus to be displayed using Dialog, Whiptail, or text UI.
+#:
+#: The code which creates the menu arrays is contained in the library
+#: "common_bash_library.lib". It can be used in any BASH script you wish.
+#:
+#: There are many apps_[application category].lib files because each file
+#: has the data to create a single menu and there are about 134 menus in
+#: this script. The file naming system is ordered by app menu category.
+#: This allows easier locating of a particular apps menu file.
+#:
+#: Admittedly, the some of the library files for this script are big,
+#: particularly "cli-common.lib" and "common_bash_function_library.lib".
+#:
+#: The "common_bash_function_library.lib" contains tested functions that
+#: are designed to be used in any script.
+#: 
+#: Lastly, because the menus are now generated, there is a performance lag.
+#: The script ran fine on a Raspberry Pi 2 1 GB computer.
+#:
+#:
+#: +----------------------------------------+
+#: |       HOW-TO Install this script       |
+#: +----------------------------------------+
+#:
+#: This project is in a GitHub.com repository and can be downloaded from 
+#: https://github.com/rdchin/cli-app-menu_4.
+#:
+#:
+#: 1. TEMPORARY FILES.
+#:
+#: This script creates a few temporary files which should be deleted as
+#: each menu is exited. It will create one temporary file per menu, and
+#: more temporary files to store data, if needed. All temporary files
+#: are named after the file name which creates them or uses them.
+#:
+#: Normally "Dialog" and "Whiptail" menus are static, but I wanted dynamic
+#: menus created on-the-fly as needed and did not want to have to code a
+#: static menu for each application category as was done in version 3.1 and
+#: earlier of this script. Thus the need for temporary files. 
+#:
+#: 
+#: 2. A HIDDEN CONFIGURATION FILE.
+#:
+#: #: The configuration file: ~/.cliappmenu.cfg 
+#: is a hidden file which resides in the user's home directory.
+#: It is automatically created when you customize the UI and font colors.
+#: It is used to save the user preferences and is created and configured
+#: by the Main Menu option "Configure".
+#:
+#:
+#: 3. FILE LOCATIONS (AND SUB-DIRECTORY).
+#:
+#: The files: 
+#:
+#: cliappmenu.sh
+#: cliappmenu.lib
+#: common_bash_function.lib
+#:
+#: need to be in your home directory /home/<username>.
+#:
+#: All other files need to be in sub-directory /home/<username>/cliapp-dir.
+#: Where <username> represents your linux user name.
+#: 
+#: You can set the sub-directory to another location within your home
+#: directory and/or rename it. 
+#:
+#: To specify the new location/name of the cliapp-dir sub-directory, 
+#: edit the file, cliappmenu.sh. Near the beginning of the script,
+#: within the Section "Default Variable Values" you will see the setting
+#: of variable CLI_DIR which you can change to another sub-directory.
+#:
+#:
+#:  Beginning of excerpt from script cliappmenu.sh:
+#: _______________________________
+#:
+#: #================================================================================
+#: # EDIT THE LINE BELOW TO SET THE DIRECTORY OF THE SUB-MENU "cliapp-dir"
+#: # WHICH CONTAINS ALL THE SUB-MENU LIBRARY FILES.
+#: #================================================================================
+#: #
+#: #
+#: # Set the location of the "cliapp-dir" sub-directory.
+#: # Use a sub-directory where you have privileges to edit the library files
+#: # in order to edit the application menu item data.
+#: #
+#: # If puting the directory within the user's Home directory, then you
+#: # cannot use the tilde "~" symbol to represent the user's Home Directory
+#: # but must use the long-hand full-name of the user's Home Directory.
+#: #
+#: # You need to specify CLI_DIR.
+#: #
+#: # Factory setting is CLI_DIR="/home/<username>/cliapp-dir"
+#: #
+#: # CLI_DIR="/home/<username>/cliapp-dir"
+#:
+#: _______________________________
+#: End of excerpt from script cliappmenu.sh.
+#:
+#:
+#: 4. CHANGING THE PATH VARIABLE.
+#:
+#: Append the directory name to your environment $PATH:
+#: Edit your /home/<username>/.bashrc or .bash_profile or .profile
+#: file and add the directory by adding the lines to the end of the file,
+#:                   PATH=$PATH:<User-chosen directory path>/cliapp-dir
+#:                   export PATH
+#:
+#: When cliappmenu.sh is run i.e. "bash cliappmenu.sh",
+#:
+#:
+#: +----------------------------------------+
+#: | HOW-TO Set the PATH with file locations|
+#: +----------------------------------------+
+#:
+#: The session-wide (pertaining to a specific user only, not system-wide)
+#: setting of the PATH variable can be done in several ways.
+#:
+#:
+#: 1. When using a terminal in a window within a GUI desktop environment
+#:    such as Budgie, Enlightenment, Fluxbox, Gnome, IceWM, KDE, LXDE, 
+#:    OpenBox, XFCE, etc., the PATH variable is set in the file ~/.bashrc.
+#:
+#: 2. When using a pure CLI environment without a GUI desktop environment,
+#:    the PATH variable may be set in the file(s):
+#:    ~/.bash_profile or ~/.bash_login or ~/.profile
+#:
+#:    Note: If you invoke a GUI environment using "startx" from the CLI,
+#:          then you must edit
+#:          both    ~/.bashrc and ~/.bash_profile files
+#:          or both ~/.bashrc and ~/.bash_login   files.
+#:          or both ~/.bashrc and ~/.profile files.
+#:
+#: 3. Non-interactive, non-login shell environment:
+#:    reads the file contained in the variable BASH_ENV, if exists.
+#:__________________________________________
+#:
+#: Detailed information about options 1-4.
+#:
+#: 1. Only for Bash shells running in a terminal in a window in a GUI
+#:    desktop environment such as Budgie, Enlightenment, Fluxbox, Gnome,
+#:    IceWM, KDE, LXDE, OpenBox, XFCE, etc.
+#:
+#:    Note: A PATH variable that is set in file ~/.bashrc is only used
+#:          when running a Bash shell in a terminal window in a GUI desktop
+#:          environment. Therefore, it will be ignored in a pure CLI
+#:          environment login shell.
+#:
+#:    /home/<username>/.bashrc
+#:                             ~/.bashrc
+#:
+#:    Edit the ~/.bashrc file
+#:    and add the following line to the end of the file.
+#:                             PATH=$PATH:$HOME/cliapp-dir
+#:
+#:
+#: 2. Within a pure CLI environment without a GUI (Gnome, KDE, XFCE, etc):
+#:    Only one of these files needs the new PATH statement.
+#:
+#:    Will work in most shells in either a graphical environment in a
+#:    desktop session (i.e. Xterm window session) or a pure CLI environment
+#:    login shell.
+#:
+#:                             ~/.bash_login
+#:                             ~/.bash_profile
+#:
+#:    Edit either the ~/.bash_login or ~/.bash_profile file
+#:    and add the following line to the end of the file.
+#:                             PATH=$PATH:$HOME/cliapp-dir
+#:
+#:
+#: 3. Within a pure CLI environment without a GUI (Gnome, KDE, XFCE, etc):
+#:    The ~/.profile is read last after ~/.bash_login and ~/.bash_profile.
+#:
+#:    WARNING: Ubuntu ignores ~/.profile
+#:             when the file ~/.bash_login or ~/.bash_profile exists.
+#:
+#:    So edit ~/.profile only if you do not have either of the above files.
+#:
+#:    Will work in most shells in either a graphical environment in a
+#:    desktop session (i.e. Xterm window session) or a pure CLI environment
+#:    login shell.
+#:
+#:    /home/<username_goes_here>/.profile
+#:                             ~/.profile
+#:
+#:    Edit the ~/.profile file and add the line below to the end.
+#:                             export PATH="$PATH:$HOME/cliapp-dir"
+#:
+#:
+#: 4. Non-interactive, non-login shell environment:
+#:    reads the file contained in the variable BASH_ENV, if exists.
+#:
+#:    (Not pertinent or relevant since this script is interactive).
+#:    Included here to document another way to set the PATH variable.
+#:
+#:
+#: +----------------------------------------+
+#: |      Why did I write this script?      |
+#: +----------------------------------------+
+#:
+#: I wrote this script for 3 reasons:
+#: 1. I wanted a categorized list of command line applications.
+#: 2. I wanted to learn bash scripting, i.e. functions, looping, tests.
+#: 3. I couldn't find a cli menu to launch cli apps on the web so I thought
+#:    I'd give back to the community and perhaps others could build on and
+#:    improve on what I've started.
+#:
+#: Please enjoy . . . bob chin (2014...2021).
+#:                    RDevChin@Gmail.com.
+#:
+#:
+#: +----------------------------------------+
+#: |      Why is this menu so complex?      |
+#: +----------------------------------------+
+#:
+#: The 4 main goals of this project are:
+#:
+#: 1) To educate users on what Command-Line application are available.
+#:
+#: 2) To easily change a menu by adding/deleting a single comment line.
+#:
+#: 3) To easily add new sub-menus.
+#:
+#: 4) To automatically change the UI between text, Dialog, or Whiptail
+#:    without needing to calculate dialog box sizes or screen size.
+#:    (All those calculations are done for you by the f_message functions
+#:    within the library, common_bash_function.lib).
+#:
+#: *I chose ease-of-use over complexity. Complexity creates ease-of-use.
+#:
+#: *I used to be a MUMPS programmer and QA analyst.
+#:
+#: *I used to create menus with each menu option in a line of text when I
+#:  wrote software in MUMPS (now called "M") and being a QA person, my job
+#:  was to try to break programs.
+#:
+#: *My QA background also explains this crazy documentation of everything
+#:  along with the fact that I am (just) still learning bash scripting.
+#:
+#:
+#: +----------------------------------------+
+#: |             Script features            |
+#: +----------------------------------------+
+#:
+#: *Designed for ease of extensibility and menu editing.
+#:  Each menu is automatically generated and no coding is necessary.
+#:
+#: *Optimized for 80x24 display or 640x480 pixel displays.
+#:  Run-time displayed text is no wider than 80-columns across.
+#:  Run-time menus are no longer than 16 items for 24 row displays.
+#:  Although the game, "Pacman for Console" needs 32 rows minimum to play.
+#:
+#: *You can get application help by 'man' or '--help' from the menu prompt.
+#:
+#: *If an application is not installed, the script can install it using
+#:  package managers apt, rpm, slackpkg, pacman or for specific apps,
+#:  download it from a web site for manual installation.
+#:
+#: *If an application needs sudo permissions, the script will automatically
+#:  ask the user if sudo should be used.
+#:
+#: *Starting in version 4, all menus are generated on-the-fly or on-demand.
+#:
+#: *Menus are now generated as-needed or on-the-fly in temporary files.
+#:
+#:  For instance, if you open the Main Menu then go through the following
+#:  sub-menus: Application Menu, System Menu, and Monitor Menu, then the
+#:  script will generate only four menus contained in temporary files which
+#:  are deleted as each menu is exited.
+#:
+#:    MENU                GENERATED TEMPORARY FILE WITH MENU CODE
+#:  Main Menu         ~/cliappmenu.sh_menu_main_generated.lib
+#:  Application Menu  ~/cliapp-dir/apps.lib.generated
+#:  System Menu       ~/cliapp-dir/apps_system.lib.generated
+#:  Monitor Menu      ~/cliapp-dir/apps_system_monitors.lib.generated
+#:
+#:  This is in contrast with version 3 where all the menus were hard-coded
+#:  and multiple menus were contained in a single file so a unique 3-letter
+#:  string to identify a given menu was required.
+#:
+#:  Rather than keep a list of unique 3-letter string identifiers for each
+#:  menu, version 4 has a separate file for each menu.
+#:
+#:    MENU                LIBRARY FILE CONTAINING MENU OPTION DATA
+#:
+#:  Although there are many more files, this makes locating a particular
+#:  menu easier and is a more organized method to store related code.
+#:
+#:  This makes it very easy to add new sub-menus. If you wish to create 
+#:  your own custom sub-menu, just create a new library file using an 
+#:  existing menu library file as a template.
+#:
+#:  But as of now, it means that there are over 140 library files for the
+#:  over 140 menus in this script.
+#:
+#: *User-interfaces text (CLI), Dialog, and Whiptail are fully supported
+#:  for all menus and message displays. You can switch between them using
+#:  the "Configuration Menu".
+#:
+#:  This is done through functions contained in the library file,
+#:  "common_bash_function.lib". Functions f_message and f_create_show_menu
+#:  do all the work for you by automatically displaying messages in your
+#:  selected user-interface and even automatically calculates the size of
+#:  the message boxes for both Dialog and Whiptail.
+#:
+#: *More fun than just a list of CLI applications!!!
+#:
+#:
+#: +----------------------------------------+
+#: |       HOW-TO Add a new menu item       |
+#: +----------------------------------------+
+#:
+#: In brief:
+#
+#: 1. Each menu's data is contained in a corresponding library file.
+#:
+#: 2. If you are adding a NEW APPLICATION within an existing menu,
+#:
+#:    a) Determine which menu the new application should be added to and
+#:       edit the corresponding menu library file.
+#:
+#:    b) Menu items are in alphabetical order by app or category name.
+#:
+#:    c) Add the new menu item. (See below for menu format details).
+#:
+#:    d) An application menu can have a **MAXIMUM OF 16** items.
+#:       If you have more, create a new sub-menu or sub-category menu.
+#:       This is to comply with a 80x24 line screen which is standard.
+#:
+#: 3. Example: You want to add a menu item for the elinks web browser.
+#:
+#:    a) Determine the application category and edit the corresponding
+#:       library file containing the menu for that application category.
+#:       "elinks" is a web browser, so it would go in the library file,
+#:       "apps_internet_web_browsers.lib".
+#:
+#:    b) Edit the library, "apps_internet_web_browsers.lib" and add the
+#:       single line of code under section:
+#:                "Customize Menu choice options below."
+#:       after the menu option:
+#:                "#@@Return#@@Return to previous menu.#@@break"
+#:
+#: Code to add:
+#: #@@elinks#@@Web browser, tables, frames, forms support, tabbed browsing.#@@f_app_cmd^$GUI^elinks^elinks lxer.com#@@0^0^0^1^0
+#:       1                                2                                       3      3a    3b          3c              4
+#: application name                   Description                              function  GUI   App     App Command      App Code
+#:
+#:       Note: the application name (1) and the description (2) may include
+#:       commas, forward-slashes, dashes are OK.
+#:
+#:       Forbidden characters include ; : * ' " > < &
+#:
+#: 4. Explanation of menu option code:
+#:
+#:    The string is delimited by "#@@" into four parts.
+#:
+#:    1) elinks - The menu option itself.
+#:
+#:    2) Web browser, tables, frames, forms support, tabbed browsing.
+#:           Description of the menu option.
+#:
+#:    3) f_app_cmd^$GUI^elinks^elinks lxer.com
+#:
+#:          f_app_cmd
+#:             This function will run when the menu option is selected.
+#:
+#:             f_app_cmd calls f_app_cmd_2 which verifies that the
+#:             user-entered application command (application command with
+#:             optional parameters) is a valid command. If so, then it
+#:             will run the command if it is already installed, or 
+#:             install it, if needed.
+#:
+#:          ^$GUI^elinks^elinks lxer.com
+#:             1     2         3
+#:
+#:             Arguments and parameters passed to the function f_app_cmd.
+#:                         
+#:             $1 GUI is "text", "whiptail", or "dialog".
+#:
+#:             $2 elinks is the application name.
+#:
+#:             $3 is not used if the application does not need any
+#:                additional arguments or parameters.
+#:
+#:             $3 is used when an application needs additional arguments
+#:                            or parameters to operate.
+#:
+#:       Format: 
+#:          f_app_cmd^$GUI^Application^Application <space> arg1 <space> arg2
+#:
+#:                 (spaces are OK between the application name and the
+#:                 multiple arguments or parameters).
+#:
+#:          Example:
+#:                 f_app_cmd^$GUI^elinks^elinks lxer.com
+#:
+#:                 The default command in the menu will be to open the web
+#:                 browser "elinks" to the web site lxer.com.
+#:
+#:
+#:    4) 0^0^0^1^0 - The App Code (APP_CODE variable).
+#:       The App Code is delimited by carets (^) into 5 pieces or fields.
+#:
+#:       <field 4> a Quit-Code "1" which displays message below
+#:                 To quit "<application>", type "Q".
+#:
+#: 5. Detailed explanation of the App Code.
+#:
+#: field 1    *if 1 then function name is f_<MENU_ITEM_NAME>.
+#: 1/0/string *if <string> then function name is <string>.
+#:            *if 0 then ignored. No function is run.
+#:
+#: field 2    *if 1 then function name is f_install_<MENU_ITEM_NAME>.
+#: 1/0/string  A function to install an application may be specified here.
+#:            *if <string> then function name is <string>.
+#:            *if 0 then ignored. No function is run.
+#:
+#:             This custom installation function is called only after the
+#:             distro's software package manager has failed to install the
+#:             application usually because the application is not
+#:             pre-packaged for the linux distro (distribution).
+#:             See f_application_install for more details.
+#:
+#:             If the install fails, then this custom install function will
+#:             be run to download the source code from the application
+#:             maintainer's web site. It will then install the application.
+#:
+#: field 3    *if <string> then function name is <string>.
+#: 0/string   *if 0 then ignored. No function is run.
+#:             This function is run after displaying the Quit-Code on screen.
+#:
+#: field 4    *Quit-Code. See f_quit_app_clause for more details.
+#: string
+#:
+#: field 5    *Sets PRESS_KEY=0/1 to display "Press 'Enter' key to continue".
+#: 1/0         See f_press_key for more details. This allows the user to
+#:             see any messages displayed by the application after it has
+#:             been run, but before the menu redisplays. This is only
+#:             needed if the application finishes with information on the
+#:             screen which you want to look at before the menu redisplays.
+#:
+#:             This setting may be overridden by any custom functions which
+#:             follow. It is useful if the custom function displays a help
+#:             message for the menu to display so you don't have to worry
+#:             about coding for PRESS_KEY within that custom function.
+#:
+#:             This can be used to initialize PRESS_KEY as it is set before any
+#:             custom functions in fields 1, 2, or 3 are run.
+#:
+#: Example 1:
+#:
+#: 0^0^0^0^0 
+#: Has no custom functions before running application.
+#:
+#: 1^0^0^0^1
+#: <field 1> a custom function f_<application name> is run before
+#:           running the application. 
+#: <field 5> displays "Press 'Enter' key to continue" after running the
+#:           application.
+#:
+#:           Normally a CLI app will be run from the command-line and the
+#:           previous text would be visible and there is no need to pause
+#:           to see the text.
+#:
+#:           But because the apps are run inside a menu which returns to
+#:           the menu after an app is run, a pause to read the previous 
+#:           text is sometimes needed.
+#:
+#: Example 2:
+#:
+#: 0^1^0^3:NC^0 
+#: <field 2> custom install function, f_install_<application name> is run
+#:           before running the application.
+#:
+#:           Custom install functions run if the distro's software package
+#:           manager fails to install the application if it is missing.
+#:           Usually the custom install function will download, compile
+#:           source code from the software maintainer's web site.
+#:
+#: <field 4> a Quit-Code "3:NC" which displays message below
+#:           without clearing screen (NC=No Clear):
+#:
+#:           To quit <application name>, type "Q" or <F10>
+#:
+#: Example 3:
+#:
+#: 1^1^f_show^19^1
+#: <field 1> a custom function f_<application name> is run before
+#:           running the application. This will run before any custom
+#:           install function.
+#:
+#: <field 2> a custom install function, f_install_<application name> is
+#:           run before running the application, if needed.
+#:
+#:           Custom install functions run if the distro's software package
+#:           manager fails to install the application if it is missing.
+#:           Usually the custom install function will download, compile
+#:           source code from the software maintainer's web site.
+#:
+#: <field 3> a custom function f_show (or any function desired) is run
+#:           after displaying the Quit-Code on screen but before running
+#:           the application. 
+#:
+#: <field 4> a Quit-Code "19" which displays message below
+#:           after clearing the screen:
+#:
+#:           To quit "<application name>", type <Ctrl>-Z or <Ctrl>-C
+#:
+#: <field 5> which displays "Press 'Enter' key to continue" after running
+#:           the application.
+#:
+#:
+#: +----------------------------------------+
+#: |   Trouble-shooting a new menu item     |
+#: +----------------------------------------+
+#:
+#: 1. Menu will not display properly:
+#:
+#:    Since the menu option text line is read into an array, certain characters
+#:    are not acceptable in an array.
+#:
+#:    Commas, forward-slashes, dashes are OK.
+#:
+#:    Semi-colons, colons, asterisks, single-quotes, double-quotes,
+#:    greater-than, less-than, ampersands ARE NOT OK.
+#:
+#:    Forbidden characters include ; : * ' " > < &
+#:
+#:    Example: Ampersands are not OK and will mess up the menu display. 
+#:          
+#:    #@@ninvaders#@@Space invaders-like game & ncurses-based.#@@f_app_cmd^$GUI^ninvaders#@@0^0^0^1^1
+#:
+#: 2. The Dialog or Whiptail box is too small:
+#:
+#:    The variable TEMP_FILE is not defined to a file name. 
+#:    i.e. TEMP_FILE="$CLI_DIR/apps_audio_temp.txt"
+#:
+#:    The TEMP_FILE is defined in the library file "apps.lib".
+#:    The same TEMP_FILE is reused for all the applications in a category.
+#:
+#:    Audio applications category temp file is:
+#:                                       $CLI_DIR/apps_audio_temp.txt
+#:
+#:    Database applications category temp file is:
+#:                                       $CLI_DIR/apps_databases_temp.txt
+#:
+#:    Development applications category temp file is 
+#:                                       $CLI_DIR/apps_development_temp.txt
+#:
+#:    and so forth...
+#:
+#:    The TEMP_FILE variable is required by f_message to display any text
+#:    which appears on the screen. The function f_message is in the library
+#:    "common_bash_function.lib". This function allows menus and messages
+#:    to be displayed in Dialog, Whiptail, and text with correct formatting
+#:    and with the Dialog/Whiptail box sizes automatically calculated.
+#:
+#: +----------------------------------------+
+#: |        HOW-TO Add a new sub-menu       |
+#: +----------------------------------------+
+#:
+#: See library files apps_audio_music_players.lib
+#:                    apps_audio_music_players_2.lib
+#:
+#: Summary:
+#: The library file apps_audio_music_players.lib includes a menu option
+#: line to run the function f_menu_music_players_2. That function sets the
+#: variables required to create the sub-menu and specifies the library file
+#: apps_audio_music_players_2.lib which contains the sub-menu item options.
+#:
+#: 1. Add menu item option "MORE..." to the end of the music players menu
+#:    data in the file apps_audio_music_players.lib.
+#:
+#:    #@@MORE...#@@For more music player applications.#@@f_menu_music_players_2^$GUI#@@0^0^0^0^0
+#:
+#: 2. Create the library file, apps_audio_music_players_2.lib to contain
+#:    the new sub-menu data. You can base it on an existing sub-menu using
+#:    it as a template.
+#:
+#: 3. The "MORE..." option when selected will invoke a new sub-menu in
+#:    library file apps_audio_music_players_2.lib.
+#:
+#:    The function f_menu_music_players_2 within the file
+#:    apps_audio_music_players.lib sets variables required to create the
+#:    new sub-menu. This function is run when the user selects "MORE..."
+#:
+#:    The ARRAY_FILE variable is set to the name of the newly created
+#:    library file which contains the menu option data for the new sub-menu.
+#:    
+#:    ARRAY_FILE="$CLI_DIR/apps_audio_music_players_2.lib"
+#:
+#:
+#: +----------------------------------------+
+#: |     Known problems and limitations     |
+#: +----------------------------------------+
+#:
+#: 1. The files cliappmenu.sh, cliappmenu.lib, and common_bash_function.lib
+#:    must be in the same folder. All other files must be in the sub-directory cliapp-dir
+#:    
+#: 2. Option for automatic software installation only for distributions which
+#:    use apt, rpm, slackpkg, and pacman; all others must install manually.
+#:
+#: 3. For Slackware-based distros which use slackpkg, even though you can
+#:    install software, I have not figured out a way to determine if
+#:    "slackpkg install <package name> was successful or not. 
+#:    The command results in error code zero $?=0 even if install fails.
+#:    As a result, I commented out the code which traps slackpkg installation
+#:    errors, shows an error message and asks if you want to download the
+#:    source code from the developer's web site.
+#:
+#:
+#: +----------------------------------------+
+#: |               For more help            |
+#: +----------------------------------------+
+#:
+#: Please refer to the "Main Menu" of the script.
+#:
+#: *How to get help on an application is under "Help and Features".
+#:
+#: *This README is under "Documentation".
+#:

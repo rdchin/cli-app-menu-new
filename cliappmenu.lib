@@ -1,0 +1,482 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# Usage: source menu_module_main.lib
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program. If not, see <https://www.gnu.org/licenses/>.
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+# Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or cammand>
+#
+#@@Quit#@@Quit to command-line prompt.#@@break
+#
+#@@Applications#@@Run an application.#@@f_main_applications^$GUI
+#
+#@@Favorites#@@Menu of favorite applications.#@@f_main_favorites^$GUI
+#
+#@@Search#@@Find and run an application in active menus.#@@f_main_search^$GUI
+#
+#@@Configure#@@Update software, manage modules, change colors, etc.#@@f_main_configure^$GUI
+#
+#@@Information#@@About, version, documentation, code history, license.#@@f_main_information^$GUI
+#
+#@@Help#@@Display help message.#@@f_help_message^$GUI
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-04 23:50"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This Library of functions for the Demonstration Menu is a
+#& child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for Edit History.
+#&
+#& Usage: source cliappmenu.lib
+#&
+#&    This program is free software: you can redistribute it and/or modify
+#&    it under the terms of the GNU General Public License as published by
+#&    the Free Software Foundation, either version 3 of the License, or
+#&    (at your option) any later version.
+#&
+#&
+#&    This program is distributed in the hope that it will be useful,
+#&    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#&    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#&    GNU General Public License for more details.
+#&
+#&    You should have received a copy of the GNU General Public License
+#&    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script "menu.sh" for Code History information.)
+#
+# +----------------------------------------+
+# |       Function f_main_applications     |
+# +----------------------------------------+
+#
+#  Inputs: $1=GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display first sub-menu.
+#
+# Dependencies: f_menu_arrays, f_create_show_menu.
+#
+f_main_applications () {
+      #
+      GENERATED_FILE="$CLI_DIR/apps.lib.generated"
+      #
+      # Create generated menu script from array data.
+      #
+      MENU_TITLE="Applications Menu"
+      #
+      # Menu title change spaces to underscores.
+      MENU_TITLE=$(echo $MENU_TITLE | tr ' ' '_')
+      #
+      # Note: ***If Menu title contains spaces,
+      #       ***the size of the menu window will be too narrow.
+      #
+      TEMP_FILE="$CLI_DIR/apps_temp.txt"
+      #
+      # Create arrays from data.
+      ARRAY_FILE="$CLI_DIR/apps.lib"
+      f_menu_arrays $ARRAY_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # Create generated menu script from array data.
+      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
+      #
+}  # End of function f_main_applications.
+#
+# +----------------------------------------+
+# |         Function f_main_favorites      |
+# +----------------------------------------+
+#
+#  Inputs: $1=GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display first sub-menu.
+#
+# Dependencies: f_menu_arrays, f_create_show_menu.
+#
+f_main_favorites () {
+      #
+      GENERATED_FILE="$CLI_DIR/main_favorites.lib.generated"
+      #
+      # Create generated menu script from array data.
+      #
+      MENU_TITLE="Favorites Menu"
+      #
+      # Menu title change spaces to underscores.
+      MENU_TITLE=$(echo $MENU_TITLE | tr ' ' '_')
+      #
+      # Note: ***If Menu title contains spaces,
+      #       ***the size of the menu window will be too narrow.
+      #
+      TEMP_FILE="$CLI_DIR/main_favorites_temp.txt"
+      #
+      # Create arrays from data.
+      ARRAY_FILE="$CLI_DIR/main_favorites.lib"
+      f_menu_arrays $ARRAY_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      #
+      # Create generated menu script from array data.
+      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
+      #
+}  # End of function f_menu_favorites.
+#
+# +----------------------------------------+
+# |        Function f_main_configure       |
+# +----------------------------------------+
+#
+#  Inputs: $1=GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display first sub-menu.
+#
+# Dependencies: f_menu_arrays, f_create_show_menu.
+#
+f_main_configure () {
+      #
+      GENERATED_FILE="$CLI_DIR/main_configure.lib.generated"
+      #
+      # Create generated menu script from array data.
+      #
+      MENU_TITLE="Configuration Menu"
+      #
+      # Menu title change spaces to underscores.
+      MENU_TITLE=$(echo $MENU_TITLE | tr ' ' '_')
+      #
+      # Note: ***If Menu title contains spaces,
+      #       ***the size of the menu window will be too narrow.
+      #
+      TEMP_FILE="$CLI_DIR/main_configure_temp.txt"
+      #
+      # Create arrays from data.
+      ARRAY_FILE="$CLI_DIR/main_configure.lib"
+      f_menu_arrays $ARRAY_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # Create generated menu script from array data.
+      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
+      #
+}  # End of function f_main_configure.
+#
+# +----------------------------------------+
+# |       Function f_main_information      |
+# +----------------------------------------+
+#
+#  Inputs: $1=GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display first sub-menu.
+#
+# Dependencies: f_menu_arrays, f_create_show_menu.
+#
+f_main_information () {
+      #
+      GENERATED_FILE="$CLI_DIR/main_information.lib.generated"
+      #
+      # Create generated menu script from array data.
+      #
+      MENU_TITLE="Information Menu"
+      #
+      # Menu title change spaces to underscores.
+      MENU_TITLE=$(echo $MENU_TITLE | tr ' ' '_')
+      #
+      # Note: ***If Menu title contains spaces,
+      #       ***the size of the menu window will be too narrow.
+      #
+      TEMP_FILE="$CLI_DIR/main_information_temp.txt"
+      #
+      # Create arrays from data.
+      ARRAY_FILE="$CLI_DIR/main_information.lib"
+      f_menu_arrays $ARRAY_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # Create generated menu script from array data.
+      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
+      #
+}  # End of function f_main_information.
+#
+# +----------------------------------------+
+# |         Function f_main_search         |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - $GUI.
+#    Uses: None.
+# Outputs: APP_NAME.
+#
+# Summary: Prompt for a full/partial application name.
+#
+# Dependencies: f_search_app_add, f_message.
+#
+f_main_search () {
+      #
+      TEMP_FILE="$CLI_DIR/main_search_temp.txt"
+      #
+      # Reset Search Results Menu to null results.
+      # Delete all menu option items.
+      sed -i "/^#@@*/d" $CLI_DIR/main_search_results.lib
+      #
+      # Add menu option "Return to previous menu."
+      sed -i "/# Format:*/a #@@Return#@@Return to previous menu.#@@break" $CLI_DIR/main_search_results.lib
+      #
+      case $1 in
+           dialog | whiptail)
+              $1 --title "Enter Name of Application" --cancel-button Exit --inputbox "Enter the full or partial name of the application.\nTo quit, press 'Enter' key.\n\nSearch for:" 12 70 2>$TEMP_FILE
+              ERROR=0
+              APP_NAME=$(cat $TEMP_FILE)
+              #
+           ;;
+           text)
+              echo
+              echo "Enter Name of Application"
+              echo 
+              echo
+              echo "Enter the full or partial name of the application."
+              echo "To quit, press 'Enter' key."
+              echo
+              echo -n "Search for: "
+              read APP_NAME
+              echo
+              echo
+           ;;
+      esac
+      #
+      if [ -n "$APP_NAME" ] ; then
+         f_search_app_add $1 $APP_NAME
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      else
+         f_message $1 "OK" "Search again" "No application name entered, please search again."
+      fi
+      #
+      # Delete TEMP_FILE, if it exists.
+      TEMP_FILE="$CLI_DIR/main_search_temp.txt"
+      if [ -e $TEMP_FILE ] ; then
+         rm $TEMP_FILE
+      fi
+      #
+} # End of function f_main_search
+#
+# +----------------------------------------+
+# |        Function f_search_app_add       |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#
+#    Uses: None.
+# Outputs: None.
+#          
+# Summary: Display detailed error message for corresponding error code.
+#
+# Dependencies: f_message, f_yn_question, f_display_error_code.
+#
+f_search_app_add () {
+      #
+      APP_NAME=$2
+      TEMP_FILE="$CLI_DIR/main_search_temp.txt"
+      TEMP_FILE_2="$CLI_DIR/main_search_temp2.txt"
+      TEMP_FILE_3="$CLI_DIR/main_search_temp3.txt"
+      #
+      # Get menu item data. grep -h prevents the printing of the file name before the results.
+      grep  "#@@$APP_NAME" $CLI_DIR/apps_*.lib > $TEMP_FILE
+      awk -F ":" '{ print $1 }' $TEMP_FILE > $TEMP_FILE_2
+      awk -F ":" '{ print $2 }' $TEMP_FILE > $TEMP_FILE_3
+      #
+      # Save error flag condition.
+      ERROR=$?
+      # Error code 2 means grep had an error.
+      # Error code 1 means grep did not find any matches.
+      # Error code 0 (zero) where $?=0 means grep found matches.
+      #
+      #less $TEMP_FILE_2             # Diagnostic line.
+      #
+      #less $TEMP_FILE_3             # Diagnostic line.
+      #
+      case $ERROR in
+           0)
+              # Copy menu item data into Search Results menu.              
+              while read LINE
+                  do
+                     # Insert string before "# End of Custom Menu choice options.".
+                     sed -i "/# End of Custom Menu choice options./i $LINE" $CLI_DIR/main_search_results.lib
+                     let ERROR=$ERROR+$?
+                  done < $TEMP_FILE_3
+              #
+              # Insert command source [Library] into Search Results Menu.
+              # Insert string LINE after "# Additional libraries below. DO NOT DELETE THIS COMMENT LINE."
+              while read LINE
+                  do
+                     sed -i "/      # Beginning of Additional Libraries below. DO NOT DELETE THIS COMMENT LINE./a source $LINE" $CLI_DIR/main_search_results.lib
+                     let ERROR=$ERROR+$?
+                  done < $TEMP_FILE_2
+              #
+              #--------------------------------------------------
+              # The Search Results Menu was successfully updated.
+              #--------------------------------------------------
+              #
+              # Display updated Search Results Menu.
+              f_main_search_menu $1
+              # Note: f_main_search_menu redefines TEMP_FILE to a different
+              #       file name, "cliappmenu_main_search_results_temp.txt".
+              #
+              # Change file name back to the original name.
+              TEMP_FILE="$CLI_DIR/main_search_temp.txt"
+              #
+              # Done searching... Re-initialize Search Results Menu.
+              # Reset Search Results Menu to null results.
+              # Delete all menu option items.
+              sed -i "/^#@@*/d" $CLI_DIR/main_search_results.lib
+              #
+              # Add menu option "Return to previous menu."
+              sed -i "/# Format:*/a #@@Return#@@Return to previous menu.#@@break" $CLI_DIR/main_search_results.lib
+              #
+              # Delete added sourced libraries.
+              sed -i '/source/d' cliapp-dir/main_search_results.lib
+              #
+              # Restore original source library.
+              #sed -i "/      # Beginning of Additional Libraries below. DO NOT DELETE THIS COMMENT LINE./a source $CLI_DIR/cli-common.lib" $CLI_DIR/main_search_results.lib
+              #
+              if [ -e $CLI_DIR/cliappmenu_main_search_results_temp.txt ] ; then
+                 rm $CLI_DIR/cliappmenu_main_search_results_temp.txt
+              fi
+              #
+              if [ -e $TEMP_FILE ] ; then
+                 rm $TEMP_FILE
+              fi
+              #
+              if [ -e $TEMP_FILE_2 ] ; then
+                 rm $TEMP_FILE_2
+              fi
+              #
+              if [ -e $TEMP_FILE_3 ] ; then
+                 rm $TEMP_FILE_3
+              fi
+              #
+           ;;
+           1)
+               f_message $1 "OK" "No Search Results" "Application name not found."
+           ;;
+           2)
+               f_message $1 "OK" "Search Results Menu Not Updated" "The Search Results Menu was not updated.\nAn error occurred."
+           ;;
+      esac
+} # End of function f_search_app_add.
+#
+# +----------------------------------------+
+# |       Function f_main_search_menu      |
+# +----------------------------------------+
+#
+#  Inputs: $1=GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display first sub-menu.
+#
+# Dependencies: f_menu_arrays, f_create_show_menu.
+#
+f_main_search_menu () {
+      #
+      GENERATED_FILE="$CLI_DIR/main_search_results.lib.generated"
+      #
+      # Create generated menu script from array data.
+      #
+      MENU_TITLE="Search Results Menu"
+      #
+      #
+      # Menu title change spaces to underscores.
+      MENU_TITLE=$(echo $MENU_TITLE | tr ' ' '_')
+      #
+      # Note: ***If Menu title contains spaces,
+      #       ***the size of the menu window will be too narrow.
+      #
+      TEMP_FILE="$CLI_DIR/main_search_results_temp.txt"
+      #
+      # Create arrays from data.
+      ARRAY_FILE="$CLI_DIR/main_search_results.lib"
+      f_menu_arrays $ARRAY_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # Create generated menu script from array data.
+      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
+      #
+}  # End of function main_search_menu.
+#

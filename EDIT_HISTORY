@@ -1,0 +1,163 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# Usage: sh EDIT_HISTORY
+#
+# +----------------------------------------+
+# |         Function f_script_path         |
+# +----------------------------------------+
+#
+#  Inputs: $BASH_SOURCE (System variable)
+#    Uses: None
+# Outputs: SCRIPT_PATH
+#
+f_script_path () {
+# BASH_SOURCE[0] gives the filename of the script.
+# dirname "{$BASH_SOURCE[0]}" gives the directory of the script
+# Execute commands: cd <script directory> and then pwd
+# to get the directory of the script.
+# NOTE: This code does not work with symlinks in directory path.
+#
+SCRIPT_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+} # End of function f_script_path
+#
+# **************************************
+# ***     Start of Main Program      ***
+# **************************************
+#
+SCRIPT_PATH="~" #Initialize path.
+#
+THIS_FILE="EDIT_HISTORY"
+#
+# Set SCRIPT_PATH to directory path of script.
+f_script_path
+#
+# sed substitutes null for ## at beginning of each line so it is not printed.
+# less -P customizes prompt for %f <FILENAME> page <num> of <pages> (Spacebar, PgUp/PgDn . . .)
+echo PATH=$SCRIPT_PATH
+sed -n 's/^##//'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/PgDn, Up/Dn arrows, press q to quit)'
+#
+# The "#LIC" at the beginning of lines below
+# are used to delineate the license and copyright.
+#
+#LIC ©2021 Copyright 2021 Robert D. Chin
+#LIC Email: RDevChin@Gmail.com
+#LIC 
+#LIC This program is free software: you can redistribute it and/or modify
+#LIC it under the terms of the GNU General Public License as published by
+#LIC the Free Software Foundation, either version 3 of the License, or
+#LIC (at your option) any later version.
+#LIC 
+#LIC This program is distributed in the hope that it will be useful,
+#LIC but WITHOUT ANY WARRANTY; without even the implied warranty of
+#LIC MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#LIC GNU General Public License for more details.
+#LIC 
+#LIC You should have received a copy of the GNU General Public License
+#LIC along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# The double # at the beginning of lines below
+# are used to delineate the Edit History.
+#
+## Version History
+##
+## After each edit made, update Version History and version
+## (date stamp string) of script.
+##
+## 2021-07-01 *Release version 4.0 "Farrah".
+##             This is a total rewrite of the entire program using a new
+##             approach and IS NOT BACKWARD COMPATIBLE with any previous
+##             versions 3.1 or older.
+##
+## 2021-04-22 *Development version 4.0 "Farrah".
+##
+## 2020-07-02 *Release version 3.1 "Ellen".
+##
+## 2017-12-31 *Testing version 3.1 "Ellen".
+##            *Changed color scheme choices in "Configuration Menu" for
+##             "Dialog" and "Whiptail" UIs.
+##
+## 2017-12-23 *Release version 3.0 "Ellen".
+##            *New look, Main Menu, Configuration Menu, Application Menu
+##             now use Whiptail or Dialog UI (user-interfaces) if available.
+##            *Added the ability to switch between User-interfaces via
+##             "Configure" Menu.
+##            *Bug fix for "Un-colors" menu choice in "Configure" Menu.
+##
+## 2016-03-15 *Testing version 3.0 "Ellen".
+##            *Added UI for "List or Find Menus".
+##            *Bug fixes.
+##
+## 2016-02-10 *Testing version 3.0 "Ellen".
+##            *All category sub-menus now use GUIs if available.
+##            *The menu choices "About CLI Menu", "Version History",
+##             "Code History", "Documentation", and "Help and Features",
+##             and "Install to a New Dir" now use Whiptail or Dialog UIs
+##             if available.
+##
+## 2015-06-05 *Development version 3.0 "Ellen".
+##            *New look, Main Menu, Configuration Menu, Application Menu
+##             now use "Dialog" UI if available.
+##
+## 2015-01-29 *Release version 2.0.2 "Dorothy".
+##            *Fixed bug in "List or Find Menus Menu".
+##
+## 2015-01-29 *Release version 2.0.1 "Dorothy".
+##            *Cosmetic improvements in "System Monitors2 Menu".
+##
+## 2015-01-24 *Release version 2.0 "Dorothy".
+##            *Added 34 new applications since 1.2.1 "Carol".
+##            *New functionality, Main Menu added "Favorites" to display a
+##             "Favorite Application Menu" and ability to add applications
+##             to that menu by using any application menu.
+##            *New functionality, "Find and Run" an application from the
+##             Main Menu rather than just from the application menus.
+##            *New functionality, "List or Find Menus" from the Main Menu.
+##            *New functionality, test internet connection before
+##             downloading new applications or modules or before updating
+##             the modules.
+##            *New functionality, when "Update program" is chosen, after a
+##             successful update occurs, then program will exit to the
+##             shell, forcing user to use the updated program.
+##            *Changed functionality, web install runs only if automatic
+##             install fails and custom install fails or does not exist.
+##            *Main Menu re-ordered menu item options.
+##            *Bug fixed if updating program/modules without an Internet
+##             connection, files would still be deleted (to make room for
+##             new ones). Now if updating program/modules without an
+##             Internet connection, user is notified and files are
+##             unaffected and not deleted. 
+##            *Deleted 1 application (not a CLI app).
+##            *Assorted cosmetic improvements in menu displays.
+##
+## 2014-10-03 *Release version 1.2.1 "Carol".
+##            *Fixed bug in "System Monitors2 Menu".
+##
+## 2014-10-02 *Release version 1.2 "Carol".
+##            *Improved Configuration Menu and Information Menu.
+##            *Added 17 new applications.
+##
+## 2014-09-24 *Testing version 1.1.2 "Barbara".
+##            *Added 9 new applications.
+##
+## 2014-09-19 *Testing version 1.1.2 "Barbara".
+##            *Added 8 new applications.
+##
+## 2014-05-28 *Release version 1.1.1 "Barbara".
+##            *Cosmetic improvements.
+##            *Fixed descriptions that were too long and menu that scrolled 
+##             off screen.
+##
+## 2014-05-28 *Release version 1.1 "Barbara".
+##            *Enhancements 142 new applications.
+##            *Some cosmetic fixes.
+##            *Added references to more web sites.
+##
+## 2014-01-02 *Release version 1.0.1 "Amy".
+##            *Mini-installer text display of path message
+##             followed by exit message cleaned up to prevent scroll off.
+##
+## 2014-01-02 *Release version 1.0 "Amy".
+##
