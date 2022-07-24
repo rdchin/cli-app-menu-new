@@ -1,4 +1,4 @@
-#!/bin/bash
+f#!/bin/bash
 #
 # ©2022 Copyright 2022 Robert D. Chin
 # Email: RDevChin@Gmail.com
@@ -23,7 +23,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-06-21 23:27"
+VERSION="2022-07-24 16:22"
 #
 # WARNING: Do not define $THIS_FILE within a library script.
 #
@@ -64,8 +64,9 @@ VERSION="2022-06-21 23:27"
 ##
 ## (After each edit made, please update Code History and VERSION.)
 ##
-## 2022-07-24 *f_abort, f_exit_script,f_update_menu_txt made minor
-##             cosmetic changes. Added "clear" command.
+## 2022-07-24 *f_abort, f_exit_script,f_update_menu_txt,
+##             f_create_show_menu made minor cosmetic changes.
+##             Added "clear" command.
 ##
 ## 2022-06-21 *f_select_file bug fixed if "Cancel" button pressed.
 ##             Also bug fixed when $4 optional filename was null.
