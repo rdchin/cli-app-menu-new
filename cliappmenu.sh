@@ -56,23 +56,30 @@ CLI_DIR="/home/USER/cliapp-dir"
 if [ ! -d "$CLI_DIR" ] ; then
    # Blank the screen.
    clear
-   echo > $TEMP_FILE
-   echo "Library cliapp-dir Path Error" >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "CLI_DIR=\"$CLI_DIR\" variable is not set correctly." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "Check directory path of cliapp-dir." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "Edit file cliappmenu.sh to set CLI_DIR correctly." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "It is located under Section \"Default Variable Values\" of file cliappmenu.sh." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "Here is the command to set CLI_DIR using the Sed application." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "sed -i 's|^CLI_DIR=\"/home/<username>/cliapp-dir\"|CLI_DIR=\"/home/robert/cliapp-dir\"|g' cliappmenu.sh" >> $TEMP_FILE
-   echo >> $TEMP_FILE
+   echo
+   echo "Library cliapp-dir Path Error"
+   echo
+   echo "CLI_DIR=\"$CLI_DIR\" variable is not set correctly."
+   echo
+   echo "Check directory path of cliapp-dir."
+   echo
+   echo "Edit file cliappmenu.sh to set CLI_DIR correctly."
+   echo
+   echo "It is located under Section \"Default Variable Values\" of file cliappmenu.sh."
+   echo
+   echo
+   echo "Here is the command to set CLI_DIR using the Sed application:"
+   echo
+   echo "Example: (where actual user name is 'robert')."
+   echo
+   echo "sed -i 's|^CLI_DIR=\"/home/<username>/cliapp-dir\"|CLI_DIR=\"/home/robert/cliapp-dir\"|g' cliappmenu.sh"
+   echo
    #
-   f_message "text" "OK" "Library cliapp-dir Path Error" "$TEMP_FILE"
+   # Display message and wait for user input.
+   echo
+   echo -n "Press '"Enter"' key to continue."
+   read X
+   unset X  # Throw out this variable.
    #
    # Exit script and return to command-line.
    exit 1
@@ -96,7 +103,6 @@ f_script_path
 # Set Temporary file using $THIS_DIR from f_script_path.
 TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 #
-
 # +----------------------------------------+
 # |            Brief Description           |
 # +----------------------------------------+
