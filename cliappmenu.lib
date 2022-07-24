@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2021 Copyright 2021 Robert D. Chin
+# ©2022 Copyright 2022 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # Usage: source menu_module_main.lib
@@ -19,33 +19,14 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program. If not, see <https://www.gnu.org/licenses/>.
 #
-# +--------------------------------------------------------------------------+
-# |                                                                          |
-# |                 Customize Menu choice options below.                     |
-# |                                                                          |
-# +--------------------------------------------------------------------------+
-#
-# Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or cammand>
-#
-#@@Quit#@@Quit to command-line prompt.#@@break
-#
-#@@Applications#@@Run an application.#@@f_main_applications^$GUI
-#
-#@@Favorites#@@Menu of favorite applications.#@@f_main_favorites^$GUI
-#
-#@@Search#@@Find and run an application in active menus.#@@f_main_search^$GUI
-#
-#@@Configure#@@Update software, manage modules, change colors, etc.#@@f_main_configure^$GUI
-#
-#@@Information#@@About, version, documentation, code history, license.#@@f_main_information^$GUI
-#
-#@@Help#@@Display help message.#@@f_help_message^$GUI
-#
 # +----------------------------------------+
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2021-07-04 23:50"
+VERSION="2022-07-24 16:11"
+#
+# Set THIS_FILE_LIB to the name of this script library.
+THIS_FILE_LIB=$(basename $0)
 #
 # +----------------------------------------+
 # |            Brief Description           |
@@ -84,8 +65,236 @@ VERSION="2021-07-04 23:50"
 ##
 ## (Please see script "menu.sh" for Code History information.)
 #
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+# There are two components involving a consistent Menu Title:
+# 1. The comment line "Start Listing <Menu Title> Menu".
+# 2. The comment line "End Listing" <Menu Title> Menu.
+#
+# In these two components the <Menu Title> must be the same,
+# otherwise an error will occur (see "Debugging Hint").
+#
+# For a menu with a sub-menu:
+# The comment line with the sub-menu data must also have the correct <Menu Title>.
+# otherwise an error will occur (see "Debugging Hint").
+#
+#
+# DEBUGGING HINT:
+#
+# If the script hangs or ceases to respond after you select a menu choice
+# which is invoking a sub-menu, or if you see any of these error messages,
+# then there is an error in a menu on a line item beginning with "#@@" which
+# has the sub-menu title.
+#
+# sed: -e expression #1, char 1: unknown command: `,'
+# /home/robert/common_bash_function.lib: line 3546: /home/robert/cliappmenu.sh_temp.txt: No such file or directory
+# /home/robert/common_bash_function.lib: line 3510: /home/robert/cliappmenu.sh_temp.txt: No such file or directory
+#
+# This may mean that the sub-menu title in the line item does not correspond
+# to the actual title as cited in the comment:
+# "Start Listing <Menu Title> Menu" and "End Listing" <Menu Title> Menu.
+# Or that the <Menu Title> in the comments do not match and are not the same.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing CLI Action Menu                                |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Exit#@@Exit this menu.#@@f_exit_script^$GUI
+#
+#@@Applications#@@Run an application.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_applications_generated.txt"^CLI_Application_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_applications_items_generated.txt"^$THIS_DIR/cliappmenu.lib
+#
+#@@Favorites#@@Menu of favorite applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_favorites_generated.txt"^Favorites_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_favorites_generated.txt"^$CLI_DIR/cli-favorites.lib
+#
+#@@Search#@@Find and run an application in active menus.#@@f_main_search^$GUI
+#
+#@@Configure#@@Update software, manage modules, change colors, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_configuration_generated.txt"^Configuration_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_configuration_generated.txt"^$THIS_DIR/cliappmenu.lib
+#
+#@@Information#@@About, version, documentation, code history, license.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_information_generated.txt"^Information_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_information_generated.txt"^$THIS_DIR/cliappmenu.lib
+#
+#@@Help#@@Display help message.#@@f_help_message^$GUI
+#
+#! End Listing CLI Action Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing CLI Application Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Audio#@@Music players, editors, utilities.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_generated.txt"^Audio_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#
+#@@Databases#@@General and specialized databases.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_databases_generated.txt"^Database_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_databases_items_generated.txt"^$CLI_DIR/apps_databases.lib
+#
+#@@Development#@@Tools to test code and track/report bugs.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_development_generated.txt"^Development_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_development_items_generated.txt"^$CLI_DIR/apps_development.lib
+#
+#@@Education#@@Learn something.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_education_generated.txt"^Education_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_education_items_generated.txt"^$CLI_DIR/apps_education.lib
+#
+#@@Environment#@@Command Line shell and GUI, DOS and Nintendo emulators.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_environment_generated.txt"^Environment_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_environment_items_generated.txt"^$CLI_DIR/apps_environment.lib
+#
+#@@Files#@@Manage, backup, compare, edit, encrypt, find, files/dirs.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_generated.txt"^Files_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Games#@@Fun time! Games, movies, and screen-savers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_generated.txt"^Games_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@Graphics#@@View images and graphics files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_generated.txt"^Graphics_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_items_generated.txt"^$CLI_DIR/apps_graphics.lib
+#
+#@@Internet#@@Web, e-mail, chat, IM, RSS, ftp, torrents, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_generated.txt"^Internet_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@Network#@@Wireless connection, network monitoring, tools.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_generated.txt"^Network_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#@@Office#@@Editors, spreadsheets, presenter, organize, calcs, acctg.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_generated.txt"^Office_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Packages#@@(Un)Install and manage software packages and applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_packages_generated.txt"^Packages_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_packages_items_generated.txt"^$CLI_DIR/apps_packages.lib
+#
+#@@Screens#@@Multiple screen sessions and terminal emulators.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_screens_generated.txt"^Screens_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_screens_items_generated.txt"^$CLI_DIR/apps_screens.lib
+#
+#@@Screen-savers#@@For when youre away.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_screensavers_generated.txt"^Screen-savers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_screensavers_items_generated.txt"^$CLI_DIR/apps_screensavers.lib
+#
+#@@Screen-Tools#@@Screen capture, record/play-back of screen activity etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_screen_tools_generated.txt"^Screen-Tools_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_screen_tools_items_generated.txt"^$CLI_DIR/apps_screen_tools.lib
+#
+#@@System#@@Monitor system processes, resources, utilities, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_generated.txt"^System_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_items_generated.txt"^$CLI_DIR/apps_system.lib
+#
+#@@Video#@@Video players, editors, utilities.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_video_generated.txt"^Video_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_video_items_generated.txt"^$CLI_DIR/apps_video.lib
+#
+#! End Listing CLI Application Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Configuration Menu                             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@CLI Font Colors#@@Configure Command-Line Interface font colors.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_config_cli_font_color_generated.txt"^CLI_Font_Color_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_config_cli_font_color_items_generated.txt"^$CLI_DIR/cli-common.lib
+#
+#@@User Interface#@@Change UI to Text, Whiptail, or Dialog#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_config_ui_generated.txt"^User-Interface_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_config_ui_items_generated.txt"^$CLI_DIR/cli-common.lib
+#
+#@@Show configuration#@@Show configuration file .cliappmenu.cfg.#@@f_configure_show^$GUI#@@0^0^0^0^0
+#
+#! End Listing Configuration Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Information Menu                               |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@About#@@Version information of this script#@@f_about_cliappmenu^$GUI
+#
+#@@License#@@Licensing, GPL.#@@f_main_license^$GUI
+#
+#@@Version History#@@Version/Release history with general summaries.#@@f_main_version_history^$GUI
+#
+#@@Code History#@@Display code change history of this script.#@@f_code_history_cliappmenu^$GUI
+#
+#@@Programmer Notes#@@Script documentation README, HOW-TOs.#@@f_main_readme^$GUI
+#
+#! End Listing Information Menu (Required line, do not delete).
+#
 # +----------------------------------------+
-# |       Function f_main_applications     |
+# |   Function f_create_a_menu_cliappmenu  |
+# +----------------------------------------+
+#
+#     Rev: 2022-05-07
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporay file) includes menu items from multiple menus.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display sub-menu. This may replace f_menu_sub_TEMPLATE.
+#
+# Dependencies: f_menu_make, f_menu_arrays, f_create_show_menu.
+#
+f_create_a_menu_cliappmenu  () {
+      #
+      # Source ARRAY_SOURCE_FILE which contains menu items in comment lines.
+      source $6
+      #
+      # Create $ARRAY_FILE from Array Source File.
+      f_menu_make $1 $3 $5 $6
+      #
+      # Create arrays from data.
+      f_menu_arrays $5
+      #
+      # Calculate longest line length to find maximum menu width
+      # for Dialog or Whiptail using lengths calculated by f_menu_arrays.
+      # f_menu_arrays sets MAX_CHOICE_LENGTH and MAX_SUMMARY_LENGTH.
+      # So this calculation must come after call to f_menu_arrays.
+      let MAX_LENGTH=$MAX_CHOICE_LENGTH+$MAX_SUMMARY_LENGTH
+      #
+      if [ "$1" = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use $1
+      fi
+      #
+      # Create generated menu script from array data.
+      #  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+      #          $2 - GENERATED_FILE.
+      #          $3 - Menu Title.
+      #                  (String must either begin and end with double-quotes
+      #                  or must have underscores substituting for spaces).
+      #          $4 - MAX_LENGTH.
+      #          $5 - MAX_LINES.
+      #          $6 - MAX_CHOICE_LENGTH
+      #          $7 - TEMP_FILE
+      f_create_show_menu $1 $2 $3 $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $4
+      #
+      clear  # Blank the screen.
+      #
+      if [ -r $2 ] ; then
+         rm $2
+      fi
+      #
+      if [ -r $4 ] ; then
+         rm $4
+      fi
+      #
+      if [ -e $5 ] ; then
+         rm $5
+      fi
+      #
+}  # End of function f_create_a_menu_cliappmenu.
+#
+# +----------------------------------------+
+# |        Function f_about_cliappmenu     |
 # +----------------------------------------+
 #
 #  Inputs: $1=GUI.
@@ -96,25 +305,10 @@ VERSION="2021-07-04 23:50"
 #
 # Dependencies: f_menu_arrays, f_create_show_menu.
 #
-f_main_applications () {
+f_about_cliappmenu () {
       #
-      GENERATED_FILE="$CLI_DIR/apps.lib.generated"
-      #
-      # Create generated menu script from array data.
-      #
-      MENU_TITLE="Applications Menu"
-      #
-      # Menu title change spaces to underscores.
-      MENU_TITLE=$(echo $MENU_TITLE | tr ' ' '_')
-      #
-      # Note: ***If Menu title contains spaces,
-      #       ***the size of the menu window will be too narrow.
-      #
-      TEMP_FILE="$CLI_DIR/apps_temp.txt"
-      #
-      # Create arrays from data.
-      ARRAY_FILE="$CLI_DIR/apps.lib"
-      f_menu_arrays $ARRAY_FILE
+      # Display "About" text Brief Summary of this script.
+      f_about $1 "OK"
       #
       if [ $1 = "text" ] ; then
          # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
@@ -123,13 +317,10 @@ f_main_applications () {
          f_configure_use
       fi
       #
-      # Create generated menu script from array data.
-      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
-      #
-}  # End of function f_main_applications.
+}  # End of function f_about_cliappmenu.
 #
 # +----------------------------------------+
-# |         Function f_main_favorites      |
+# |          Function f_main_license       |
 # +----------------------------------------+
 #
 #  Inputs: $1=GUI.
@@ -140,114 +331,13 @@ f_main_applications () {
 #
 # Dependencies: f_menu_arrays, f_create_show_menu.
 #
-f_main_favorites () {
-      #
-      GENERATED_FILE="$CLI_DIR/main_favorites.lib.generated"
-      #
-      # Create generated menu script from array data.
-      #
-      MENU_TITLE="Favorites Menu"
-      #
-      # Menu title change spaces to underscores.
-      MENU_TITLE=$(echo $MENU_TITLE | tr ' ' '_')
-      #
-      # Note: ***If Menu title contains spaces,
-      #       ***the size of the menu window will be too narrow.
-      #
-      TEMP_FILE="$CLI_DIR/main_favorites_temp.txt"
-      #
-      # Create arrays from data.
-      ARRAY_FILE="$CLI_DIR/main_favorites.lib"
-      f_menu_arrays $ARRAY_FILE
-      #
-      if [ $1 = "text" ] ; then
-         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
-         # Why needed? Function f_message uses application "Less" to display pages of text.
-         # But "Less" resets the terminal's colors to white on black.
-         f_configure_use
-      fi
-      #
-      #
-      # Create generated menu script from array data.
-      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
-      #
-}  # End of function f_menu_favorites.
-#
-# +----------------------------------------+
-# |        Function f_main_configure       |
-# +----------------------------------------+
-#
-#  Inputs: $1=GUI.
-#    Uses: None.
-# Outputs: None.
-#
-# Summary: Display first sub-menu.
-#
-# Dependencies: f_menu_arrays, f_create_show_menu.
-#
-f_main_configure () {
-      #
-      GENERATED_FILE="$CLI_DIR/main_configure.lib.generated"
-      #
-      # Create generated menu script from array data.
-      #
-      MENU_TITLE="Configuration Menu"
-      #
-      # Menu title change spaces to underscores.
-      MENU_TITLE=$(echo $MENU_TITLE | tr ' ' '_')
-      #
-      # Note: ***If Menu title contains spaces,
-      #       ***the size of the menu window will be too narrow.
-      #
-      TEMP_FILE="$CLI_DIR/main_configure_temp.txt"
-      #
-      # Create arrays from data.
-      ARRAY_FILE="$CLI_DIR/main_configure.lib"
-      f_menu_arrays $ARRAY_FILE
-      #
-      if [ $1 = "text" ] ; then
-         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
-         # Why needed? Function f_message uses application "Less" to display pages of text.
-         # But "Less" resets the terminal's colors to white on black.
-         f_configure_use
-      fi
-      #
-      # Create generated menu script from array data.
-      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
-      #
-}  # End of function f_main_configure.
-#
-# +----------------------------------------+
-# |       Function f_main_information      |
-# +----------------------------------------+
-#
-#  Inputs: $1=GUI.
-#    Uses: None.
-# Outputs: None.
-#
-# Summary: Display first sub-menu.
-#
-# Dependencies: f_menu_arrays, f_create_show_menu.
-#
-f_main_information () {
-      #
-      GENERATED_FILE="$CLI_DIR/main_information.lib.generated"
-      #
-      # Create generated menu script from array data.
-      #
-      MENU_TITLE="Information Menu"
-      #
-      # Menu title change spaces to underscores.
-      MENU_TITLE=$(echo $MENU_TITLE | tr ' ' '_')
-      #
-      # Note: ***If Menu title contains spaces,
-      #       ***the size of the menu window will be too narrow.
+f_main_license () {
       #
       TEMP_FILE="$CLI_DIR/main_information_temp.txt"
       #
-      # Create arrays from data.
-      ARRAY_FILE="$CLI_DIR/main_information.lib"
-      f_menu_arrays $ARRAY_FILE
+      # GPL Documentation is in the text file "COPYING".
+      cat $CLI_DIR/COPYING > $TEMP_FILE
+      f_message $1 "OK" "General Public License" $TEMP_FILE
       #
       if [ $1 = "text" ] ; then
          # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
@@ -256,10 +346,89 @@ f_main_information () {
          f_configure_use
       fi
       #
-      # Create generated menu script from array data.
-      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
+}  # End of function f_main_license.
+#
+# +----------------------------------------+
+# |           Function f_main_readme       |
+# +----------------------------------------+
+#
+#  Inputs: $1=GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display first sub-menu.
+#
+# Dependencies: f_menu_arrays, f_create_show_menu.
+#
+f_main_readme () {
       #
-}  # End of function f_main_information.
+      TEMP_FILE="$CLI_DIR/main_information_temp.txt"
+      #
+      sed -n 's/^#://'p $CLI_DIR/README > $TEMP_FILE
+      f_message $1 "OK" "README" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+}  # End of function f_main_readme.
+#
+# +----------------------------------------+
+# |      Function f_main_version_history   |
+# +----------------------------------------+
+#
+#  Inputs: $1=GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display first sub-menu.
+#
+# Dependencies: f_menu_arrays, f_create_show_menu.
+#
+f_main_version_history () {
+      #
+      TEMP_FILE="$CLI_DIR/main_information_temp.txt"
+      #
+      sed -n 's/^##//'p $CLI_DIR/EDIT_HISTORY > $TEMP_FILE
+      f_message $1 "OK" "VERSION HISTORY" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+}  # End of function f_main_version_history.
+#
+# +----------------------------------------+
+# |    Function f_code_history_cliappmenu  |
+# +----------------------------------------+
+#
+#  Inputs: $1=GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display first sub-menu.
+#
+# Dependencies: f_menu_arrays, f_create_show_menu.
+#
+f_code_history_cliappmenu () {
+      #
+      # Display "Code History" text of technical changes to this script.
+      f_code_history $1 "OK"
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+}  # End of function f_code_history_cliappmenu.
 #
 # +----------------------------------------+
 # |         Function f_main_search         |
@@ -295,7 +464,7 @@ f_main_search () {
            text)
               echo
               echo "Enter Name of Application"
-              echo 
+              echo
               echo
               echo "Enter the full or partial name of the application."
               echo "To quit, press 'Enter' key."
@@ -338,7 +507,7 @@ f_main_search () {
 #
 #    Uses: None.
 # Outputs: None.
-#          
+#
 # Summary: Display detailed error message for corresponding error code.
 #
 # Dependencies: f_message, f_yn_question, f_display_error_code.
@@ -367,7 +536,7 @@ f_search_app_add () {
       #
       case $ERROR in
            0)
-              # Copy menu item data into Search Results menu.              
+              # Copy menu item data into Search Results menu.
               while read LINE
                   do
                      # Insert string before "# End of Custom Menu choice options.".
@@ -479,4 +648,224 @@ f_main_search_menu () {
       f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
       #
 }  # End of function main_search_menu.
+#
+# +----------------------------------------+
+# |            Function f_config           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - Search term: "FCOLOR" or "GUI" (literal string, not variables).
+#    Uses: None.
+# Outputs:  File ~/.cliappmenu.cfg created or over-written with new settings.
+#
+# Summary: Run configuration function to apply configuration settings.
+#
+# Dependencies: f_main_config (within file ~/.cliappmenu.cfg).
+#
+f_config () {
+      #
+      # Does configuration file exist and is readable
+      grep --quiet $1 .cliappmenu.cfg 2> /dev/null
+      ERROR=$?
+      # grep results:
+      # 0=text found.
+      # 1=text not found.
+      # 2=file does not exist.
+      #
+      case $ERROR in
+           0)
+              # Configuration file exists and has initial GUI and color values.
+              #
+              # Run configuration function to apply configuration.
+              #
+              # Source the configuration text file containing function f_main_config.
+              source ~/.cliappmenu.cfg
+              #
+              # Run function f_main_config within file ~/.cliappmenu.cfg to set the
+              # variables GUI, FCOLOR, BCOLOR.
+              f_main_config
+           ;;
+           1)
+              case $1 in
+                   FCOLOR)
+                      # Configuration file exists but has no initial color values. Set initial color values.
+                      # Insert string FCOLOR="Green" ; BCOLOR="Black" before the "}" end of function designator.
+                      #sed -i '/      # Define Colors below - DO NOT DELETE THIS LINE./a indentFCOLOR="Green" ; BCOLOR="Black"' ~/.cliappmenu.cfg
+                      sed -i "/      # Define Colors below - DO NOT DELETE THIS LINE./a indentFCOLOR=\"$1\" ; BCOLOR=\"$2\"" ~/.cliappmenu.cfg
+                      sed -i 's/indent/      /g' ~/.cliappmenu.cfg
+                   ;;
+                   GUI)
+                      # Configuration file exists but has no initial UI value. Set GUI to current UI.
+                      # Insert string GUI="$GUI" before the "}" end of function designator).
+                      #sed -i '/      # Define GUI below - DO NOT DELETE THIS LINE./a indentGUI="$GUI"' ~/.cliappmenu.cfg
+                      sed -i "/      # Define GUI below - DO NOT DELETE THIS LINE./a indentGUI=\"$1\"" ~/.cliappmenu.cfg
+                      sed -i 's/indent/      /g' ~/.cliappmenu.cfg
+                   ;;
+              esac
+              #
+              # Run configuration function to apply configuration.
+              # Source the configuration text file containing function f_main_config.
+              source ~/.cliappmenu.cfg
+              #
+              # Run function f_main_config within file ~/.cliappmenu.cfg to set the
+              # variables GUI, FCOLOR, BCOLOR.
+              f_main_config
+           ;;
+           2)
+              # Configuration file does not exist. Create configuration file.
+              echo "f_main_config () {" > ~/.cliappmenu.cfg
+              echo "      #" >> ~/.cliappmenu.cfg
+              echo "      # GUI - text, dialog, or whiptail." >> ~/.cliappmenu.cfg
+              echo "      #" >> ~/.cliappmenu.cfg
+              echo "      # Define GUI below - DO NOT DELETE THIS LINE." >> ~/.cliappmenu.cfg
+              echo "      GUI=\"$GUI\"" >> ~/.cliappmenu.cfg
+              echo "      #" >> ~/.cliappmenu.cfg
+              echo "      # FCOLOR - Font Color." >> ~/.cliappmenu.cfg
+              echo "      # BCOLOR - Background Color." >> ~/.cliappmenu.cfg
+              echo "      #" >> ~/.cliappmenu.cfg
+              echo "      # Define Colors below - DO NOT DELETE THIS LINE." >> ~/.cliappmenu.cfg
+              echo "      FCOLOR=\"Green\" ; BCOLOR=\"Black\"" >> ~/.cliappmenu.cfg
+              echo "      #" >> ~/.cliappmenu.cfg
+              echo "} # End of function f_main_config" >> ~/.cliappmenu.cfg
+              #
+              # Run configuration function to apply configuration.
+              # Source the configuration text file containing function f_main_config.
+              source ~/.cliappmenu.cfg
+              #
+              # Run function f_main_config within file ~/.cliappmenu.cfg to set the
+              # variables GUI, FCOLOR, BCOLOR.
+              f_main_config
+           ;;
+      esac
+      #
+} # End of function f_config
+#
+# +----------------------------------------+
+# |   Function f_config_update_font_color  |
+# +----------------------------------------+
+#
+#  Inputs: $1 - FCOLOR
+#          $2 - BCOLOR
+#    Uses: None.
+# Outputs: File ~/.cliappmenu.cfg over-written with new settings.
+#
+# Summary: Update configuration function with new font color settings.
+#
+# Dependencies: f_main_config (within file ~/.cliappmenu.cfg).
+#
+f_config_update_font_color () {
+      #
+      # Update Configuration File: ~/.cliappmenu.conf
+      # to save user chosen colors.
+      #
+      # Delete old settings of FCOLOR, BCOLOR variables.
+      sed -i '/FCOLOR=.*/d' ~/.cliappmenu.cfg
+      #
+      # Add new settings of FCOLOR, BCOLOR variables.
+      # Insert new color settings below line with "Define Colors below".
+      sed -i "/      # Define Colors below - DO NOT DELETE THIS LINE./a indentFCOLOR=\"$1\" ; BCOLOR=\"$2\"" ~/.cliappmenu.cfg
+      #
+      # Format indentation of code.
+      sed -i 's/indent/      /g' ~/.cliappmenu.cfg
+      #
+      # Run configuration function to apply configuration.
+      # Source the configuration text file containing function f_main_config.
+      source ~/.cliappmenu.cfg
+      #
+      # Run function f_main_config within file ~/.cliappmenu.cfg to set the
+      # variables GUI, FCOLOR, BCOLOR.
+      f_main_config
+      #
+} # End of function f_config_update_font_color
+#
+# +----------------------------------------+
+# |        Function f_config_update_ui     |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI
+#    Uses: None.
+# Outputs: File ~/.cliappmenu.cfg over-written with new settings.
+#
+# Summary: Update configuration function with new UI settings.
+#
+# Dependencies: f_main_config (within file ~/.cliappmenu.cfg).
+#
+f_config_update_ui () {
+      #
+      # Update Configuration File: ~/.cliappmenu.conf
+      # to save user chosen colors.
+      #
+      # Delete old settings of FCOLOR, BCOLOR variables.
+      sed -i '/GUI=.*/d' ~/.cliappmenu.cfg
+      #
+      # Add new setting of GUI variable.
+      # Insert new GUI settings below line with "Define GUI below".
+      sed -i "/      # Define GUI below - DO NOT DELETE THIS LINE./a indentGUI=\"$1\"" ~/.cliappmenu.cfg
+      #
+      # Format indentation of code.
+      sed -i 's/indent/      /g' ~/.cliappmenu.cfg
+      #
+      # Run configuration function to apply configuration.
+      # Source the configuration text file containing function f_main_config.
+      source ~/.cliappmenu.cfg
+      #
+      # Run function f_main_config within file ~/.cliappmenu.cfg to set the
+      # variables GUI, FCOLOR, BCOLOR.
+      f_main_config
+      #
+} # End of function f_config_update_ui
+#
+# +----------------------------------------+
+# |        Function f_configure_show       |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display the configuration file containing the function and settings.
+#
+# Dependencies: f_message, f_configure_use.
+#
+f_configure_show () {
+      #
+      if [ -e ~/.cliappmenu.cfg ] ; then
+         cat ~/.cliappmenu.cfg > $TEMP_FILE
+      fi
+      #
+      f_message $1 "OK" "Display ~/.cliappmenu.cfg" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_update_config_file
+#
+# +----------------------------------------+
+# |         Function f_configure_use       |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Run the configuration function to apply the settings.
+#
+# Dependencies: f_main_config, f_term_color.
+#
+f_configure_use () {
+      #
+      # Source configuration file.
+      source ~/.cliappmenu.cfg
+      #
+      # Run configuration function within hidden file ~/.cliappmenu.cfg
+      # to apply configuration.
+      f_main_config
+      #
+      # Change text font colors.
+      f_term_color $FCOLOR $BCOLOR
+      #
+} # End of function f_configure_use
 #

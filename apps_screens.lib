@@ -1,0 +1,186 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Screens Menu                                   |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@away#@@Locks terminal with password and checks for new email.#@@f_app_cmd^$GUI^away#@@0^0^0^0^0
+#
+#@@byobu#@@Multiple sessions.#@@f_app_cmd^$GUI^byobu#@@0^0^0^0^0
+#
+#@@dtach#@@Emulates detach feature of screen.#@@f_app_cmd^$GUI^dtach#@@0^0^0^0^0
+#
+#@@dvtm#@@dwm-style [tiling] window manager.#@@f_app_cmd^$GUI^dvtm#@@0^0^0^0^0
+#
+#@@fbterm#@@Fast terminal emulator, multiple fonts, multiple windows.#@@f_app_cmd^$GUI^fbterm#@@0^0^0^0^0
+#
+#@@screen#@@Multiple sessions via split or pager screens.#@@f_app_cmd^$GUI^screen#@@1^0^0^0^0
+#
+#@@screenie#@@Screen wrapper featuring a menu to manage detached jobs.#@@f_app_cmd^$GUI^screenie#@@f_screen^0^0^0^0
+#
+#@@splitvt#@@Multiple sessions on horizontal split screen [vt100 compatible].#@@f_app_cmd^$GUI^splitvt#@@1^0^0^0^0
+#
+#@@termit#@@Terminal emulator with multiple tabs, sessions, keybindings.#@@f_app_cmd^$GUI^termit#@@0^0^0^0^0
+#
+#@@tmux#@@Multiple sessions with multiplexing.#@@f_app_cmd^$GUI^tmux#@@0^0^0^0^0
+#
+#@@twin#@@A text mode window environment for multiple windows on screen.#@@f_app_cmd^$GUI^twin#@@0^0^0^0^0
+#
+#@@vlock#@@Locks virtual console or current terminal.#@@f_app_cmd^$GUI^vlock#@@0^0^0^0^0
+#
+#! End Listing Screens Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |            Function f_screen           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_screen () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "screen - Multiple screen-window sessions." > $TEMP_FILE
+      echo
+      echo "Usage:" >> $TEMP_FILE
+      echo "<Ctrl>-A <double-quote> List all windows." >> $TEMP_FILE
+      echo "<Ctrl>-A N     Show window title." >> $TEMP_FILE
+      echo "<Ctrl>-A a     Name title of the window." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "<Ctrl>-A c     Create new window." >> $TEMP_FILE
+      echo "<Ctrl>-A n     Switch to next window." >> $TEMP_FILE
+      echo "<Ctrl>-A p     Switch to previous window." >> $TEMP_FILE
+      echo "<Ctrl>-A l     Refresh window." >> $TEMP_FILE
+      echo "<Ctrl>-A <single-quote> Prompt window number to use." >> $TEMP_FILE
+      echo "<Ctrl>-A (0-9 or -)  Switch to window number to use." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "<Ctrl>-A k     Kill window." >> $TEMP_FILE
+      echo "<Ctrl>-A S     Split window horizontally." >> $TEMP_FILE
+      echo "<Ctrl>-A <tab> Toggle between split window areas." >> $TEMP_FILE
+      echo "<Ctrl>-A x     Kill split window area." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man screen'" >> $TEMP_FILE
+      echo "                        '$screen --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_screen
+#
+# +----------------------------------------+
+# |            Function f_splitvt          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_splitvt () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "splitvt - Split screen horizontally into two upper/lower." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "splitvt [OPTION]... [INPUT [PREFIX]]" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man splitvt'" >> $TEMP_FILE
+      echo "             'splitvt --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Now run splitvt. Usage: splitvt" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_splitvt
+#

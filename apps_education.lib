@@ -1,0 +1,317 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# Set THIS_FILE_LIB to the name of this script library.
+THIS_FILE_LIB="apps_education.lib"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Education Menu                                 |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@diatheke#@@Holy Bible research tool.#@@f_app_cmd^$GUI^diatheke#@@0^0^0^0^1
+#
+#@@grass#@@GIS Map utility [Geographic Information System].#@@f_app_cmd^$GUI^grass#@@0^0^0^0^1
+#
+#@@gtypist#@@Typing tutor displays a sentence for practice.#@@f_app_cmd^$GUI^gtypist#@@0^0^0^0^0
+#
+#@@Hamradio#@@Morse code and Ham Radio applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_education_ham_radio_generated.txt"^Education_-_Ham_Radio_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_education_ham_radio_items_generated.txt"^$CLI_DIR/apps_education.lib
+#
+#@@kon2#@@Japanese Kanji characters on Linux Console.#@@f_app_cmd^$GUI^kon2#@@0^0^0^0^1
+#
+#@@lifelines#@@Genealogy.#@@f_app_cmd^$GUI^lifelines#@@0^0^0^0^1
+#
+#@@Mathematics#@@Mathematics, problems.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_education_math_generated.txt"^Education_-_Math_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_education_math_items_generated.txt"^$CLI_DIR/apps_education.lib
+#
+#@@metar#@@Download METAR weather reports from NOAA HTTP servers.#@@f_app_cmd^$GUI^metar#@@1^0^0^0^1
+#
+#@@seesat5#@@Compute the location of a satellite.#@@f_app_cmd^$GUI^seesat5#@@0^0^0^0^1
+#
+#@@tide#@@CLI XTide gives tide/current forecasts. May need xtide-data.#@@f_app_cmd^$GUI^tide#@@1^0^0^0^1
+#
+#@@typespeed#@@Typing tutor shows flying words arcade-style across screen.#@@f_app_cmd^$GUI^typespeed#@@0^0^0^0^1
+#
+#@@weather#@@Current weather conditions and forecasts.#@@f_app_cmd^$GUI^weather#@@1^0^0^0^1
+#
+#! End Listing Education Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Education - Ham Radio Menu                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@aldo#@@Morse code training.#@@f_app_cmd^$GUI^aldo#@@0^0^0^0^0
+#
+#@@cw#@@Morse code training.#@@f_app_cmd^$GUI^cw#@@0^0^0^10^0
+#
+#@@cwcp#@@Morse code training ncurses-based.#@@f_app_cmd^$GUI^cwcp#@@0^0^0^0^0
+#
+#@@ebook2cw#@@Converts plain text ebooks to  morse code mp3/ogg audio files.#@@f_app_cmd^$GUI^ebook2cw#@@0^0^0^0^1
+#
+#@@morse#@@Morse code training.#@@f_app_cmd^$GUI^morse#@@0^0^0^10^0
+#
+#@@morsegen#@@Converts text file to ASCII morse code.#@@f_app_cmd^$GUI^morsegen#@@0^0^0^0^1
+#
+#@@qrq#@@High-speed morse code trainer.#@@f_app_cmd^$GUI^qrq#@@0^0^0^0^1
+#
+#@@tlf#@@Morse code cw keyer, logging and contest program.#@@f_app_cmd^$GUI^tlf#@@0^0^0^0^1
+#
+#! End Listing Education - Ham Radio Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Education - Math Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@arithmetic#@@Basic arithmetic quiz.#@@f_app_cmd^$GUI^arithmetic#@@0^0^0^10^0
+#
+#@@axiom#@@General purpose computer algebra system.#@@f_app_cmd^$GUI^axiom#@@0^0^0^0^1
+#
+#@@datamash#@@Calculate statistics mean, avg, stdev, min, max, sum.#@@f_app_cmd^$GUI^datamash#@@0^0^0^0^1
+#
+#@@dicelab#@@Evaluate the statistical distribution of dice rolls.#@@f_app_cmd^$GUI^dicelab#@@0^0^0^0^1
+#
+#@@mathomatic#@@Portable CAS [Computer Algebra System]#@@f_app_cmd^$GUI^mathomatic#@@0^0^0^0^1
+#
+#@@ministat#@@Fundamental statistical comparison of 1 or 2 data sets.#@@f_app_cmd^$GUI^ministat#@@0^0^0^0^1
+#
+#@@num-utils#@@Collection of programs avg, normal, random, range, etc.#@@f_app_cmd^$GUI^num_utils#@@1^0^0^0^1
+#
+#@@octave#@@Matlab compatible language for [non]linear equations.#@@f_app_cmd^$GUI^octave#@@0^0^0^0^1
+#
+#@@open-axiom#@@Open scientific computation platform.#@@f_app_cmd^$GUI^open-axiom#@@0^0^0^0^1
+#
+#@@plotutils#@@Plot 2-dimensional scientific data.#@@f_app_cmd^$GUI^plotutils#@@0^0^0^0^1
+#
+#@@pi#@@Calculate Archimedes constant Pi to arbitrary precision.#@@f_app_cmd^$GUI^pi#@@0^0^0^0^1
+#
+#@@primes#@@Prime number calculator.#@@f_app_cmd^$GUI^primes#@@0^0^0^0^1
+#
+#@@pspp#@@Statistical analysis tool.#@@f_app_cmd^$GUI^pspp#@@0^0^0^0^1
+#
+#@@relational-cli#@@Relational algebra and relational database.#@@f_app_cmd^$GUI^relational-cli#@@0^0^0^0^0
+#
+#@@stda#@@Simple tools for data analysis.#@@f_app_cmd^$GUI^stda#@@0^0^0^0^1
+#
+#! End Listing Education - Math Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |            Function f_metar            |
+# +----------------------------------------+
+#
+f_metar () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "metar - Weather conditions from NOAA." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "metar [-dvh] stations" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "For a list of stations go to URL:" >> $TEMP_FILE
+      echo "http://weather.noaa.gov/pub/data/observations/metar/stations/" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man metar'" >> $TEMP_FILE
+      echo "                        'metar --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_metar
+#
+# +----------------------------------------+
+# |          Function f_num_utils          |
+# +----------------------------------------+
+#
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_num_utils () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "num-utils - A collection of math programs which takes data from either keyboard or a file." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Includes these programs:" >> $TEMP_FILE
+      echo "  * numaverage: A program for calculating the average of numbers." >> $TEMP_FILE
+      echo "  * numbound: Finds the boundary numbers (min and max) of input." >> $TEMP_FILE
+      echo "  * numinterval: Shows the numeric intervals between each number in a sequence." >> $TEMP_FILE
+      echo "  * numnormalize: Normalizes a set of numbers between 0 and 1 by default." >> $TEMP_FILE
+      echo "  * numgrep: Like normal grep, but for sets of numbers." >> $TEMP_FILE
+      echo "  * numprocess: Do mathematical operations on numbers." >> $TEMP_FILE
+      echo "  * numsum: Add up all the numbers." >> $TEMP_FILE
+      echo "  * numrandom: Generate a random number from a given expression." >> $TEMP_FILE
+      echo "  * numrange: Generate a set of numbers in a range expression." >> $TEMP_FILE
+      echo "  * numround: Round each number according to its value." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_num_utils.
+#
+# +----------------------------------------+
+# |            Function f_tide             |
+# +----------------------------------------+
+#
+f_tide () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "tide - Schedule of high/low tides." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "tide -l <location name> [OPTIONS]" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "tide -l Boston -f t -m g" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "[OPTIONS]" >> $TEMP_FILE
+      echo "-f t - output format is text." >> $TEMP_FILE
+      echo "-m g - mode is graphical." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man tide'" >> $TEMP_FILE
+      echo "                        'tide --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_tide
+#
+# +----------------------------------------+
+# |           Function f_weather           |
+# +----------------------------------------+
+#
+f_weather () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "weather - Weather conditions from NOAA."  > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Home web page: http://fungi.yuggoth.org/weather/" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "weather [OPTIONS] stations" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo  "Stations:" >> $TEMP_FILE
+      echo  >> $TEMP_FILE
+      echo  "U.S. ZIP Code" >> $TEMP_FILE
+      echo  "<longitude, latitude> i.e. '35-52n, 78-43w'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "[OPTIONS]" >> $TEMP_FILE
+      echo "-a  --alert     Alerts" >> $TEMP_FILE
+      echo "-f              Local forecast" >> $TEMP_FILE
+      echo "    --imperial  Convert between metric and imperial units" >> $TEMP_FILE
+      echo "-m              metric units" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "For a list of stations go to URL:" >> $TEMP_FILE
+      echo "http://weather.noaa.gov/pub/data/observations/metar/stations/" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man weather'" >> $TEMP_FILE
+      echo "                        'weather --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_weather
+#

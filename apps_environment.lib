@@ -1,0 +1,193 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Environment Menu                               |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Apple#@@Apple MacIntosh file utilities.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_macintosh_generated.txt"^Environment_-_Apple_MacIntosh_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_macintosh_items_generated.txt"^$CLI_DIR/apps_environment.lib
+#
+#@@desmume#@@Nintendo DS emulator.#@@f_app_cmd^$GUI^desmume#@@0^0^0^0^1
+#
+#@@dialog#@@Command line GUI displays dialog boxes in shell scripts.#@@f_app_cmd^$GUI^dialog#@@0^0^0^0^1
+#
+#@@dosemu#@@DOS emulator.#@@f_app_cmd^$GUI^dosemu#@@0^0^0^0^1
+#
+#@@fish#@@Fish is a shell for interactive use, easy to use.#@@f_app_cmd^$GUI^fish#@@0^0^0^0^1
+#
+#@@MSDOS#@@Linux utilities for Microsoft DOS files, FAT, NTFS disk drives.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_environment_microsoft_dos_generated.txt"^Environment_-_Microsoft_DOS_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_environment_microsoft_dos_items_generated.txt"^$CLI_DIR/apps_environment.lib
+#
+#@@rbash#@@ Same as [bash -r]. Restricted bash shell limits users actions.#@@f_app_cmd^$GUI^rbash#@@1^0^0^0^1
+#
+#@@whiptail#@@Command line GUI displays dialog boxes in shell scripts.#@@f_app_cmd^$GUI^whiptail#@@0^0^0^0^1
+#
+#! End Listing Environment Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Environment - Apple MacIntosh Menu             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@binhex#@@Converts files to BinHex format.#@@f_app_cmd^$GUI^binhex#@@0^0^0^0^1
+#
+#@@frommac#@@Receives files from the Macintosh.#@@f_app_cmd^$GUI^frommac#@@0^0^0^0^1
+#
+#@@hexbin#@@Converts files to MacBinary bin format.#@@f_app_cmd^$GUI^hexbin#@@0^0^0^0^1
+#
+#@@macunpack#@@Extract files from Macintosh MacBinary archive.#@@f_app_cmd^$GUI^macunpack#@@0^0^0^0^1
+#
+#@@macsave#@@Reads a sequence of MacBinary archived files and saves them.#@@f_app_cmd^$GUI^macsave#@@0^0^0^0^1
+#
+#@@macstream#@@Converts files to a MacBinary stream written to std. output.#@@f_app_cmd^$GUI^macstream#@@0^0^0^0^1
+#
+#@@tomac#@@Transmit files to the Macintosh using XMODEM protocol.#@@f_app_cmd^$GUI^tomac#@@0^0^0^0^1
+#
+#@@uudeview#@@Decoder/encoder for hqx, uuencode, xxencode, BASE64, BinHex.#@@f_app_cmd^$GUI^uudeview#@@0^0^0^0^1
+#
+#! End Listing Environment - Apple MacIntosh Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Environment - Microsoft DOS Menu               |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@getswap#@@Use as tempspace MS Windows pagefiles and swap partitions.#@@f_app_cmd^$GUI^getswap#@@0^0^0^0^1
+#
+#@@mattrib#@@Change MS DOS file attribute flags.#@@f_app_cmd^$GUI^mattrib#@@0^0^0^0^1
+#
+#@@mbadblocks#@@Tests a floppy disk, and marks the bad blocks in the FAT.#@@f_app_cmd^$GUI^mbadblocks#@@0^0^0^0^1
+#
+#@@mcd#@@Change MSDOS directory.#@@f_app_cmd^$GUI^mcd#@@0^0^0^0^1
+#
+#@@mcopy#@@Copy MSDOS files to/from Unix, Linux.#@@f_app_cmd^$GUI^mcopy#@@0^0^0^0^1
+#
+#@@mcat#@@Copy an entire disk image to a floppy disk.#@@f_app_cmd^$GUI^mcat#@@0^0^0^0^1
+#
+#@@mdel#@@Delete an MSDOS file.#@@f_app_cmd^$GUI^mdel#@@0^0^0^0^1
+#
+#@@mdeltree#@@Recursively delete an MSDOS directory and its contents.#@@f_app_cmd^$GUI^mdeltree#@@0^0^0^0^1
+#
+#@@mdir#@@Display an MSDOS directory.#@@f_app_cmd^$GUI^mdir#@@0^0^0^0^1
+#
+#@@mdu#@@Display the amount of space occupied by an MSDOS directory.#@@f_app_cmd^$GUI^mdu#@@0^0^0^0^1
+#
+#@@mformat#@@Add an MSDOS filesystem to a low-level formatted floppy disk.#@@f_app_cmd^$GUI^mformat#@@0^0^0^0^1
+#
+#@@minfo#@@Print the parameters of a MSDOS filesystem.#@@f_app_cmd^$GUI^minfo#@@0^0^0^0^1
+#
+#@@mlabel#@@Make an MSDOS volume label.#@@f_app_cmd^$GUI^mlabel#@@0^0^0^0^1
+#
+#@@mmd#@@Make an MSDOS subdirectory.#@@f_app_cmd^$GUI^mmd#@@0^0^0^0^1
+#
+#@@mmount#@@Mount an MSDOS disk.#@@f_app_cmd^$GUI^mmount#@@0^0^0^0^1
+#
+#@@MORE...#@@For more MSDOS/NTFS Applications#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_environment_microsoft_dos_2_generated.txt"^Environment_-_Microsoft_DOS_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_environment_microsoft_dos_2_items_generated.txt"^$CLI_DIR/apps_environment.lib
+#
+#! End Listing Environment - Microsoft DOS Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Environment - Microsoft DOS 2 Menu             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@mmove#@@Move or rename an MSDOS file or subdirectory.#@@f_app_cmd^$GUI^mmove#@@0^0^0^0^1
+#
+#@@mpartition#@@Partition an MSDOS hard disk.#@@f_app_cmd^$GUI^mpartition#@@0^0^0^0^1
+#
+#@@mrd#@@Remove an MSDOS subdirectory.#@@f_app_cmd^$GUI^mrd#@@0^0^0^0^1
+#
+#@@mren#@@Rename an existing MSDOS file.#@@f_app_cmd^$GUI^mren#@@0^0^0^0^1
+#
+#@@mshowfat#@@Shows FAT clusters allocated to file.#@@f_app_cmd^$GUI^mshowfat#@@0^0^0^0^1
+#
+#@@mtools#@@Utilities to access DOS disks in Unix.#@@f_app_cmd^$GUI^mtools#@@0^0^0^0^1
+#
+#@@mtoolstest#@@Tests and displays the mtools configuration.#@@f_app_cmd^$GUI^mtoolstest#@@0^0^0^0^1
+#
+#@@mtype#@@Display contents of an MSDOS file.#@@f_app_cmd^$GUI^mtype#@@0^0^0^0^1
+#
+#@@ntfscp#@@Copy file to an NTFS volume.#@@f_app_cmd^$GUI^ntfscp#@@0^0^0^0^1
+#
+#@@ntfslabel#@@Display/change the label on an NTFS file system.#@@f_app_cmd^$GUI^ntfslabel#@@0^0^0^0^1
+#
+#@@ntfsresize#@@Resize an NTFS filesystem without data loss.#@@f_app_cmd^$GUI^ntfsresize#@@0^0^0^0^1
+#
+#@@ntfsundelete#@@Recover a deleted file from an NTFS volume.#@@f_app_cmd^$GUI^ntfsundelete#@@0^0^0^0^1
+#
+#@@ntfsundeleteall#@@Recover deleted files from NTFS volumes#@@f_app_cmd^$GUI^ntfsundeleteall#@@0^0^0^0^1
+#
+#@@winclean#@@Clean up junk files from a Windows installation.#@@f_app_cmd^$GUI^winclean#@@0^0^0^0^1
+#
+#! End Listing Environment - Microsoft DOS 2 Menu (Required line, do not delete).
+#

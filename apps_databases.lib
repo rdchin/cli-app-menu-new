@@ -1,0 +1,108 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# Set THIS_FILE_LIB to the name of this script library.
+THIS_FILE_LIB="apps_databases.lib"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Database Menu                                  |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ara#@@Search Debian package databases.#@@f_app_cmd^$GUI^ara#@@0^0^0^0^1
+#
+#@@couchdb#@@Apache CouchDB document-oriented database.#@@f_app_cmd^$GUI^couchdb#@@0^0^0^0^1
+#
+#@@edb#@@Database program for GNU Emacs.#@@f_app_cmd^$GUI^edb#@@0^0^0^0^1
+#
+#@@freecdb#@@Create and read constant databases [up to 4 GB].#@@f_app_cmd^$GUI^freecdb#@@0^0^0^0^1
+#
+#@@lbdb#@@Little Brothers Database for mutt mail reader.#@@f_app_cmd^$GUI^lbdb#@@0^0^0^0^1
+#
+#@@mange#@@CSV file editor.#@@f_app_cmd^$GUI^mange#@@0^0^0^0^1
+#
+#@@mysql-client#@@MySQL database client, [latest recommended version].#@@f_app_cmd^$GUI^mysql-client#@@0^0^0^0^1
+#
+#@@mysql-server#@@MySQL database server, [latest recommended version].#@@f_app_cmd^$GUI^mysql-server#@@0^0^0^0^1
+#
+#@@postgresql#@@Metapackage for object-relational SQL database.#@@f_app_cmd^$GUI^postgresql#@@0^0^0^0^1
+#
+#@@postgresql-client#@@PostgreSQL database client, [latest version].#@@f_app_cmd^$GUI^postgresql-client#@@0^0^0^0^1
+#
+#@@postgresql-doc#@@Documentation for PostgreSQL database.#@@f_app_cmd^$GUI^postgresql-doc#@@0^0^0^0^1
+#
+#@@sqlite#@@C Library allows SQL access w/o separate RDBMS process.#@@f_app_cmd^$GUI^sqlite#@@0^0^0^0^1
+#
+#@@task-database#@@Selects PostgreSQL database client and server packages.#@@f_app_cmd^$GUI^task-database#@@0^0^0^0^1
+#
+#@@tokyocabinet#@@Tokyo Cabinet Database.#@@f_app_cmd^$GUI^tokyocabinet#@@0^0^0^0^1
+#
+#@@tokyocabinet-doc#@@Documentation for the Tokyo Cabinet Database.#@@f_app_cmd^$GUI^tokyocabinet-doc#@@0^0^0^0^1
+#
+#! End Listing Database Menu (Required line, do not delete).
+#

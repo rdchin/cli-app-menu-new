@@ -1,0 +1,223 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Screen-Tools Menu                              |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@archey#@@Distro logo with PC and linux kernel information.#@@f_app_cmd^$GUI^archey#@@0^0^0^0^1
+#
+#@@fbgrab#@@Framebuffer screenshot tool.#@@f_app_cmd^$GUI^fbgrab#@@0^0^0^0^1
+#
+#@@linuxlogo#@@Color ANSI system logo#@@f_app_cmd^$GUI^linuxlogo^linuxlogo -L list#@@1^0^0^0^1
+#
+#@@screenfetch#@@Distro logo with PC and linux kernel information.#@@f_app_cmd^$GUI^screenfetch#@@0^0^0^0^1
+#
+#@@script#@@Records terminal input/output [keystrokes].#@@f_app_cmd^$GUI^script#@@0^0^0^0^1
+#
+#@@scrot#@@Framebuffer screenshot tool.#@@f_app_cmd^$GUI^scrot#@@0^0^0^0^1
+#
+#@@TermRecord#@@Records terminal session output to an HTML file.#@@f_app_cmd^$GUI^TermRecord#@@0^0^0^0^1
+#
+#@@ttyplay#@@Playback ttyrec recording of terminal actions.#@@f_app_cmd^$GUI^ttyplay#@@1^0^0^19^1
+#
+#@@ttyrec#@@Records terminal input/output and also timing-information.#@@f_app_cmd^$GUI^ttyrec#@@1^0^0^20^0
+#
+#@@welcome21#@@Distro logo [ANSI] with PC and Linux kernel information.#@@f_app_cmd^$GUI^welcome21#@@0^0^0^0^1
+#
+#! End Listing Screen-Tools Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |          Function f_linuxlogo          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#          $3 - APP_CMD.
+#          $
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_linuxlogo () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "linuxlogo -L list - Displays a list of numbered items of the linux logos." > $TEMP_FILE
+      echo "linuxlogo -L <item number of linux logo> - Displays the chosen linux logo." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+}  # End of function f_linuxlogo
+#
+# +----------------------------------------+
+# |            Function f_ttyplay          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ttyplay () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "ttyplay - Plays recordings by ttyrec." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "       ttyplay [OPTIONS] [FILE]" >> $TEMP_FILE
+      echo
+      echo "Options:" >> $TEMP_FILE
+      echo "         -p Watch recording as it happens." >> $TEMP_FILE
+      echo "         -s SPEED Change speed of playback (default SPEED=1)" >> $TEMP_FILE
+      echo "         -n No wait mode.  Ignore the timing information in file." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Controls:" >> $TEMP_FILE
+      echo "          + or f Double the playback speed." >> $TEMP_FILE
+      echo "          - or s Halve the playback speed." >> $TEMP_FILE
+      echo "          0      Pause playback." >> $TEMP_FILE
+      echo "          1      Resume playback at SPEED=1 original recorded speed." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Example: ttyplay -s 3 ttyrecord where \"ttyrecord\" is the default file name." >> $TEMP_FILE
+      echo "         ttyplay record-terminal" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man ttyplay'" >> $TEMP_FILE
+      echo "                        'ttyplay --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_ttyplay
+#
+# +----------------------------------------+
+# |            Function f_ttyrec           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ttyrec () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "ttyrec - Records screen \"movie\" in real-time saving the recording in a file." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Start recording by typing \"ttyrec\" and stop recording by typing \"exit\"." >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "       ttyrec [OPTIONS] [FILE]" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Options:" >> $TEMP_FILE
+      echo "         -a Append to specified file or to file, \"ttyrecord\"." >> $TEMP_FILE
+      echo "             where \"ttyrecord\" is the default file name if none specified." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "         -u Used when using ttyrec to  transfer files to a remote host." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "         -e command" >> $TEMP_FILE
+      echo "             Invoke command when ttyrec starts." >> $TEMP_FILE
+      echo "*** For more help type: 'man ttyrec'" >> $TEMP_FILE
+      echo "                        'ttyrec --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_ttyrec
+#

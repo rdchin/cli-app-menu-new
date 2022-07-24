@@ -44,17 +44,17 @@ sed -n 's/^##//'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #
 #LIC ©2021 Copyright 2021 Robert D. Chin
 #LIC Email: RDevChin@Gmail.com
-#LIC 
+#LIC
 #LIC This program is free software: you can redistribute it and/or modify
 #LIC it under the terms of the GNU General Public License as published by
 #LIC the Free Software Foundation, either version 3 of the License, or
 #LIC (at your option) any later version.
-#LIC 
+#LIC
 #LIC This program is distributed in the hope that it will be useful,
 #LIC but WITHOUT ANY WARRANTY; without even the implied warranty of
 #LIC MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #LIC GNU General Public License for more details.
-#LIC 
+#LIC
 #LIC You should have received a copy of the GNU General Public License
 #LIC along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
@@ -66,10 +66,26 @@ sed -n 's/^##//'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 ## After each edit made, update Version History and version
 ## (date stamp string) of script.
 ##
+## 2022-07-24 *Release version 5.0 "Gail".
+##             This is a total rewrite of the menu display process and
+##             uses fewer library files as a result.
+##            *This version uses the menu titles themselves to differentiate
+##             the menu data for each menu, rather than use a unique
+##             3-letter string identifier (versions 1 to 3) or putting
+##             related menu data in separate files (version 4).
+##            *Since the menus and menu data are differentiated by the menu
+##             title string, all the menu data was consolidated into only a
+##             few library files.
+##
 ## 2021-07-01 *Release version 4.0 "Farrah".
 ##             This is a total rewrite of the entire program using a new
 ##             approach and IS NOT BACKWARD COMPATIBLE with any previous
 ##             versions 3.1 or older.
+##            *Rewrote the process to uniquely identify the data for each
+##             menu so that each of the 140 menus and menu data are in 140
+##             different library files rather than using a unique
+##             3-letter string identifier at the beginning of each line of
+##             data for a given menu as in version 3.
 ##
 ## 2021-04-22 *Development version 4.0 "Farrah".
 ##
@@ -85,6 +101,10 @@ sed -n 's/^##//'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 ##            *Added the ability to switch between User-interfaces via
 ##             "Configure" Menu.
 ##            *Bug fix for "Un-colors" menu choice in "Configure" Menu.
+##            *In version 3 all the menus a hard-coded and the data for
+##             multiple menus are contained in a single file.
+##            *A unique 3-letter string to identify and link the menu item
+##             data to a given menu is required.
 ##
 ## 2016-03-15 *Testing version 3.0 "Ellen".
 ##            *Added UI for "List or Find Menus".
@@ -128,7 +148,7 @@ sed -n 's/^##//'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 ##             connection, files would still be deleted (to make room for
 ##             new ones). Now if updating program/modules without an
 ##             Internet connection, user is notified and files are
-##             unaffected and not deleted. 
+##             unaffected and not deleted.
 ##            *Deleted 1 application (not a CLI app).
 ##            *Assorted cosmetic improvements in menu displays.
 ##
@@ -147,7 +167,7 @@ sed -n 's/^##//'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 ##
 ## 2014-05-28 *Release version 1.1.1 "Barbara".
 ##            *Cosmetic improvements.
-##            *Fixed descriptions that were too long and menu that scrolled 
+##            *Fixed descriptions that were too long and menu that scrolled
 ##             off screen.
 ##
 ## 2014-05-28 *Release version 1.1 "Barbara".

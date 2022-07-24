@@ -1,0 +1,503 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |        Function f_app_web_install      |
+# +----------------------------------------+
+#
+#     Rev: 2021-05-08
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME_INSTALL.
+# Outputs: WEB_SITE_INSTALL.
+#
+f_app_web_install () {
+      #
+      WEB_SITE_INSTALL=""
+      case $2 in # Start of Web Site case statement.
+           aafire | aainfo | aatest | aasavefont | libaa-bin)
+           WEB_SITE_INSTALL="http://aa-project.sourceforge.net/aalib/"
+           ;;
+           aaxine | cacaxine | fbxine | xine-console)
+           WEB_SITE_INSTALL="https://www.xine-project.org/releases"
+           ;;
+           abc2midi | midi2abc | abc2abc | mftext | midicopy | abcmidi)
+           WEB_SITE_INSTALL="http://abc.sourceforge.net/abcMIDI/original/"
+           ;;
+           abcde)
+           WEB_SITE_INSTALL="http://abcde.einval.com/"
+           ;;
+           acripper)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/acripper/"
+           ;;
+           adventure | arithmetic | atc | backgammon | battlestar | bcd | boggle | caesar | canfield | countmail | cribbage | dab | go-fish | gomoku | hack | hangman | hunt | mille | monop | morse | number | pig | phantasia | pom | ppt | primes | quiz | random | rain | robots | rot13 | sail | snake | tetris | trek | wargames | worm | worms | wump | wtf | bsdgames)
+           WEB_SITE_INSTALL="ftp://ftp.ibiblio.org/pub/Linux/games/"
+           ;;
+           acat| als | apack | atool | aunpack)
+           WEB_SITE_INSTALL="http://www.nongnu.org/atool/"
+           ;;
+           animate | composite | compare | conjure | convert | display | identify | import | mogrify | montage | stream | imagemagick)
+           WEB_SITE_INSTALL="http://www.imagemagick.org/script/index.php"
+           ;;
+           aria2 | aria2c)
+           WEB_SITE_INSTALL="http://aria2.sourceforge.net/"
+           ;;
+           asciiportal)
+           WEB_SITE_INSTALL="https://github.com/cymonsgames/ASCIIpOrtal"
+           ;;
+           asciiquarium)
+           WEB_SITE_INSTALL="http://www.robobunny.com/projects/asciiquarium/asciiquarium.tar.gz"
+           ;;
+           ascii-invaders | invaders)
+           WEB_SITE_INSTALL="https://github.com/macdice/ascii-invaders/archive/master.zip"
+           ;;
+           avconv)
+           WEB_SITE_INSTALL="https://libav.org/avconv.html"
+           ;;
+           barnowl | zcrypt)
+           WEB_SITE_INSTALL="http://barnowl.mit.edu/"
+           ;;
+           bashpodder)
+           WEB_SITE_INSTALL="http://lincgeek.org/bashpodder/"
+           ;;
+           beets)
+           WEB_SITE_INSTALL="http://beets.radbox.org/"
+           ;;
+           binary-clock)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/binary-clock/files/binary-clock-src/binary-clock-0.5/binary-clock-0.5.tar.gz/download?use_mirror=iweb&download="
+           ;;
+           binclock)
+           WEB_SITE_INSTALL="http://www.ngolde.de/binclock.html"
+           ;;
+           binhex | frommac | hexbin | macunpack | macsave | macstream | tomac | macutils)
+           APP_NAME_INSTALL="macutils"
+           ;;
+           blogger-cli)
+           WEB_SITE_INSTALL="http://code.google.com/p/blogger-cli/downloads/detail?name=blogger-cli-0.5.tar.gz&can=2&q="
+           ;;
+           bongo)
+           WEB_SITE_INSTALL="https://github.com/dbrock/bongo"
+           ;;
+           braincurses)
+           WEB_SITE_INSTALL="http://freecode.com/projects/braincurses"
+           ;;
+           bsod)
+           WEB_SITE_INSTALL="http://www.vanheusden.com/bsod/"
+           ;;
+           cclock)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/cclock/files/latest/download"
+           ;;
+           ccx2)
+           WEB_SITE_INSTALL="http://palbo.github.com/ccx2"
+           ;;
+           cdd)
+           WEB_SITE_INSTALL="https://github.com/jestor/cdd"
+           ;;
+           cdrecord | readcd | cdda2wav | dirsplit | mkisofs | isodebug | isodump |  isoinfo | isovfy | rscsi | cdrtools)
+           WEB_SITE_INSTALL="http://cdrecord.berlios.de/private/cdrecord.html"
+           ;;
+           cdrskin)
+           WEB_SITE_INSTALL="http://scdbackup.sourceforge.net/cdrskin_eng.html"
+           ;;
+           charm)
+           WEB_SITE_INSTALL="http://ljcharm.sourceforge.net/t_why.shtml"
+           ;;
+           clamav | clamscan)
+           WEB_SITE_INSTALL="http://www.clamav.net/lang/en/"
+           ;;
+           clcal)
+           WEB_SITE_INSTALL="http://www.hyborian.demon.co.uk/clcal/download.html"
+           ;;
+           clockywock)
+           WEB_SITE_INSTALL="http://soomka.com/"
+           ;;
+           cmatrix)
+           WEB_SITE_INSTALL="http://www.asty.org/cmatrix/"
+           ;;
+           consolecandy)
+           WEB_SITE_INSTALL="http://www.vanheusden.com/consolecandy/"
+           ;;
+           cpat)
+           WEB_SITE_INSTALL="http://cpat.sourceforge.net/"
+           ;;
+           crawl)
+           WEB_SITE_INSTALL="http://crawl.develz.org/wordpress/"
+           ;;
+           curses)
+           WEB_SITE_INSTALL="http://search.cpan.org/CPAN/authors/id/G/GI/GIRAFFED/Curses-1.28.tgz"
+           ;;
+           dadd | dconv | ddiff | dgrep | dround | dseq | dtest | dateutils)
+           WEB_SITE_INSTALL="https://bitbucket.org/hroptatyr/dateutils/downloads"
+           ;;
+           desmume)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/desmume/files/desmume/"
+           ;;
+           diary)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/diary/"
+           ;;
+           diary-f)
+           WEB_SITE_INSTALL="https://github.com/earshinov/diary-f"
+           ;;
+           dsol)
+           WEB_SITE_INSTALL="http://www.lgdb.org/game/dsol"
+           ;;
+           e3*) # covers e3em, e3vi, e3pi, e3ne, e3ws.
+           WEB_SITE_INSTALL="https://sites.google.com/site/e3editor/"
+           ;;
+           edbrowse)
+           WEB_SITE_INSTALL="http://the-brannons.com/edbrowse/"
+           ;;
+           elinks)
+           WEB_SITE_INSTALL="http://elinks.or.cz/"
+           ;;
+           emms)
+           WEB_SITE_INSTALL="EMMS: http://www.gnu.org/software/emms"
+           ;;
+           enpi)
+           WEB_SITE_INSTALL="http://enpiscript.blogspot.com/"
+           ;;
+           exiftool)
+           WEB_SITE_INSTALL="http://www.sno.phy.queensu.ca/~phil/exiftool/"
+           ;;
+           extundelete)
+           WEB_SITE_INSTALL="http://extundelete.sourceforge.net/"
+           ;;
+           fbgrab)
+           WEB_SITE_INSTALL="http://hem.bredband.net/gmogmo/fbgrab/"
+           ;;
+           fbgs | fbi | ida | exiftran)
+           WEB_SITE_INSTALL="https://www.kraxel.org/cgit/fbida/"
+           ;;
+           fbv)
+           WEB_SITE_INSTALL="https://github.com/knu/FDclonehttp://freecode.com/projects/fbv"
+           ;;
+           fd | fdclone)
+           WEB_SITE_INSTALL="https://github.com/knu/FDclone"
+           ;;
+           figlet)
+           WEB_SITE_INSTALL="http://www.figlet.org"
+           ;;
+           fish)
+           WEB_SITE_INSTALL="http://fishshell.com/#get_fish_linux"
+           ;;
+           galaxis)
+           WEB_SITE_INSTALL="http://www.catb.org/~esr/galaxis/"
+           ;;
+           gitfm | gitps | gitview | gitwipe | gitkeys | gitmount | gitaction | gitunpack | gitrgrep | gitregrep | gitrfgrep | gnuit)
+           WEB_SITE_INSTALL="http://www.gnu.org/software/gnuit/"
+           ;;
+           glances)
+           WEB_SITE_INSTALL="https://github.com/nicolargo/glances"
+           ;;
+           gnupg)
+           WEB_SITE_INSTALL="http://www.gnupg.org/"
+           ;;
+           gnuski)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/gnuski/files/latest/download"
+           ;;
+           gramophone)
+           WEB_SITE_INSTALL="http://www.opensourcepartners.nl/~costar/gramofile/"
+           ;;
+           grandfatherclock)
+           WEB_SITE_INSTALL="http://freecode.com/projects/grandfatherclock"
+           ;;
+           handbrake-cli)
+           WEB_SITE_INSTALL="http://handbrake.fr/downloads2.php"
+           ;;
+           hdlns)
+           WEB_SITE_INSTALL="http://happy.freeshell.org/scripts/hdlns/"
+           ;;
+           herrie)
+           WEB_SITE_INSTALL="http://herrie.info/#obtaining"
+           ;;
+           hnb)
+           WEB_SITE_INSTALL="http://hnb.sourceforge.net/"
+           ;;
+           htop)
+           WEB_SITE_INSTALL="http://htop.sourceforge.net/"
+           ;;
+           ibmonitor)
+           WEB_SITE_INSTALL="http://ibmonitor.sourceforge.net/"
+           ;;
+           ical2rem)
+           WEB_SITE_INSTALL="https://github.com/courts/ical2rem.rb"
+           ;;
+           ifplugstatus | ifplugd)
+           WEB_SITE_INSTALL="http://0pointer.de/lennart/projects/ifplugd/"
+           ;;
+           iptraf-ng)
+           WEB_SITE_INSTALL="https://fedorahosted.org/iptraf-ng/"
+           ;;
+           irssi)
+           WEB_SITE_INSTALL="http://www.irssi.org/"
+           ;;
+           jed)
+           WEB_SITE_INSTALL="http://www.jedsoft.org/jed/download.html"
+           ;;
+           jfbview)
+           WEB_SITE_INSTALL="https://github.com/jichuan89/JFBView.git"
+           ;;
+           jstar | jmacs | jpico | rjoe | joe)
+           WEB_SITE_INSTALL="www.sourceforge.net/projects/joe-editor"
+           ;;
+           j2)
+           WEB_SITE_INSTALL="https://github.com/rupa/j2"
+           ;;
+           kkm)
+           WEB_SITE_INSTALL="https://github.com/cnmade/kkm"
+           ;;
+           knockd)
+           WEB_SITE_INSTALL="http://www.zeroflux.org/projects/knock"
+           ;;
+           kuechenstation)
+           WEB_SITE_INSTALL="http://kuechenstation.sourceforge.net"
+           ;;
+           lxdvdrip)
+           WEB_SITE_INSTALL="http://sourceforge.net/p/lxdvdrip/wiki/Home/"
+           ;;
+           lnav)
+           WEB_SITE_INSTALL="http://tstack.github.io/lnav/"
+           ;;
+           lynx)
+           WEB_SITE_INSTALL="https://lynx.browser.org/"
+           ;;
+           masterm)
+           WEB_SITE_INSTALL="https://github.com/jstitch/masterm/archive/master.zip"
+           ;;
+           mastermind-nc)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/mastermind-nc/"
+           ;;
+           mc)
+           WEB_SITE_INSTALL="http://www.midnight-commander.org/"
+           ;;
+           mencal)
+           WEB_SITE_INSTALL="http://kyberdigi.cz/projects/mencal/index.php?l=en"
+           ;;
+           mikmod)
+           WEB_SITE_INSTALL="http://mikmod.raphnet.net"
+           ;;
+           moc)
+           WEB_SITE_INSTALL="http://moc.daper.net/"
+           ;;
+           most)
+           WEB_SITE_INSTALL="http://www.jedsoft.org/most/index.html"
+           ;;
+           mp3blaster)
+           WEB_SITE_INSTALL="http://mp3blaster.sourceforge.net"
+           ;;
+           mpd)
+           WEB_SITE_INSTALL="MPD: http://www.musicpd.org"
+           ;;
+           mpstat | iostat | pidstat | sadf | sar | sysstat)
+           WEB_SITE_INSTALL="https://github.com/sysstat/sysstat"
+           ;;
+           nagios3 | nagios3-core)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/nagios/files/nagios-3.x/"
+           ;;
+           namebench)
+           WEB_SITE_INSTALL="https://code.google.com/p/namebench/"
+           ;;
+           ncdu)
+           WEB_SITE_INSTALL="http://dev.yorhel.nl/ncdu"
+           ;;
+           ncmatrix)
+           WEB_SITE_INSTALL="http://webpages.charter.net/tux/ncmatrix/ncmatrix-1.0.zip"
+           ;;
+           ncmpcpp)
+           WEB_SITE_INSTALL="http://unkart.ovh.org/ncmpcpp"
+           ;;
+           ncmpy)
+           WEB_SITE_INSTALL="https://github.com/cykerway/ncmpy"
+           ;;
+           ncp)
+           WEB_SITE_INSTALL="http://www.fefe.de/ncp/"
+           ;;
+           ncurses)
+           WEB_SITE_INSTALL="http://www.gnu.org/software/ncurses"
+           ;;
+           ncurses-life)
+           WEB_SITE_INSTALL="http://csiuo.com/drupal/content/ncurses-life"
+           ;;
+           ne)
+           WEB_SITE_INSTALL="http://ne.dsi.unimi.it/#downloads"
+           ;;
+           NERD_tree)
+           WEB_SITE_INSTALL="https://github.com/scrooloose/nerdtree/"
+           ;;
+           normalize)
+           WEB_SITE_INSTALL="http://normalize.nongnu.org/"
+           ;;
+           nplay)
+           WEB_SITE_INSTALL="https://github.com/mixu/nplay"
+           ;;
+           ntp)
+           WEB_SITE_INSTALL="http://www.ntp.org/"
+           ;;
+           opencubicplayer)
+           WEB_SITE_INSTALL="http://stian.cubic.org/project-ocp.php"
+           ;;
+           openssh)
+           WEB_SITE_INSTALL="http://www.openssh.org/portable.html"
+           ;;
+           orpheus)
+           WEB_SITE_INSTALL="http://thekonst.net/orpheus"
+           ;;
+           pcw)
+           WEB_SITE_INSTALL="https://bitbucket.org/emg/pcw"
+           ;;
+           peyote)
+           WEB_SITE_INSTALL="http://peyote.sourceforge.net/download.html"
+           ;;
+           photorec)
+           WEB_SITE_INSTALL="http://www.cgsecurity.org/wiki/PhotoRec"
+           ;;
+           pip)
+           WEB_SITE_INSTALL="http://pip.openplans.org/"
+           ;;
+           re-alpine)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/re-alpine/"
+           ;;
+           remind)
+           WEB_SITE_INSTALL="http://www.roaringpenguin.com/penguin/open_source_remind.php"
+           ;;
+           remupdate)
+           WEB_SITE_INSTALL="https://gist.github.com/scrzbble/5325144"
+           ;;
+           renameutils)
+           WEB_SITE_INSTALL="http://www.nongnu.org/renameutils/"
+           ;;
+           retawq)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/retawq/files/retawq/retawq-0.2.6c/retawq-0.2.6c.tar.gz/download?use_mirror=hivelocity"
+           ;;
+           ripit)
+           WEB_SITE_INSTALL="http://www.suwald.com/ripit/"
+           ;;
+           rsync)
+           WEB_SITE_INSTALL="http://samba.anu.edu.au/rsync/"
+           ;;
+           rubyripper)
+           WEB_SITE_INSTALL="https://code.google.com/p/rubyripper/"
+           ;;
+           portbunny)
+           WEB_SITE_INSTALL="http://portbunny.recurity.com/"
+           ;;
+           qmv | qcp | imv | icp | deurlname | renameutils)
+           WEB_SITE_INSTALL="http://download.savannah.nongnu.org/releases/renameutils/renameutils-latest.tar.gz"
+           ;;
+           slrn)
+           WEB_SITE_INSTALL="http://slrn.sourceforge.net/"
+           ;;
+           spacezero)
+           WEB_SITE_INSTALL="http://spacezero.sourceforge.net/"
+           ;;
+           speedtest-cli)
+           WEB_SITE_INSTALL="https://github.com/sivel/speedtest-cli"
+           ;;
+           sst)
+           WEB_SITE_INSTALL="http://www.almy.us/sst.html"
+           ;;
+           startrek)
+           WEB_SITE_INSTALL="http://www.dunnington.u-net.com/public/startrek/"
+           ;;
+           surfraw)
+           WEB_SITE_INSTALL="http://surfraw.alioth.debian.org/"
+           ;;
+           tbclock)
+           WEB_SITE_INSTALL="http://tamentis.com/projects/tbclock/files/tbclock-1.10.tar.gz"
+           ;;
+           tcpblast | netload | trafshow | netwatch | strobe | statnet | tcpspray)
+           WEB_SITE_INSTALL="http://www.freshports.org/benchmarks/tcpblast"
+           ;;
+           TermRecord | termrecord)
+           WEB_SITE_INSTALL="https://github.com/theonewolf/TermRecord"
+           ;;
+           textmaze)
+           WEB_SITE_INSTALL="http://robobunny.com/projects/textmaze/html/"
+           ;;
+           tetrix)
+           WEB_SITE_INSTALL="http://www.catb.org/esr/tetrix/"
+           ;;
+           tide | xtide)
+           WEB_SITE_INSTALL="http://www.flaterco.com/xtide/files.html"
+           ;;
+           tmux)
+           WEB_SITE_INSTALL="http://tmux.sourceforge.net/"
+           ;;
+           todo | todo2 | devtodo)
+           WEB_SITE_INSTALL="http://swapoff.org/devtodo.html"
+           ;;
+           trekx | trek73)
+           WEB_SITE_INSTALL="http://highlandsun.com/hyc/"
+           ;;
+           tty-clock)
+           WEB_SITE_INSTALL="http://github.com/xorg62/tty-clock"
+           ;;
+           ttyload)
+           WEB_SITE_INSTALL="http://www.daveltd.com/src/util/ttyload/"
+           ;;
+           ttyplay | ttyrec)
+           WEB_SITE_INSTALL="http://0xcc.net/ttyrec/index.html.en"
+           ;;
+           turses)
+           WEB_SITE_INSTALL="http://turses.readthedocs.org/en/latest/index.html"
+           ;;
+           vim)
+           WEB_SITE_INSTALL="http://www.vim.org/"
+           ;;
+           vimwiki)
+           WEB_SITE_INSTALL="http://code.google.com/p/vimwiki/"
+           ;;
+           vitetris)
+           WEB_SITE_INSTALL="http://www.victornils.net/tetris/"
+           ;;
+           vlc)
+           WEB_SITE_INSTALL="http://www.videolan.org/vlc"
+           ;;
+           vms-empire)
+           WEB_SITE_INSTALL="http://www.catb.org/~esr/vms-empire/"
+           ;;
+           vtclock)
+           WEB_SITE_INSTALL="http://webonastick.com/vtclock/"
+           ;;
+           wavemon)
+           WEB_SITE_INSTALL="http://eden-feed.erg.abdn.ac.uk/wavemon/"
+           ;;
+           weather | weather-util)
+           WEB_SITE_INSTALL="http://fungi.yuggoth.org/weather/"
+           ;;
+           weatherspec)
+           WEB_SITE_INSTALL="http://robobunny.com/projects/weatherspect/html/"
+           ;;
+           wicd)
+           WEB_SITE_INSTALL="http://wicd.sourceforge.net/"
+           ;;
+           wordgrinder)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/wordgrinder/"
+           ;;
+           wp-cli)
+           WEB_SITE_INSTALL="https://raw.github.com/wp-cli/wp-cli.github.com/master/installer.sh"
+           ;;
+           wyrd)
+           WEB_SITE_INSTALL="http://pessimization.com/software/wyrd/"
+           ;;
+           yaourt)
+           WEB_SITE_INSTALL="http://archlinux.fr/yaourt-en"
+           ;;
+           yougrabber)
+           WEB_SITE_INSTALL="http://sourceforge.net/projects/yougrabber/files/"
+           ;;
+           xorcurses)
+           WEB_SITE_INSTALL="http://jwm-art.net/?p=XorCurses"
+           ;;
+           xz | unxz | xzcat | xzgrep | xz-utils)
+           WEB_SITE_INSTALL="http://tukaani.org/xz/"
+           ;;
+      esac # End of Web Site case statement.
+      #
+} # End of function f_app_web_install

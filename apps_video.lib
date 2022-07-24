@@ -1,0 +1,152 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# Commented out THIS_FILE since it will conflict other scripts which
+# use this library.
+#THIS_FILE="$0"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This Library of functions for the Demonstration Menu is a
+#& child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script "cliappmenu.sh" for Code History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Video Menu                                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Editors#@@Video editors, transcoders, converters.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_video_editors_generated.txt"^Video_-_Editors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_video_editors_items_generated.txt"^$CLI_DIR/apps_video.lib
+#
+#@@Players#@@Video players/downloaders.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_video_players_generated.txt"^Video_-_Players_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_video_players_items_generated.txt"^$CLI_DIR/apps_video.lib
+#
+#! End Listing Video Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Video - Editors Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@avconv#@@Audio/Video converter.#@@f_app_cmd^$GUI^avconv#@@0^0^0^1^1
+#
+#@@avidemux#@@Editor for simple cutting, filtering, encoding.#@@f_app_cmd^$GUI^avidemux#@@0^0^0^1^1
+#
+#@@exiftool#@@Display audio/video/image file properties [ls-like format].#@@f_app_cmd^$GUI^exiftool#@@0^0^0^0^1
+#
+#@@flip#@@FLI Player for ASCII art.#@@f_app_cmd^$GUI^flip#@@0^0^0^0^1
+#
+#@@ffmpeg#@@Multimedia Record, convert, stream and play. #@@f_app_cmd^$GUI^ffmpeg#@@0^0^0^0^1
+#
+#@@handbrake-cli#@@Transcoder ideal for batch mkv/x264 ripping.#@@f_app_cmd^$GUI^handbrake-cli#@@0^0^0^0^1
+#
+#@@mediainfo#@@Display audio/video file properties and metadata. #@@f_app_cmd^$GUI^mediainfo#@@0^0^0^0^1
+#
+#@@melt#@@Multi-track video editor, also plays audio/video files.#@@f_app_cmd^$GUI^melt#@@0^0^0^0^1
+#
+#@@mencoder#@@Mplayers encoder AVI/ASF/OGG/DVD/VCD/VOB/MPG/MOV etc.#@@f_app_cmd^$GUI^mencoder#@@0^0^0^0^1
+#
+#@@mjpegtools#@@MJPEG video playback, editing, video capture.#@@f_app_cmd^$GUI^mjpegtools#@@0^0^0^0^1
+#
+#@@mpgtx#@@Editor splits/joins MPEG, MP3. video/audio files.#@@f_app_cmd^$GUI^mpgtx#@@0^0^0^0^1
+#
+#! End Listing Video - Editors Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Video - Players Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@aaxine#@@Xine video player.#@@f_app_cmd^$GUI^aaxine#@@0^0^0^0^1
+#
+#@@bongo#@@Front-end to Emacs editor for vlc.#@@f_app_cmd^$GUI^bongo#@@0^0^0^0^1
+#
+#@@cacaxine#@@Xine video player.#@@f_app_cmd^$GUI^cacaxine#@@0^0^0^0^1
+#
+#@@cclive#@@Download/Play Youtube videos. Rewrite of clive application.#@@f_app_cmd^$GUI^cclive#@@0^0^0^0^1
+#
+#@@ems#@@Emacs extension plays MPEG, WMV, MOV, AVI, OGM, MKV, etc.#@@f_app_cmd^$GUI^ems#@@0^0^0^0^0
+#
+#@@episoder#@@Reads tv.com and epguides.com for new TV episodes.#@@f_app_cmd^$GUI^episoder#@@0^0^0^0^1
+#
+#@@fbxine#@@Xine video player.#@@f_app_cmd^$GUI^fbxine#@@0^0^0^0^1
+#
+#@@mencoder#@@Mplayers encoder AVI/ASF/OGG/DVD/VCD/VOB/MPG/MOV etc.#@@f_app_cmd^$GUI^mencoder#@@0^0^0^0^1
+#
+#@@mplayer#@@Multimedia player MPEG,AVI, Ogg/OGM, QT/MOV/MP4, ASF/WMA/WMV.#@@f_app_cmd^$GUI^mplayer#@@0^0^0^0^1
+#
+#@@mplayer2#@@Multimedia player similar to mplayer.#@@f_app_cmd^$GUI^mplayer2#@@0^0^0^0^1
+#
+#@@quvi#@@Downloads Adobe Flash video links, Youtube etc.#@@f_app_cmd^$GUI^quvi#@@0^0^0^0^1
+#
+#@@vlc#@@VideoLAN media player MPEG, MOV, WMV, QT, WebM, MP3, etc.#@@f_app_cmd^$GUI^vlc#@@0^0^0^0^1
+#
+#@@xine-console#@@Xine video player AVI, DVD, SVCD, VCD, MPEG, QuickTime.#@@f_app_cmd^$GUI^xine-console#@@0^0^0^0^1
+#
+#@@yougrabber#@@Download/Play Youtube videos.#@@f_app_cmd^$GUI^yougrabber#@@0^0^0^0^1
+#
+#@@youtube-dl#@@Download/Play Youtube videos.#@@f_app_cmd^$GUI^youtube-dl#@@0^0^0^0^1
+#
+#! End Listing Video - Players Menu (Required line, do not delete).
+#

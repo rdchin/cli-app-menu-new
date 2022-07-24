@@ -1,0 +1,1996 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network Menu                                   |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Firewalls#@@Configure firewalls.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_firewalls_generated.txt"^Network_-_Firewalls_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_firewalls_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#@@LAN#@@Test local area network connectivity, display settings.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_lan_generated.txt"^Network_-_LAN_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_lan_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#@@Monitors#@@LAN monitors, network mappers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_monitors_generated.txt"^Network_-_Monitors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_monitors_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#@@NIC Tools#@@Configure wired/wireless cards, scan for wireless networks.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_nic_tools_generated.txt"^Network_-_NIC_Tools_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_nic_tools_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#@@Packet Tools#@@Packet sniffers, packet analyzers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_packet_tools_generated.txt"^Network_-_Packet_Tools_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_packet_tools_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#@@Sharing#@@Share files on NetWare / Microsoft Windows PCs/networks.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_sharing_generated.txt"^Network_-_Sharing_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_sharing_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#@@WAN#@@Test wide-area network connectivity, speed, routing, DNS.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_generated.txt"^Network_-_WAN_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#! End Listing Network Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - Bandwidth Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@bmon#@@Bandwidth monitor and rate estimator.#@@f_app_cmd^$GUI^bmon#@@0^0^0^0^0
+#
+#@@bwm-ng#@@Bandwidth graphical monitor.#@@f_app_cmd^$GUI^bwm-ng#@@0^0^0^0^0
+#
+#@@cbm#@@Color Bandwidth Meter ncurses-based display.#@@f_app_cmd^$GUI^cbm#@@0^0^0^0^0
+#
+#@@ifstat#@@Bandwidth statistics. [See also dstat, System Monitors Menu].#@@f_app_cmd^$GUI^ifstat^ifstat 2 5#@@1^0^0^0^1
+#
+#@@iftop#@@Bandwidth statistics.#@@f_app_cmd^$GUI^iftop#@@1^0^0^1:NC^0
+#
+#@@ibmonitor#@@Bandwidth monitor, totals, max, avg in Kbps and KBps.#@@f_app_cmd^$GUI^ibmonitor#@@0^0^0^0^0
+#
+#@@iperf#@@Bandwidth monitor, UDP/TCP packets, CPU usage, JSON output.#@@f_app_cmd^$GUI^iperf#@@0^0^0^0^0
+#
+#@@jnettop#@@Bandwidth statistics across streams.#@@f_app_cmd^$GUI^jnettop#@@1^0^0^1:NC^0
+#
+#@@nethogs#@@Bandwidth statistics by process.#@@f_app_cmd^$GUI^nethogs#@@0^0^0^1^0
+#
+#@@nload#@@Bandwidth graphical monitor in real-time ncurses-based.#@@f_app_cmd^$GUI^nload#@@0^0^0^1^0
+#
+#@@pktstat#@@Display active connections and bandwidth in real-time.#@@f_app_cmd^$GUI^pktstat#@@0^0^0^1:NC^0
+#
+#@@statnet#@@Bandwidth statistics.#@@f_app_cmd^$GUI^statnet#@@0^0^0^0^1
+#
+#@@trafshow#@@Bandwidth statistics ncurses-based.#@@f_app_cmd^$GUI^trafshow#@@0^0^0^1^0
+#
+#@@wavemon#@@Wireless bandwidth, signal strength histogram.#@@f_app_cmd^$GUI^wavemon#@@0^0^0^1^0
+#
+#! End Listing Network - Bandwidth Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - Firewalls Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@arptables#@@Firewall configuration rules for an ARP chain.#@@f_app_cmd^$GUI^arptables#@@1^0^0^0^1
+#
+#@@doscan#@@Lists PCs listening for a TCP connection.#@@f_app_cmd^$GUI^doscan#@@0^0^0^0^1
+#
+#@@iptables#@@Firewall configuration rules for an IP chain.#@@f_app_cmd^$GUI^iptables^iptables --list#@@1^0^0^0^1
+#
+#@@iptstate#@@Monitor traffic in IP Tables state table ncurses-based display.#@@f_app_cmd^$GUI^iptstate#@@0^0^0^1^0
+#
+#@@knockd#@@Port-knocking server.#@@f_app_cmd^$GUI^knockd#@@0^0^0^0^1
+#
+#@@knocker#@@TCP security port scanner written in C, using threads.#@@f_app_cmd^$GUI^knocker#@@0^0^0^0^0
+#
+#@@labrea#@@Sticky honeypot entraps intruder tying up his CPU.#@@f_app_cmd^$GUI^labrea#@@0^0^0^0^1
+#
+#@@mason#@@Firewall that exactly matches the types of TCP/IP traffic.#@@f_app_cmd^$GUI^mason#@@0^0^0^0^0
+#
+#@@portbunny#@@Port scanner created by Recurity Labs.#@@f_app_cmd^$GUI^portbunny#@@1^0^0^0^0
+#
+#@@strobe#@@Port scanner.#@@f_app_cmd^$GUI^strobe#@@0^0^0^0^0
+#
+#@@ufw#@@Firewall configuration and status.#@@f_app_cmd^$GUI^ufw^ufw status verbose#@@1^0^0^0^1
+#
+#@@vuurmuur#@@Firewall manager, monitoring, logging, ssh, ncurses GUI.#@@f_app_cmd^$GUI^vuurmuur#@@1^0^0^0^1
+#
+#! End Listing Network - Firewalls Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - LAN Menu                             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@arping#@@Check LAN connectivity by pinging MAC, IP address/hostname.#@@f_app_cmd^$GUI^arping^arping localhost -c 5#@@1^0^0^0^1
+#
+#@@ekgping#@@Ping with audio ekg sounds.#@@f_app_cmd^$GUI^ekgping#@@0^0^0^0^1
+#
+#@@hostname#@@Show or set the systems host name.#@@f_app_cmd^$GUI^hostname#@@0^0^0^0^1
+#
+#@@ip#@@Shows routing, devices, policy routing and tunnels.#@@f_app_cmd^$GUI^ip^ip address#@@1^0^0^0^1
+#
+#@@ipcalc#@@Calculator for IPv4 address ranges.#@@f_app_cmd^$GUI^ipcalc#@@0^0^0^0^1
+#
+#@@ping#@@Check LAN/WAN connectivity by pinging IP address or hostname.#@@f_app_cmd^$GUI^ping^ping -c 5 localhost#@@1^0^0^0^1
+#
+#@@pipcalc#@@IP calculator intended to work like Red Hats IP calculator.#@@f_app_cmd^$GUI^pipcalc#@@0^0^0^0^1
+#
+#@@sipcalc#@@Advanced IPv4, IPv6 subnet calculator.#@@f_app_cmd^$GUI^sipcalc#@@0^0^0^0^1
+#
+#@@ss#@@Show sockets, PACKET, TCP, UDP, DCCP, RAW, state filtering.#@@f_app_cmd^$GUI^ss^ss --summary#@@1^0^0^0^1
+#
+#@@subnetcalc#@@IPv4/IPv6 subnet calculator, address, broadcast, hosts info.#@@f_app_cmd^$GUI^subnetcalc#@@0^0^0^0^1
+#
+#@@wuzzah#@@LAN user login/out tracker.#@@f_app_cmd^$GUI^wuzzah#@@0^0^0^0^1
+#
+#! End Listing Network - LAN Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - Monitors Menu                        |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Bandwidth#@@Bandwidth monitors.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_bandwidth_generated.txt"^Network_-_Bandwidth_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_bandwidth_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#@@Structure#@@Management, status, connections, devices, hosts.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_structure_generated.txt"^Network_-_Structure_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_structure_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#! End Listing Network - Monitors Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - NIC Tools Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ethstatus#@@NIC packet statistics, xmit, rcvd, totals, speed, w/graph.#@@f_app_cmd^$GUI^ethstatus#@@0^0^0^0^0
+#
+#@@ethtool#@@NIC configuration.#@@f_app_cmd^$GUI^ethtool#@@1^0^0^0^1
+#
+#@@ifconfig#@@NIC configuration.#@@f_app_cmd^$GUI^ifconfig#@@0^0^0^0^1
+#
+#@@ifplugstatus#@@Wireless USB NIC status.#@@f_app_cmd^$GUI^ifplugstatus#@@0^0^0^0^1
+#
+#@@ip#@@Shows routing, devices, policy routing and tunnels.#@@f_app_cmd^$GUI^ip^ip address#@@1^0^0^0^1
+#
+#@@ipsc#@@NIC configuration.#@@f_app_cmd^$GUI^ipsc#@@0^0^0^0^1
+#
+#@@iwconfig#@@Wireless NIC configuration.#@@f_app_cmd^$GUI^iwconfig#@@0^0^0^0^1
+#
+#@@iwlist#@@Get detailed information from wired/wireless NICs.#@@f_app_cmd^$GUI^iwlist#@@1^0^0^0^1
+#
+#@@macchanger#@@Change the hardware MAC address on wired/wireless NICs.#@@f_app_cmd^$GUI^macchanger#@@1^0^0^0^1
+#
+#@@mii-tool#@@NIC configuration of Media Independent Interface Unit.#@@f_app_cmd^$GUI^mii-tool#@@0^0^0^0^1
+#
+#@@mii-diag#@@NIC configuration of network cards.#@@f_app_cmd^$GUI^mii-diag#@@0^0^0^0^1
+#
+#@@netload#@@NIC network load ncurses-based.#@@f_app_cmd^$GUI^netload#@@1^0^0^0^0
+#
+#@@nictools-pci#@@NIC configuration of specific oem network cards.#@@f_app_cmd^$GUI^nictools-pci#@@0^0^0^0^1
+#
+#@@MORE...#@@More NIC Tools Applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_nic_tools_2_generated.txt"^Network_-_NIC_Tools_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_nic_tools_2_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#! End Listing Network - NIC Tools Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - NIC Tools 2 Menu                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@warcarrier#@@Wireless network detector ncurses-based.#@@f_app_cmd^$GUI^warcarrier#@@0^0^0^0^0
+#
+#@@wicd-curses#@@Scan and connect to wired/wireless networks.#@@f_app_cmd^$GUI^wicd-curses#@@0^0^0^0^0
+#
+#! End Listing Network - NIC Tools 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - Packet Tools Menu                    |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@hunt#@@Description-en: Packet sniffer can monitor, reset connections.#@@f_app_cmd^$GUI^hunt#@@0^0^0^0^1
+#
+#@@kismet#@@Wireless network detector, packet sniffer, auditor.#@@f_app_cmd^$GUI^kismet#@@0^0^0^0^1
+#
+#@@ngrep#@@Network packet analyzer.#@@f_app_cmd^$GUI^ngrep#@@1^0^0^0^1
+#
+#@@nmap#@@Network Mapper, mapping, auditing, security scanning.#@@f_app_cmd^$GUI^nmap#@@0^0^0^0^1
+#
+#@@P0f#@@Sophisticated, passive traffic fingerprinting OS, browser, etc.#@@f_app_cmd^$GUI^p0f#@@1^0^0^0^1
+#
+#@@packit#@@Network auditing, spoofing, security testing.#@@f_app_cmd^$GUI^packit#@@0^0^0^0^1
+#
+#@@snort#@@Packet sniffer/logger, Network Intrusion Detection System.#@@f_app_cmd^$GUI^snort#@@f_run_and_exit "snort" "snort"^0^0^0^1
+#
+#@@tcpdump#@@Packet sniffer/logger.#@@f_app_cmd^$GUI^tcpdump#@@1^0^0^0^1
+#
+#@@wireshark#@@Packet sniffer/logger.#@@f_app_cmd^$GUI^wireshark#@@0^0^0^0^1
+#
+#! End Listing Network - Packet Tools Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - Sharing Menu                         |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ncpfs#@@NetWare file/printer server utilities nprint, pserver.#@@f_app_cmd^$GUI^ncpfs#@@0^0^0^0^1
+#
+#@@smbc#@@Samba file manager for folder shares with Microsoft Windows.#@@f_app_cmd^$GUI^smbc#@@1^0^0^0^1
+#
+#@@smbclient#@@Samba client [share folders with Microsoft Windows].#@@f_app_cmd^$GUI^smbclient#@@0^0^0^0^1
+#
+#@@smbget#@@Download files with a wget-like utility over SMB.#@@f_app_cmd^$GUI^smbget#@@0^0^0^0^1
+#
+#@@smbnetfs#@@Browse all Samba shares easily in one place [mount-point].#@@f_app_cmd^$GUI^smbnetfs#@@0^0^0^0^1
+#
+#@@smbstatus#@@Samba files lock status.#@@f_app_cmd^$GUI^smbstatus#@@0^0^0^0^1
+#
+#@@testparm#@@Samba configuration display.#@@f_app_cmd^$GUI^testparm#@@0^0^0^0^1
+#
+#@@woof#@@Woof [Web Offer One File] copies files via the HTTP protocol.#@@f_app_cmd^$GUI^woof#@@0^0^0^0^1
+#
+#! End Listing Network - Sharing Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - Structure Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@httpry#@@Light-weight network traffic logging tool.#@@f_app_cmd^$GUI^httpry#@@0^0^0^0^1
+#
+#@@iptraf#@@IP LAN monitor, ncurses-based display.#@@f_app_cmd^$GUI^iptraf#@@0^0^0^0^0
+#
+#@@iptraf-ng#@@Fork of iptraf.#@@f_app_cmd^$GUI^iptraf-ng#@@0^0^0^0^0
+#
+#@@nagios3#@@IP LAN monitor. Display network hosts, devices, connections.#@@f_app_cmd^$GUI^nagios3#@@1^0^0^0^1
+#
+#@@nc#@@Netcat reads/writes data across network.#@@f_app_cmd^$GUI^nc#@@0^0^0^0^0
+#
+#@@netstat#@@Print network connections, routing tables, interface stats, etc.#@@f_app_cmd^$GUI^netstat -l#@@1^0^0^1:NC^0
+#
+#@@netwatch#@@Protocol monitor ncurses-based.#@@f_app_cmd^$GUI^netwatch#@@1^0^0^1^1
+#
+#@@ntop#@@Display network usage and status information in a web browser.#@@f_app_cmd^$GUI^ntop#@@1^0^0^0^0
+#
+#@@opennms#@@Network management application. Discovery, reports, statistics.#@@f_app_cmd^$GUI^opennms#@@1^0^0^0^0
+#
+#@@pmacct#@@Traffic information monitor.#@@f_app_cmd^$GUI^pmacct#@@0^0^0^0^1
+#
+#@@slurm#@@Simple Linux Utility for Resource Management. I/O load monitor.#@@f_app_cmd^$GUI^slurm#@@1^0^0^1:NC^0
+#
+#@@sntop#@@IP LAN monitor. Display network hosts and connections.#@@f_app_cmd^$GUI^sntop#@@1^0^0^1:NC^0
+#
+#@@vnstat#@@Traffic information monitor.#@@f_app_cmd^$GUI^vnstat#@@0^0^0^0^1
+#
+#! End Listing Network - Structure Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - WAN Menu                             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@bing#@@Measure LAN/WAN connection speed.#@@f_app_cmd^$GUI^bing#@@0^0^0^0^1
+#
+#@@dig#@@Query Internet domain name servers.#@@f_app_cmd^$GUI^dig^dig lxer.com#@@0^0^0^0^1
+#
+#@@dnsdomainname#@@Show the systems DNS domain name.#@@f_app_cmd^$GUI^dnsdomainname#@@0^0^0^0^1
+#
+#@@dnstop#@@Analyze and display tables of DNS traffic.#@@f_app_cmd^$GUI^dnstop#@@0^0^0^0^1
+#
+#@@dnstracer#@@Trace URL back to referencing DNS servers.#@@f_app_cmd^$GUI^dnstracer#@@0^0^0^0^1
+#
+#@@domainname#@@Show or set the systems NIS/YP domain name.#@@f_app_cmd^$GUI^domainname#@@0^0^0^0^1
+#
+#@@geoip#@@Show country of origin for any IP address. [RHEL pkg].#@@f_app_cmd^$GUI^geoip#@@1^0^0^0^1
+#
+#@@geoiplookup#@@Show country of origin for any IP address. [Debian pkg].#@@f_app_cmd^$GUI^geoiplookup#@@0^0^0^0^1
+#
+#@@ip#@@Shows routing, devices, policy routing and tunnels.#@@f_app_cmd^$GUI^ip^ip address#@@1^0^0^0^1
+#
+#@@lft#@@Traceroute tool, sends TCP SYN, FIN, listens for TCP, ICMP.#@@f_app_cmd^$GUI^lft#@@0^0^0^0^1
+#
+#@@mtr#@@Traceroute tool, has features of ping and traceroute.#@@f_app_cmd^$GUI^mtr^mtr lxer.com#@@1^0^0^22^0
+#
+#@@namebench#@@Find the fastest DNS servers.#@@f_app_cmd^$GUI^namebench#@@0^0^0^0^1
+#
+#@@nisdomainname#@@Show or set the systems NIS/YP domain name.#@@f_app_cmd^$GUI^nisdomainname#@@0^0^0^0^1
+#
+#@@nslookup#@@Query Internet domain name servers.#@@f_app_cmd^$GUI^nslookup^nslookup www.distrowatch.com#@@1^0^0^20:NC^1
+#
+#@@MORE...#@@For more WAN applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_2_generated.txt"^Network_-_WAN_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_2_items_generated.txt"^$CLI_DIR/apps_network.lib
+#
+#! End Listing Network - WAN Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Network - WAN 2 Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ping#@@Check LAN/WAN connectivity by pinging IP address or hostname.#@@f_app_cmd^$GUI^ping^ping -c 5 localhost#@@1^0^0^0^1
+#
+#@@route#@@Shows routing table.#@@f_app_cmd^$GUI^route#@@0^0^0^0^1
+#
+#@@speedometer#@@Measure LAN/WAN connection speed.#@@f_app_cmd^$GUI^speedometer#@@1^0^0^0:NC^0
+#
+#@@speedtest-cli#@@Test the speed of LAN/WAN connection using Speedtest.net.#@@f_app_cmd^$GUI^speedtest-cli#@@0^1^0^0^1
+#
+#@@ss#@@Show sockets, PACKET, TCP, UDP, DCCP, RAW, state filtering.#@@f_app_cmd^$GUI^ss^ss --summary#@@1^0^0^0^1
+#
+#@@traceroute#@@Trace network path to destination. #@@f_app_cmd^$GUI^traceroute^traceroute lxer.com#@@1^0^0^0^1
+#
+#@@tracepath#@@Trace network path to destination, show MTU.#@@f_app_cmd^$GUI^tracepath#@@1^0^0^0^1
+#
+#@@traceproto#@@Trace network path to destination. #@@f_app_cmd^$GUI^traceproto#@@1^0^0^0^1
+#
+#! End Listing Network - WAN 2 Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |          Function f_find_nic           |
+# +----------------------------------------+
+#
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs: ANS
+#
+# Summary: Select available NIC Network Interface Card.
+#
+# Dependencies: f_message.
+#
+f_find_nic () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # Search for "Link" in ifconfig output and parse first word (network interface).
+      ANS=""
+      #
+      while [ -z "$ANS" ]
+            do
+               echo "Finding all network interfaces..." > $TEMP_FILE
+               echo  >> $TEMP_FILE
+               #
+               ip link | grep "<" | awk -F ":" '{ print $2 }' >> $TEMP_FILE
+               #
+               # ifconfig is depreciated and not included in modern Linux distributions.
+               #ifconfig |  grep Link | awk '{print $1}'
+               #
+               echo "Choose one of the network interfaces on the next prompt."  >> $TEMP_FILE
+               f_message $1 "OK" "List all network interfaces" $TEMP_FILE
+               #
+               if [ $1 = "text" ] ; then
+                  # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+                  # Why needed? Function f_message uses application "Less" to display pages of text.
+                  # But "Less" resets the terminal's colors to white on black.
+                  f_configure_use
+               fi
+               #
+               ERROR=0
+               #
+               # Default network interface.
+               DEFAULT=$(sed -n '2p')
+               #
+               case $1 in
+                    dialog | whiptail)
+                       $1 --title "Select Network Interface" --inputbox "Enter network interface:" 10 50 "$DEFAULT" 2>$TEMP_FILE
+                       ERROR=$?
+                       ANS=$(cat $TEMP_FILE)
+                    ;;
+                    text)
+                       echo "   --Select Network Interface--"
+                       echo
+                       read -p "Enter network interface: ($DEFAULT): " ANS
+                       #
+                       if [ -z $ANS ] ; then
+                          ANS=$DEFAULT
+                       fi
+                    ;;
+               esac
+               #
+               f_message $1 "NOK" "Selected Network Interface" "The network interface you chose is: $ANS"
+            done
+      unset DEFAULT
+      #
+} # End of function f_find_nic
+#
+# +----------------------------------------+
+# |           Function f_ifstat            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ifstat () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "ifstat - Display bandwidth statistics." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "ifstat this PC's NIC (localhost) for 5 times every 2 seconds as an example." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage: ifstat 2 5" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_ifstat
+#
+# +----------------------------------------+
+# |            Function f_iftop            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_iftop () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_CMD" == *" -i"* ]] ; then
+         # Discover available NICs.
+         f_find_nic
+         #
+         APP_CMD="$2 -i $ANS"
+         APP_CMD=$(echo $3 | tr " " "_")
+         APP_CODE="0^0^0^0^0"
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+         #
+         # Prevent app from running again.
+         ERROR=1
+      fi
+      #
+} # End of function f_iftop
+#
+# +----------------------------------------+
+# |           Function f_jnettop           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_jnettop () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_CMD" == *" -i"* ]] ; then
+         # Discover available NICs.
+         f_find_nic
+         #
+         APP_CMD="jnettop -i $ANS"
+         APP_CMD=$(echo $3 | tr " " "_")
+         APP_CODE="0^0^0^0^0"
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+         #
+         # Prevent app from running again.
+         ERROR=1
+      fi
+      #
+} # End of function f_jnettop
+#
+# +----------------------------------------+
+# |           Function f_pktstat           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_pktstat () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_CMD" == *" -i"* ]] ; then
+         # Discover available NICs.
+         f_find_nic
+         #
+         echo "pktstat - Display network packet activity." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Note: pktstat needs root permissions." >> $TEMP_FILE
+         echo "      You need to use 'sudo pktstat'." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now run pktstat. Usage: sudo pktstat -i $ANS" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "It may take a while to quit; wait while pktstat resolves addresses." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+         #
+         APP_CMD="sudo $2 -i $ANS"
+         APP_CMD=$(echo $3 | tr " " "_")
+         APP_CODE="0^0^0^0^0"
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+         #
+         # Prevent app from running again.
+         ERROR=1
+         #
+      fi
+} # End of function f_pktstat
+#
+# +----------------------------------------+
+# |         Function f_arptables           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_arptables () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "arptables - Administration tool for ARP tables." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "arptables [-t table] -[AD] chain rule-specification [OPTIONS]" >> $TEMP_FILE
+      echo "arptables [-t table] -[RI] chain rulenum rule-specification [OPTIONS]" >> $TEMP_FILE
+      echo "arptables [-t table] -D chain rulenum [OPTIONS]" >> $TEMP_FILE
+      echo "arptables [-t table] -[LFZ] [CHAIN] [OPTIONS]" >> $TEMP_FILE
+      echo "arptables [-t table] -[NX] chain" >> $TEMP_FILE
+      echo "arptables [-t table] -E old-chain-name new-chain-name" >> $TEMP_FILE
+      echo "arptables [-t table] -P chain target [OPTIONS]" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "arptables  is  a user space tool, it is used to set up and maintain the" >> $TEMP_FILE
+      echo "tables of ARP rules in the Linux kernel. These rules  inspect  the  ARP" >> $TEMP_FILE
+      echo "frames  which  they  see.   arptables is analogous to the iptables user" >> $TEMP_FILE
+      echo "space tool, but arptables is less complicated." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "List all ARP chains on this PC (localhost)." >> $TEMP_FILE
+      echo "Usage: sudo arptables --list" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_arptables
+#
+# +----------------------------------------+
+# |         Function f_iptables            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_iptables () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "iptables - Administration tool for IPv4 packet filtering and NAT." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "iptables [-t table] {-A|-C|-D} chain rule-specification" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "List all chains of the IPv4 packet filter (firewall) on this PC (localhost)." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Now run iptables. Usage: iptables --list" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_iptables
+#
+# +----------------------------------------+
+# |         Function f_portbunny           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_portbunny () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "portbunny - Fast TCP-SYN port scanner." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "portbunny <HOST>" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_portbunny
+#
+# +----------------------------------------+
+# |             Function f_ufw             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ufw () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME contains <SPACES> assume that a web site has already been specified.
+      # Assume that a user who is using [OPTIONS] already knows to specify a web site if needed.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "ufw - Manage the netfilter firewall." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "ufw [--dry-run] enable|disable|reload" >> $TEMP_FILE
+         echo "ufw [--dry-run] default allow|deny|reject [incoming|outgoing]" >> $TEMP_FILE
+         echo "ufw [--dry-run] logging on|off|LEVEL" >> $TEMP_FILE
+         echo "ufw [--dry-run] reset" >> $TEMP_FILE
+         echo "ufw [--dry-run] status [verbose|numbered]" >> $TEMP_FILE
+         echo "ufw [--dry-run] show REPORT" >> $TEMP_FILE
+         echo "ufw [--dry-run] [delete] [insert NUM] allow|deny|reject|limit [in|out]" >> $TEMP_FILE
+         echo "    [log|log-all] PORT[/protocol]" >> $TEMP_FILE
+         echo "ufw [--dry-run] [delete] [insert NUM] allow|deny|reject|limit [in|out" >> $TEMP_FILE
+         echo "    on INTERFACE] [log|log-all] [proto protocol]" >> $TEMP_FILE
+         echo "    [from ADDRESS [port PORT]] [to ADDRESS [port PORT]]" >> $TEMP_FILE
+         echo "ufw [--dry-run] delete NUM" >> $TEMP_FILE
+         echo "ufw [--dry-run] app list|info|default|update" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Display ufw firewall status of this PC (localhost) as an example." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now run ufw. Usage: ufw status verbose" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_ufw
+#
+# +----------------------------------------+
+# |            Function f_arping           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_arping () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "arping - Send ICMP ECHO_REQUEST to network hosts." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "arping [-fqbDUAV] [-c count] [-w timeout] [-I device] [-s source] destination" >> $TEMP_FILE
+      echo "       -f : quit on first reply" >> $TEMP_FILE
+      echo "       -q : be quiet" >> $TEMP_FILE
+      echo "       -b : keep broadcasting, don't go unicast" >> $TEMP_FILE
+      echo "       -D : duplicate address detection mode" >> $TEMP_FILE
+      echo "       -U : Unsolicited ARP mode, update your neighbours" >> $TEMP_FILE
+      echo "       -A : ARP answer mode, update your neighbours" >> $TEMP_FILE
+      echo "       -V : print version and exit" >> $TEMP_FILE
+      echo "       -c count : how many packets to send" >> $TEMP_FILE
+      echo "       -w timeout : how long to wait for a reply" >> $TEMP_FILE
+      echo "       -I device : which ethernet device to use (eth0)" >> $TEMP_FILE
+      echo "       -s source : source ip address" >> $TEMP_FILE
+      echo "       destination : ask for what ip address" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Arpinging this PC (localhost) for 5 times as an example." >> $TEMP_FILE
+      echo "Usage: arping localhost -c 5" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_arping
+#
+# +----------------------------------------+
+# |              Function f_ip             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ip () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "IP - manipulate routing, devices, policy routing and tunnels." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "ip [ OPTIONS ] OBJECT { COMMAND | help }" >> $TEMP_FILE
+      echo "OBJECT := { link | addr | addrlabel | route | rule | neigh | tunnel | maddr |" >> $TEMP_FILE
+      echo " mroute }" >> $TEMP_FILE
+      echo "link      - network device." >> $TEMP_FILE
+      echo "address   - protocol (IP or IPv6) address on a device." >> $TEMP_FILE
+      echo "addrlabel - label configuration for protocol address selection." >> $TEMP_FILE
+      echo "neighbor  - ARP or NDISC cache entry." >> $TEMP_FILE
+      echo "route     - routing table entry." >> $TEMP_FILE
+      echo "rule      - rule in routing policy database." >> $TEMP_FILE
+      echo "maddress  - multicast address." >> $TEMP_FILE
+      echo "mroute    - multicast routing cache entry." >> $TEMP_FILE
+      echo "tunnel    - tunnel over IP." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "OPTIONS := { -V[ersion] | -s[tatistics] | -r[esolve] | -f[amily] { inet | inet6" >> $TEMP_FILE
+      echo "             | ipx | dnet | link } | -o   OBJECT" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_ip
+#
+# +----------------------------------------+
+# |             Function f_ping            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ping () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "ping - Send ICMP ECHO_REQUEST to network hosts." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "ping  [-LRUbdfnqrvVaAB] [-c count] [-m mark] [-i interval] [-l preload]" >> $TEMP_FILE
+      echo "      [-p pattern] [-s packetsize] [-t ttl] [-w deadline] [-F flowlabel]" >> $TEMP_FILE
+      echo "      [-I interface]  [-M  hint] [-N nioption] [-Q tos] [-S sndbuf]" >> $TEMP_FILE
+      echo "      [-T timestamp option] [-W timeout] [hop ...] destination" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage: ping destination where destination may be an IP-address or url." >> $TEMP_FILE
+      echo "       i.e. ping 192.168.1.1 or ping www.sourceforge.net" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Pinging this PC (localhost) for 5 times as an example." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Now run ping. Usage: ping localhost -c 5" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Many web sites block pings resulting in a message: '100% packet loss'." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_ping
+#
+# +----------------------------------------+
+# |              Function f_ss             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ss () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "ss - Display TCP/UDP Network and Socket Information." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo  "ss [options] [ FILTER ]"
+      echo "    -h, --help      Show summary of options." >> $TEMP_FILE
+      echo "    -a, --all       Display  both  listening  and  non-listening sockets." >> $TEMP_FILE
+      echo "    -l, --listening Display only listening sockets." >> $TEMP_FILE
+      echo "    -e, --extended  Show detailed socket information" >> $TEMP_FILE
+      echo "    -m, --memory    Show socket memory usage." >> $TEMP_FILE
+      echo "    -p, --processes Show process using socket." >> $TEMP_FILE
+      echo "    -i, --info      Show internal TCP information." >> $TEMP_FILE
+      echo "    -s, --summary   Print summary statistics." >> $TEMP_FILE
+      echo "    -4, --ipv4      Display only IP version 4 sockets (alias for -f inet)." >> $TEMP_FILE
+      echo "    -6, --ipv6      Display only IP version 6 sockets (alias for -f inet6)." >> $TEMP_FILE
+      echo "    -0, --packet    Display PACKET sockets (alias for -f link)." >> $TEMP_FILE
+      echo "    -t, --tcp       Display TCP sockets." >> $TEMP_FILE
+      echo "    -u, --udp       Display UDP sockets." >> $TEMP_FILE
+      echo "    -d, --dccp      Display DCCP sockets." >> $TEMP_FILE
+      echo "    -w, --raw       Display RAW sockets." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_ss
+#
+# +----------------------------------------+
+# |           Function f_ethtool           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ethtool () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_CMD has no spaces, then no ethernet card is specified.
+      if [[ ! "$2" == *" "* ]] ; then
+         echo "ethtool - Query and control network driver and hardware settings." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "ethtool <OPTIONS> <NIC device name>" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+         echo "                        '$2 --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now run ethtool. Usage: ethtool -i <NIC device name>" >> $TEMP_FILE
+         echo "The option -i shows network driver information for <NIC device name>" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Run command: ethtool -i [Network Interface Card (NIC)].
+         # Discover available NICs.
+         f_find_NIC
+         #
+         APP_CMD="$2 -i $ANS"
+         APP_CODE="0^0^0^0^0"
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         APP_CMD=$(echo $3 | tr " " "_")
+         #
+         f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+         #
+         # Prevent app from running again.
+         ERROR=1
+      fi
+      #
+} # End of function f_ethtool
+#
+# +----------------------------------------+
+# |              Function f_ip             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ip () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "IP - manipulate routing, devices, policy routing and tunnels." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "ip [ OPTIONS ] OBJECT { COMMAND | help }" >> $TEMP_FILE
+      echo "OBJECT := { link | addr | addrlabel | route | rule | neigh | tunnel | maddr |" >> $TEMP_FILE
+      echo " mroute }" >> $TEMP_FILE
+      echo "link      - network device." >> $TEMP_FILE
+      echo "address   - protocol (IP or IPv6) address on a device." >> $TEMP_FILE
+      echo "addrlabel - label configuration for protocol address selection." >> $TEMP_FILE
+      echo "neighbor  - ARP or NDISC cache entry." >> $TEMP_FILE
+      echo "route     - routing table entry." >> $TEMP_FILE
+      echo "rule      - rule in routing policy database." >> $TEMP_FILE
+      echo "maddress  - multicast address." >> $TEMP_FILE
+      echo "mroute    - multicast routing cache entry." >> $TEMP_FILE
+      echo "tunnel    - tunnel over IP." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "OPTIONS := { -V[ersion] | -s[tatistics] | -r[esolve] | -f[amily] { inet | inet6" >> $TEMP_FILE
+      echo "             | ipx | dnet | link } | -o   OBJECT" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_ip
+#
+# +----------------------------------------+
+# |           Function f_iwlist            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_iwlist () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_CMD has no spaces, then no ethernet card is specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "Usage: iwlist $ANS scanning [essid NNN] [last]      iwlist $ANS retry" > $TEMP_FILE
+         echo "       iwlist $ANS frequency                        iwlist $ANS ap" >> $TEMP_FILE
+         echo "       iwlist $ANS channel                          iwlist $ANS accesspoints" >> $TEMP_FILE
+         echo "       iwlist $ANS bitrate                          iwlist $ANS peers" >> $TEMP_FILE
+         echo "       iwlist $ANS rate                             iwlist $ANS event" >> $TEMP_FILE
+         echo "       iwlist $ANS encryption                       iwlist $ANS auth" >> $TEMP_FILE
+         echo "       iwlist $ANS keys                             iwlist $ANS wpakeys" >> $TEMP_FILE
+         echo "       iwlist $ANS power                            iwlist $ANS genie" >> $TEMP_FILE
+         echo "       iwlist $ANS txpower                          iwlist $ANS modulation" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage: iwlist $ANS <command>" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Discover available NICs.
+         f_find_nic
+         #
+         f_message $1 "NOK" "$2 Command" "The network interface you chose is: $ANS"
+         #
+         DEFAULT="$2 $ANS ap"
+         #
+         case $1 in
+              dialog | whiptail)
+                 $1 --title "$2 Command" --inputbox "Enter $2 $ANS command:" 10 50 "$DEFAULT" 2>$TEMP_FILE
+                 ERROR=$?
+                 ANS=$(cat $TEMP_FILE)
+              ;;
+              text)
+                 echo "   --$2 Command--"
+                 echo
+                 read -p "Enter $2 $ANS command: ($DEFAULT): " ANS
+                 #
+                 if [ -z $ANS ] ; then
+                    ANS="$DEFAULT"
+                 fi
+              ;;
+         esac
+         #
+         APP_CMD="$ANS"
+         APP_CMD=$(echo $3 | tr " " "_")
+         APP_CODE="0^0^0^0^0"
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+         #
+         # Prevent app from running again.
+         ERROR=1
+         #
+         unset DEFAULT
+      fi
+      #
+} # End of function f_iwlist
+#
+# +----------------------------------------+
+# |         Function f_macchanger          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_macchanger () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor ethernet card are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "macchanger - Change the MAC hardware address of a NIC." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "macchanger [OPTIONS] DEVICE" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Options:" >> $TEMP_FILE
+         echo "-a --another   Set random vendor MAC of the same kind." >> $TEMP_FILE
+         echo "-A             Set random vendor MAC of any kind." >> $TEMP_FILE
+         echo "-r --random    Set fully random MAC." >> $TEMP_FILE
+         echo "-p --permanent Reset MAC to original, permanent, hardware address." >> $TEMP_FILE
+         echo "-m --mac XX:XX:XX:XX:XX:XX Manually set the MAC." >> $TEMP_FILE
+         echo "-m --mac=XX:XX:XX:XX:XX:XX Manually set the MAC." >> $TEMP_FILE
+         echo "-s --show      Show the current MAC address." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage: macchanger [OPTIONS] DEVICE" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Discover available NICs.
+         f_find_nic
+         #
+         DEFAULT="$2 --show $ANS"
+         #
+         case $1 in
+              dialog | whiptail)
+                 $1 --title "$2 Command" --inputbox "Enter $2 $ANS command:" 10 50 "$DEFAULT" 2>$TEMP_FILE
+                 ERROR=$?
+                 ANS=$(cat $TEMP_FILE)
+              ;;
+              text)
+                 echo "   --$2 Command--"
+                 echo
+                 read -p "Enter $2 $ANS command: ($DEFAULT): " ANS
+                 #
+                 if [ -z $ANS ] ; then
+                    ANS="$DEFAULT"
+                 fi
+              ;;
+         esac
+         #
+         APP_CMD="$ANS"
+         APP_CMD=$(echo $3 | tr " " "_")
+         APP_CODE="0^0^0^0^0"
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+         #
+         # Prevent app from running again.
+         ERROR=1
+         #
+         unset DEFAULT
+      fi
+      #
+} # End of function f_macchanger
+#
+# +----------------------------------------+
+# |           Function f_netload           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_netload () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor ethernet card are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         # Discover available NICs.
+         f_find_nic
+         #
+         DEFAULT="$2 $ANS"
+         #
+         case $1 in
+              dialog | whiptail)
+                 $1 --title "$2 Command" --inputbox "Enter $2 $ANS command:" 10 50 "$DEFAULT" 2>$TEMP_FILE
+                 ERROR=$?
+                 ANS=$(cat $TEMP_FILE)
+              ;;
+              text)
+                 echo "   --$2 Command--"
+                 echo
+                 read -p "Enter $2 $ANS command: ($DEFAULT): " ANS
+                 #
+                 if [ -z $ANS ] ; then
+                    ANS="$DEFAULT"
+                 fi
+              ;;
+         esac
+         #
+         APP_CMD="$ANS"
+         APP_CMD=$(echo $3 | tr " " "_")
+         APP_CODE="0^0^0^0^0"
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+         #
+         # Prevent app from running again.
+         ERROR=1
+      fi
+      unset DEFAULT
+      #
+} # End of function f_netload
+#
+# +----------------------------------------+
+# |           Function f_ngrep             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ngrep () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "ngrep - Network packet analyzer." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Note: ngrep needs root permissions." >> $TEMP_FILE
+      echo "      You need to use 'sudo ngrep'." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+} # End of function f_ngrep
+#
+# +----------------------------------------+
+# |            Function f_p0f              |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_p0f () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "P0f uses only passive traffic fingerprinting methods to identify machines OS," > $TEMP_FILE
+      echo "web browser, uptime, LAN topography, server applications." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "P0f can be used to monitor a network, detect network interconnects," >> $TEMP_FILE
+      echo "and forensics." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "http://lcamtuf.coredump.cx/p0f3/" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+} # End of function f_p0f
+#
+# +----------------------------------------+
+# |          Function f_tcpdump            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_tcpdump () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_CMD" == *" -i"* ]] ; then
+         echo "tcpdump - Packet sniffer/logger." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+         echo "                        '$2 --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "tcpdump this PC's NIC (localhost) for 5 packets an example." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now run tcpdump. Usage: tcpdump -i <DEVICE> -c 5" >> $TEMP_FILE
+         echo "Now run tcpdump. Usage: tcpdump -i $ANS -c 5" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         # Discover available NICs.
+         f_find_nic
+         #
+         APP_CMD="tcpdump -i $ANS -c 5"
+         APP_CMD=$(echo $3 | tr " " "_")
+         APP_CODE="0^0^0^0^0"
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+         #
+         # Prevent app from running again.
+         ERROR=1
+      fi
+      #
+} # End of function f_tcpdump
+#
+# +----------------------------------------+
+# |           Function f_smbc              |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_smbc () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "man smbc - Display help for smbc (Samba Commander)." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Use on networks with Microsoft Windows PCs." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Now show help. Usage: man smbc" >> $TEMP_FILE
+      APP_NAME="man smbc"
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_smbc
+#
+# +----------------------------------------+
+# |             Function f_geoip           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_geoip () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "Please note:" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This software is packaged for RPM only. RHEL, CentOS, etc. distributions." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "       The run-time command is: geoiplookup." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "The RPM name of the package is: geoip." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To install the program the RPM package name is 'geoip' but to run the program" >> $TEMP_FILE
+      echo "from the command line, the run-time command is 'geoiplookup'." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_geoip
+#
+# +----------------------------------------+
+# |              Function f_ip             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ip () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "IP - manipulate routing, devices, policy routing and tunnels." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "ip [ OPTIONS ] OBJECT { COMMAND | help }" >> $TEMP_FILE
+      echo "OBJECT := { link | addr | addrlabel | route | rule | neigh | tunnel | maddr |" >> $TEMP_FILE
+      echo " mroute }" >> $TEMP_FILE
+      echo "link      - network device." >> $TEMP_FILE
+      echo "address   - protocol (IP or IPv6) address on a device." >> $TEMP_FILE
+      echo "addrlabel - label configuration for protocol address selection." >> $TEMP_FILE
+      echo "neighbor  - ARP or NDISC cache entry." >> $TEMP_FILE
+      echo "route     - routing table entry." >> $TEMP_FILE
+      echo "rule      - rule in routing policy database." >> $TEMP_FILE
+      echo "maddress  - multicast address." >> $TEMP_FILE
+      echo "mroute    - multicast routing cache entry." >> $TEMP_FILE
+      echo "tunnel    - tunnel over IP." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "OPTIONS := { -V[ersion] | -s[tatistics] | -r[esolve] | -f[amily] { inet | inet6" >> $TEMP_FILE
+      echo "             | ipx | dnet | link } | -o   OBJECT" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_ip
+#
+# +----------------------------------------+
+# |              Function f_mtr            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_mtr () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "mtr - Network diagnostic tool with the functionality of traceroute and ping." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "mtr [-hvrctglspniu46]  [--help] [--version] [--report] [--report-wide]" >> $TEMP_FILE
+      echo "    [--report-cycles COUNT] [--curses] [--split] [--raw] [--no-dns] [--gtk]" >> $TEMP_FILE
+      echo "    [--address IP.ADD.RE.SS] [--interval SECONDS] [--psize BYTES | -s BYTES]" >> $TEMP_FILE
+      echo "    HOSTNAME [PACKETSIZE]" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "mtr of this PC (localhost) as an example." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Now run mtr. Usage: mtr localhost" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_mtr
+#
+# +----------------------------------------+
+# |           Function f_nslookup          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_nslookup () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME contains <SPACES> assume that a web site has already been specified.
+      # Assume that a user who is using [OPTIONS] already knows to specify a web site if needed.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "nslookup - query Internet name servers interactively" > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Nslookup is a program to query (DNS) Internet domain name servers." >> $TEMP_FILE
+         echo "Interactive mode queries DNS about hosts and domains or print a list of hosts" >> $TEMP_FILE
+         echo "in a domain." >> $TEMP_FILE
+         echo "Non-interactive mode prints just the host or domain name with requested" >> $TEMP_FILE
+         echo "information." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "nslookup [-OPTION] [name | -] [server]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "i.e. nslookup www.distrowatch.com" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+         echo "                        '$2 --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now run nslookup. Usage: $2 www.distrowatch.com" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      #
+} # End of function f_nslookup
+#
+# +----------------------------------------+
+# |    Function f_install_speedtest_cli    |
+# +----------------------------------------+
+#
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_install_speedtest_cli () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "Speedtest-cli - Test the speed of your LAN/WAN connection using Speedtest.net." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your home folder." >> $TEMP_FILE
+      echo "2. Download \"speedtest-cli\" using wget from the author's web page." >> $TEMP_FILE
+      echo "   \"https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py\"" >> $TEMP_FILE
+      echo "3. Move \"speedtest-cli\" to \"/usr/local/bin\" directory." >> $TEMP_FILE
+      echo "4.  Allow users to run speedtest-cli by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "5. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Download & Install $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+      #
+      if [ "$ANS" -eq 0 ] ; then
+         # Yes, Install speedtest-cli.
+         #
+         # 1. Change directory to your home folder.
+         cd ~
+         #
+         # 2. Download \"speedtest-cli\" using wget from the author's web page.
+         wget -O speedtest-cli https://raw.github.com/sivel/speedtest-cli/master/speedtest_cli.py
+         #
+         # 3. Move \"speedtest-cli\" to \"/usr/local/bin\" directory.
+         sudo mv ~/speedtest-cli /usr/local/bin/
+         #
+         # 4.  Allow users to run textmaze by setting permissions to r-x or 755.
+         sudo chmod 755 /usr/local/bin/speedtest-cli
+         ERROR=$? # Save error flag condition.
+         #
+         # 5. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc.
+         #    Is the directory /usr/local/bin in your PATH of directories?
+         #    Check the $PATH
+         if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+            echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+            echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+            echo $(tput bold)'PATH=$PATH'":/usr/local/bin"
+            echo "export PATH" >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+            echo "After editing the file, .bashrc:" >> $TEMP_FILE
+            echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+            echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+            f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+            #
+            if [ $1 = "text" ] ; then
+               # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+               # Why needed? Function f_message uses application "Less" to display pages of text.
+               # But "Less" resets the terminal's colors to white on black.
+               f_configure_use
+            fi
+         fi
+         echo > $TEMP_FILE
+         echo "Finished running installation script for \"$2\"."  >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "To run \"speedtest-cli\", select it on the \"WAN Applications2 Menu\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      unset ANS
+      #
+} # End of function f_install_speedtest_cli
+#
+# +----------------------------------------+
+# |             Function f_ping            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ping () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "ping - Send ICMP ECHO_REQUEST to network hosts." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "ping  [-LRUbdfnqrvVaAB] [-c count] [-m mark] [-i interval] [-l preload]" >> $TEMP_FILE
+      echo "      [-p pattern] [-s packetsize] [-t ttl] [-w deadline] [-F flowlabel]" >> $TEMP_FILE
+      echo "      [-I interface]  [-M  hint] [-N nioption] [-Q tos] [-S sndbuf]" >> $TEMP_FILE
+      echo "      [-T timestamp option] [-W timeout] [hop ...] destination" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage: ping destination where destination may be an IP-address or url." >> $TEMP_FILE
+      echo "       i.e. ping 192.168.1.1 or ping www.sourceforge.net" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Pinging this PC (localhost) for 5 times as an example." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Now run ping. Usage: ping localhost -c 5" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Many web sites block pings resulting in a message: '100% packet loss'." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_ping
+#
+# +----------------------------------------+
+# |         Function f_speedometer         |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_speedometer () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_CMD has no spaces, then no ethernet card is specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "speedometer - Display speed of transmitted/received data." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo  "speedometer [OPTIONS] tap [[-c] tap]..."
+         echo >> $TEMP_FILE
+         echo "Taps:" >> $TEMP_FILE
+         echo "  -f filename [size]          display download speed [with progress bar]" >> $TEMP_FILE
+         echo "  -r network-interface        display bytes received on network-interface" >> $TEMP_FILE
+         echo "  -t network-interface        display bytes transmitted on network-interface" >> $TEMP_FILE
+         echo "  -c                          start a new column for following tap arguments" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+         echo "                        '$2 --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now run speedometer. Usage: speedometer -s -r <NIC device name> -t <NIC device name>" >> $TEMP_FILE
+         echo "                            i.e. speedometer -s -r eth0 -t eth0" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Discover available NICs.
+         f_find_nic
+         #
+         APP_CMD="speedometer -s -r $ANS -t $ANS"
+         APP_CMD=$(echo $3 | tr " " "_")
+         APP_CODE="0^0^0^0^0"
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+         #
+         # Prevent app from running again.
+         ERROR=1
+      fi
+      #
+} # End of function f_speedometer
+#
+# +----------------------------------------+
+# |              Function f_ss             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ss () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "ss - Display TCP/UDP Network and Socket Information." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo  "ss [options] [ FILTER ]"
+      echo "    -h, --help      Show summary of options." >> $TEMP_FILE
+      echo "    -a, --all       Display  both  listening  and  non-listening sockets." >> $TEMP_FILE
+      echo "    -l, --listening Display only listening sockets." >> $TEMP_FILE
+      echo "    -e, --extended  Show detailed socket information" >> $TEMP_FILE
+      echo "    -m, --memory    Show socket memory usage." >> $TEMP_FILE
+      echo "    -p, --processes Show process using socket." >> $TEMP_FILE
+      echo "    -i, --info      Show internal TCP information." >> $TEMP_FILE
+      echo "    -s, --summary   Print summary statistics." >> $TEMP_FILE
+      echo "    -4, --ipv4      Display only IP version 4 sockets (alias for -f inet)." >> $TEMP_FILE
+      echo "    -6, --ipv6      Display only IP version 6 sockets (alias for -f inet6)." >> $TEMP_FILE
+      echo "    -0, --packet    Display PACKET sockets (alias for -f link)." >> $TEMP_FILE
+      echo "    -t, --tcp       Display TCP sockets." >> $TEMP_FILE
+      echo "    -u, --udp       Display UDP sockets." >> $TEMP_FILE
+      echo "    -d, --dccp      Display DCCP sockets." >> $TEMP_FILE
+      echo "    -w, --raw       Display RAW sockets." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+      echo "                        '$2 --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_ss
+#
+# +----------------------------------------+
+# |         Function f_traceroute          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_traceroute () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME contains <SPACES> assume that a web site has already been specified.
+      # Assume that a user who is using [OPTIONS] already knows to specify a web site if needed.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "traceroute - Trace path to network host." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "traceroute [-46dFITUnreAV] [-f first_ttl] [-g gate,...]" >> $TEMP_FILE
+         echo "           [-i device] [-m max_ttl] [-p port] [-s src_addr]" >> $TEMP_FILE
+         echo "           [-q nqueries] [-N squeries] [-t tos] [-l flow_label]" >> $TEMP_FILE
+         echo "           [-w waittime] [-z sendwait] [-UL] [-P proto] [--sport=port]" >> $TEMP_FILE
+         echo "           [-M method] [-O mod_options] [--mtu] [--back]" >> $TEMP_FILE
+         echo "host [packet_len]" >> $TEMP_FILE
+         echo "traceroute6  [OPTIONS]" >> $TEMP_FILE
+         echo "tcptraceroute  [OPTIONS]" >> $TEMP_FILE
+         echo "lft  [OPTIONS]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+         echo "                        '$2 --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "traceroute of this PC (localhost) as an example." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now run traceroute. Usage: traceroute <URL or web-site or IP-address>" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now run traceroute. Usage: traceroute www.lxer.com" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      #
+} # End of f_traceroute
+#

@@ -1,0 +1,291 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Graphics Menu                                  |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ImageMagick#@@Tools to manipulate images.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_imagemagick_generated.txt"^Graphics_-_ImageMagick_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_imagemagick_items_generated.txt"^$CLI_DIR/apps_graphics.lib
+#
+#@@Tools#@@Viewers, ASCII Art, format converters, etc. #@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_tools_generated.txt"^Graphics_-_Tools_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_tools_items_generated.txt"^$CLI_DIR/apps_graphics.lib
+#
+#! End Listing Graphics Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Graphics - ImageMagick Menu                    |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@animate#@@ImageMagick tool animates an image sequence on X-windows GUI.#@@f_app_cmd^$GUI^animate#@@0^0^0^0^1
+#
+#@@composite#@@ImageMagick tool overlaps one image on top of another.#@@f_app_cmd^$GUI^composite#@@0^0^0^0^1
+#
+#@@compare#@@ImageMagick tool annotate differences between image versions.#@@f_app_cmd^$GUI^compare#@@0^0^0^0^1
+#
+#@@conjure#@@ImageMagick tool run Magick Scripting Language [MSL].#@@f_app_cmd^$GUI^conjure#@@0^0^0^0^1
+#
+#@@convert#@@ImageMagick tool converts format, resize, crop, flip, etc.#@@f_app_cmd^$GUI^convert#@@0^0^0^0^1
+#
+#@@display#@@ImageMagick tool display image on X-windows GUI.#@@f_app_cmd^$GUI^display#@@0^0^0^0^1
+#
+#@@identify#@@ImageMagick tool show format, characteristics of image files.#@@f_app_cmd^$GUI^identify#@@0^0^0^0^1
+#
+#@@import#@@ImageMagick tool Screen capture on X-windows GUI.#@@f_app_cmd^$GUI^import#@@0^0^0^0^1
+#
+#@@mogrify#@@ImageMagick tool resize, blur, crop, dither, flip, join etc.#@@f_app_cmd^$GUI^mogrify#@@0^0^0^0^1
+#
+#@@montage#@@ImageMagick tool create a composite image from many images.#@@f_app_cmd^$GUI^montage#@@0^0^0^0^1
+#
+#@@stream#@@ImageMagick tool stream image to an archive format.#@@f_app_cmd^$GUI^stream#@@0^0^0^0^1
+#
+#! End Listing Graphics - ImageMagick Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Graphics - Tools Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@aafigure#@@ASCII-art to image converter.#@@f_app_cmd^$GUI^aafigure#@@0^0^0^0^1
+#
+#@@asciitopgm#@@Convert ASCII graphics into a portable graymap.#@@f_app_cmd^$GUI^asciitopgm#@@0^0^0^0^1
+#
+#@@aview#@@Image and ASCII-art image viewer.#@@f_app_cmd^$GUI^aview#@@0^0^0^0^1
+#
+#@@bb#@@ASCII-art movie demo based on AAlib.#@@f_app_cmd^$GUI^bb#@@0^0^0^1^0
+#
+#@@caca-utils#@@Image viewer and converter jpg to ascii images.#@@f_app_cmd^$GUI^caca-utils#@@0^0^0^0^1
+#
+#@@duhdraw#@@Ncurses-based ASCII-art editor.#@@f_app_cmd^$GUI^duhdraw#@@0^0^0^0^1
+#
+#@@exiftool#@@Display audio/video/image file properties [ls-like format].#@@f_app_cmd^$GUI^exiftool#@@0^0^0^0^1
+#
+#@@fbgrab#@@Framebuffer screenshot tool.#@@f_app_cmd^$GUI^fbgrab#@@0^0^0^0^1
+#
+#@@fbi#@@Image viewer PhotoCD, jpeg, ppm, gif, tiff, xwd, bmp, png...#@@f_app_cmd^$GUI^fbi#@@0^0^0^0^1
+#
+#@@fbv#@@Image viewer framebuffer console.#@@f_app_cmd^$GUI^fbv#@@0^0^0^0^1
+#
+#@@fim#@@Image and ASCII-art image viewer.#@@f_app_cmd^$GUI^fim#@@0^0^0^0^1
+#
+#@@hasciicam#@@ASCII web camera images.#@@f_app_cmd^$GUI^hasciicam#@@0^0^0^0^1
+#
+#@@jfbview#@@Image viewer and framebuffer PDF viewer based on Imlib2.#@@f_app_cmd^$GUI^jfbview#@@0^0^0^0^1
+#
+#@@jhead#@@Display jpeg file properties.#@@f_app_cmd^$GUI^jhead#@@0^0^0^0^1
+#
+#@@jp2a#@@Convert jpg images to ascii images.#@@f_app_cmd^$GUI^jp2a#@@0^0^0^0^1
+#
+#@@MORE...#@@For more image-graphics applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_2_tools_generated.txt"^Graphics_-_Tools_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_2_tools_items_generated.txt"^$CLI_DIR/apps_graphics.lib
+#
+#! End Listing Graphics - Tools Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Graphics - Tools 2 Menu                        |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@linuxlogo#@@Color ANSI system logo#@@f_app_cmd^$GUI^linuxlogo^linuxlogo -L list#@@1^0^0^0^1
+#
+#@@mrzoom#@@Displays fractal images. A Mandelbrot fractal explorer.#@@f_app_cmd^$GUI^mrzoom#@@0^0^0^0^1
+#
+#@@scanimage#@@Controls flatbed scanners, cameras. -L list of devices.#@@f_app_cmd^$GUI^scanimage#@@0^0^0^0^0
+#
+#@@sl#@@Steam locomotive [when you mis-type ls command].#@@f_app_cmd^$GUI^sl#@@0^0^0^0^0
+#
+#@@star wars#@@Star Wars movie in ASCII.#@@f_starwars^$GUI^starwars#@@0^0^0^0^0
+#
+#@@textdraw#@@Draw lines, rectangles, ellipses, etc. to create ASCII-art.#@@f_app_cmd^$GUI^textdraw#@@1^0^0^0^0
+#
+#@@welcome21#@@ANSI logo on login screen.#@@f_app_cmd^$GUI^welcome21#@@0^0^0^0^1
+#
+#! End Listing Graphics - Tools 2 Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |           Function f_textdraw          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+# +----------------------------------------+
+# |          Function f_linuxlogo          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#          $3 - APP_CMD.
+#          $
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_linuxlogo () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "linuxlogo -L list - Displays a list of numbered items of the linux logos." > $TEMP_FILE
+      echo "linuxlogo -L <item number of linux logo> - Displays the chosen linux logo." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+}  # End of function f_linuxlogo
+#
+# +----------------------------------------+
+# |           Function f_starwars          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary: Display an ASCII movie of "Star Wars".
+#
+# Dependencies: f_message.
+#
+f_starwars () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "Star Wars ASCII Movie" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "The movie is played by running command:" >> $TEMP_FILE
+      echo "telnet towel.blinkenlights.nl" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "If telnet hangs while trying the ip-address," >> $TEMP_FILE
+      echo "then re-run this program and try again." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      APP_CMD="telnet towel.blinkenlights.nl"
+      if [ -n "$3" ] ; then
+         APP_CMD=$3
+      else
+         APP_CMD=$2
+      fi
+      #
+      APP_CMD=$(echo $3 | tr " " "_")
+      #
+      source $CLI_DIR/cli-common.lib
+      f_app_run_and_exit $1 $2 $APP_CMD 0^0^0^26^0 1
+      #
+}  # End of function f_starwars
+#
+f_textdraw () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "textdraw - Draw rectangles, lines, ellipses, ASCII-art on screen." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "For help, press \"h\" key." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Use arrow keys to position cursor for drawing an object." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To save, press \"s\" key." >> $TEMP_FILE
+      echo "To quit, press \"q\" key." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+}  # End of function f_textdraw
+#

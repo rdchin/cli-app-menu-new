@@ -1,0 +1,188 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# Set THIS_FILE_LIB to the name of this script library.
+THIS_FILE_LIB="apps_development.lib"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Development Menu                               |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@aphex#@@Tiny hex editor. edits are written immediately, no undo.#@@f_app_cmd^$GUI^aphex#@@0^0^0^0^1
+#
+#@@apropos#@@Search Linux man[ual] files for a forgotten command.#@@f_app_cmd^$GUI^apropos#@@0^0^0^0^1
+#
+#@@bugz#@@Interface to Bugzilla bug tracking tool.#@@f_app_cmd^$GUI^bugz#@@0^0^0^0^1
+#
+#@@checkbashisms#@@Check /bin/sh scripts for bash-specific constructs.#@@f_app_cmd^$GUI^checkbashisms#@@0^0^0^0^1
+#
+#@@cil#@@Issue tracker and add/edit, list issues.#@@f_app_cmd^$GUI^cil#@@0^0^0^0^1
+#
+#@@cmdtest#@@Test command-line programs/scripts to check the output.#@@f_app_cmd^$GUI^cmdtest#@@0^0^0^0^1
+#
+#@@codemetre#@@Count lines of code w/o comments in source code.#@@f_app_cmd^$GUI^codemetre#@@0^0^0^0^1
+#
+#@@colout#@@Colorize matching text pattern in a text file.#@@f_app_cmd^$GUI^colout#@@0^0^0^0^0
+#
+#@@gettext#@@Framework for GNU packages for multi-lingual messages.#@@f_app_cmd^$GUI^gettext#@@0^0^0^0^1
+#
+#@@githubcli#@@ghi Interface to GitHubs issues API.#@@f_app_cmd^$GUI^githubcli#@@0^0^0^0^1
+#
+#@@google-perftools#@@Analyze performance of C++ programs.#@@f_app_cmd^$GUI^google-perftools#@@0^0^0^0^1
+#
+#@@gprof#@@Code profiling, detect performance bottlenecks, etc.#@@f_app_cmd^$GUI^gprof#@@0^0^0^0^1
+#
+#@@groff#@@Enhanced troff editor writes to man page format.#@@f_app_cmd^$GUI^groff#@@0^0^0^0^1
+#
+#@@linkchecker#@@Check if web page links are working.#@@f_app_cmd^$GUI^linkchecker#@@0^0^0^0^1
+#
+#@@man2html#@@Browse man pages using a web browser.#@@f_app_cmd^$GUI^man2html#@@0^0^0^0^1
+#
+#@@MORE...#@@For more development applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_development_2_generated.txt"^Development_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_development_2_items_generated.txt"^$CLI_DIR/apps_development.lib
+#
+#! End Listing Development Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Development 2 Menu                             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@man2html-base#@@Convert man pages into HTML format.#@@f_app_cmd^$GUI^man2html-base#@@0^0^0^0^1
+#
+#@@mantis#@@Web-based issue tracker runs in PHP.#@@f_app_cmd^$GUI^mantis#@@0^0^0^0^1
+#
+#@@nl#@@Insert line numbers into a text file.#@@f_app_cmd^$GUI^nl#@@0^0^0^0^1
+#
+#@@shelltestrunner#@@Test command-line programs/scripts, runs parallel tests.#@@f_app_cmd^$GUI^shelltestrunner#@@0^0^0^0^1
+#
+#@@sloccount#@@SLOCCount counts source lines of code for 29 languages.#@@f_app_cmd^$GUI^sloccount#@@0^0^0^0^1
+#
+#@@stx2any#@@Markup language, writes to man page format.#@@f_app_cmd^$GUI^stx2any#@@0^0^0^0^1
+#
+#@@txt2man#@@Converts plain ASCII text to man format.#@@f_app_cmd^$GUI^txt2man#@@0^0^0^0^1
+#
+#@@ldd#@@Print shared library dependencies.#@@f_app_cmd^$GUI^ldd#@@1^0^0^0^1
+#
+#@@udo#@@Simpler markup language writes to man page format.#@@f_app_cmd^$GUI^udo#@@0^0^0^0^1
+#
+#! End Listing Development 2 Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |            Function f_ldd              |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ldd () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "ldd -  print shared library dependencies." > $TEMP_FILE
+         echo "USAGE:" >> $TEMP_FILE
+         echo "       ldd [OPTION]... FILE..." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "DESCRIPTION:" >> $TEMP_FILE
+         echo "       ldd  prints  the  shared  libraries  required by each program or shared" >> $TEMP_FILE
+         echo "       library specified on the command line." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "OPTIONS:" >> $TEMP_FILE
+         echo "       -v --verbose" >> $TEMP_FILE
+         echo "              Print all information, including, for example, symbol versioning" >> $TEMP_FILE
+         echo "              information." >> $TEMP_FILE
+         echo "       -u --unused" >> $TEMP_FILE
+         echo "              Print unused direct dependencies.  (Since glibc 2.3.4.)" >> $TEMP_FILE
+         echo "       -d --data-relocs" >> $TEMP_FILE
+         echo "              Perform relocations and report any missing objects (ELF only)." >> $TEMP_FILE
+         echo "       -r --function-relocs" >> $TEMP_FILE
+         echo "              Perform relocations for both data  objects  and  functions,  and" >> $TEMP_FILE
+         echo "              report any missing objects or functions (ELF only)." >> $TEMP_FILE
+         echo "       --help Usage information." >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      #
+} # End of function f_ldd.
+#

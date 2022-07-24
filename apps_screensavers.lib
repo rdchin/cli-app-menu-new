@@ -1,0 +1,755 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Screen-savers Menu                             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@aafire#@@Fire on screen.#@@f_app_cmd^$GUI^aafire#@@f_hint^0^0^8:NC^0
+#
+#@@asciiquarium#@@Aquarium on screen.#@@f_app_cmd^$GUI^asciiquarium#@@f_hint^1^f_asciiquarium_readme^22:NC^0
+#
+#@@boinctui#@@Not a screen-saver but an idle-CPU BOINC software manager.#@@f_app_cmd^$GUI^boinctui#@@f_hint^0^0^8:NC^0
+#
+#@@bsod#@@Simulate Microsoft XP Blue screen of death.#@@f_app_cmd^$GUI^bsod#@@f_hint^1^0^23:NC^0
+#
+#@@cclock#@@Digital clock with huge numbers fills entire screen.#@@f_app_cmd^$GUI^cclock#@@f_hint^1^0^8:NC^0
+#
+#@@cmatrix#@@Matrix-like screen-saver.#@@f_app_cmd^$GUI^cmatrix#@@f_hint^0^0^1:NC^0
+#
+#@@mrzoom#@@Displays fractal images. A Mandelbrot fractal explorer.#@@f_app_cmd^$GUI^mrzoom#@@f_hint^0^0^8:NC^0
+#
+#@@ncmatrix#@@Matrix-like screen-saver and network traffic visualizer.#@@f_app_cmd^$GUI^ncmatrix#@@f_hint^0^0^8:NC^0
+#
+#@@rain#@@Rain on screen.#@@f_app_cmd^$GUI^rain#@@f_hint^0^0^8:NC^0
+#
+#@@termsaver#@@Screensaver for text terminals.#@@f_app_cmd^$GUI^termsaver#@@f_hint^0^0^8:NC^0
+#
+#@@textmaze#@@Playable Maze on screen#@@f_app_cmd^$GUI^textmaze#@@f_hint^1^0^1:NC^1
+#
+#@@ticker#@@Scrolls text across the screen.#@@f_app_cmd^$GUI^ticker#@@f_hint^0^0^8:NC^0
+#
+#@@tty-clock#@@Display a digital clock full-screen.#@@f_app_cmd^$GUI^tty-clock#@@f_hint^0^0^8:NC^0
+#
+#@@weatherspect#@@Displays weather information with wallpaper.#@@f_app_cmd^$GUI^weatherspect#@@f_hint^0^0^8:NC^0
+#
+#@@wargames#@@Computer prompt from movie War Games. #@@f_app_cmd^$GUI^wargames#@@1^0^0^0^1
+#
+#@@worms#@@Worms wiggle on the screen.#@@f_app_cmd^$GUI^worms#@@f_hint^0^0^8:NC^0
+#
+#! End Listing Screen-savers Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |              Function f_hint           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display help message.
+#
+# Dependencies: f_message.
+#
+f_hint () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "To use as a screensaver with an inactivity time-out:" > $TEMP_FILE
+      echo >>$TEMP_FILE
+      echo "1. Install application \"screen\" (under System Category Menu/Screens Menu)." >>$TEMP_FILE
+      echo >>$TEMP_FILE
+      echo "2. Create file \"~/.screenrc\ in your home directory." >>$TEMP_FILE
+      echo >>$TEMP_FILE
+      echo "   File \"~/.screenrc\" should contain the following lines:" >>$TEMP_FILE
+      echo >>$TEMP_FILE
+      echo "        blankerprg $APP_NAME" >>$TEMP_FILE
+      echo "        idle 120 blanker" >>$TEMP_FILE
+      echo >>$TEMP_FILE
+      echo "   Where \"idle 120\" is the number of seconds of inactivity time-out." >>$TEMP_FILE
+      echo "   You can change it from 120 to any number of seconds you want." >>$TEMP_FILE
+      f_message $1 "OK" "Screen saver How-To" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # Prevent app from running.
+      ERROR=1
+      #
+} # End of function f_hint
+#
+# +----------------------------------------+
+# |     Function f_install_asciiquarium    |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Install Asciiquarium.
+#
+# Dependencies: f_message, f_yn_question, f_app_install,
+#               f_press_enter_key_to_continue, f_install_term-animation,
+#               f_install2_asciiquarium.
+#
+f_install_asciiquarium () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      if [ ! -r "/usr/local/bin/asciiquarium" ] ; then
+         f_yn_question $1 "N" "Curses, Term Animation, and Asciiquarium Install?" "This script will install \"Curses\" and \"Term::Animation\", if needed.\nAfterwards, \"Asciiquarium\" will be installed.\nDo you wish to continue?"
+         #
+         # Blank the screen.
+         clear
+         #
+         if [ "$ANS" -eq 0 ] ; then
+            # Yes, Install Asciiquarium.
+            f_message $1 "NOK" "Download and install \"Curses\"" "This script will automatically download and install \"Curses\"."
+            #
+            # Check if Curses is installed as a prerequisite.
+            #  Inputs: $1 - GUI.
+            #          $2 - $APP_NAME Application name.
+            #          $3 - APP_CMD The complete user-entered string,
+            #               which may include application parameters and options.
+            #          $4 - $APP_CODE Application code.
+            #          $5 - Field number of application code.
+            #
+            APP_NAME="libcurses-perl"
+            APP_CMD="libcurses-perl"
+            APP_CODE="0^0^0^0^0"
+            #
+            # Default Application Command.
+            APP_CMD=$(echo $3 | tr " " "_")
+            #
+            source $CLI_DIR/cli-common.lib
+            source cli-web-sites.lib
+            source ~/common_bash_function.lib
+            #
+            # Blank the screen.
+            clear
+            #
+            f_app_install $1 $APP_NAME $APP_CMD $APP_CODE 1
+            #
+            # Pause to view installation messages.
+            f_press_enter_key_to_continue
+            #
+            if [ "$ERROR" != "0" ] ; then
+               # Failure to install Curses.
+               echo "Installation of \"Curses\" failed." > $TEMP_FILE
+               echo " Skipping installation of \"Term::Animation\" and \"Asciiquarium\"." >> $TEMP_FILE
+               echo >> $TEMP_FILE
+               f_message $1 "OK" "Installation failure" $TEMP_FILE
+               #
+               if [ $1 = "text" ] ; then
+                  # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+                  # Why needed? Function f_message uses application "Less" to display pages of text.
+                  # But "Less" resets the terminal's colors to white on black.
+                  f_configure_use
+               fi
+               #
+            else
+               # Success at installing Curses.
+               f_message $1 "OK" "Successful Install" "Installation of \"Curses\" is successful."
+               #
+               # Check if Term::Animation is installed as a prerequisite.
+               if [ ! -r "/usr/local/bin/term-animation" ] ; then
+                  # Term::Animation not installed, install Term::Animation.
+                  f_install_term-animation $1
+               fi
+               #
+               # Since dependencies are installed, now install ASCIIQuarium.
+               f_install2_asciiquarium $1 $2
+            fi
+         fi
+         unset ANS # Throw out this variable.
+      fi
+      #
+} # End of function f_install_asciiquarium
+#
+# +----------------------------------------+
+# |     Function f_install2_asciiquarium   |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Install Asciiquarium continued.
+#
+# Dependencies: f_message.
+#
+f_install2_asciiquarium () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "This script will automatically download and install \"$2\"." > $TEMP_FILE
+      echo "The application itself is a single perl script so perl is a prerequisite." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"asciiquarium\" by using wget from:" >> $TEMP_FILE
+      echo "   \"http://www.robobunny.com/projects/asciiquarium/asciiquarium.tar.gz\"." >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/bin/asciiquarium*" >> $TEMP_FILE
+      echo "4. Copy asciiquarium to /usr/local/bin directory." >> $TEMP_FILE
+      echo "5. Allow users to run asciiquarium by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "6. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Download & Install $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # Blank the screen.
+      clear
+      #
+      f_app_install $1 $APP_NAME $APP_CMD $APP_CODE 1
+      #
+      # 1. Change directory to your ~/bin folder.
+      cd ~
+      if [ ! -d "~/bin" ] ; then
+         # Target directory is missing, so create it.
+         mkdir ~/bin
+      fi
+      cd ~/bin
+      #
+      # 2. Download "asciiquarium" from robobunny.com by using wget.
+      wget http://www.robobunny.com/projects/asciiquarium/asciiquarium.tar.gz
+      #
+      # 3. Decompress and create the installation subdirectory ~/bin/asciiquarium
+      tar -xvzf asciiquarium.tar.gz
+      cd ~/bin/asciiquarium*/
+      #
+      # 4. Copy asciiquarium to /usr/local/bin directory.
+      if [ ! -d "/usr/local/bin" ] ; then
+         # Target directory is missing, so create it.
+         sudo mkdir -p /usr/local/bin
+      fi
+      sudo cp ~/bin/asciiquarium*/asciiquarium /usr/local/bin/
+      #
+      # 5. Allow users to run asciiquarium by setting permissions to r-x or 755 for all users.
+      sudo chmod 755 /usr/local/bin/asciiquarium
+      ERROR=$? # Save error flag condition.
+      #
+      # 6. Add directory /usr/local/bin to your PATH command in ~/.bashrc.
+      # Is the directory /usr/local/bin in your PATH of directories?
+      # Check the $PATH
+      if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+         echo "If needed, edit file \"~/.bashrc\" PATH."  > $TEMP_FILE
+         echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+         echo 'PATH=$PATH'":/usr/local/bin" >> $TEMP_FILE
+         echo "export PATH" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+         echo "After editing the file, .bashrc:" >> $TEMP_FILE
+         echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+         echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+         f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      echo > $TEMP_FILE
+      echo "Finished running installation script for \"$2\"."  >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To run \"Asciiquarium\", select it on the \"Screen-saver Menu\"." >> $TEMP_FILE
+      f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_install2_asciiquarium
+#
+# +----------------------------------------+
+# |      Function f_asciiquarium_readme    |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display Asciiquarium documentation.
+#
+# Dependencies: f_message.
+#
+f_asciiquarium_readme () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "To de-install Asciiquarium:" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "1. Remove the directory ~/bin/asciiquarium_1.1." >> $TEMP_FILE
+      echo "   sudo rm -R ~/bin/asciiquarium_1.1." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "2. Remove the application" >> $TEMP_FILE
+      echo "   sudo rm /usr/local/bin/asciiquarium " >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      if [ -e ~/bin/asciiquarium_1.1/README ] ; then
+         cat ~/bin/asciiquarium_1.1/README >> $TEMP_FILE
+      fi
+      f_message $1 "OK" "README" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_asciiquarium_readme
+#
+# +----------------------------------------+
+# |         Function f_install_bsod        |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+# Outputs: None.
+#
+# Summary: Install B.S.O.D. (Blue screen of Death).
+#
+# Dependencies: f_message.
+#
+f_install_bsod () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      if [ ! -r "/usr/local/bin/bsod" ] ; then
+         echo "This script will install bsod without using a software package manager." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "If you wish to de-install bsod, you will have to delete files manually" >> $TEMP_FILE
+         echo "by typing: \"sudo rm /usr/local/bin/bsod\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "This script will install \"libncurses-dev\" and \"ncurses-dev\", if needed." >> $TEMP_FILE
+         echo "Afterwards, \"bosd\" will be installed." >> $TEMP_FILE
+         f_message $1 "OK" "Install $2?" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         f_yn_defaults $1 "N" "Install $2?" "Do you wish to install $2?"
+         #
+         # Blank the screen.
+         clear
+         #
+         if [ "$ANS" -eq 0 ] ; then
+         # Yes, Install bsod.
+            # Install libncurses-dev and ncurses-dev as pre-requisites.
+            f_install_ncurses
+            if [ "$ERROR" = "0" ] ; then
+               # Error code 1 $?=1 means no --help available.
+               # Error code 0 (zero) where $?=0 means no error.
+               #
+               # Since dependencies are installed, now install bsod.
+               f_install2_bsod $1 $2
+               #
+               # Since dependent packages may have been installed causing
+               # changes in APP_NAME/APP_NAME_INSTALL, set APP_NAME to the
+               # original name along with APP_NAME_INSTALL for web install.
+               #
+               # Set APP_NAME to correct name for f_application_run.
+               APP_NAME="bsod"
+               #
+               # Set APP_NAME_INSTALL for f_application_web_install.
+               APP_NAME_INSTALL=$APP_NAME
+            fi
+         fi
+         unset ANS # Throw out this variable.
+      fi
+} # End of function f_install_bsod
+#
+# +----------------------------------------+
+# |         Function f_install2_bsod       |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Continue install B.S.O.D. (Blue screen of Death).
+#
+# Dependencies: f_message.
+#
+f_install2_bsod () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "This script will automatically download and install \"bsod\"." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"bsod\" by using wget from:" >> $TEMP_FILE
+      echo "   \"http://www.vanheusden.com/bsod/bsod-0.1.tgz\"." >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/bin/bsod*" >> $TEMP_FILE
+      echo "4. Install bsod via:" >> $TEMP_FILE
+      echo "                           sudo make install" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "5. Copy \"bsod\" to /usr/local/bin directory." >> $TEMP_FILE
+      echo "6. Allow users to run \"bsod\" by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "7. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Download & Install $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # 1. Change directory to your ~/bin folder.
+      cd ~
+      if [ ! -d "~/bin" ] ; then
+         # Target directory is missing, so create it.
+         mkdir ~/bin
+      fi
+      cd ~/bin
+      #
+      # 2. Download "bsod" from .com by using wget.
+      wget http://www.vanheusden.com/bsod/bsod-0.1.tgz
+      #
+      # 3. Decompress and create the installation subdirectory ~/bin/bsod
+      tar -xvzf bsod-0.1.tgz
+      cd ~/bin/bsod*/
+      #
+      # 4. If needed, create /usr/local/bin directory.
+      if [ ! -d "/usr/local/bin" ] ; then
+         # Target directory is missing, so create it.
+         sudo mkdir -p /usr/local/bin
+      fi
+      # 5. Make and install bsod.
+      sudo make install
+      #
+      # 5. Allow users to run bsod by setting permissions to r-x or 755 for all users.
+      sudo chmod 755 /usr/local/bin/bsod
+      ERROR=$? # Save error flag condition.
+      #
+      # 6. Add directory /usr/local/bin to your PATH command in ~/.bashrc.
+      # Is the directory /usr/local/bin in your PATH of directories?
+      # Check the $PATH
+      if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+         echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+         echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+         echo 'PATH=$PATH'":/usr/local/bin" >> $TEMP_FILE
+         echo "export PATH" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+         echo "After editing the file, .bashrc:" >> $TEMP_FILE
+         echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+         echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      #
+      fi
+      echo "Finished running installation script for \"$2\"." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To run \"$2\", select it on the \"Screen-saver Games Menu\"." >> $TEMP_FILE
+      f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_install2_bsod
+#
+# +----------------------------------------+
+# |       Function f_install_cclock        |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Install Cclock.
+#
+# Dependencies: f_message, f_yn_defaults, f_install_ncurses, f_install_cclock_2.
+#
+f_install_cclock () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      if [ ! -r "/usr/bin/cclock" ] ; then
+         echo "This script will install \"$2\" without using a software package manager." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "If you wish to de-install \"'$2\", you will have to delete files manually" >> $TEMP_FILE
+         echo "by typing: \"sudo rm /usr/bin/cclock /usr/share/man/man1/cclock.1\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "This script will install \"libncurses-dev\" and \"ncurses-dev\", if needed." >> $TEMP_FILE
+         echo "Afterwards, \"$2\" will be installed." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Install $2?" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         f_yn_defaults $1 "N" "Install $2?" "Do you wish to continue to install $2?"
+         #
+         if [ "$ANS" -eq 0 ] ; then
+            # Yes, Install cclock.
+            #
+            # Blank the screen.
+            clear
+            #
+            # Install libncurses-dev and ncurses-dev as pre-requisites.
+            f_install_ncurses
+            #
+            if [ $ERROR -eq 0 ] ; then
+               # Error code 1 $?=1 means no --help available.
+               # Error code 0 (zero) where $?=0 means no error.
+               #
+               # Since dependencies are installed, now install cclock.
+               f_install2_cclock $1 $2
+               #
+               # Since dependent packages may have been installed causing
+               # changes in APP_NAME/APP_NAME_INSTALL, set APP_NAME to the
+               # original name along with APP_NAME_INSTALL for web install.
+            fi
+         fi
+         unset ANS
+      fi
+} # End of f_install_cclock
+#
+# +----------------------------------------+
+# |         Function f_install_cclock_2    |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Continue install of Cclock.
+#
+# Dependencies: f_message.
+#
+f_install_cclock_2 () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "This script will automatically download and install \"$2\"." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"cclock\" by using wget from:" >> $TEMP_FILE
+      echo "   \"http://sourceforge.net/projects/cclock/files/latest/download/cclock-0.96.tar.bz2\"." >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/bin/cclock*" >> $TEMP_FILE
+      echo "4. Install cclock via:" >> $TEMP_FILE
+      echo "                           sudo make install" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "   Installs files to \"/usr/bin/\" and \"/usr/share/man/man1/cclock.1\"." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "5. Allow users to run cclock by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "6. Add directory \"/usr/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Download & Install $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # 1. Change directory to your ~/bin folder.
+      cd ~
+      if [ ! -d "~/bin" ] ; then
+         # Target directory is missing, so create it.
+         mkdir ~/bin
+      fi
+      #
+      # 2. Download "cclock" from "http://sourceforge.net/projects/cclock/files/latest/download"
+      #    by using wget.
+      cd ~/bin
+      wget http://sourceforge.net/projects/cclock/files/latest/download/cclock-0.96.tar.bz2
+      #
+      # 3. Decompress and create the installation subdirectory ~/bin/cclock*.
+      tar -xf cclock*
+      #
+      # 4. Make and install cclock.
+      cd ~/bin/cclock*
+      sudo make install
+      #
+      # 5. Allow users to run cclock by setting permissions to r-x or 755 for all users.
+      sudo chmod 755 /usr/bin/cclock*
+      ERROR=$? # Save error flag condition.
+      #
+      # 6. Add directory \"/usr/bin\" to your PATH command in ~/.bashrc.
+      # Is the directory /usr/bin in your PATH of directories?
+      # Check the $PATH
+      if [[ ! "$PATH" == *":/usr/bin"* ]] ; then
+         echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+         echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+         echo 'PATH=$PATH'":/usr/bin" >> $TEMP_FILE
+         echo "export PATH" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+         echo "After editing the file, .bashrc:" >> $TEMP_FILE
+         echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+         echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+         f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      #
+      echo > $TEMP_FILES
+      echo "------------------------------------------------------" >> $TEMP_FILES
+      echo "Finished running installation script for \"$2\"." >> $TEMP_FILES
+      echo "------------------------------------------------------" >> $TEMP_FILES
+      echo >> $TEMP_FILES
+      echo "To run \"$2\", select it on the \"Office Clocks Menu\"." >> $TEMP_FILES
+      echo >> $TEMP_FILES
+      f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+      #
+} # End of function f_install_cclock_2
+#
+# +----------------------------------------+
+# |            Function f_wargames         |
+# +----------------------------------------+
+#
+f_wargames () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "Wargames - Question asked by the WOPR super-computer." > $TEMP_FILE
+      echo "Historical background:" >> $TEMP_FILE
+      echo "From the 1983 movie 'WarGames' starring Matthew Broderick, Ally Sheedy," >> $TEMP_FILE
+      echo "Dabney Coleman, and John Wood. This movie came out at the height of the" >> $TEMP_FILE
+      echo "Cold War between the U.S. and U.S.S.R. Soviet Union when both" >> $TEMP_FILE
+      echo "U.S. President Ronald Reagan and U.S.S.R. President Yuri Andropov were" >> $TEMP_FILE
+      echo "at odds, with President Reagan announcing the Strategic Defense" >> $TEMP_FILE
+      echo "Initiative or \"Star Wars\" Program to research weapons to obsolete" >> $TEMP_FILE
+      echo "nuclear weapons such as particle beam weapons." >> $TEMP_FILE
+      echo "Movie plot: David (Matthew Broderick) unknowingly hacks into" >> $TEMP_FILE
+      echo "the backdoor of a top-secret U.S. Air Force super-computer." >> $TEMP_FILE
+      echo "The super-computer \"WOPR\" (War Operation Planned Response)" >> $TEMP_FILE
+      echo "controls the U.S. nuclear arsenal." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Notice the computer equipment David uses, the acoustic modem, and floppy drive." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "WOPR asks this question when David first hacks the backdoor, making David think" >> $TEMP_FILE
+      echo "that it is simply a recreational program." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      f_message $1 "OK" "Movie: War Games (1983)" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+} # End of f_wargames
+#

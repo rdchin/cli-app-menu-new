@@ -1,0 +1,681 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Packages Menu                                  |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@alien#@@Converts rpm to deb packages.#@@f_app_cmd^$GUI^alien#@@0^0^0^0^1
+#
+#@@apt#@@Debian package manager.#@@f_app_cmd^$GUI^apt#@@1^0^0^0^1
+#
+#@@apt-cache#@@Show package information, [reverse]/dependency information.#@@f_app_cmd^$GUI^apt-cache#@@1^0^0^0^1
+#
+#@@apt-file#@@Search/List files in the Debian package manager w/o installing.#@@f_app_cmd^$GUI^apt-file#@@1^0^0^0^1
+#
+#@@aptitude#@@Debian package manager.#@@f_app_cmd^$GUI^aptitude#@@1^0^0^0^0
+#
+#@@aptoncd#@@GUI makes a CD of Debian packages for installation w/o Internet.#@@f_app_cmd^$GUI^aptoncd#@@1^0^0^0^1
+#
+#@@cupt#@@Debian front-end to dpkg package manager.#@@f_app_cmd^$GUI^cupt#@@0^0^0^0^1
+#
+#@@dpkg#@@Debian package manager.#@@f_app_cmd^$GUI^dpkg#@@1^0^0^0^1
+#
+#@@kkm#@@Debian apt tools wrapper, shorter, easier than apt commands.#@@f_app_cmd^$GUI^kkm#@@0^0^0^0^1
+#
+#@@pip#@@Improved Python package installer. Integrates with virtualenv.#@@f_app_cmd^$GUI^pip#@@1^0^0^0^1
+#
+#@@rpm#@@RPM [Red Hat] package manager.#@@f_app_cmd^$GUI^rpm#@@1^0^0^0^1
+#
+#@@synaptic#@@GUI Debian package manager.#@@f_app_cmd^$GUI^synaptic#@@1^0^0^0^0
+#
+#@@unshield#@@Extracts CAB files from Microsoft-compatible InstallShield.#@@f_app_cmd^$GUI^unshield#@@0^0^0^0^1
+#
+#@@urpmi#@@Mandriva, Mageia package manager.#@@f_app_cmd^$GUI^urpmi#@@0^0^0^0^1
+#
+#@@YaST#@@GUI OpenSUSE package manager.#@@f_app_cmd^$GUI^YaST#@@1^0^0^0^1
+#
+#@@MORE...#@@More package management applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_packages_2_generated.txt"^Packages_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_packages_2_items_generated.txt"^$CLI_DIR/apps_packages.lib
+#
+#! End Listing Packages Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Packages 2 Menu                                |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@yum#@@Yellow Dog Updated package manager.#@@f_app_cmd^$GUI^yum#@@1^0^0^0^1
+#
+#@@zypper#@@OpenSUSE package manager on which is based YaST GUI.#@@f_app_cmd^$GUI^zypper#@@1^0^0^0^1
+#
+#! End Listing Packages 2 Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |              Function f_apt            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_apt () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "apt - Debian package manager." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "apt-get check Check for broken dependencies." >> $TEMP_FILE
+      echo "apt-get update Updates package information prior to updating or installing." >> $TEMP_FILE
+      echo "apt-get upgrade Upgrade packages to latest versions." >> $TEMP_FILE
+      echo "apt-get dist-upgrade Usually used after an 'apt-get upgrade' to upgrade kernel." >> $TEMP_FILE
+      echo "apt-get install <package name> Installs a new software package." >> $TEMP_FILE
+      echo "apt-get remove <package name> Deinstalls a software package." >> $TEMP_FILE
+      echo "apt-get purge <package name> Deinstalls a package and its configuration files." >> $TEMP_FILE
+      echo "apt-get autoclean Remove obsolete packages from the local repository." >> $TEMP_FILE
+      echo "apt-get autoremove remove packages that are no longer needed." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: man apt / man apt-get" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_apt
+#
+# +----------------------------------------+
+# |           Function f_apt-cache         |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_apt-cache () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "apt - Debian package manager." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "USAGE:" >> $TEMP_FILE
+      echo "apt-cache show <package name> Show package description and information." >> $TEMP_FILE
+      echo "apt-cache showpkg <package name> Show package general information." >> $TEMP_FILE
+      echo "apt-cache showsrc Show source records." >> $TEMP_FILE
+      echo "apt-cache stats Show some basic statistics." >> $TEMP_FILE
+      echo "apt-cache search Search the package list for a regex pattern." >> $TEMP_FILE
+      echo "apt-cache pkgnames List the names of all packages in the system." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "apt-cache depends <package name> Show package dependency information." >> $TEMP_FILE
+      echo "apt-cache rdepends <package name> Show package reverse dependency information." >> $TEMP_FILE
+      echo "apt-cache unmet <package name> Show package's unmet dependencies." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: man apt-cache" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_apt-cache
+#
+# +----------------------------------------+
+# |            Function f_apt-file         |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_apt-file () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "apt-file - Allows you to find in which Debian package a file is included." > $TEMP_FILE
+      echo "This application has the same behavior as the web version found at" >> $TEMP_FILE
+      echo "http://packages.debian.org." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Additionally you can list all files included in a package without" >> $TEMP_FILE
+      echo "installing or downloading it (see dpkg -S and dpkg --contents for more" >> $TEMP_FILE
+      echo "details about listing a package content)." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "USAGE:" >> $TEMP_FILE
+      echo "apt-file [ options ] [ action ] [ pattern ]" >> $TEMP_FILE
+      echo "apt-file -f [ options ] search [ file ... ]" >> $TEMP_FILE
+      echo "apt-file -D [ options ] search [ binary-packet.deb ... ]" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "OPTIONS:" >> $TEMP_FILE
+      echo "-l, --package-only Only display package name; do not display file names." >> $TEMP_FILE
+      echo "-i, --ignore-case Ignore case when searching for pattern." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "ACTIONS:" >> $TEMP_FILE
+      echo "find, list, purge, search, show, update." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: man apt-file" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_apt-file
+#
+# +----------------------------------------+
+# |            Function f_aptitude         |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_aptitude () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "aptitude - Debian package manager." > $TEMP_FILE
+      echo
+      echo "USAGE:" >> $TEMP_FILE
+      echo "aptitude [-S fname] [-u|-i]" >> $TEMP_FILE
+      echo "aptitude [OPTIONS] <ACTION> ..." >> $TEMP_FILE
+      echo
+      echo "OPTIONS:" >> $TEMP_FILE
+      echo " -h    This help text." >> $TEMP_FILE
+      echo " -D    Show the dependencies of automatically changed packages." >> $TEMP_FILE
+      echo " -v    Display extra information. (may be supplied multiple times)." >> $TEMP_FILE
+      echo " -f    Aggressively try to fix broken packages." >> $TEMP_FILE
+      echo
+      echo "ACTIONS (if none is specified, aptitude will enter interactive mode):" >> $TEMP_FILE
+      echo "search    - Search for a package by name and/or expression." >> $TEMP_FILE
+      echo "show      - Display detailed information about a package." >> $TEMP_FILE
+      echo "install   - Install/upgrade packages." >> $TEMP_FILE
+      echo "reinstall - Download and (possibly) reinstall a currently installed package." >> $TEMP_FILE
+      echo "remove    - Remove packages." >> $TEMP_FILE
+      echo "purge     - Remove packages and their configuration files." >> $TEMP_FILE
+      echo "update    - Download lists of new/upgradeable packages." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: man apt / man apt-cache / man apt-get" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_aptitude
+#
+# +----------------------------------------+
+# |            Function f_aptoncd          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_aptoncd () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "APTonCD - A GUI application and is in the menu for reference only." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "However, like many GUI applications, it can be launched by from the CLI." >> $TEMP_FILE
+      echo "APTonCD can be launched from the command line with the 'aptoncd' command." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "APTonCD allows you to create an installation CD with all the debian packages" >> $TEMP_FILE
+      echo "installed on the localhost PC from the /var/cache/apt/archives/ directory." >> $TEMP_FILE
+      echo "It is one way to backup the software installed on your PC but such would" >> $TEMP_FILE
+      echo "have to be reconfigured afterwards." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "APTonCD is fully supported in Ubuntu and works in Debian Etch and Sid." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_aptoncd
+#
+# +----------------------------------------+
+# |              Function f_dpkg           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_dpkg () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "dpkg - Debian package manager." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "USAGE:" >> $TEMP_FILE
+      echo "dpkg --get-selections List all installed packages." >> $TEMP_FILE
+      echo "dpkg -i <package name> Installs a new software package." >> $TEMP_FILE
+      echo "dpkg -r <package name> Deinstalls a software package." >> $TEMP_FILE
+      echo "dpkg -P <package name> Deinstalls a package and its configuration files." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "dpkg-query -l, --list <package-name-pattern> List packages matching pattern." >> $TEMP_FILE
+      echo "dpkg-query -s, --status <package name> Report status of specified package." >> $TEMP_FILE
+      echo "dpkg-query -L, --listfiles <package name> Files installed by <package name>." >> $TEMP_FILE
+      echo "dpkg-query -p <package name> Show package description and information." >> $TEMP_FILE
+      echo "dpkg-query -S, --search <file name> Search inside packages for <file name>." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "dpkg-deb -I, --info <control file name> Show package and control information." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: man dpkg / man dpkg-query / man dpkg-deb" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_dpkg
+#
+# +----------------------------------------+
+# |              Function f_kkm            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_kkm () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "kkm - Debian apt tools wrapper, shorter, easier than "apt" commands." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "USAGE:" >> $TEMP_FILE
+      echo "kkm clean Clean and remove unused packages (apt-get clean/remove)." >> $TEMP_FILE
+      echo "kkm search <package name> Search packages (apt-get search)." >> $TEMP_FILE
+      echo "kkm show <package name> Display information of packages (apt-get cache show)." >> $TEMP_FILE
+      echo "kkm update Update package database (apt-get update)." >> $TEMP_FILE
+      echo "kkm upgrade Upgrade all installed package (apt-get upgrade/dist-upgrade)." >> $TEMP_FILE
+      echo "kkm install <package name> Install packages (apt-get install)." >> $TEMP_FILE
+      echo "kkm list List installed packages (dpkg --list | grep <package name>)." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Homepage: https://github.com/cnmade/kkm.git" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "INSTALL:" >> $TEMP_FILE
+      echo "mkdir /opt" >> $TEMP_FILE
+      echo "git clone gh repo clone cnmade/kkm" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: man kkm" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_kkm
+#
+# +----------------------------------------+
+# |              Function f_pip            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_pip () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "pip - An improved Python package installer. It integrates with virtualenv." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "pip does not do partial installs, can save package state for replaying, and" >> $TEMP_FILE
+      echo "can install from non-egg sources, and can install from version control" >> $TEMP_FILE
+      echo "repositories." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Homepage: http://pip.openplans.org/" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: man pip" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_pip
+#
+# +----------------------------------------+
+# |              Function f_rpm            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_rpm () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "rpm - RPM (Red Hat) package manager." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "USAGE:" >> $TEMP_FILE
+      echo "rpm -q <package name> Show package description and information." >> $TEMP_FILE
+      echo "rpm --query <package name> Show package description and information." >> $TEMP_FILE
+      echo "rpm -U <package name> Upgrade/Install a package." >> $TEMP_FILE
+      echo "rpm --upgrade <package name> Upgrade/Install a package." >> $TEMP_FILE
+      echo "rpm -I <package name> Installs new software packages." >> $TEMP_FILE
+      echo "rpm --install <package name> Installs new software packages." >> $TEMP_FILE
+      echo "rpm -e <package name> Deinstalls software packages." >> $TEMP_FILE
+      echo "rpm --erase <package name> Deinstalls software packages." >> $TEMP_FILE
+      echo "rpm -V <package name> Verifies packages." >> $TEMP_FILE
+      echo "rpm --verify <package name> Verifies packages." >> $TEMP_FILE
+      echo "rpm -F <package name> Freshen (upgrade) installed packages." >> $TEMP_FILE
+      echo "rpm --freshen<package name> Freshen (upgrade) installed packages." >> $TEMP_FILE
+      echo "rpm --initdb Initialize package database." >> $TEMP_FILE
+      echo "rpm --rebuilddb Rebuild package database." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+      echo "             '$APP_NAME --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_rpm
+#
+# +----------------------------------------+
+# |            Function f_synaptic         |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_synaptic () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "Synaptic - A GUI package manager and is in the menu for reference only." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "However, like many GUI applications, it can be launched by from the CLI." >> $TEMP_FILE
+      echo "Synaptic can be launched from the command line with the 'synaptic' command." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_synaptic
+#
+# +----------------------------------------+
+# |              Function f_yast           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_yast () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "YaST - A GUI package manager and is in the menu for reference only." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "However, like many GUI applications, it can be launched by from the CLI." >> $TEMP_FILE
+      echo "YaST can be launched from the command line with the 'yast' command." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_yast
+#
+# +----------------------------------------+
+# |              Function f_yum            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_yum () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "yum - 'Yellow Dog Updated' package manager." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "USAGE:" >> $TEMP_FILE
+      echo "yum upgrade <package name> Upgrade/Install a package." >> $TEMP_FILE
+      echo "yum -list <package name> Show package description and information." >> $TEMP_FILE
+      echo "yum search <text> Searches package names, descriptions, summaries." >> $TEMP_FILE
+      echo "yum provides <text> Searches files, packages providing a function." >> $TEMP_FILE
+      echo "yum update Upgrade packages to latest versions." >> $TEMP_FILE
+      echo "yum install <package name> Installs new software packages." >> $TEMP_FILE
+      echo "yum groupinstall <application name> Installs new software packages." >> $TEMP_FILE
+      echo "yum remove <package name> Uninstalls software packages." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+      echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_yum
+#
+# +----------------------------------------+
+# |             Function f_zypper          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_zypper () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "zypper - Zypper package manager." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "USAGE:" >> $TEMP_FILE
+      echo "zypper search -is List installed packages." >> $TEMP_FILE
+      echo "zypper search -d <text> searches package names, descriptions, summaries." >> $TEMP_FILE
+      echo "zypper update Upgrade packages to latest versions." >> $TEMP_FILE
+      echo "zypper install <package name> Installs new software packages." >> $TEMP_FILE
+      echo "zypper remove <package name> Deinstalls software packages." >> $TEMP_FILE
+      echo "zypper refresh Refresh repository package information." >> $TEMP_FILE
+      echo "zypper list-updates List updates available for installed packages." >> $TEMP_FILE
+      echo "zypper dist-upgrade Upgrade kernel to next version." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+      echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_zypper
+#

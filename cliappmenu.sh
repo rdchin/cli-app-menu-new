@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2021 Copyright 2021 Robert D. Chin
+# ©2022 Copyright 2022 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # Usage: bash cliappmenu.sh
@@ -24,29 +24,13 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2021-07-09 00:50"
+VERSION="2022-07-24 16:11"
 #
 # Set THIS_FILE to the name of this script file.
 THIS_FILE=$(basename $0)
 #
 # Set to a file name used for the generated menu code.
 GENERATED_FILE=$THIS_FILE"_menu_generated.lib"
-#
-# Source library which contains f_script_path.
-source common_bash_function.lib
-#
-# Set variables THIS_DIR, SCRIPT_PATH to directory path of script.
-f_script_path
-#
-# Set Temporary file using $THIS_DIR from f_script_path.
-TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
-#
-#
-#================================================================================
-# EDIT THE LINE BELOW TO SET THE DIRECTORY OF THE SUB-MENU "cliapp-dir"
-# WHICH CONTAINS ALL THE SUB-MENU LIBRARY FILES.
-#================================================================================
-#
 #
 # Set the location of the "cliapp-dir" sub-directory.
 # Use a sub-directory where you have privileges to edit the library files
@@ -60,22 +44,59 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 #
 # Factory setting is CLI_DIR="/home/<username>/cliapp-dir"
 #
-CLI_DIR="/home/robert/cliapp-dir"
+#
+#================================================================================
+# EDIT THE LINE BELOW TO SET THE DIRECTORY OF THE SUB-MENU "cliapp-dir"
+# WHICH CONTAINS ALL THE SUB-MENU LIBRARY FILES.
+#================================================================================
+#
+#
+CLI_DIR="/home/USER/cliapp-dir"
 #
 if [ ! -d "$CLI_DIR" ] ; then
    # Blank the screen.
    clear
-   f_message text "OK" "Library cliapp-dir Path Error" "CLI_DIR=\"$CLI_DIR\" variable is not set correctly.\n\nCheck directory path of cliapp-dir.\n\nEdit file cliappmenu.sh to set CLI_DIR correctly.\n\nIt is located under Section \"Default Variable Values\" of file cliappmenu.sh."
+   echo > $TEMP_FILE
+   echo "Library cliapp-dir Path Error" >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "CLI_DIR=\"$CLI_DIR\" variable is not set correctly." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "Check directory path of cliapp-dir." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "Edit file cliappmenu.sh to set CLI_DIR correctly." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "It is located under Section \"Default Variable Values\" of file cliappmenu.sh." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "Here is the command to set CLI_DIR using the Sed application." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "sed -i 's|^CLI_DIR=\"/home/<username>/cliapp-dir\"|CLI_DIR=\"/home/robert/cliapp-dir\"|g' cliappmenu.sh" >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   #
+   f_message "text" "OK" "Library cliapp-dir Path Error" "$TEMP_FILE"
+   #
+   # Exit script and return to command-line.
    exit 1
 fi
 #
 # +----------------------------------------+
-#            Source library files
+# |          Source library files          |
 # +----------------------------------------+
 #
+source cliappmenu.lib
 source $CLI_DIR/cli-common.lib
 source $CLI_DIR/cli-web-sites.lib
+source $CLI_DIR/cli-favorites.lib
 #
+# Source library which contains f_script_path.
+source common_bash_function.lib
+#
+# Set variables THIS_DIR, SCRIPT_PATH to directory path of script.
+f_script_path
+#
+# Set Temporary file using $THIS_DIR from f_script_path.
+TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
+#
+
 # +----------------------------------------+
 # |            Brief Description           |
 # +----------------------------------------+
@@ -86,20 +107,20 @@ source $CLI_DIR/cli-web-sites.lib
 #& user selects by a series of menus arranged by application categories.
 #&
 #& This script displays its menus using "CLI text", "Dialog" or "Whiptail"
-#& interface modes. Each menu is created from its library file where the 
+#& interface modes. Each menu is created from its library file where the
 #& menu option data is stored in lines of text with field delimiters.
 #& So each menu requires a corresponding library file with the menu data.
 #&
 #& The functions within the library, common_bash_function.lib create and
 #& display the menus. The menus are created by reading the text lines from
 #& the menu's library file and they are included in arrays which are used
-#& to construct the menu and the menu is displayed with plain text, 
+#& to construct the menu and the menu is displayed with plain text,
 #& "Dialog", or "Whiptail" inteface modes.
 #&
-#& Required scripts: 
+#& Required scripts:
 #& cliappmenu.sh, cliappmenu.lib, common_bash_function.lib, and all scripts
 #& and libraries in the sub-directory, cliapp-dir.
-#&                   
+#&
 #& Usage: bash cliappmenu.sh
 #&        (not sh cliappmenu.sh)
 #&
@@ -173,7 +194,44 @@ source $CLI_DIR/cli-web-sites.lib
 ##
 ## (After each edit made, please update Code History and VERSION.)
 ##
-## Includes changes to menu_module_main.lib.
+## Includes changes to cliappmenu.lib, cli-common.lib.
+##
+## 2022-07-24 *f_create_a_menu_cliappmenu, f_eval_funct, f_app_install added
+##             call to f_configure_use to restore UI text colors if an error
+##             occurs during app eval or app install.
+##            *README and EDIT_HISTORY updated documentation.
+##            *Section "Main Program" improved documentation.
+##
+## 2022-07-23 *README updated documentation for new menu structure.
+##
+## 2022-07-22 *Section "Network", "Network - Monitors Structure",
+##            "Office - Text Converters", "Text - Editors",
+##            "Text - Markup - Documents", "Text - Tools" bug fixed.
+##
+## 2022-07-21 *Section "System" updated to latest standards.
+##
+## 2022-07-07 *Section "Packages", "Screens", "Screen-savers", and
+##            "Screen-Tools", "Video" updated to latest standards.
+##
+## 2022-07-05 *Section "Office" updated to latest standards.
+##
+## 2022-07-01 *Section "Network" updated to latest standards.
+##
+## 2022-06-29 *Section "Games Menu", "Graphics Menu",  "Internet Menu"
+##             updated to latest standards.
+##
+## 2022-06-27 *Secation "Education Menu", "Environment Menu", "File Menu"
+##             updated to latest standards.
+##
+## 2022-06-26 *Section "Audio Menu", "Database Menu", Development Menu"
+##             updated to latest standards.
+##
+## 2022-06-24 *Section "CLI Action Menu", "CLI Application Menu",
+##             "Configuration Menu", "Information Menu" updated to latest
+##             standards.
+##
+## 2022-04-25 *Section "Default Variable Values" added instructions to set
+##             variable "CLI_DIR".
 ##
 ## 2021-07-09 *f_config, f_config_update_font_color, f_config_update_ui
 ##             bugs fixed and updated format of file ~/.cliappmenu.cfg.
@@ -198,7 +256,7 @@ source $CLI_DIR/cli-web-sites.lib
 ## 2021-06-18 *Main Menu options Applications, Favorites, Search,
 ##             Configure, Help are now working.
 ##
-## 2021-06-16 *Main Menu options Applications, Favorites, Configure, About, 
+## 2021-06-16 *Main Menu options Applications, Favorites, Configure, About,
 ##             Code History, Help are now working.
 ##            *BUG: In application menus, if enter a name "morsegen" the
 ##             previous application "morse" will be selected instead when
@@ -267,7 +325,7 @@ f_display_common () {
 # |          Function f_menu_main          |
 # +----------------------------------------+
 #
-#     Rev: 2021-03-07
+#     Rev: 2021-06-18
 #  Inputs: $1 - "text", "dialog" or "whiptail" the preferred user-interface.
 #    Uses: ARRAY_FILE, GENERATED_FILE, MENU_TITLE.
 # Outputs: None.
@@ -279,67 +337,60 @@ f_display_common () {
 #
 # Dependencies: f_menu_arrays, f_create_show_menu.
 #
-f_menu_main () { # Create and display the Main Menu.
+f_menu_main () {
       #
+      # Create and display the Main Menu.
+      #
+      TEMP_FILE=$THIS_DIR/$THIS_FILE"_menu_main_temp.txt"
+      #
+      # GENERATED_FILE (The name of a temporary library file which contains the code to display the sub-menu).
       GENERATED_FILE=$THIS_DIR/$THIS_FILE"_menu_main_generated.lib"
-      #
-      # Does this file have menu items in the comment lines starting with "#@@"?
-      grep --silent ^\#@@ $THIS_DIR/$THIS_FILE
-      ERROR=$?
-      # exit code 0 - menu items in this file.
-      #           1 - no menu items in this file.
-      #               file name of file containing menu items must be specified.
-      if [ $ERROR -eq 0 ] ; then
-         # Extract menu items from this file and insert them into the Generated file.
-         # This is required because f_menu_arrays cannot read this file directly without
-         # going into an infinite loop.
-         grep ^\#@@ $THIS_DIR/$THIS_FILE >$GENERATED_FILE
-         #
-         # Specify file name with menu item data.
-         ARRAY_FILE="$GENERATED_FILE"
-      else
-         #
-         #
-         #================================================================================
-         # EDIT THE LINE BELOW TO DEFINE $ARRAY_FILE AS THE ACTUAL FILE NAME (LIBRARY)
-         # WHERE THE MENU ITEM DATA IS LOCATED. THE LINES OF DATA ARE PREFIXED BY "#@@".
-         #================================================================================
-         #
-         #
-         # Specify library file name with menu item data.
-         # ARRAY_FILE="[FILENAME_GOES_HERE]"
-           ARRAY_FILE="$THIS_DIR/cliappmenu.lib"
-      fi
-      #
-      # Create arrays from data.
-      f_menu_arrays $ARRAY_FILE
-      #
-      # Calculate longest line length to find maximum menu width
-      # for Dialog or Whiptail using lengths calculated by f_menu_arrays.
-      let MAX_LENGTH=$MAX_CHOICE_LENGTH+$MAX_SUMMARY_LENGTH
-      #
-      # Create generated menu script from array data.
-      #
-      MENU_TITLE="Main Menu"
-      #
-      MENU_TITLE=$(echo $MENU_TITLE | tr ' ' '_')
       #
       # Note: ***If Menu title contains spaces,
       #       ***the size of the menu window will be too narrow.
       #
-      TEMP_FILE=$THIS_DIR/$THIS_FILE"_menu_main_temp.txt"
+      # Menu title MUST use underscores instead of spaces.
+      MENU_TITLE="CLI_Action_Menu"
       #
-      # Set text font colors and GUI.
-      f_configure_use
+      # ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+      ARRAY_FILE=$THIS_DIR/$THIS_FILE"_menu_array_generated.lib"
       #
-      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
       #
-      if [ -r $GENERATED_FILE ] ; then
-         rm $GENERATED_FILE
+      #================================================================================
+      # EDIT THE LINE BELOW TO DEFINE $ARRAY_FILE AS THE ACTUAL FILE NAME (LIBRARY)
+      # WHERE THE MENU ITEM DATA IS LOCATED. THE LINES OF DATA ARE PREFIXED BY "#@@".
+      #================================================================================
+      #
+      #
+      # Specify library file name with menu item data.
+      # ARRAY_SOURCE_FILE (Not a temporay file) includes menu items from multiple menus.
+      # ARRAY_SOURCE_FILE="[FILENAME_GOES_HERE]"
+      ARRAY_SOURCE_FILE="$THIS_DIR/cliappmenu.lib"
+      #
+      # List of inputs for f_create_menu_x.
+      #
+      #  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+      #          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+      #          $3 - MENU_TITLE (Title of the sub-menu)
+      #          $4 - TEMP_FILE (Temporary file).
+      #          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+      #          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use $1
       fi
       #
-      if [ -r $TEMP_FILE ] ; then
+      f_create_a_menu_cliappmenu $1 $GENERATED_FILE $MENU_TITLE $TEMP_FILE $ARRAY_FILE $ARRAY_SOURCE_FILE
+      #
+      if [ -e $TEMP_FILE ] ; then
          rm $TEMP_FILE
+      fi
+      #
+      if [ -e  $GENERATED_FILE ] ; then
+         rm  $GENERATED_FILE
       fi
       #
 } # End of function f_menu_main.
@@ -382,9 +433,8 @@ fi
 #
 # Initialize variables GUI, FCOLOR, BCOLOR.
 # Does the file ~/.cliappmenu.cfg exist and is the UI and color set?
-source $CLI_DIR/main_configure.lib
 #
-# Function f_config within file main_configure.lib checks to see if the
+# Function f_config within file cliappmenu.lib checks to see if the
 # file file ~/.cliappmenu.cfg exists, creates one if needed or if it does
 # exist, it will check to see if the variables are initialized. Then it
 # will run function f_main_config within file ~/.cliappmenu.cfg to set the
@@ -396,20 +446,22 @@ f_config GUI
 # Does cliappmenu.cfg set Text Colors?
 f_config FCOLOR
 #
-# Source the library.
-source $CLI_DIR/config_cli_font_color.lib
-#
 # Apply the font colors
 f_term_color $FCOLOR $BCOLOR
 #
-# Final Check of Environment
+# Since f_arguments follows f_term_color, any UI specified as an argument
+# will override the UI settings in the ~/.cliappmenu.cfg file.
+# i.e. If the file .cliappmenu.cfg specifies "text" but the CLI command is
+#      "bash cliappmenu.sh dialog", then the selected UI will be "Dialog".
+#
+# Test for Optional Arguments.
+# Also sets variable UI.
+f_arguments $1 $2
+#
+# Manual Override of UI Environment for testing purposes.
 #GUI="whiptail"  # Diagnostic line.
 #GUI="dialog"    # Diagnostic line.
 #GUI="text"      # Diagnostic line.
-#
-# Test for Optional Arguments.
-# Also sets variable GUI.
-f_arguments $1 $2
 #
 # Test for X-Windows environment. Cannot run in CLI for LibreOffice.
 # if [ x$DISPLAY = x ] ; then
@@ -435,7 +487,6 @@ f_about $GUI "NOK" 1
 #
 f_menu_main $GUI
 #
-echo "Bye bye..."
 # Delete temporary files.
 #
 if [ -e $TEMP_FILE ] ; then

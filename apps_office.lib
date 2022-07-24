@@ -1,0 +1,1901 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office Menu                                    |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Accounting#@@Accounting [with with double-entry].#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_accounting_generated.txt"^Office_-_Accounting_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_accounting_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Calculators#@@Simple pocket calculators.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calculators_generated.txt"^Office_-_Calculators_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calculators_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Calendars#@@Calendars.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calendars_generated.txt"^Office_-_Calendars_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calendars_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Clocks#@@Alarm clocks, specialized clocks.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_clocks_generated.txt"^Office_-_Clocks_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_clocks_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Contacts#@@Contact/Address book lists.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_contacts_generated.txt"^Office_-_Contacts_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_contacts_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Notes#@@Notebooks, diaries, PIM [personal information manager].#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_notes_generated.txt"^Office_-_Notes_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_notes_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@PDF-PS documents#@@View, edit, compare, merge pdf and ps documents.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_pdf-ps_documents_generated.txt"^Office_-_PDF-PS_documents_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_pdf-ps_documents_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Presenters#@@Text slideshow presentation.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_presenters_generated.txt"^Office_-_Presenters_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_presenters_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Spreadsheets#@@Basic spreadsheet.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_spreadsheets_generated.txt"^Office_-_Spreadsheets_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_spreadsheets_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Text#@@Create/Edit text files, text format converters, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_text_generated.txt"^Office_-_Text_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_text_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@To Do#@@To-Do lists.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_todo_generated.txt"^Office_-_To-Do_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_todo_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#! End Listing Office Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - Accounting Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@brinance#@@Personal finance.#@@f_app_cmd^$GUI^brinance#@@0^0^0^0^1
+#
+#@@chkbk#@@Personal finance.#@@f_app_cmd^$GUI^chkbk#@@0^0^0^0^1
+#
+#@@clacct#@@Account management for multiple users and accounts.#@@f_app_cmd^$GUI^clacct#@@0^0^0^0^1
+#
+#@@clipf#@@Track Your incomes and expenses, written for Python2.#@@f_app_cmd^$GUI^clipf#@@0^0^0^0^1
+#
+#@@hledger#@@Same as ledger but using the Haskell Programming Language.#@@f_app_cmd^$GUI^hledger#@@0^0^0^0^1
+#
+#@@hledger-chart#@@Hledger pie chart generator.#@@f_app_cmd^$GUI^hledger-chart#@@0^0^0^0^1
+#
+#@@hledger-vty#@@Hledger n-curses style interface.#@@f_app_cmd^$GUI^hledger-vty#@@0^0^0^0^0
+#
+#@@hledger-web#@@Hledger web interface.#@@f_app_cmd^$GUI^hledger-web#@@0^0^0^0^0
+#
+#@@ledger#@@Ledger using double-entry.#@@f_app_cmd^$GUI^ledger#@@0^0^0^0^1
+#
+#! End Listing Office - Accounting Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - Calculators Menu                      |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@apcalc#@@Arbitrary precision calculator, uses C-like language.#@@f_app_cmd^$GUI^apcalc#@@0^0^0^0^0
+#
+#@@bc#@@Calculator.#@@f_app_cmd^$GUI^bc#@@0^0^0^7^0
+#
+#@@concalc#@@Calculator, parser-algorithm of extcalc.#@@f_app_cmd^$GUI^concalc#@@0^0^0^0^0
+#
+#@@dc#@@RPN arbitrary precision reverse-polish calculator.#@@f_app_cmd^$GUI^dc#@@0^0^0^1^0
+#
+#@@genius#@@General purpose calculator.#@@f_app_cmd^$GUI^genius#@@0^0^0^21^0
+#
+#@@orpie#@@RPN Reverse Polish Notation calculator.#@@f_app_cmd^$GUI^orpie#@@0^0^0^0^1
+#
+#@@qalc#@@Qalculate! calculator customizable functions, units, precision.#@@f_app_cmd^$GUI^qalc#@@0^0^0^21^0
+#
+#@@rpncalc#@@RPN calculator trying to emulate an HP28S.#@@f_app_cmd^$GUI^rpncalc#@@0^0^0^0^0
+#
+#@@tapecalc#@@Tape-like calculator.#@@f_app_cmd^$GUI^tapecalc#@@0^0^0^1^0
+#
+#@@wcalc#@@Scientific calculator.#@@f_app_cmd^$GUI^wcalc#@@0^0^0^1^0
+#
+#! End Listing Office - Calculators Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - Calendars Menu                         |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@cal#@@Displays a monthly calendar.#@@f_app_cmd^$GUI^cal#@@0^0^0^0^1
+#
+#@@calcurse#@@Calendar and To-Do List ncurses-based.#@@f_app_cmd^$GUI^calcurse#@@0^0^0^1^0
+#
+#@@ccal#@@Calendar in color, cal-like but with color.#@@f_app_cmd^$GUI^ccal#@@0^0^0^0^1
+#
+#@@clcal#@@Calendar and appointment reminders.#@@f_app_cmd^$GUI^clcal#@@0^0^0^0^1
+#
+#@@dadd#@@Date arithmetic using minutes, hours, days, weeks.#@@f_app_cmd^$GUI^dadd#@@0^0^0^0^1
+#
+#@@dconv#@@Convert a date between calendric systems.#@@f_app_cmd^$GUI^dconv#@@0^0^0^0^1
+#
+#@@ddiff#@@Calculate difference in days between dates.#@@f_app_cmd^$GUI^ddiff#@@0^0^0^0^1
+#
+#@@dgrep#@@Grep dates from text using or signs.#@@f_app_cmd^$GUI^dgrep#@@0^0^0^0^1
+#
+#@@dround#@@Round off dates or timestamps i.e. next/previous Day/Month.#@@f_app_cmd^$GUI^dround#@@0^0^0^0^1
+#
+#@@dseq#@@seq command for dates/times, compute series of dates.#@@f_app_cmd^$GUI^dseq#@@0^0^0^0^1
+#
+#@@dtest#@@Like the test command but for dates.#@@f_app_cmd^$GUI^dtest#@@0^0^0^0^1
+#
+#@@emacs-calfw#@@Displays a calendar view in the Emacs buffer.#@@f_app_cmd^$GUI^emacs-calfw#@@0^0^0^0^1
+#
+#@@etm#@@Event and task manager.#@@f_app_cmd^$GUI^etm#@@0^0^0^0^1
+#
+#@@gcal#@@Calendar, almost the same as cal.#@@f_app_cmd^$GUI^gcal#@@0^0^0^0^1
+#
+#@@gcalcli#@@Google calendar.#@@f_app_cmd^$GUI^gcalcli#@@0^0^0^0^1
+#
+#@@MORE...#@@More calendar applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calendars_2_generated.txt"^Office_-_Calendars_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calendars_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#! End Listing Office - Calendars Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - Calendars 2 Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@hebcal#@@Perpetual Jewish calendar.#@@f_app_cmd^$GUI^hebcal#@@0^0^0^0^1
+#
+#@@ical2rem#@@iCalendar .ics [Google, Yahoo, Lotus Notes] to Remind format.#@@f_app_cmd^$GUI^ical2rem#@@0^0^0^0^1
+#
+#@@jcal#@@Display Jalali [Persian] calendar.#@@f_app_cmd^$GUI^jcal#@@0^0^0^0^1
+#
+#@@lunar#@@Converts Gregorian date to Chinese lunar calendar.#@@f_app_cmd^$GUI^lunar#@@0^0^0^0^1
+#
+#@@mencal#@@Calendar to track repeating periodic events every nn days.#@@f_app_cmd^$GUI^mencal#@@0^0^0^0^1
+#
+#@@ncal#@@Calendar with vertical days.#@@f_app_cmd^$GUI^ncal#@@0^0^0^0^1
+#
+#@@pal#@@Calendar with events.#@@f_app_cmd^$GUI^pal#@@0^0^0^0^1
+#
+#@@pcal#@@Generate PostScript or HTML Calendars.#@@f_app_cmd^$GUI^pcal#@@0^0^0^0^1
+#
+#@@pom#@@Display phase of moon on given date.#@@f_app_cmd^$GUI^pom#@@0^0^0^0^1
+#
+#@@remind#@@Calendar alarms, Sun rise/set, moon phases.#@@f_app_cmd^$GUI^remind#@@0^0^0^0^1
+#
+#@@remupdate#@@Download Google Calendars then converts to Remind format.#@@f_app_cmd^$GUI^remupdate#@@0^0^0^0^1
+#
+#@@strptime#@@Easily format dates any way you want.#@@f_app_cmd^$GUI^strptime#@@0^0^0^0^1
+#
+#@@when#@@Calendar.#@@f_app_cmd^$GUI^when#@@0^0^0^0^1
+#
+#@@wyrd#@@Calendar, ncurses-based front-end for Remind.#@@f_app_cmd^$GUI^wyrd#@@0^0^0^1^0
+#
+#! End Listing Office - Calendars 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - Clocks Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@binclock#@@Binary clock.#@@f_app_cmd^$GUI^binclock^binclock -nl#@@1^0^0^0^1
+#
+#@@binary-clock#@@Binary numbers 1/0 tells time.#@@f_app_cmd^$GUI^binary-clock#@@0^0^0^0^1
+#
+#@@cclock#@@Digital clock with huge numbers fills entire screen.#@@f_app_cmd^$GUI^cclock#@@0^1^0^8^0
+#
+#@@clockywock#@@Analog clock, ncurses-based.#@@f_app_cmd^$GUI^clockywock#@@0^0^0^0^0
+#
+#@@grandfatherclock#@@Clock chimes Big-Ben, Cuckoo, Close Encounters.#@@f_app_cmd^$GUI^grandfatherclock#@@0^0^0^0^1
+#
+#@@leave#@@Text alarm tells you when its time to leave.#@@f_app_cmd^$GUI^leave#@@0^0^0^0^1
+#
+#@@saytime#@@Audio clock.#@@f_app_cmd^$GUI^saytime#@@0^0^0^0^1
+#
+#@@tbclock#@@Binary clock, binary numbers 1/0 tells time.#@@f_app_cmd^$GUI^tbclock#@@0^0^0^0^1
+#
+#@@tty-clock#@@Display a digital clack full-screen.#@@f_app_cmd^$GUI^tty-clock#@@0^0^0^0^1
+#
+#@@tzwatch#@@Displays time/date in specified time zones on console.#@@f_app_cmd^$GUI^tzwatch#@@0^0^0^0^1
+#
+#@@vtclock#@@Full-screen clock also shows 1 line text, ncurses-based.#@@f_app_cmd^$GUI^vtclock#@@0^0^0^8^0
+#
+#! End Listing Office - Clocks Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - Contacts Menu                         |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@abook#@@Address book with or w/o mutt. With tabs for fields of information.#@@f_app_cmd^$GUI^abook#@@0^0^0^0^1
+#
+#! End Listing Office - Contacts Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - Notes Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@cjots#@@Notebook with books, pages, notes [to-do lists], etc.#@@f_app_cmd^$GUI^cjots#@@0^0^0^0^1
+#
+#@@diary#@@Diary and To Do List uses commands date, grep, and text editor.#@@f_app_cmd^$GUI^diary#@@0^0^0^0^1
+#
+#@@diary-f#@@Fork of diary enhanced view/cat actions, non-latin locales.#@@f_app_cmd^$GUI^diary-f#@@0^0^0^0^1
+#
+#@@hnb#@@Hierarchical notebook.#@@f_app_cmd^$GUI^hnb#@@0^0^0^0^1
+#
+#@@nodau#@@Note-taking with search by name or date.#@@f_app_cmd^$GUI^nodau#@@0^0^0^0^1
+#
+#@@note#@@Manage notes with a DBI-based mysql-module.#@@f_app_cmd^$GUI^note#@@0^0^0^0^1
+#
+#@@org-mode#@@Emacs plug-in for notes, ToDo lists, and project planning.#@@f_app_cmd^$GUI^org-mode#@@0^0^0^0^1
+#
+#@@tina#@@PIM [personal information manager], ncurses-based.#@@f_app_cmd^$GUI^tina#@@0^0^0^0^0
+#
+#@@worklog#@@Time-tracking for projects/tasks, running clock, ncurses-based.#@@f_app_cmd^$GUI^worklog#@@0^0^0^0^1
+#
+#! End Listing Office - Notes Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - PDF-PS documents Menu                 |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@comparepdf#@@Compare two PDF files.#@@f_app_cmd^$GUI^comparepdf#@@0^0^0^0^1
+#
+#@@diffpdf#@@Compare two PDF files.#@@f_app_cmd^$GUI^diffpdf#@@0^0^0^0^1
+#
+#@@enscript#@@Convert text file to Post-Script file.#@@f_app_cmd^$GUI^enscript#@@0^0^0^0^1
+#
+#@@fbdjvu#@@DjVu viewer similar to fbpdf.#@@f_app_cmd^$GUI^fbdjvu#@@0^0^0^0^1
+#
+#@@fbgs#@@GhostScript, PostScript, and PDF viewer.#@@f_app_cmd^$GUI^fbgs#@@0^0^0^0^1
+#
+#@@fbpdf#@@Framebuffer PDF viewer based on MuPDF with Vim keybindings.#@@f_app_cmd^$GUI^fbpdf#@@0^0^0^0^1
+#
+#@@gs#@@GhostScript, PostScript, and PDF viewer.#@@f_app_cmd^$GUI^gs#@@0^0^0^0^1
+#
+#@@jfbview#@@Image viewer and framebuffer PDF viewer based on Imlib2.#@@f_app_cmd^$GUI^jfbview#@@0^0^0^0^1
+#
+#@@pdfgrep#@@Search PDF files with filename, page, count and color output.#@@f_app_cmd^$GUI^pdfgrep#@@0^0^0^0^1
+#
+#@@pdfjam#@@Merge PDF files into a single file.#@@f_app_cmd^$GUI^pdfjam#@@0^0^0^0^1
+#
+#@@pdftex#@@Typesetter creates PDF files.#@@f_app_cmd^$GUI^pdftex#@@0^0^0^0^1
+#
+#@@pdftk#@@Merge/split, rotate, watermark, bookmarks/metadata, attach.#@@f_app_cmd^$GUI^pdftk#@@0^0^0^0^1
+#
+#@@pdftops#@@Converts PDF to PS [PostScript] format.#@@f_app_cmd^$GUI^pdftops#@@0^0^0^0^1
+#
+#@@pstotext#@@Extract text from PS [PostScript] and PDF files.#@@f_app_cmd^$GUI^pstotext#@@0^0^0^0^1
+#
+#@@ps2ascii#@@Converts PS [PostScript] to text format.#@@f_app_cmd^$GUI^ps2ascii#@@0^0^0^0^1
+#
+#@@MORE...#@@For more PDF and PS applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_PDF-PS_documents_2_generated.txt"^Office_-_PDF-PS documents_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_PDF-PS_documents_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#! End Listing Office - PDF-PS documents Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - PDF-PS documents 2 Menu               |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ps2pdf#@@Converts PS [PostScript] to PDF format.#@@f_app_cmd^$GUI^ps2pdf#@@0^0^0^0^1
+#
+#@@sdf#@@Uses simple markup language output formats PS/PDF/HTML/RTF etc.#@@f_app_cmd^$GUI^sdf#@@0^0^0^0^1
+#
+#@@sdop#@@Converts a Simplified Docbook XML file to PS [PostScript].#@@f_app_cmd^$GUI^sdop#@@0^0^0^0^1
+#
+#! End Listing Office - PDF-PS documents 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - Presenters Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@tpp#@@Text Presentation Program, slideshow, ncurses-based.#@@f_app_cmd^$GUI^tpp#@@0^0^0^0^0
+#
+#! End Listing Office - Presenters Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - Spreadsheets Menu                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@csvkit#@@Suite of utilities for converting to and working with CSV.#@@f_app_cmd^$GUI^csvkit#@@0^0^0^0^0
+#
+#@@mange#@@CSV file editor.#@@f_app_cmd^$GUI^mange#@@0^0^0^0^0
+#
+#@@oleo#@@Full-screen spreadsheet having a more Emacs-like feel.#@@f_app_cmd^$GUI^oleo#@@0^0^0^0^1
+#
+#@@sc#@@Spreadsheet.#@@f_app_cmd^$GUI^sc#@@0^0^0^0^1
+#
+#@@slsc#@@Spreadsheet based on sc with menus, help, color.#@@f_app_cmd^$GUI^slsc#@@0^0^0^0^1
+#
+#@@xls2csv#@@Microsoft Excel to .csv [comma separated values] converter.#@@f_app_cmd^$GUI^xls2csv#@@0^0^0^0^1
+#
+#! End Listing Office - Spreadsheets Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - Text Menu                             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Compare#@@Show differences between text files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_compare_generated.txt"^Text_-_Compare_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calendars_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Converters#@@Convert between text document/file formats.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_converters_generated.txt"^Text_-_Converters_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_converters_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Editors#@@Create/Edit text documents/files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_generated.txt"^Text_-_Editors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Markup Docs#@@Create a single source document, publish in many formats.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_markup_docs_generated.txt"^Text_-_Markup_Documents_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_markup_docs_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Tools#@@Viewers, spell-check, dictionaries.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_tools_generated.txt"^Text_-_Tools_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_tools_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#@@Word Processors#@@Word processors, word processor file format converters.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_word_processors_generated.txt"^Text_-_Word_Processors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_word_processors_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#! End Listing Office - Text Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Text - Compare Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@cmp#@@Compares 2 text files with byte comparison.#@@f_app_cmd^$GUI^#@@f_diff_msg^0^0^0^1
+#
+#@@colordiff#@@Differences between 2 text files shown in color.#@@f_app_cmd^$GUI^colordiff#@@f_diff_msg^0^0^0^1
+#
+#@@comm#@@Compares 2 sorted files line by line.#@@f_app_cmd^$GUI^comm#@@1^0^0^0^1
+#
+#@@diff#@@Differences between 2 text files shown using greater or less-than signs.#@@f_app_cmd^$GUI^diff#@@f_diff_msg^0^0^0^1
+#
+#@@diff3#@@Differences between 3 text files#@@f_app_cmd^$GUI^diff3#@@f_diff3_msg^0^0^0^1
+#
+#@@imediff2#@@Interactive 2-way file merge.#@@f_app_cmd^$GUI^imediff2#@@f_diff_msg^0^0^0^1
+#
+#@@sdiff#@@GNU sdiff does a side-by-side merge of file differences.#@@f_app_cmd^$GUI^sdiff#@@f_diff_msg^0^0^0^1
+#
+#@@vimdiff#@@Differences between 2 text files shown in color highlights.#@@f_app_cmd^$GUI^vimdiff#@@f_diff_msg^0^0^0^1
+#
+#@@wdiff#@@Differences between 2 text files shown using +/- signs.#@@f_app_cmd^$GUI^wdiff#@@f_diff_msg^0^0^0^1
+#
+#! End Listing Text - Compare Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Text - Converters Menu                         |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@pandoc#@@Converts documents and markup formats to many other formats#@@f_app_cmd^$GUI^pandoc#@@0^0^0^0^0
+#
+#@@txt2html#@@Converts plain ASCII text to HTML format.#@@f_app_cmd^$GUI^txt2html#@@1^0^0^0^1
+#
+#@@txt2man#@@Converts plain ASCII text to man format.#@@f_app_cmd^$GUI^txt2man#@@1^0^0^0^1
+#
+#@@txt2pdbdoc#@@Converts plain ASCII text to PDB doc format for Palm Pilots.#@@f_app_cmd^$GUI^txt2pdbdoc#@@1^0^0^0^1
+#
+#@@txt2regex#@@Converts human sentences to regex. Regular Expression Wizard.#@@f_app_cmd^$GUI^txt2regex#@@1^0^0^0^1
+#
+#@@txt2tags#@@Converts plain ASCII text to a variety of formats.#@@f_app_cmd^$GUI^txt2tags#@@1^0^0^0^1
+#
+#@@unoconv#@@Converts any document format that LibreOffice imports/exports.#@@f_app_cmd^$GUI^unoconv#@@0^0^0^0^1
+#
+#@@unrtf#@@Converts RTF to HTML, LaTeX, txt, PS.#@@f_app_cmd^$GUI^unrtf#@@0^0^0^0^1
+#
+#@@wp2x#@@Converts WordPerfect 5.x documents to HTML, LaTeX, txt, troff.#@@f_app_cmd^$GUI^wp2x#@@0^0^0^0^1
+#
+#@@wpd2odt#@@WordPerfect to OpenDocument converter.#@@f_app_cmd^$GUI^wpd2odt#@@0^0^0^0^1
+#
+#@@wpg2odg#@@WordPerfect Graphics to OpenDocument converter.#@@f_app_cmd^$GUI^wpg2odg#@@0^0^0^0^1
+#
+#@@wps2odt#@@Microsoft Works text documents to OpenDocument converter.#@@f_app_cmd^$GUI^wps2odt#@@0^0^0^0^1
+#
+#@@xmlto#@@Converts XML to DVI XSL-FO, HTML, XHTML, epub, man, PDF, PS.#@@f_app_cmd^$GUI^xmlto#@@0^0^0^0^1
+#
+#! End Listing Text - Converters Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Text - Editors Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@aee#@@Advanced Easy Editor.#@@f_app_cmd^$GUI^aee#@@0^0^0^0^1
+#
+#@@aoeui#@@Very small editor for Dvorak layout keyboards.#@@f_app_cmd^$GUI^aoeui#@@0^0^0^0^0
+#
+#@@dav#@@Text editor.#@@f_app_cmd^$GUI^dav#@@0^0^0^15^0
+#
+#@@dex#@@Support for ctags and parsing compiler errors.#@@f_app_cmd^$GUI^dex#@@0^0^0^0^0
+#
+#@@e3em#@@Very small editor with emacs-like key bindings.#@@f_app_cmd^$GUI^e3em#@@0^0^0^0^0
+#
+#@@e3vi#@@Very small editor with vi-like key bindings.#@@f_app_cmd^$GUI^e3vi#@@0^0^0^0^0
+#
+#@@e3pi#@@Very small editor with pico-like key bindings.#@@f_app_cmd^$GUI^e3pi#@@0^0^0^0^0
+#
+#@@e3ne#@@Very small editor with nedit-like key bindings.#@@f_app_cmd^$GUI^e3ne#@@0^0^0^0^0
+#
+#@@e3ws#@@Very small editor with Wordstar-like key bindings.#@@f_app_cmd^$GUI^e3ws#@@0^0^0^0^0
+#
+#@@ed#@@Classic CLI text editor.#@@f_app_cmd^$GUI^ed#@@0^0^0^0^0
+#
+#@@efte#@@Configurable editor, drop-down menus, ncurses-based.#@@f_app_cmd^$GUI^efte#@@0^0^0^0^0
+#
+#@@elvis-console#@@vi-clone. Multiple files/windows, spell-check, highlight.#@@f_app_cmd^$GUI^elvis-console#@@0^0^0^0^0
+#
+#@@emacs#@@Full screen text editor with plug-ins.#@@f_app_cmd^$GUI^emacs#@@0^0^0^12^0
+#
+#@@enpi#@@Bash script allows formatted text in text editors.#@@f_app_cmd^$GUI^enpi#@@0^0^0^0^0
+#
+#@@fte-console#@@fte for consoles, no internationalization I18N support.#@@f_app_cmd^$GUI^fte-console#@@0^0^0^0^0
+#
+#@@MORE...#@@For more text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_2_generated.txt"^Text_-_Editors_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#! End Listing Text - Editors Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Text - Editors 2 Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@fte-terminal#@@fte for xterm, vt100 terminals.#@@f_app_cmd^$GUI^fte-terminal#@@0^0^0^0^0
+#
+#@@groff#@@Format text via macros, create man pages to PS printers.#@@f_app_cmd^$GUI^groff#@@1^0^0^0^0
+#
+#@@jed#@@JED ncurses-based. Also consider package: jed-extra.#@@f_app_cmd^$GUI^jed#@@1^0^0^0^0
+#
+#@@jmacs#@@Joe Editor, GNU-EMACS emulation mode.#@@f_app_cmd^$GUI^jmacs#@@0^0^0^12^0
+#
+#@@joe#@@Joe editor. Ctrl-K H for help.#@@f_app_cmd^$GUI^joe#@@1^0^0^11^0
+#
+#@@jove#@@Jonathans Own Version of Emacs, ncurses-based.#@@f_app_cmd^$GUI^jove#@@0^0^0^12^0
+#
+#@@jpico#@@Joe Editor, PICO emulation mode.#@@f_app_cmd^$GUI^jpico#@@0^0^0^0^0
+#
+#@@jstar#@@Joe Editor, WordStar emulation mode.#@@f_app_cmd^$GUI^jstar#@@0^0^0^0^0
+#
+#@@jupp#@@Fork of joe editor with enhancements.#@@f_app_cmd^$GUI^jupp#@@0^0^0^0^0
+#
+#@@le#@@LE editor text/hex mode, drop-down menus, ncurses-based.#@@f_app_cmd^$GUI^le#@@0^0^0^0^0
+#
+#@@ledit#@@Line editor used with interactive commands.#@@f_app_cmd^$GUI^ledit#@@0^0^0^0^0
+#
+#@@levee#@@Editor based on vi.#@@f_app_cmd^$GUI^levee#@@0^0^0^0^0
+#
+#@@levi#@@Very small vi-clone. From the 1980s.#@@f_app_cmd^$GUI^levi#@@0^0^0^0^0
+#
+#@@mg#@@Microscopic GNU Emacs-style editor.#@@f_app_cmd^$GUI^mg#@@0^0^0^12^0
+#
+#@@mped#@@Text editor, ncurses-based.#@@f_app_cmd^$GUI^mped#@@0^0^0^0^0
+#
+#@@MORE...#@@For more text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_3_generated.txt"^Text_-_Editors_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_3_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#! End Listing Text - Editors 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Text - Editors 3 Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@nano#@@Simple full-screen text editor more powerful than pico.#@@f_app_cmd^$GUI^nano#@@0^0^0^0^0
+#
+#@@nano-tiny#@@Tiny build of nano.#@@f_app_cmd^$GUI^nano-tiny#@@0^0^0^0^0
+#
+#@@ne#@@Nice Editor. Drop-down menus, ncurses-based. #@@f_app_cmd^$GUI^ne#@@0^0^0^0^0
+#
+#@@NERD_tree#@@vim plug-in directory tree, highlighting, bookmarks, etc.#@@f_app_cmd^$GUI^NERD_tree#@@1^0^0^0^0
+#
+#@@nvi#@@vi-clone as close to vi as possible.#@@f_app_cmd^$GUI^nvi#@@0^0^0^14^0
+#
+#@@pico#@@Simple full-screen text editor.#@@f_app_cmd^$GUI^pico#@@0^0^0^0^0
+#
+#@@rjoe#@@Joe Editor, only edit file[s] specified rjoe filenames.#@@f_app_cmd^$GUI^rjoe#@@f_joe^0^0^11:NC^0
+#
+#@@the#@@The Hessling Editor modeled on VM/CMS text editor, XEDIT.#@@f_app_cmd^$GUI^the#@@0^0^0^0^0
+#
+#@@vi#@@Classic full-screen text editor.#@@f_app_cmd^$GUI^vi#@@0^0^0^14^0
+#
+#@@vile#@@vi Like Emacs vi finger feel but with emacs features.#@@f_app_cmd^$GUI^vile#@@0^0^0^14^0
+#
+#@@vim#@@vi Improved text editor with more features than vi.#@@f_app_cmd^$GUI^vim#@@0^0^0^14^0
+#
+#@@vim-nox#@@vim with scripting support: Lua, Perl, Python, Ruby, TCL.#@@f_app_cmd^$GUI^vim-nox#@@0^0^0^14^0
+#
+#@@vim-scripts#@@Plug-ins for vim, adding bells and whistles.#@@f_app_cmd^$GUI^vim-scripts#@@0^0^0^14^0
+#
+#@@vim-tiny#@@vi Improved compact version.#@@f_app_cmd^$GUI^vim-tiny#@@0^0^0^14^0
+#
+#@@vim-latexsuite#@@LaTeX plug-in for vim.#@@f_app_cmd^$GUI^vim-latexsuite#@@0^0^0^14^0
+#
+#@@MORE...#@@For more text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_4_generated.txt"^Text_-_Editors_4_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_4_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#! End Listing Text - Editors 3 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Text - Editors 4 Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@vim-vimoutliner#@@Script for building an outline editor on top of vim.#@@f_app_cmd^$GUI^vim-vimoutliner#@@0^0^0^0^0
+#
+#@@zile#@@Very small Emacssubset editor.#@@f_app_cmd^$GUI^zile#@@0^0^0^0^0
+#
+#! End Listing Text - Editors 4 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Text - Markup Documents Menu                   |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@doconce#@@Markup language to manipulate, transform, and convert text.#@@f_app_cmd^$GUI^doconce#@@0^0^0^0^0
+#
+#@@sisu#@@Markup language, publishing, search, write to many formats.#@@f_app_cmd^$GUI^sisu#@@0^0^0^0^0
+#
+#@@stx2any#@@Markup language, write to XHTML, HTML, XML, PS, LaTeX, etc.#@@f_app_cmd^$GUI^stx2any#@@0^0^0^0^0
+#
+#@@texinfo#@@Markup language produces both printed on-line web pages.#@@f_app_cmd^$GUI^texinfo#@@0^0^0^0^0
+#
+#@@udo#@@Simpler markup language writes to 25 formats.#@@f_app_cmd^$GUI^udo#@@0^0^0^0^0
+#
+#! End Listing Text - Markup Documents Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Text - Tools Menu                              |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@acheck#@@Check grammar.#@@f_app_cmd^$GUI^acheck#@@0^0^0^0^1
+#
+#@@aiksaurus#@@Thesaurus, based on Guttenburgs Moby thesaurus.#@@f_app_cmd^$GUI^aiksaurus#@@0^0^0^0^1
+#
+#@@antiword#@@Microsoft Word document viewer/converter to txt, pdf, ps, xml.#@@f_app_cmd^$GUI^antiword#@@0^0^0^0^1
+#
+#@@aspell#@@Spell check allows text files as input with user dictionary.#@@f_app_cmd^$GUI^aspell#@@1^0^0^0^0
+#
+#@@dict#@@On-line dictionary, client application queries a dictd server.#@@f_app_cmd^$GUI^dict#@@0^0^0^0^1
+#
+#@@dictd#@@Dictionary Server database. dict-gcide, dict-wn recommended.#@@f_app_cmd^$GUI^dictd#@@0^0^0^0^1
+#
+#@@hunspell#@@Spell check allows keyboard or files as input w/user dictionary.#@@f_app_cmd^$GUI^hunspell#@@1^0^0^10:NC^0
+#
+#@@ispell#@@Spell check allows text files as input with user dictionary.#@@f_app_cmd^$GUI^ispell#@@1^0^0^10:NC^0
+#
+#@@sdcv#@@Use StarDict formatted dictionaries [must have own dictionary].#@@f_app_cmd^$GUI^sdcv#@@0^0^0^0^1
+#
+#@@spell#@@Spell check allows keyboard or text files as input.#@@f_app_cmd^$GUI^spell#@@1^0^0^10:NC^0
+#
+#@@uniq#@@Remove duplicate lines from a sorted file.#@@f_app_cmd^$GUI^uniq#@@0^0^0^0^1
+#
+#@@wc#@@Counts words, lines, characters, bytes of a text file.#@@f_app_cmd^$GUI^wc#@@1^0^0^0^1
+#
+#! End Listing Text - Tools Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Text - Word Processors Menu                    |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@unoconv#@@Converts any document format that LibreOffice imports/exports.#@@f_app_cmd^$GUI^unoconv#@@0^0^0^0^1
+#
+#@@wordgrinder#@@Word processor, styles, drop-down menus, ncurses-based.#@@f_app_cmd^$GUI^wordgrinder#@@0^0^0^24^0
+#
+#@@wp2x#@@Converts WordPerfect 5.x documents to HTML, LaTeX, txt, troff.#@@f_app_cmd^$GUI^wp2x#@@0^0^0^0^1
+#
+#@@wpd2odt#@@WordPerfect to OpenDocument converter.#@@f_app_cmd^$GUI^wpd2odt#@@0^0^0^0^1
+#
+#@@wpg2odg#@@WordPerfect Graphics to OpenDocument converter.#@@f_app_cmd^$GUI^wpg2odg#@@0^0^0^0^1
+#
+#@@wps2odt#@@Microsoft Works text documents to OpenDocument converter.#@@f_app_cmd^$GUI^wps2odt#@@0^0^0^0^1
+#
+#! End Listing Text - Word Processors Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - To-Do Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@beeswax#@@To-Do List.#@@f_app_cmd^$GUI^beeswax#@@0^0^0^1^0
+#
+#@@calcurse#@@Calendar and To-Do List ncurses-based.#@@f_app_cmd^$GUI^calcurse#@@0^0^0^1^0
+#
+#@@diary#@@Diary/To-Do List uses grep, date, etc. with your text editor.#@@f_app_cmd^$GUI^diary#@@0^0^0^0^1
+#
+#@@diary-f#@@Fork of diary enhanced view/cat, non-latin locales.#@@f_app_cmd^$GUI^diary-f#@@0^0^0^0^1
+#
+#@@doneyet#@@To-Do List.#@@f_app_cmd^$GUI^doneyet#@@0^0^0^0^1
+#
+#@@etm#@@Event and task manager.#@@f_app_cmd^$GUI^etm#@@0^0^0^0^1
+#
+#@@hnb#@@To-Do List and note taker, ncurses-based application.#@@f_app_cmd^$GUI^hnb#@@0^0^0^0^0
+#
+#@@ikog#@@To-Do List#@@f_app_cmd^$GUI^ikog#@@0^0^0^0^1
+#
+#@@org-mode#@@Emacs plug-in for notes, To-Do lists, and project planning.#@@f_app_cmd^$GUI^org-mode#@@0^0^0^0^1
+#
+#@@task#@@Taskwarrior To-Do lists synchronize multiple PCs.#@@f_app_cmd^$GUI^task#@@0^0^0^0^1
+#
+#@@tdl#@@To-Do List manager.#@@f_app_cmd^$GUI^tdl#@@0^0^0^21^0
+#
+#@@todo#@@To-Do List hierarchical. Install package devtodo.#@@f_app_cmd^$GUI^todo#@@1^0^0^0^0
+#
+#@@todo2#@@devtodo2 application is a todo2 list, 5-levels of priorties.#@@f_app_cmd^$GUI^todo2#@@1^0^0^0^0
+#
+#@@tudu#@@To-Do List hierarchical tasks.#@@f_app_cmd^$GUI^tudu#@@0^0^0^0^0
+#
+#@@w2do#@@To-Do with support for group, due date and priority categories.#@@f_app_cmd^$GUI^w2do#@@0^0^0^0^1
+#
+#@@MORE...#@@More To-Do applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_to-do_2_generated.txt"^Office_-_To-Do_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_to-do_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#
+#! End Listing Office - To-Do Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Office - To-Do 2 Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@yaGTD#@@To-Do List based on Getting Things Done methodology.#@@f_app_cmd^$GUI^yaGTD#@@0^0^0^0^1
+#
+#@@yokadi#@@Project/task manager which uses SQLite.#@@f_app_cmd^$GUI^yokadi#@@0^0^0^0^0
+#
+#! End Listing Office - To-Do 2 Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |          Function f_binclock           |
+# +----------------------------------------+
+#
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_binclock () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "binclock - Display binary clock on console." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage: binclock [OPTIONS]" >> $TEMP_FILE
+
+      echo "Short options:" >> $TEMP_FILE
+      echo "-v      print the version number + release date + exit." >> $TEMP_FILE
+      echo "-h      print version info and startup options  + exit." >> $TEMP_FILE
+      echo "-l      loop the time every second." >> $TEMP_FILE
+      echo "-n      shows the time with an additional normal format." >> $TEMP_FILE
+      echo "-t      show traditional binary output (without color)" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "long options:" >> $TEMP_FILE
+      echo "--color=[on|off] default: on" >> $TEMP_FILE
+      echo "Now run binclock. Usage: binclock -nl" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      #  Function f_run_and_exit arguments and parameters.
+      #
+      #  Inputs: $1 - GUI.
+      #          $2 - $APP_NAME Application name.
+      #          $3 - APP_CMD The complete user-entered string,
+      #               which may include application parameters and options.
+      #          $4 - $APP_CODE Application code.
+      #          $5 - Field number of application code.
+      #
+      f_run_and_exit $1 $2 "binclock -nl" 0^0^0^0^0 1
+      #
+} # End of f_binclock
+#
+# +----------------------------------------+
+# |       Function f_install_cclock        |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Install Cclock.
+#
+# Dependencies: f_message, f_yn_defaults, f_install_ncurses, f_install_cclock_2.
+#
+f_install_cclock () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      if [ ! -r "/usr/bin/cclock" ] ; then
+         echo "This script will install \"$2\" without using a software package manager." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "If you wish to de-install \"'$2\", you will have to delete files manually" >> $TEMP_FILE
+         echo "by typing: \"sudo rm /usr/bin/cclock /usr/share/man/man1/cclock.1\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "This script will install \"libncurses-dev\" and \"ncurses-dev\", if needed." >> $TEMP_FILE
+         echo "Afterwards, \"$2\" will be installed." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Install $2?" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         f_yn_defaults $1 "N" "Install $2?" "Do you wish to continue to install $2?"
+         #
+         if [ "$ANS" -eq 0 ] ; then
+            # Yes, Install cclock.
+            #
+            # Blank the screen.
+            clear
+            #
+            # Install libncurses-dev and ncurses-dev as pre-requisites.
+            f_install_ncurses
+            #
+            if [ $ERROR -eq 0 ] ; then
+               # Error code 1 $?=1 means no --help available.
+               # Error code 0 (zero) where $?=0 means no error.
+               #
+               # Since dependencies are installed, now install cclock.
+               f_install2_cclock $1 $2
+               #
+               # Since dependent packages may have been installed causing
+               # changes in APP_NAME/APP_NAME_INSTALL, set APP_NAME to the
+               # original name along with APP_NAME_INSTALL for web install.
+            fi
+         fi
+         unset ANS
+      fi
+      #
+} # End of f_install_cclock
+#
+# +----------------------------------------+
+# |         Function f_install_cclock_2    |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Continue install of Cclock.
+#
+# Dependencies: f_message.
+#
+f_install_cclock_2 () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "This script will automatically download and install \"$2\"." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"cclock\" by using wget from:" >> $TEMP_FILE
+      echo "   \"http://sourceforge.net/projects/cclock/files/latest/download/cclock-0.96.tar.bz2\"." >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/bin/cclock*" >> $TEMP_FILE
+      echo "4. Install cclock via:" >> $TEMP_FILE
+      echo "                           sudo make install" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "   Installs files to \"/usr/bin/\" and \"/usr/share/man/man1/cclock.1\"." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "5. Allow users to run cclock by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "6. Add directory \"/usr/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Download & Install $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # 1. Change directory to your ~/bin folder.
+      cd ~
+      if [ ! -d "~/bin" ] ; then
+         # Target directory is missing, so create it.
+         mkdir ~/bin
+      fi
+      #
+      # 2. Download "cclock" from "http://sourceforge.net/projects/cclock/files/latest/download"
+      #    by using wget.
+      cd ~/bin
+      wget http://sourceforge.net/projects/cclock/files/latest/download/cclock-0.96.tar.bz2
+      #
+      # 3. Decompress and create the installation subdirectory ~/bin/cclock*.
+      tar -xf cclock*
+      #
+      # 4. Make and install cclock.
+      cd ~/bin/cclock*
+      sudo make install
+      #
+      # 5. Allow users to run cclock by setting permissions to r-x or 755 for all users.
+      sudo chmod 755 /usr/bin/cclock*
+      ERROR=$? # Save error flag condition.
+      #
+      # 6. Add directory \"/usr/bin\" to your PATH command in ~/.bashrc.
+      # Is the directory /usr/bin in your PATH of directories?
+      # Check the $PATH
+      if [[ ! "$PATH" == *":/usr/bin"* ]] ; then
+         echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+         echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+         echo 'PATH=$PATH'":/usr/bin" >> $TEMP_FILE
+         echo "export PATH" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+         echo "After editing the file, .bashrc:" >> $TEMP_FILE
+         echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+         echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+         f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+      fi
+      #
+         echo > $TEMP_FILES
+         echo "------------------------------------------------------" >> $TEMP_FILES
+         echo "Finished running installation script for \"$2\"." >> $TEMP_FILES
+         echo "------------------------------------------------------" >> $TEMP_FILES
+         echo >> $TEMP_FILES
+         echo "To run \"$2\", select it on the \"Office Clocks Menu\"." >> $TEMP_FILES
+         echo >> $TEMP_FILES
+      f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+      #
+} # End of function f_install_cclock_2
+#
+# +----------------------------------------+
+# |             Function f_comm            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_comm () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "comm - compare two sorted files line by line." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "comm [OPTION]... FILE1 FILE2" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Output is in three columns of quoted lines." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "  Column 1      Column 2          Column 3" >> $TEMP_FILE
+      echo "Lines unique  Lines unique      Lines common" >> $TEMP_FILE
+      echo "  to FILE1      to FILE2     to FILE1 and FILE2" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "OPTIONS:" >> $TEMP_FILE
+      echo "         -1                 Suppress column 1." >> $TEMP_FILE
+      echo "         -2                 Suppress column 2." >> $TEMP_FILE
+      echo "         -3                 Suppress column 3." >> $TEMP_FILE
+      echo "         --no-check order   Do not check files for sort order." >> $TEMP_FILE
+      echo
+      echo "*** For more help type: 'man comm'" >> $TEMP_FILE
+      echo "                        'comm --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_comm
+#
+# +----------------------------------------+
+# |             Function f_diff_msg        |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - $APP_NAME.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display help message.
+#
+# Dependencies: f_message.
+#
+f_diff_msg () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      if [[ ! "$APP_CMD" == *"_"* ]] ; then
+         # If APP_NAME has no spaces (converted to underscores"_"), then neither [OPTIONS] nor file name are specified.
+         echo "Missing file names to compare."  > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage: $2 [OPTION] FILE1 FILE2" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example:" >> $TEMP_FILE
+         echo "$2 file1 file2" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+         echo "                        '$2 --help'" >> $TEMP_FILE
+         f_message $1 "OK" "'$2' command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+         #
+      fi
+} # End of function f_diff_msg.
+#
+# +----------------------------------------+
+# |             Function f_diff3_msg       |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - $APP_NAME.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display help message.
+#
+# Dependencies: f_message.
+#
+f_diff3_msg () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      if [[ ! "$APP_CMD" == *"_"* ]] ; then
+         # If APP_NAME has no spaces (converted to underscores"_"), then neither [OPTIONS] nor file name are specified.
+         echo "Missing file names to compare."  > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "diff3 [OPTION]... MYFILE OLDFILE YOURFILE" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example:" >> $TEMP_FILE
+         echo "$2 file1 file2 file3" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+         echo "                        '$2 --help'" >> $TEMP_FILE
+         f_message $1 "OK" "'$2' command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+         #
+      fi
+} # End of function f_diff3_msg.
+#
+# +----------------------------------------+
+# |           Function f_txt2html          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_txt2html () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "txt2html - Convert plain text files to html." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "txt2html [ --append_file filename ] [ --append_head filename ]" >> $TEMP_FILE
+         echo "         [ --body_deco string ]     [ --bold_delimiter string ]" >> $TEMP_FILE
+         echo "         [ --bullets string ]       [ --bullets_ordered string ]" >> $TEMP_FILE
+         echo "         [ --caps_tag tag ]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man txt2html'" >> $TEMP_FILE
+         echo "                        'txt2html --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+} # End of function f_txt2html
+#
+# +----------------------------------------+
+# |           Function f_txt2man           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_txt2man () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "txt2man - Convert plain text files to man pages." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "txt2man [-hpTX] [-t mytitle] [-P pname] [-r rel] [-s sect] [-v vol]" >> $TEMP_FILE
+         echo "        [-I txt] [-B txt] [-d date] [ifile]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man txt2man'" >> $TEMP_FILE
+         echo "                        'txt2man --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+} # End of function f_txt2man
+#
+# +----------------------------------------+
+# |          Function f_txt2pdbdoc         |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_txt2pdbdoc () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "txt2pdbdoc - Convert plain text files to (Palm Pilot Database) Doc file *.pdb." > $TEMP_FILE
+         echo "             for PalmPilots & DocReaders. (Does anyone still have a PalmPilot?)" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage: txt2pdbdoc [-b] [-c] [-v] document-name file.txt file.pdb" >> $TEMP_FILE
+         echo "       txt2pdbdoc -d [-D] [-v] file.pdb [ file.txt ]" >> $TEMP_FILE
+         echo "       txt2pdbdoc -V" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man txt2pdbdoc'" >> $TEMP_FILE
+         echo "                        'txt2pdbdoc --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+} # End of function f_txt2pdbdoc
+#
+# +----------------------------------------+
+# |          Function f_txt2regex          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_txt2regex () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "txt2regex - Convert human sentences to regex." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "txt2regex --all|--prog <p1,p2,...,pN>" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man txt2regex'" >> $TEMP_FILE
+         echo "                        'txt2regex --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+} # End of function f_txt2regex
+#
+# +----------------------------------------+
+# |          Function f_txt2tags           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_txt2tags () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "txt2tags - Convert plain text files to ASCII Art, AsciiDoc, Creole, DocBook," > $TEMP_FILE
+         echo "           DokuWiki, Google Code Wiki, HTML, LaTeX, Lout, MagicPoint, Man page," >> $TEMP_FILE
+         echo "           MoinMoin, PageMaker, Plain Text, PmWiki, SGML, Wikipedia and XHTML." >> $TEMP_FILE
+         echo
+         echo "Usage:" >> $TEMP_FILE
+         echo "txt2tags [OPTIONS] [FILE]... " >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man txt2tags'" >> $TEMP_FILE
+         echo "                        'txt2tags --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+} # End of function f_txt2tags
+#
+# +----------------------------------------+
+# |            Function f_groff            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_groff () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "groff - Use macro command language to output formatted text" > $TEMP_FILE
+         echo "        for PostScript printers." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "groff [-abcegiklpstzCEGNRSUVXZ] [-d cs] [-D arg] [-f fam] [-F dir] [-I dir]" >> $TEMP_FILE
+         echo "      [-K arg] [-L arg] [-m name] [-M dir] [-n num] [-o list] [-P arg]" >> $TEMP_FILE
+         echo "      [-r cn] [-T dev] [-w name] [-W name] [file ...]" >> $TEMP_FILE
+         echo "groff -h | --help" >> $TEMP_FILE
+         echo "groff -v | --version [OPTION ...]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+         echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_groff
+#
+# +----------------------------------------+
+# |             Function f_jed             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary:
+#
+# Dependencies:
+#
+f_jed () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      f_message $1 "OK" "jed-extra" "Installing the jed-extra package will enable more features.\nDictionary, spell-check, file management, calendar, calculator, etc."
+      #
+      f_yn_question $1 "N" "Install Jed-Extra?" "Installing the jed-extra package will enable more features.\nDictionary, spell-check, file management, calendar, calculator, etc.\n\"Jed-Extra\" will be installed.\nDo you wish to install Jed-Extra?"
+      #
+      if [ "$ANS" -eq "0" ] ; then
+         #
+         # Install Jed-Extra
+         #
+         #  Inputs: $1 - GUI.
+         #          $2 - $APP_NAME Application name.
+         #          $3 - APP_CMD The complete user-entered string,
+         #               which may include application parameters and options.
+         #          $4 - $APP_CODE Application code.
+         #          $5 - Field number of application code.
+         #
+         APP_NAME="jed-extra"
+         APP_CMD="jed-extra"
+         APP_CODE="0^0^0^0^0"
+         #
+         # Default Application Command.
+         if [ -n "$3" ] ; then
+            APP_CMD=$3
+         else
+            APP_CMD=$2
+         fi
+         #
+         APP_CMD=$(echo $3 | tr " " "_")
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         # Blank the screen.
+         clear
+         #
+         f_app_install $1 $APP_NAME $APP_CMD $APP_CODE 1
+         #
+         # Pause to view installation messages.
+         f_press_enter_key_to_continue
+         #
+      fi
+      #
+} # End of function f_jed
+#
+# +----------------------------------------+
+# |             Function f_joe             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_joe () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "joe - Text editor with 5 emulations of other text editors" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "USAGE:" >> $TEMP_FILE
+      echo "Regular Usage mode : joe [global-options] [ [local-options] filename ]..." >> $TEMP_FILE
+      echo " WordStar emulation: jstar [global-options] [ [local-options] filename ]..." >> $TEMP_FILE
+      echo "GNU-Emacs emulation: jmacs [global-options] [ [local-options] filename ]..." >> $TEMP_FILE
+      echo "    Restricted mode: rjoe [global-options] [ [local-options] filename ]..." >> $TEMP_FILE
+      echo "     PICO emulation: jpico [global-options] [ [local-options] filename ]..." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Available at: www.sourceforge.net/projects/joe-editor." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+      echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+      f_message $1 "OK" "joe - Text editor with 5 emulations of other text editors" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_joe
+#
+# +----------------------------------------+
+# |          Function f_NERD_tree          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_NERD_tree () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "NERD_tree - A vim plug-in displays a hierarchical directory tree." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "FEATURES (from NERD tree web home page):" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "The NERD tree allows you to explore your filesystem and to open files and" >> $TEMP_FILE
+      echo "directories. It presents the filesystem to you in the form of a tree which you" >> $TEMP_FILE
+      echo "manipulate with the keyboard and/or mouse. It also allows you to perform" >> $TEMP_FILE
+      echo "simple filesystem operations." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Files and directories are displayed in a hierarchical tree structure." >> $TEMP_FILE
+      echo "Color highlighting is provided for different types of nodes." >> $TEMP_FILE
+      echo "Directories and files can be bookmarked." >> $TEMP_FILE
+      echo "Most NERD tree navigation can also be done with the mouse." >> $TEMP_FILE
+      echo "Filtering of tree content (can be toggled at runtime)." >> $TEMP_FILE
+      echo "You can have a separate NERD tree for each tab, share trees across tabs, or a mix of both." >> $TEMP_FILE
+      echo "Many (customizable) mappings are provided to manipulate the tree." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+      echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_NERD_tree
+#
+# +----------------------------------------+
+# |            Function f_aspell           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_aspell () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         # spell interactive mode without file name.
+         echo "aspell - Spell checker lists all words that are misspelled." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "aspell [OPTIONS] <COMMAND> <file>..." >> $TEMP_FILE
+         echo "aspell --personal=\"My_custom_word_list\" --ignore-case check document.txt" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "COMMANDS: check, create, filter, list, pipe, usage, config, dump, help, merge," >> $TEMP_FILE
+         echo "          soundslike, version." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "DICTIONARY OPTIONS" >> $TEMP_FILE
+         echo "       --personal=<file>, -p <file>" >> $TEMP_FILE
+         echo "              Personal word list file name." >> $TEMP_FILE
+         echo "       --repl=<file>" >> $TEMP_FILE
+         echo "              Replacements list file name." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "CHECKER OPTIONS" >> $TEMP_FILE
+         echo "       --ignore-case, --dont-ignore-case" >> $TEMP_FILE
+         echo "              Ignore case when checking words." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+         echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_aspell
+#
+# +----------------------------------------+
+# |           Function f_hunspell          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_hunspell () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "hunspell - Spell checker" > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "hunspell [OPTIONS] [FILES]..." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Spell check file interactively." >> $TEMP_FILE
+         echo "hunspell -d en_US filename.txt" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Spell check file in batch mode." >> $TEMP_FILE
+         echo "cat myFile.txt | hunspell" >> $TEMP_FILE
+         echo "hunspell -l myFile.txt" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Prevent showing an '*' asterick for each line." >> $TEMP_FILE
+         echo "cat myFile.txt | hunspell -i utf-8 | grep -v \* | uniq" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "List only misspelled words." >> $TEMP_FILE
+         echo "cat myFile.txt | hunspell -l -i utf-8" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      else
+         echo "Note: also has interactive usage:" > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: Type the sentence below" >> $TEMP_FILE
+         echo "The wrong spelling is recieve, while the correct spelling is receive." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "& recieve 8 22: receive, relieve, reprieve, retrieve, reverie, recitative," >> $TEMP_FILE
+         echo "Recife, receivable" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "The word 'recieve' is repeated on the screen because it is mis-spelled." >> $TEMP_FILE
+         echo "8=number of possible correct words." >> $TEMP_FILE
+         echo "22+1=number of characters in line until misspelled word." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now type the word(s) or sentence to spell check." >> $TEMP_FILE
+         echo "If the word has the wrong spelling, it will be repeated on the screen." >> $TEMP_FILE
+         echo "If the word has the correct spelling, an asterick '*' will appear." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+         echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      #
+} # End of function f_hunspell
+#
+# +----------------------------------------+
+# |            Function f_ispell           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_ispell () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "ispell - Spell checker" > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "ispell [OPTIONS] <COMMAND> ..." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Related packages:" >> $TEMP_FILE
+         echo "iamerican, iamerican-small, -large, -huge, -insane" >> $TEMP_FILE
+         echo "ibritish, ibritish-small, -large, -huge, -insane" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+         echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Ispell application lists all words that are misspelled." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "For interactive mode (without a text file name), just press 'Enter' key." >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_ispell
+#
+# +----------------------------------------+
+# |            Function f_spell            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_spell () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         # spell interactive mode without file name.
+         echo "spell - Spell checker" > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "spell [OPTIONS] [FILE] ..." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+         echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Spell application lists all words that are misspelled." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "For interactive mode (without a text file name), just press 'Enter' key." >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         echo "Interactive usage:" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: Type the incorrectly spelled word below" >> $TEMP_FILE
+         echo
+         echo "recieve" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "recieve <<--spell responds with this word." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "(Words spelled incorrectly are repeated on the screen.)" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "When words are spelled correctly, there will be no response from the" >> $TEMP_FILE
+         echo "\"spell\" program. So if you see nothing, the spelling is correct." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "--------------------------------------------------------------------------" >> $TEMP_FILE
+         echo "NOW ENTERING INTERACTIVE MODE OF SPELL" >> $TEMP_FILE
+         echo "A blank screen will appear, now type the word you wish to spell correctly." >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_spell
+#
+# +----------------------------------------+
+# |              Function f_wc             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_wc () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         APP_NAME="wc"
+         echo "wc - Word Count" > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "wc [OPTIONS] [FILE]..." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "-c, --bytes      prints the byte counts." >> $TEMP_FILE
+         echo "-m, --chars      prints the character counts." >> $TEMP_FILE
+         echo "-l  --lines      prints the new line counts." >> $TEMP_FILE
+         echo "-w  --words      prints the word counts." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: Type the sentences below" >> $TEMP_FILE
+         echo "Line 1 This is the first line." >> $TEMP_FILE
+         echo "Line 2 This is the second Line." >> $TEMP_FILE
+         echo "      2      14      63" >> $TEMP_FILE
+         echo "    Lines   Words   Characters" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+         echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+} # End of function f_wc
+#
+# +----------------------------------------+
+# |             Function f_todo            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_todo () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "todo - Simple To-Do list using hidden file .todo as a database list." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "todo [OPTIONS]" >> $TEMP_FILE
+      echo "       With no options, displays the items in the current directory." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "tda [-p <priority>] [-g <index>] [<text>]" >> $TEMP_FILE
+      echo "      Add a new item, optionally grafting it as a child of the given item." >> $TEMP_FILE
+      echo "tde <index>" >> $TEMP_FILE
+      echo "     Edit the given item." >> $TEMP_FILE
+      echo "tdr <indices>" >> $TEMP_FILE
+      echo "     Remove the given items." >> $TEMP_FILE
+      echo "tdd <indices>" >> $TEMP_FILE
+      echo "     Mark the specified items as being done." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man todo'" >> $TEMP_FILE
+      echo "                        'todo --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "todo -a to add a new note, todo -A -all to show all notes." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_todo
+#
+# +----------------------------------------+
+# |             Function f_todo2           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_todo2 () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "devtodo2 - To-Do list with 5-levels of priorities." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "***Note: Run using 'todo2' command.***" >> $TEMP_FILE
+      echo "         Application name is devtodo2" >> $TEMP_FILE.
+      echo >> $TEMP_FILE
+      echo "todo2 [OPTIONS]" >> $TEMP_FILE
+      echo "       With no options, displays the items in the current directory." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Add a Task:" >> $TEMP_FILE
+      echo "todo2 -a <Task description> " >> $TEMP_FILE
+      echo
+      echo "Add a task as a child of an existing task:" >> $TEMP_FILE
+      echo "todo2 -g 2 -a This is a child of task 2." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "List all tasks:" >> $TEMP_FILE
+      echo "todo2 -A" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Mark a task as complete:" >> $TEMP_FILE
+      echo "todo2 -d 1.2" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man todo2'" >> $TEMP_FILE
+      echo "                        'todo2 --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_todo2
+#

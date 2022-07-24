@@ -39,7 +39,7 @@ clear
 # less -P customizes prompt for %f <FILENAME> page <num> of <pages> (Spacebar, PgUp/PgDn . . .)
 sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/PgDn, Up/Dn arrows, press q to quit)'
 #
-# The "#:" at the beginning of lines below are used 
+# The "#:" at the beginning of lines below are used
 # to delineate the Help Instructions.
 #
 #: +----------------------------------------+
@@ -48,10 +48,10 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #:   Revision number and Revision Date
 #:   Brief Description
-#:   HOW-TO Install this script
-#:   HOW-TO Set the PATH with file locations
 #:   Why did I write this script?
 #:   Why is this menu so complex?
+#:   HOW-TO Install this script
+#:   HOW-TO Set the PATH with file locations
 #:   Script features
 #:   HOW-TO Add a new menu item
 #:   HOW-TO Add a new sub-menu
@@ -69,7 +69,7 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #: If you are releasing a new release version of the project, then the
 #: files CODE_HISTORY and EDIT_HISTORY must have the project revision date
 #: and project version number updated also.
-#: 
+#:
 #:
 #: +----------------------------------------+
 #: |            Brief Description           |
@@ -81,7 +81,13 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #: The typical user is anyone who wants to learn about what types of
 #: command line applications are available.
 #:
-#: This version 4.x IS NOT BACKWARD COMPATIBLE with 3.1 and earlier since
+#: I also wanted to demonstrate a way to create BASH menus so that the
+#: menu items could be edited or added with a single comment line.
+#:
+#: The menu generation code is extensible and this script currently includes
+#: over 140 sub-menus
+#:
+#: This version 5.x IS NOT BACKWARD COMPATIBLE with 3.1 and earlier since
 #: all the menus are now array driven and created as needed by creating
 #: temporary menu files which are deleted when each menu is exited.
 #:
@@ -91,9 +97,25 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #: The code which creates the menu arrays is contained in the library
 #: "common_bash_library.lib". It can be used in any BASH script you wish.
 #:
-#: There are many apps_[application category].lib files because each file
-#: has the data to create a single menu and there are about 134 menus in
-#: this script. The file naming system is ordered by app menu category.
+#:  The approach to link the menu item data to a unique menu has changed.
+#:  In version 3 all the menus were hard-coded and multiple menus were
+#:  contained in a single file. A unique 3-letter string to identify and
+#:  link the menu item data to a given menu was required.
+#:
+#:  Rather than identifying each menu with a unique 3-letter string
+#:  identifiers, version 4 identified each menu by using a separate
+#:  library file for each menu.
+#:
+#:  More improvements were made in version 5 and the process to display the
+#:  menus changed again so that all version 4 library files were able to be
+#:  consolidated in much fewer but larger library files.
+#:
+#:  To identify the menu item data, rather than use a unique 3-letter string
+#:  identifier or putting related menu data and code in separate files,
+#:  version 5 uses the menu titles themselves to differentiate the menu data
+#:  for each menu.
+#:
+#: The file naming system is ordered by app menu category.
 #: This allows easier locating of a particular apps menu file.
 #:
 #: Admittedly, the some of the library files for this script are big,
@@ -101,16 +123,62 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #: The "common_bash_function_library.lib" contains tested functions that
 #: are designed to be used in any script.
-#: 
-#: Lastly, because the menus are now generated, there is a performance lag.
-#: The script ran fine on a Raspberry Pi 2 1 GB computer.
+#:
+#: Lastly, because the menus are now generated on-the-fly or as needed,
+#: there is a performance lag.
+#:
+#: The script ran fine on a Raspberry Pi 2 with 1 GB RAM computer.
+#:
+#:
+#: +----------------------------------------+
+#: |      Why did I write this script?      |
+#: +----------------------------------------+
+#:
+#: I wrote this script for 3 reasons:
+#: 1. I wanted a categorized list of command line applications.
+#: 2. I wanted to learn bash scripting, i.e. functions, looping, tests.
+#: 3. I couldn't find a cli menu to launch cli apps on the web so I thought
+#:    I'd give back to the community and perhaps others could build on and
+#:    improve on what I've started.
+#:
+#: Please enjoy . . . bob chin (2014...2021).
+#:                    RDevChin@Gmail.com.
+#:
+#:
+#: +----------------------------------------+
+#: |      Why is this menu so complex?      |
+#: +----------------------------------------+
+#:
+#: The 4 main goals of this project are:
+#:
+#: 1) To educate users on what Command-Line applications are available.
+#:
+#: 2) To easily change a menu by adding/deleting a single comment line.
+#:
+#: 3) To easily add new sub-menus.
+#:
+#: 4) To automatically change the UI between text, Dialog, or Whiptail
+#:    without needing to calculate dialog box sizes or screen size.
+#:    (All those calculations are done for you by the f_message functions
+#:    within the library, common_bash_function.lib).
+#:
+#: *I chose ease-of-use over complexity. Complexity creates ease-of-use.
+#:
+#: *I used to be a MUMPS programmer and QA analyst.
+#:
+#: *I used to create menus with each menu option in a line of text when I
+#:  wrote software in MUMPS (now called "M") and being a QA person, my job
+#:  was to try to break programs.
+#:
+#: *My QA background also explains this crazy documentation of everything
+#:  along with the fact that I am (just) still learning bash scripting.
 #:
 #:
 #: +----------------------------------------+
 #: |       HOW-TO Install this script       |
 #: +----------------------------------------+
 #:
-#: This project is in a GitHub.com repository and can be downloaded from 
+#: This project is in a GitHub.com repository and can be downloaded from
 #: https://github.com/rdchin/cli-app-menu_4.
 #:
 #:
@@ -124,12 +192,12 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #: Normally "Dialog" and "Whiptail" menus are static, but I wanted dynamic
 #: menus created on-the-fly as needed and did not want to have to code a
 #: static menu for each application category as was done in version 3.1 and
-#: earlier of this script. Thus the need for temporary files. 
+#: earlier of this script. Thus the need for temporary files.
 #:
-#: 
+#:
 #: 2. A HIDDEN CONFIGURATION FILE.
 #:
-#: #: The configuration file: ~/.cliappmenu.cfg 
+#: #: The configuration file: ~/.cliappmenu.cfg
 #: is a hidden file which resides in the user's home directory.
 #: It is automatically created when you customize the UI and font colors.
 #: It is used to save the user preferences and is created and configured
@@ -138,7 +206,7 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #: 3. FILE LOCATIONS (AND SUB-DIRECTORY).
 #:
-#: The files: 
+#: The files:
 #:
 #: cliappmenu.sh
 #: cliappmenu.lib
@@ -148,11 +216,11 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #: All other files need to be in sub-directory /home/<username>/cliapp-dir.
 #: Where <username> represents your linux user name.
-#: 
-#: You can set the sub-directory to another location within your home
-#: directory and/or rename it. 
 #:
-#: To specify the new location/name of the cliapp-dir sub-directory, 
+#: You can set the sub-directory to another location within your home
+#: directory and/or rename it.
+#:
+#: To specify the new location/name of the cliapp-dir sub-directory,
 #: edit the file, cliappmenu.sh. Near the beginning of the script,
 #: within the Section "Default Variable Values" you will see the setting
 #: of variable CLI_DIR which you can change to another sub-directory.
@@ -205,7 +273,7 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #:
 #: 1. When using a terminal in a window within a GUI desktop environment
-#:    such as Budgie, Enlightenment, Fluxbox, Gnome, IceWM, KDE, LXDE, 
+#:    such as Budgie, Enlightenment, Fluxbox, Gnome, IceWM, KDE, LXDE,
 #:    OpenBox, XFCE, etc., the PATH variable is set in the file ~/.bashrc.
 #:
 #: 2. When using a pure CLI environment without a GUI desktop environment,
@@ -283,50 +351,6 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #:
 #: +----------------------------------------+
-#: |      Why did I write this script?      |
-#: +----------------------------------------+
-#:
-#: I wrote this script for 3 reasons:
-#: 1. I wanted a categorized list of command line applications.
-#: 2. I wanted to learn bash scripting, i.e. functions, looping, tests.
-#: 3. I couldn't find a cli menu to launch cli apps on the web so I thought
-#:    I'd give back to the community and perhaps others could build on and
-#:    improve on what I've started.
-#:
-#: Please enjoy . . . bob chin (2014...2021).
-#:                    RDevChin@Gmail.com.
-#:
-#:
-#: +----------------------------------------+
-#: |      Why is this menu so complex?      |
-#: +----------------------------------------+
-#:
-#: The 4 main goals of this project are:
-#:
-#: 1) To educate users on what Command-Line application are available.
-#:
-#: 2) To easily change a menu by adding/deleting a single comment line.
-#:
-#: 3) To easily add new sub-menus.
-#:
-#: 4) To automatically change the UI between text, Dialog, or Whiptail
-#:    without needing to calculate dialog box sizes or screen size.
-#:    (All those calculations are done for you by the f_message functions
-#:    within the library, common_bash_function.lib).
-#:
-#: *I chose ease-of-use over complexity. Complexity creates ease-of-use.
-#:
-#: *I used to be a MUMPS programmer and QA analyst.
-#:
-#: *I used to create menus with each menu option in a line of text when I
-#:  wrote software in MUMPS (now called "M") and being a QA person, my job
-#:  was to try to break programs.
-#:
-#: *My QA background also explains this crazy documentation of everything
-#:  along with the fact that I am (just) still learning bash scripting.
-#:
-#:
-#: +----------------------------------------+
 #: |             Script features            |
 #: +----------------------------------------+
 #:
@@ -362,24 +386,19 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:  System Menu       ~/cliapp-dir/apps_system.lib.generated
 #:  Monitor Menu      ~/cliapp-dir/apps_system_monitors.lib.generated
 #:
-#:  This is in contrast with version 3 where all the menus were hard-coded
-#:  and multiple menus were contained in a single file so a unique 3-letter
-#:  string to identify a given menu was required.
+#: *Version 5 uses the menu titles themselves to differentiate the menu data
+#:  for each menu. There are over 140 sub-menus in this application.
 #:
-#:  Rather than keep a list of unique 3-letter string identifiers for each
-#:  menu, version 4 has a separate file for each menu.
+#:  The menu title must be used in a header and footer around the menu data.
+#:  The code to display the menu uses grep to search for the menu title and
+#:  once found, the menu data between the header and footer is extracted and
+#:  is used to display the menu.
 #:
 #:    MENU                LIBRARY FILE CONTAINING MENU OPTION DATA
 #:
-#:  Although there are many more files, this makes locating a particular
-#:  menu easier and is a more organized method to store related code.
-#:
-#:  This makes it very easy to add new sub-menus. If you wish to create 
-#:  your own custom sub-menu, just create a new library file using an 
-#:  existing menu library file as a template.
-#:
-#:  But as of now, it means that there are over 140 library files for the
-#:  over 140 menus in this script.
+#:  This makes it very easy to add new sub-menus. If you wish to create
+#:  your own custom sub-menu, just create a new sub-menu section using an
+#:  existing sub-menu section as a template.
 #:
 #: *User-interfaces text (CLI), Dialog, and Whiptail are fully supported
 #:  for all menus and message displays. You can switch between them using
@@ -429,6 +448,7 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:                "#@@Return#@@Return to previous menu.#@@break"
 #:
 #: Code to add:
+#: (Scroll right to see entire code)
 #: #@@elinks#@@Web browser, tables, frames, forms support, tabbed browsing.#@@f_app_cmd^$GUI^elinks^elinks lxer.com#@@0^0^0^1^0
 #:       1                                2                                       3      3a    3b          3c              4
 #: application name                   Description                              function  GUI   App     App Command      App Code
@@ -442,12 +462,12 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #:    The string is delimited by "#@@" into four parts.
 #:
-#:    1) elinks - The menu option itself.
+#:    a) elinks - The menu option itself.
 #:
-#:    2) Web browser, tables, frames, forms support, tabbed browsing.
+#:    b) Web browser, tables, frames, forms support, tabbed browsing.
 #:           Description of the menu option.
 #:
-#:    3) f_app_cmd^$GUI^elinks^elinks lxer.com
+#:    c) f_app_cmd^$GUI^elinks^elinks lxer.com
 #:
 #:          f_app_cmd
 #:             This function will run when the menu option is selected.
@@ -455,14 +475,14 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:             f_app_cmd calls f_app_cmd_2 which verifies that the
 #:             user-entered application command (application command with
 #:             optional parameters) is a valid command. If so, then it
-#:             will run the command if it is already installed, or 
+#:             will run the command if it is already installed, or
 #:             install it, if needed.
 #:
 #:          ^$GUI^elinks^elinks lxer.com
 #:             1     2         3
 #:
 #:             Arguments and parameters passed to the function f_app_cmd.
-#:                         
+#:
 #:             $1 GUI is "text", "whiptail", or "dialog".
 #:
 #:             $2 elinks is the application name.
@@ -473,20 +493,22 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:             $3 is used when an application needs additional arguments
 #:                            or parameters to operate.
 #:
-#:       Format: 
+#:       Format:
+#:
 #:          f_app_cmd^$GUI^Application^Application <space> arg1 <space> arg2
 #:
-#:                 (spaces are OK between the application name and the
-#:                 multiple arguments or parameters).
+#:          (spaces are OK between the application name and the multiple
+#:          arguments or parameters).
 #:
-#:          Example:
-#:                 f_app_cmd^$GUI^elinks^elinks lxer.com
+#:       Example:
 #:
-#:                 The default command in the menu will be to open the web
+#:          f_app_cmd^$GUI^elinks^elinks lxer.com
+#:
+#:          The default command in the menu will be to open the web
 #:                 browser "elinks" to the web site lxer.com.
 #:
 #:
-#:    4) 0^0^0^1^0 - The App Code (APP_CODE variable).
+#:    d) 0^0^0^1^0 - The App Code (APP_CODE variable).
 #:       The App Code is delimited by carets (^) into 5 pieces or fields.
 #:
 #:       <field 4> a Quit-Code "1" which displays message below
@@ -532,17 +554,17 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:             message for the menu to display so you don't have to worry
 #:             about coding for PRESS_KEY within that custom function.
 #:
-#:             This can be used to initialize PRESS_KEY as it is set before any
-#:             custom functions in fields 1, 2, or 3 are run.
+#:             This can be used to initialize PRESS_KEY as it is set before
+#:             any custom functions in fields 1, 2, or 3 are run.
 #:
 #: Example 1:
 #:
-#: 0^0^0^0^0 
+#: 0^0^0^0^0
 #: Has no custom functions before running application.
 #:
 #: 1^0^0^0^1
 #: <field 1> a custom function f_<application name> is run before
-#:           running the application. 
+#:           running the application.
 #: <field 5> displays "Press 'Enter' key to continue" after running the
 #:           application.
 #:
@@ -551,12 +573,12 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:           to see the text.
 #:
 #:           But because the apps are run inside a menu which returns to
-#:           the menu after an app is run, a pause to read the previous 
+#:           the menu after an app is run, a pause to read the previous
 #:           text is sometimes needed.
 #:
 #: Example 2:
 #:
-#: 0^1^0^3:NC^0 
+#: 0^1^0^3:NC^0
 #: <field 2> custom install function, f_install_<application name> is run
 #:           before running the application.
 #:
@@ -587,7 +609,7 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #: <field 3> a custom function f_show (or any function desired) is run
 #:           after displaying the Quit-Code on screen but before running
-#:           the application. 
+#:           the application.
 #:
 #: <field 4> a Quit-Code "19" which displays message below
 #:           after clearing the screen:
@@ -604,8 +626,8 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #: 1. Menu will not display properly:
 #:
-#:    Since the menu option text line is read into an array, certain characters
-#:    are not acceptable in an array.
+#:    Since the menu option text line is read into an array,
+#:    certain characters are not acceptable in an array.
 #:
 #:    Commas, forward-slashes, dashes are OK.
 #:
@@ -614,13 +636,14 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #:    Forbidden characters include ; : * ' " > < &
 #:
-#:    Example: Ampersands are not OK and will mess up the menu display. 
-#:          
+#:    Example:
+#:    Ampersands are not OK and will mess up the menu display.
+#:
 #:    #@@ninvaders#@@Space invaders-like game & ncurses-based.#@@f_app_cmd^$GUI^ninvaders#@@0^0^0^1^1
 #:
 #: 2. The Dialog or Whiptail box is too small:
 #:
-#:    The variable TEMP_FILE is not defined to a file name. 
+#:    The variable TEMP_FILE is not defined to a file name.
 #:    i.e. TEMP_FILE="$CLI_DIR/apps_audio_temp.txt"
 #:
 #:    The TEMP_FILE is defined in the library file "apps.lib".
@@ -632,7 +655,7 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:    Database applications category temp file is:
 #:                                       $CLI_DIR/apps_databases_temp.txt
 #:
-#:    Development applications category temp file is 
+#:    Development applications category temp file is
 #:                                       $CLI_DIR/apps_development_temp.txt
 #:
 #:    and so forth...
@@ -647,35 +670,105 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #: |        HOW-TO Add a new sub-menu       |
 #: +----------------------------------------+
 #:
-#: See library files apps_audio_music_players.lib
-#:                    apps_audio_music_players_2.lib
-#:
 #: Summary:
-#: The library file apps_audio_music_players.lib includes a menu option
-#: line to run the function f_menu_music_players_2. That function sets the
-#: variables required to create the sub-menu and specifies the library file
-#: apps_audio_music_players_2.lib which contains the sub-menu item options.
+#:
+#: The library file apps_audio.lib includes a menu option line within the
+#: "Audio - Music Players Menu" to go to the next sub-menu,
+#: "Audio - Music Players 2 Menu".
+#:
 #:
 #: 1. Add menu item option "MORE..." to the end of the music players menu
 #:    data in the file apps_audio_music_players.lib.
 #:
-#:    #@@MORE...#@@For more music player applications.#@@f_menu_music_players_2^$GUI#@@0^0^0^0^0
+#: General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> f_create_a_menu_cliappmenu^<GUI>^<GENERATED FILE>^<MENU TITLE>^<TEMP FILE>^<ARRAY FILE>^<ARRAY SOURCE FILE>
+#:        (Scroll right to see entire code)
 #:
-#: 2. Create the library file, apps_audio_music_players_2.lib to contain
-#:    the new sub-menu data. You can base it on an existing sub-menu using
+#:        Example: #@@MORE...#@@For more music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_generated.txt"^Audio_-_Music_Players_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#:        (Scroll right to see entire code)
+#:
+#: List of inputs for f_create_a_menu_cliappmenu.
+#:
+#:  Inputs: $1 - "text", "dialog" or "whiptail" The command-line
+#:                user-interface application in use.
+#:          $2 - GENERATED_FILE (The name of a temporary library file
+#:               ending with "generated.lib" which contains the code to
+#:               display the sub-menu).
+#:          $3 - MENU_TITLE (Title of the sub-menu)
+#:          $4 - TEMP_FILE (Temporary file).
+#:          $5 - ARRAY_FILE (Temporary file) includes menu items imported
+#:               from $ARRAY_SOURCE_FILE of a single menu.
+#:          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items
+#:               from multiple menus.
+#:
+#:                 >>> !!!Warning!!! <<<
+#:
+#: The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+#: single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#:
+#: Forbidden characters include ; : * ' " & > <
+#:
+#: These characters will compromise the creation of arrays which
+#: in turn creates the menu.
+#:
+#: 2. Create the Menu section containing the menu items as per
+#:    "HOW-TO Add a new menu item" as noted above.
+#:    You can base the Menu section on an existing sub-menu using
 #:    it as a template.
 #:
-#: 3. The "MORE..." option when selected will invoke a new sub-menu in
-#:    library file apps_audio_music_players_2.lib.
+#:    Each Menu section must have a header and a footer as noted below.
+#:    The header must have "Start Listing [ Menu Title ]"
+#:    The footer must have "End Listing [ Menu Title ]"
 #:
-#:    The function f_menu_music_players_2 within the file
-#:    apps_audio_music_players.lib sets variables required to create the
-#:    new sub-menu. This function is run when the user selects "MORE..."
 #:
-#:    The ARRAY_FILE variable is set to the name of the newly created
-#:    library file which contains the menu option data for the new sub-menu.
-#:    
-#:    ARRAY_FILE="$CLI_DIR/apps_audio_music_players_2.lib"
+#:    >>> IMPORTANT HINT <<<
+#:
+#:    The Menu Title in the header "Start Listing", the tail "End Listing"
+#:    and in the menu item option (see step 1) must all match otherwise
+#:    the script will hang and/or give seemingly unrelated error messages.
+#:
+#:
+#: Example:
+#:
+#: Below is the last menu item in the "Audio - Music Players 3 Menu" which
+#: calls the sub-menu "Audio - Music Players 4 Menu".
+#:
+#: #@@MORE...#@@For more music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_generated.txt"^Audio_-_Music_Players_4_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#:        (Scroll right to see entire code with note)                                                                                                    ^            ^             ^
+#:                                                                                                                                                       |            |             |
+#:                                                                                                                                                       This menu title must match with
+#:                                                                                                                                                       "Start Listing" and "End Listing"
+#:                                                                                                                                                       (This menu title must use underscores)
+#:
+#: Example of a Menu Section:
+#:
+#:                    This Menu Title must match
+#:                    with both the "End Listing"
+#:                    and the last menu item entry in
+#:                    "Audio - Music Players 3 Menu"
+#:                    (but without the underscores)
+#:                    |            |             |
+#:                    v            v             v
+#: #! +--------------------------------------------------------------+
+#: #! | Start Listing Audio - Music Players 4 Menu                   |
+#: #! |               (Required header, do not delete).              |
+#: #! +--------------------------------------------------------------+
+#:
+#: #@@Return#@@Return to previous menu.#@@break
+#: #
+#: #@@xmms2-client-cli#@@Front-end to XMMS2 music player.#@@f_app_cmd^$GUI^xmms2-client-cli#@@0^0^0^0^1
+#: #
+#: #@@yauap#@@Music player based on Gstreamer, MP3, network streams.#@@f_app_cmd^$GUI^yauap#@@0^0^0^0^1
+#: #
+#: #@@vux#@@Ogg and mp3 player.#@@f_app_cmd^$GUI^vux#@@0^0^0^0^1
+#: #
+#: #! End Listing Audio - Music Players 4 Menu (Required line, do not delete).
+#:                ^            ^             ^
+#:                |            |             |
+#:                This Menu Title must match
+#:                with both the "Start Listing"
+#:                and the last menu item entry in
+#:                "Audio - Music Players 3 Menu"
+#:                (but without the underscores)
 #:
 #:
 #: +----------------------------------------+
@@ -684,13 +777,13 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #: 1. The files cliappmenu.sh, cliappmenu.lib, and common_bash_function.lib
 #:    must be in the same folder. All other files must be in the sub-directory cliapp-dir
-#:    
+#:
 #: 2. Option for automatic software installation only for distributions which
 #:    use apt, rpm, slackpkg, and pacman; all others must install manually.
 #:
 #: 3. For Slackware-based distros which use slackpkg, even though you can
 #:    install software, I have not figured out a way to determine if
-#:    "slackpkg install <package name> was successful or not. 
+#:    "slackpkg install <package name> was successful or not.
 #:    The command results in error code zero $?=0 even if install fails.
 #:    As a result, I commented out the code which traps slackpkg installation
 #:    errors, shows an error message and asks if you want to download the

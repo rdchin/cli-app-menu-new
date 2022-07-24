@@ -1,0 +1,1296 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System Menu                                    |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Backup#@@File Backup.#@@f_menu_system_backup^$GUI
+#
+#@@Disks#@@Disk information.#@@f_menu_system_disks^$GUI
+#
+#@@Health#@@Anti-virus scanners, root-kit detectors, stress tests etc.#@@f_menu_system_health^$GUI
+#
+#@@Logs#@@Log file viewers, command line history, send mssg. to users.#@@f_menu_system_logs^$GUI
+#
+#@@Mainboard#@@Information on PC mainboard, memory, etc.#@@f_menu_system_mainboard^$GUI
+#
+#@@Monitors#@@Resources, and disk I/O monitors.#@@f_menu_system_monitors^$GUI
+#
+#@@Linux#@@Linux information and configuration kernel configuration.#@@f_menu_system_linux^$GUI
+#
+#@@Peripherals#@@Information on PC peripherals, PCI devices, hard drives, etc.#@@f_menu_system_peripherals^$GUI
+#
+#@@Process#@@System process monitoring, killing.#@@f_menu_system_process^$GUI
+#
+#! End Listing System Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Backup Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@dtrx#@@Use tar without remembering which flags for each file to use.#@@f_app_cmd^$GUI^dtrx#@@0^0^0^0^1
+#
+#@@rsync#@@File backup, mirror, directories and files.#@@f_app_cmd^$GUI^rsync#@@0^0^0^0^1
+#
+#@@tar#@@File backup, compress files.#@@f_app_cmd^$GUI^tar#@@0^0^0^0^1
+#
+#! End Listing System - Backup Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Disks Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@agedu#@@Find wasted disk space.#@@f_app_cmd^$GUI^agedu#@@0^0^0^0^1
+#
+#@@badblocks#@@Scans disks for bad sectors.#@@f_app_cmd^$GUI^badblocks#@@0^0^0^0^1
+#
+#@@blkid#@@Block devices information.#@@f_app_cmd^$GUI^blkid#@@0^0^0^0^1
+#
+#@@cdf#@@df-like also shows capacity of mount-points.#@@f_app_cmd^$GUI^cdf#@@0^0^0^0^1
+#
+#@@cfdisk#@@Disk partition tool.#@@f_app_cmd^$GUI^cfdisk#@@0^0^0^1^0
+#
+#@@ddir#@@Tree-view of disk space utilization.#@@f_app_cmd^$GUI^ddir#@@0^0^0^0^1
+#
+#@@df#@@Disk usage and mount points, usage df -hT.#@@f_app_cmd^$GUI^df#@@1^0^0^0^1
+#
+#@@dfc#@@Disk usage and mount points, graphical display.#@@f_app_cmd^$GUI^dfc#@@0^0^0^0^1
+#
+#@@di#@@df-like disk usage utility.#@@f_app_cmd^$GUI^di#@@0^0^0^0^1
+#
+#@@discus#@@df-like disk usage utility with color, graphs, formatting.#@@f_app_cmd^$GUI^discus#@@0^0^0^0^1
+#
+#@@du#@@Disk usage monitor by directory.#@@f_app_cmd^$GUI^du#@@1^0^0^0^1
+#
+#@@dumpe2fs#@@Displays superblock and block information of a device.#@@f_app_cmd^$GUI^dumpe2fs#@@0^0^0^0^1
+#
+#@@eject#@@Ejects media, CD, DVD, floppy disks, SCSI drives, tape drives.#@@f_app_cmd^$GUI^eject#@@0^0^0^0^1
+#
+#@@gt5#@@A diff-capable du-browser.#@@f_app_cmd^$GUI^gt5#@@0^0^0^1^0
+#
+#@@hdparm#@@Show/set disk parameters, settings. #@@f_app_cmd^$GUI^hdparm#@@0^0^0^0^1
+#
+#@@MORE...#@@For more system disk information applications.#@@$GUI^CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_generated.txt"^System_-_Disk_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_generated.txt"^$CLI_DIR/apps_system.lib
+#
+#! End Listing System - Disks Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Disks 2 Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@lsblk#@@List block devices [disks].#@@f_app_cmd^$GUI^lsblk#@@0^0^0^0^1
+#
+#@@ncdu#@@Disk usage monitor, ncurses-based.#@@f_app_cmd^$GUI^ncdu#@@0^0^0^1^0
+#
+#@@parted#@@Disk partition tool.#@@f_app_cmd^$GUI^parted#@@0^0^0^1^0
+#
+#@@pydf#@@Disk usage df clone written in python.#@@f_app_cmd^$GUI^pydf#@@1^0^0^0^1
+#
+#@@sfdisk#@@Partition table manipulator for Linux.#@@f_app_cmd^$GUI^sfdisk#@@0^0^0^1^0
+#
+#@@tdu#@@Tree-view of disk space utilization ncurses-based.#@@f_app_cmd^$GUI^tdu#@@0^0^0^0^1
+#
+#@@tree#@@Tree-view of disk space utilization.#@@f_app_cmd^$GUI^tree#@@0^0^0^0^1
+#
+#@@uuid#@@Use ls -l to show disk uuid number.#@@f_app_cmd^$GUI^uuid#@@1^0^0^0^1
+#
+#! End Listing System - Disks 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Health Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@aide#@@Advanced Intrusion Detection Environment check file integrity.#@@f_app_cmd^$GUI^aide#@@0^0^0^0^1
+#
+#@@arp-scan#@@Discover, fingerprint hosts on LAN using MAC addresses.#@@f_app_cmd^$GUI^arp-scan#@@1^0^0^0^1
+#
+#@@arpalert#@@Checks MAC addresses against list of known MACs, runs script.#@@f_app_cmd^$GUI^arpalert#@@0^0^0^0^1
+#
+#@@arpon#@@ArpON detects/blocks arp poisoning/spoofing attacks.#@@f_app_cmd^$GUI^arpon#@@0^0^0^0^1
+#
+#@@arpwatch#@@Detects unknown MAC addresses and IP addresses, like ArpON.#@@f_app_cmd^$GUI^arpwatch#@@1^0^0^0^1
+#
+#@@chkrootkit#@@Root Kit detector.#@@f_app_cmd^$GUI^chkrootkit#@@0^0^0^0^1
+#
+#@@clamscan#@@Clam anti-virus program scans for viruses.#@@f_app_cmd^$GUI^clamscan#@@1^0^0^0^1
+#
+#@@cpuburn#@@Stress test puts heavy loads on a CPU.#@@f_app_cmd^$GUI^cpuburn#@@0^0^0^0^1
+#
+#@@freshclam#@@Clam anti-virus database definition update.#@@f_app_cmd^$GUI^freshclam#@@0^0^0^1^1
+#
+#@@hpcc#@@HPC Challenge benchmark. 7 tests of CPU, memory and network.#@@f_app_cmd^$GUI^hpcc#@@1^0^0^0^1
+#
+#@@labrea#@@Sticky honeypot entraps intruder tying up his CPU.#@@f_app_cmd^$GUI^labrea#@@0^0^0^0^1
+#
+#@@lynis#@@security auditing tool that tests for security holes in a PC.#@@f_app_cmd^$GUI^lynis#@@0^0^0^0^1
+#
+#@@rkhunter#@@Root Kit detector.#@@f_app_cmd^$GUI^rkhunter#@@0^0^0^0^1
+#
+#@@siege#@@Web site http regression and stress test, benchmarking.#@@f_app_cmd^$GUI^siege#@@0^0^0^0^1
+#
+#@@smb-nat#@@Netbios audit servers running NetBIOS file sharing services.#@@f_app_cmd^$GUI^smb-nat#@@1^0^0^0^1
+#
+#@@MORE...#@@More applications.#@@$GUI^CLI_DIR/$THIS_FILE_LIB"_apps_system_health_2_generated.txt"^System_-_Health_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_health_2_generated.txt"^$CLI_DIR/apps_system.lib
+#
+#! End Listing System - Health Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Health 2 Menu                         |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@stress#@@Stress test can simulate a heavy load on CPU.#@@f_app_cmd^$GUI^stress#@@1^0^0^0^1
+#
+#@@tripwire#@@Detects/Reports changes in system files.#@@f_app_cmd^$GUI^tripwire#@@1^0^0^0^1
+#
+#! End Listing System - Health 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Logs Menu                             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ccze#@@A robust and modular log colorizer, with plug-ins.#@@f_app_cmd^$GUI^ccze#@@0^0^0^0^1
+#
+#@@colortail#@@Log colorizer.#@@f_app_cmd^$GUI^colortail#@@0^0^0^0^1
+#
+#@@hash#@@Show frequency of commands entered at the prompt.#@@f_app_cmd^$GUI^hash#@@0^0^0^0^1
+#
+#@@history#@@Show history of commands entered at the prompt.#@@f_app_cmd^$GUI^history#@@0^0^0^0^1
+#
+#@@inotail#@@Tail command replacement uses the inotify API to re-read files.#@@f_app_cmd^$GUI^inotail#@@0^0^0^0^1
+#
+#@@last#@@Users login/logout times from /var/log/wtmp.#@@f_app_cmd^$GUI^last#@@0^0^0^0^1
+#
+#@@lastlog#@@Users login/logout times from /var/log/wtmp.#@@f_app_cmd^$GUI^lastlog#@@0^0^0^0^1
+#
+#@@lnav#@@View, analyze log files, histogram, hotkeys, ncurses-based.#@@f_app_cmd^$GUI^lnav#@@0^0^0^0^1
+#
+#@@logtailer#@@Monitor logs for updates and display them.#@@f_app_cmd^$GUI^logtailer#@@0^0^0^0^1
+#
+#@@monkeytail#@@tail variant designed for web developers monitoring log files.#@@f_app_cmd^$GUI^monkeytail#@@0^0^0^0^1
+#
+#@@multitail#@@View multiple log files using multiple panes.#@@f_app_cmd^$GUI^multitail#@@0^0^0^0^1
+#
+#@@since#@@Shows new changes in log files since last run. Tail-like.#@@f_app_cmd^$GUI^since#@@0^0^0^0^1
+#
+#@@swatch#@@Log file viewer with regexp matching, highlighting / hooks.#@@f_app_cmd^$GUI^swatch#@@0^0^0^0^1
+#
+#@@wall#@@Send a message to logged in users.#@@f_app_cmd^$GUI^wall#@@1^0^0^0^1
+#
+#@@wuzzah#@@Users login/logout events from utmpx records.#@@f_app_cmd^$GUI^wuzzah#@@0^0^0^0^1
+#
+#! End Listing System - Logs Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Mainboard Menu                        |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@dmidecode#@@Main board information.#@@f_app_cmd^$GUI^dmidecode#@@0^0^0^0^1
+#
+#@@dnsdomainname#@@Show the systems DNS domain name#@@f_app_cmd^$GUI^dnsdomainname#@@0^0^0^0^1
+#
+#@@domainname#@@Show or set the systems NIS/YP domain name#@@f_app_cmd^$GUI^domainname#@@0^0^0^0^1
+#
+#@@free#@@Memory usage RAM and swap.#@@f_app_cmd^$GUI^free#@@1^0^0^0^1
+#
+#@@hdparm#@@Hard disk drive information.#@@f_app_cmd^$GUI^hdparm#@@1^0^0^0^1
+#
+#@@hostname#@@Show or set the systems host name#@@f_app_cmd^$GUI^hostname#@@0^0^0^0^1
+#
+#@@lsb_release#@@Linux distro and LSB [Linux Standard Base].#@@f_app_cmd^$GUI^lsb_release#@@1^0^0^0^1
+#
+#@@lscpu#@@CPU information.#@@f_app_cmd^$GUI^lscpu#@@0^0^0^0^1
+#
+#@@lshw#@@Main board information.#@@f_app_cmd^$GUI^lshw#@@1^0^0^0^1
+#
+#@@mbw#@@Copy memory bandwidth available to userspace programs.#@@f_app_cmd^$GUI^mbw#@@0^0^0^0^1
+#
+#@@nisdomainname#@@Show or set the systems NIS/YP domain name#@@f_app_cmd^$GUI^nisdomainname#@@0^0^0^0^1
+#
+#@@slabtop#@@Kernel slab cache information in real time.#@@f_app_cmd^$GUI^slabtop#@@1^0^0^1^0
+#
+#@@vmstat#@@Memory usage RAM and swap, CPU information.#@@f_app_cmd^$GUI^vmstat#@@0^0^0^0^1
+#
+#@@ypdomainname#@@Show or set the systems NIS/YP domain name#@@f_app_cmd^$GUI^ypdomainname#@@0^0^0^0^1
+#
+#! End Listing System - Mainboard Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Monitors Menu                         |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@acpi#@@Show acpi information.#@@f_app_cmd^$GUI^acpi#@@0^0^0^0^1
+#
+#@@acpitail#@@Show acpi information in growing tail list.#@@f_app_cmd^$GUI^acpitail#@@0^0^0^0^0
+#
+#@@atsar#@@CPU, network, memory / disk I/O, record data for analysis.#@@f_app_cmd^$GUI^atsar#@@0^0^0^0^1
+#
+#@@cacti#@@Front-end to rrdtool for monitoring systems and services.#@@f_app_cmd^$GUI^cacti#@@1^0^0^0^1
+#
+#@@chkconfig#@@System update/query run-level processes at boot time.#@@f_app_cmd^$GUI^chkconfig#@@1^0^0^0^1
+#
+#@@collectl#@@All-in-One Performance Monitoring Tool.#@@f_app_cmd^$GUI^collectl#@@0^0^0^1^0
+#
+#@@conky-cli#@@Versatile, configurable system monitor.#@@f_app_cmd^$GUI^conky-cli#@@0^0^0^1^0
+#
+#@@dstat#@@View system resources, replaces vmstat, iostat, ifstat.#@@f_app_cmd^$GUI^dstat#@@1^0^0^0^1
+#
+#@@glances#@@View system processes/resources, CPU/Load/Mem/Swap/Disk/BW.#@@f_app_cmd^$GUI^glances#@@0^0^0^1^0
+#
+#@@id#@@Print user and group names and information.#@@f_app_cmd^$GUI^id#@@0^0^0^0^1
+#
+#@@iostat#@@CPU usage and disk I/O process monitor.#@@f_app_cmd^$GUI^iostat#@@0^0^0^0^1
+#
+#@@iotop#@@Disk I/O process monitor.#@@f_app_cmd^$GUI^iotop#@@0^0^0^1^0
+#
+#@@locale#@@Get locale specific information.#@@f_app_cmd^$GUI^locale#@@0^0^0^1^0
+#
+#@@mpstat#@@CPU microprocessor usage monitor.#@@f_app_cmd^$GUI^mpstat#@@1^0^0^0^1
+#
+#@@nmon#@@CPU usage, memory, network, disk usage, processes, resources.#@@f_app_cmd^$GUI^nmon#@@0^0^0^0^0
+#
+#@@MORE...#@@For more system monitor applications.#@@$GUI^CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_generated.txt"^System_-_Monitors_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_generated.txt"^$CLI_DIR/apps_system.lib
+#
+#! End Listing System - Monitors Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Monitors 2 Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@rcconf#@@Enable/disable startup scripts/services ncurses-based.#@@f_app_cmd^$GUI^rcconf#@@0^0^0^0^0
+#
+#@@ntsysd#@@RedHat view/enable/disable startup scripts/services.#@@f_app_cmd^$GUI^ntsysd#@@0^0^0^0^0
+#
+#@@rrdtool#@@Round Robin Database Tool stores/displays time-series data.#@@f_app_cmd^$GUI^rrdtool#@@0^0^0^0^1
+#
+#@@saidar#@@Monitor system processes, network I/O, disks I/O, free space.#@@f_app_cmd^$GUI^saidar#@@0^0^0^1^0
+#
+#@@sar#@@CPU usage statistics, user/nice/system/iowait/steal/idle.#@@f_app_cmd^$GUI^sar#@@0^0^0^0^1
+#
+#@@smem#@@Show memory usage for current user, per user, all users.#@@f_app_cmd^$GUI^smem#@@0^0^0^0^1
+#
+#@@sysstat#@@All-in-one performance monitoring tool.#@@f_app_cmd^$GUI^sysstat#@@0^0^0^0^1
+#
+#@@sysv-rc-conf#@@Enable/disable startup scripts/services ncurses-based.#@@f_app_cmd^$GUI^sysv-rc-conf#@@0^0^0^1^0
+#
+#@@tload#@@System load average graphical monitor.#@@f_app_cmd^$GUI^tload#@@f_run_and_exit "tload" "tload"^0^0^0^1
+#
+#@@ttyload#@@Color-coded graphs of CPU load average.#@@f_app_cmd^$GUI^ttyload#@@f_run_and_exit "ttyload" "ttyload"^0^0^8^1
+#
+#@@yacpi#@@ACPI monitor, ncurses-based.#@@f_app_cmd^$GUI^yacpi#@@0^0^0^1^0
+#
+#! End Listing System - Monitors 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Linux Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ctrlaltdel#@@Set the function of the Ctrl-Alt-Del combination.#@@f_app_cmd^$GUI^ctrlaltdel#@@0^0^0^0^1
+#
+#@@insmod#@@Insert a module into the Linux Kernel.#@@f_app_cmd^$GUI^insmod#@@0^0^0^0^1
+#
+#@@lsb_release#@@Linux distro and LSB [Linux Standard Base].#@@f_app_cmd^$GUI^lsb_release#@@1^0^0^0^1
+#
+#@@lsmod#@@Linux kernel module information.#@@f_app_cmd^$GUI^lsmod#@@0^0^0^0^1
+#
+#@@modinfo#@@Show information about a Linux Kernel module.#@@f_app_cmd^$GUI^modinfo#@@0^0^0^0^1
+#
+#@@modprobe#@@Add and remove modules from the Linux Kernel.#@@f_app_cmd^$GUI^modprobe#@@0^0^0^0^1
+#
+#@@rmmod#@@Remove a module from the Linux Kernel.#@@f_app_cmd^$GUI^rmmod#@@0^0^0^0^1
+#
+#@@slabtop#@@Kernel slab cache information in real time.#@@f_app_cmd^$GUI^slabtop#@@1^0^0^1^0
+#
+#@@uname#@@Linux kernel information.#@@f_app_cmd^$GUI^uname^uname -a#@@1^0^0^0^1
+#
+#@@which#@@Show the pathnames of commands, applications, and files.#@@f_app_cmd^$GUI^which#@@0^0^0^0^1
+#
+#! End Listing System - Linux Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Peripherals Menu                      |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@acpitool#@@ACPI power/battery settings.#@@f_app_cmd^$GUI^acpitool#@@0^0^0^0^1
+#
+#@@blkid#@@Block devices information.#@@f_app_cmd^$GUI^blkid#@@1^0^0^0^1
+#
+#@@cdde#@@Detects if a CD is inserted, runs specified program.#@@f_app_cmd^$GUI^cdde#@@0^0^0^0^1
+#
+#@@colortest#@@Test color capabilities of a terminal.#@@f_app_cmd^$GUI^colortest#@@0^0^0^0^1
+#
+#@@findfs#@@Find a filesystem by label or UUID.#@@f_app_cmd^$GUI^findfs#@@0^0^0^0^1
+#
+#@@gitkeys#@@Displays the key sequence sent by the pressed key.#@@f_app_cmd^$GUI^gitkeys#@@0^0^0^0^1
+#
+#@@inxi#@@Show model/make, CPU, graphics, audio, network, HDD, etc.#@@f_app_cmd^$GUI^inxi#@@0^0^0^0^1
+#
+#@@kbd#@@Control keyboard LEDs, repeat/delay rates, keymaps, etc.#@@f_app_cmd^$GUI^kbd#@@0^0^0^0^1
+#
+#@@loadkeys#@@Load keyboard translation tables#@@f_app_cmd^$GUI^loadkeys#@@0^0^0^0^1
+#
+#@@lsblk#@@List block devices [disks].#@@f_app_cmd^$GUI^lsblk#@@0^0^0^0^1
+#
+#@@lsof#@@Display information about open files.#@@f_app_cmd^$GUI^lsof#@@0^0^0^0^1
+#
+#@@lspci#@@PCI buses and connected devices.#@@f_app_cmd^$GUI^lspci#@@1^0^0^0^1
+#
+#@@lspcmcia#@@PCMCIA extended debugging information.#@@f_app_cmd^$GUI^lspcmcia#@@1^0^0^0^1
+#
+#@@lsusb#@@USB devices.#@@f_app_cmd^$GUI^lsusb#@@0^0^0^0^1
+#
+#@@mzip#@@Change protection mode and eject disk on Zip/Jaz drive.#@@f_app_cmd^$GUI^mzip#@@0^0^0^0^1
+#
+#@@MORE...#@@For more peripheral system applications.#@@$GUI^CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_2_generated.txt"^System_-_Peripherals_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_2_generated.txt"^$CLI_DIR/apps_system.lib
+#
+#! End Listing System - Peripherals Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Peripherals 2 Menu                    |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@pccardctl#@@PCMCIA card devices.#@@f_app_cmd^$GUI^pccardctl#@@1^0^0^0^1
+#
+#@@printenv#@@Environmental variables.#@@f_app_cmd^$GUI^printenv#@@0^0^0^0^1
+#
+#@@scanimage#@@Control flatbed scanners, cameras. -L list of devices.#@@f_app_cmd^$GUI^scanimage#@@0^0^0^0^1
+#
+#@@setcd#@@Control CDROM device, auto-close/eject/locking, set speed.#@@f_app_cmd^$GUI^setcd#@@0^0^0^0^1
+#
+#@@uptime#@@Display how long PC has been running, # users, load average.#@@f_app_cmd^$GUI^uptime#@@0^0^0^0^1
+#
+#@@w#@@A combination of uptime and who commands.#@@f_app_cmd^$GUI^w#@@0^0^0^0^1
+#
+#! End Listing System - Peripherals 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Process Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@acct#@@Switch process accounting on/off.#@@f_app_cmd^$GUI^acct#@@0^0^0^1^0
+#
+#@@atop#@@View system processes/resources, CPU/Mem/Swap/Page/Disk/Net.#@@f_app_cmd^$GUI^atop#@@0^0^0^1^0
+#
+#@@fuser#@@Identify processes using files or sockets.#@@f_app_cmd^$GUI^fuser#@@0^0^0^0^1
+#
+#@@gitps#@@Interactive process viewer/killer.#@@f_app_cmd^$GUI^gitps#@@0^0^0^0^1
+#
+#@@htop#@@View system processes/resources bar graph of CPU/Mem/Swap.#@@f_app_cmd^$GUI^htop#@@0^0^0^3^0
+#
+#@@ips#@@Intelligent process status with easy tracking of processes.#@@f_app_cmd^$GUI^ips#@@0^0^0^0^1
+#
+#@@killall#@@Kill processes based on full-name of process.#@@f_app_cmd^$GUI^killall#@@0^0^0^0^1
+#
+#@@pgrep#@@Search ps output for full/partial name of process.#@@f_app_cmd^$GUI^pgrep#@@0^0^0^0^1
+#
+#@@pidstat#@@View system processes/resources, PID/USR/System/Guest/CPU/Cmd.#@@f_app_cmd^$GUI^pidstat#@@1^0^0^0^1
+#
+#@@pkill#@@Kill processes based on partial name of process.#@@f_app_cmd^$GUI^pkill#@@0^0^0^0^1
+#
+#@@pmap#@@View process memory usage.#@@f_app_cmd^$GUI^pmap#@@0^0^0^0^1
+#
+#@@powertop#@@Find software components which consume the most power.#@@f_app_cmd^$GUI^powertop#@@0^0^0^0^1
+#
+#@@ps#@@View system processes/resources, PID/PGID/SID/TTY/Time/Cmd.#@@f_app_cmd^$GUI^ps#@@0^0^0^0^1
+#
+#@@pstree#@@Tree view system processes/resources, like ps command.#@@f_app_cmd^$GUI^pstree#@@0^0^0^0^1
+#
+#@@pswatcher#@@Execute commands when certain processes are run.#@@f_app_cmd^$GUI^pswatcher#@@0^0^0^0^1
+#
+#@@MORE...#@@For more system process applications.#@@$GUI^CLI_DIR/$THIS_FILE_LIB"_apps_system_process_2_generated.txt"^System_-_Process_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_process_2_generated.txt"^$CLI_DIR/apps_system.lib
+#
+#! End Listing System - Process Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing System - Process 2 Menu                        |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@pwdx#@@Report current working directory of a process.#@@f_app_cmd^$GUI^pwdx#@@0^0^0^0^1
+#
+#@@strace#@@Trace process system calls and signals.#@@f_app_cmd^$GUI^strace#@@0^0^0^0^1
+#
+#@@sysctl#@@Configure kernel parameters at runtime.#@@f_app_cmd^$GUI^sysctl#@@0^0^0^0^1
+#
+#@@top#@@View system PID/User/PR/NI/VERT/RES/SHR/CPU/MEM/Time/Cmd.#@@f_app_cmd^$GUI^top#@@0^0^0^1^0
+#
+#! End Listing System - Process 2 Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |              Function f_df             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_df () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "df - Displays free space on disk" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "df [OPTION]... [FILE]..." >> $TEMP_FILE
+      echo "df [OPTION]... --files0-from=F" >> $TEMP_FILE
+      echo "   -h, --human-readable    format (e.g., 1K 234M 2G)" >> $TEMP_FILE
+      echo "   --total                 produce a grand total" >> $TEMP_FILE
+      echo "   -t, --type=TYPE         limit listing to specific file systems" >> $TEMP_FILE
+      echo "   -T, --print-type        print file system type" >> $TEMP_FILE
+      echo "   -x, --exclude-type=TYPE limit listing to file systems not of type TYPE" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man df'" >> $TEMP_FILE
+      echo "                        'df --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Display total disk usage in human-readable format." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage: df -hT" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_df
+#
+# +----------------------------------------+
+# |              Function f_du             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_du () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "du - Displays disk usage per directory" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "du [OPTION]... [FILE]..." >> $TEMP_FILE
+      echo "du [OPTION]... --files0-from=F" >> $TEMP_FILE
+      echo "   -h, --human-readable  human-readable format (e.g., 1K 234M 2G)" >> $TEMP_FILE
+      echo "   -c, --total           produce a grand total" >> $TEMP_FILE
+      echo "   -S, --separate-dirs   do not include sub-folders" >> $TEMP_FILE
+      echo "   -s, --summarize       display only a total" >> $TEMP_FILE
+      echo "   --exclude=PATTERN     exclude files matching PATTERN" >> $TEMP_FILE
+      echo "   -d, --max-depth=N     N  or  fewer  levels  below" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man du'" >> $TEMP_FILE
+      echo "                        'du --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Display total disk usage in human-readable format." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Now run du. Usage: du -hsc" >> $TEMP_FILE
+      APP_NAME="du -hsc"
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_du
+#
+# +----------------------------------------+
+# |             Function f_pydf            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_pydf () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "pydf - Displays free space on disk" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "pydf [OPTION]... [FILE]..." >> $TEMP_FILE
+      echo "   -h, --human-readable    format (e.g., 1K 234M 2G)" >> $TEMP_FILE
+      echo "   -k, --kilobytes" >> $TEMP_FILE
+      echo "   -m, --megabytes" >> $TEMP_FILE
+      echo "   -g, --gigabytes" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man df'" >> $TEMP_FILE
+      echo "                        'df --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Display total disk usage in human-readable format." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Now run df. Usage: pydf -hT" >> $TEMP_FILE
+      APP_NAME="pydf -hT"
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_pydf
+#
+# +----------------------------------------+
+# |             Function f_uuid            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_uuid () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "To find the UUID of a disk, type: ls -l /dev/disk/by-uuid." > $TEMP_FILE
+      APP_NAME="ls -l /dev/disk/by-uuid"
+      f_application_run
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+} # End of function f_uuid
+#
+# +----------------------------------------+
+# |            Function f_stress           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_stress () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "stress - A tool to impose load on and stress test a computer system" > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "The application, 'stress' is a tool that imposes a configurable amount of CPU," >> $TEMP_FILE
+         echo "memory, I/O, or disk stress on a POSIX-compliant operating system and reports" >> $TEMP_FILE
+         echo "any errors it detects." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "The application 'stress' is not a benchmark." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "It is a tool used by:" >> $TEMP_FILE
+         echo "System Administrators to evaluate how well their systems will scale," >> $TEMP_FILE
+         echo "Kernel Programmers to evaluate perceived performance characteristics, and by" >> $TEMP_FILE
+         echo "Systems Programmers to expose the classes of bugs which only or more frequently" >> $TEMP_FILE
+         echo "manifest themselves when the system is under heavy load." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+         echo "                '$APP_NAME --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_stress
+#
+# +----------------------------------------+
+# |           Function f_tripwire          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_tripwire () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "tripwire - Detects unauthorized file changes" > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man tripwire' for use and operation." >> $TEMP_FILE
+         echo "*** For more help type: 'man twadmin' - create, encode policy, config files." >> $TEMP_FILE
+         echo "*** For more help type: 'man twprint' - print database." >> $TEMP_FILE
+         echo "*** For more help type: 'man siggen' - display hash values for files." >> $TEMP_FILE
+         echo "*** For more help type: 'man twconfig' - explanation of config files." >> $TEMP_FILE
+         echo "*** For more help type: 'man twpolicy' - explanation of policy files." >> $TEMP_FILE
+         echo "*** For more help type: 'man twfiles' - overview of files, settings." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "Database Initialization:  tripwire [-m i|--init] [OPTIONS]" >> $TEMP_FILE
+         echo "Integrity Checking:  tripwire [-m c|--check] [object1 [object2...]]" >> $TEMP_FILE
+         echo "Database Update:  tripwire [-m u|--update]" >> $TEMP_FILE
+         echo "Policy Update:  tripwire [-m p|--update-policy] policyfile.txt" >> $TEMP_FILE
+         echo "Test:  tripwire [-m t|--test] --email address" >> $TEMP_FILE
+         echo "Type 'tripwire [mode] --help' OR" >> $TEMP_FILE
+         echo "'tripwire --help mode [mode...]' OR" >> $TEMP_FILE
+         echo "'tripwire --help all' for extended help" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now run man tripwire. Usage: man tripwire" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         APP_NAME="man tripwire"
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_tripwire
+#
+# +----------------------------------------+
+# |           Function f_wall              |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_wall () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "wall - Write a message to users." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "wall [options] [<file>]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Options:" >> $TEMP_FILE
+         echo "-n, --nobanner          do not print banner, works only for root" >> $TEMP_FILE
+         echo "-t, --timeout <timeout> write timeout in seconds" >> $TEMP_FILE
+         echo "-V, --version           output version information and exit" >> $TEMP_FILE
+         echo "-h, --help              display this help and exit" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man wall'" >> $TEMP_FILE
+         echo "                        'wall --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      #
+} #End of function f_wall
+#
+# +----------------------------------------+
+# |          Function f_lsb_release        |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_lsb_release () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "lsb_release - print distribution-specific information" > $TEMP_FILE
+         echo "The  lsb_release command provides certain LSB (Linux Standard Base) and" >> $TEMP_FILE
+         echo "distribution-specific information." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "If no options are given, the -v option is assumed." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "lsb_release [OPTIONS]" >> $TEMP_FILE
+         echo "            -v, --version   Version of lsb_release." >> $TEMP_FILE
+         echo "            -i, --id        Display the distributor's ID." >> $TEMP_FILE
+         echo "            -r, --release   Display the release number." >> $TEMP_FILE
+         echo "            -c, --codename  Display the code name of the currently installed" >> $TEMP_FILE
+         echo "                            distribution." >> $TEMP_FILE
+         echo "            -a, --all       Display all of the above information." >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+
+} # End of f_lsb_release
+#
+# +----------------------------------------+
+# |            Function f_slabtop          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_slabtop () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "slabtop - Display kernel slab cache information in real time." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "slabtop displays a listing of the top caches sorted by  one  of  the  listed" >> $TEMP_FILE
+         echo "sort  criteria.   It also displays a statistics header filled with slab" >> $TEMP_FILE
+         echo "layer information." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "slabtop [OPTIONS]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "slabtop  displays  detailed kernel slab cache information in real time." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man slabtop'" >> $TEMP_FILE
+         echo "                        'slabtop --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "If you get error message: 'fopen /proc/slabinfo: Permission denied'" >> $TEMP_FILE
+         echo "Then try running with sudo command i.e. 'sudo slabtop'." >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      #
+} # End of f_slabtop
+#
+# +----------------------------------------+
+# |             Function f_uname           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_uname () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "uname - print system information" > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "If no options are given, the -s option is assumed." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "uname [OPTIONS]" >> $TEMP_FILE
+         echo "      -a, --all  print  all  information." >> $TEMP_FILE
+         echo "      -s, --kernel-name" >> $TEMP_FILE
+         echo "      -r, --kernel-release" >> $TEMP_FILE
+         echo "      -v, --kernel-version" >> $TEMP_FILE
+         echo "      -m, --machine    print the machine hardware name" >> $TEMP_FILE
+         echo "      -p, --processor" >> $TEMP_FILE
+         echo "      -i, --hardware-platform" >> $TEMP_FILE
+         echo "      -o, --operating-system" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now run uname. Usage: uname -a" >> $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      #
+} # End of f_uname
+#
+# +----------------------------------------+
+#   Function f_apps_system_peripherals_2
+# +----------------------------------------+
+#
+#
+#  Inputs: $1=GUI - "dialog" or "whiptail" The CLI GUI application in use.
+#          CLI_DIR, THIS_FILE.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary:
+#
+# Dependencies: f_menu_arrays, f_create_show_menu
+#
+f_apps_system_peripherals_2 () {
+      #
+      GENERATED_FILE="$CLI_DIR/apps_system_peripherals_2.lib.generated"
+      #
+      # Create generated menu script from array data.
+      #
+      MENU_TITLE="Peripherals Menu"
+      #
+      MENU_TITLE=$(echo $MENU_TITLE | tr " " "_")
+      #
+      # Note: ***If Menu title contains spaces,
+      #       ***the size of the menu window will be too narrow.
+      #
+      TEMP_FILE="$CLI_DIR/apps_system_peripherals_2_temp.txt"
+      #
+      # Create arrays from data.
+      ARRAY_FILE="$CLI_DIR/apps_system_peripherals_2.lib"
+      f_menu_arrays $ARRAY_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # Create generated menu script from array data.
+      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
+      #
+} # End of function f_apps_system_peripherals_2.
+#
+# +----------------------------------------+
+# |             Function f_blkid           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_blkid () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "blkid - Locate/print block device attributes" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "The blkid program is the command-line interface to working with the libblkid(3)" >> $TEMP_FILE
+      echo "library.  It can determine the type of content (e.g. filesystem or swap) that a" >> $TEMP_FILE
+      echo "block device holds, and also attributes (tokens, NAME=value pairs) from the" >> $TEMP_FILE
+      echo "content metadata (e.g. LABEL or UUID fields)." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "blkid has two main forms of operation: either searching for a device with a" >> $TEMP_FILE
+      echo "specific NAME=value pair, or displaying NAME=value pairs  for  one  or more" >> $TEMP_FILE
+      echo "specified devices." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "blkid -L label | -U uuid" >> $TEMP_FILE
+      echo "blkid [-dghlv] [-c file] [-w file] [-o format] [-s tag] [-t NAME=value][device]" >> $TEMP_FILE
+      echo "blkid -p [-O offset] [-S size] [-o format] [-s tag] [-n list] [-u list] device" >> $TEMP_FILE
+      echo "blkid -i [-o format] [-s tag] device ..." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man blkid'" >> $TEMP_FILE
+      echo "                        'blkid --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_blkid
+#
+# +----------------------------------------+
+# |            Function f_lspcmcia         |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_lspcmcia () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "lspcmcia - Display extended PCMCIA debugging information." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "lspcmcia is an alias for pccardctl ls, provided for convenience." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "lspcmcia [-V] [-v ...] [socket]" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man lspcmcia'" >> $TEMP_FILE
+      echo "                        'lspcmcia --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_lspcmcia
+#
+# +----------------------------------------+
+# |              Function f_lspci          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_lspci () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "lspci - list all PCI devices with detailed information." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "lspci [OPTIONS]" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "OPTIONS" >> $TEMP_FILE
+      echo "   Basic display modes" >> $TEMP_FILE
+      echo "       -m     List PCI devices in a backward-compatible machine readable form." >> $TEMP_FILE
+      echo "       -mm    List PCI devices in a machine readable form for easy parsing." >> $TEMP_FILE
+      echo "       -t     Show  a tree-like diagram with all buses, bridges, devices etc." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "   Display options" >> $TEMP_FILE
+      echo "       -v     Be verbose and display detailed information about all devices." >> $TEMP_FILE
+      echo "       -vv    Be very verbose and display more details." >> $TEMP_FILE
+      echo "       -vvv   Be  even  more  verbose." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man lspci'" >> $TEMP_FILE
+      echo "                        'lspci --help'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage: lspci -tvv" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_lspci
+#
+# +----------------------------------------+
+# |            Function f_pccardctl        |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_pccardctl () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "pccardctl - PCMCIA card control utility." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "pccardctl  is  used  to monitor and control the state of PCMCIA sockets." >> $TEMP_FILE
+      echo "If a socket number is specified, the command will be applied to just one" >> $TEMP_FILE
+      echo "socket; otherwise, all sockets will be affected." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "If pccardctl is executed by root, all commands are available." >> $TEMP_FILE
+      echo "If it is executed by an unprivileged user, only the informational commands" >> $TEMP_FILE
+      echo "are accessible." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "pccardctl [-V] [-v ...] command [socket]" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man pccardctl'" >> $TEMP_FILE
+      echo "           'pccardctl --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_pccardctl
+#
+# +----------------------------------------+
+#   Function f_apps_system_process_2
+# +----------------------------------------+
+#
+#
+#  Inputs: $1=GUI - "dialog" or "whiptail" The CLI GUI application in use.
+#          CLI_DIR, THIS_FILE.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary:
+#
+# Dependencies: f_menu_arrays, f_create_show_menu
+#
+f_apps_system_process_2 () {
+      #
+      GENERATED_FILE="$CLI_DIR/apps_system_process_2.lib.generated"
+      #
+      # Create generated menu script from array data.
+      #
+      MENU_TITLE="Process Menu"
+      #
+      MENU_TITLE=$(echo $MENU_TITLE | tr " " "_")
+      #
+      # Note: ***If Menu title contains spaces,
+      #       ***the size of the menu window will be too narrow.
+      #
+      TEMP_FILE="$CLI_DIR/apps_system_process_2_temp.txt"
+      #
+      # Create arrays from data.
+      ARRAY_FILE="$CLI_DIR/apps_system_process_2.lib"
+      f_menu_arrays $ARRAY_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # Create generated menu script from array data.
+      f_create_show_menu $1 $GENERATED_FILE $MENU_TITLE $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $TEMP_FILE
+      #
+} # End of function f_apps_system_process_2.
+#
+# +----------------------------------------+
+# |             Function f_pidstat         |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_pidstat () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "pidstat - View system processes/resources, PID/USR/System/Guest/CPU/Cmd." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "pidstat this PC's CPU (localhost) for 3 times every 2 seconds as an example." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man pidstat'" >> $TEMP_FILE
+         echo "                        'pidstat --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage: pidstat 2 3" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of f_pidstat
+#

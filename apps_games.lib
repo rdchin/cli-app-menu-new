@@ -1,0 +1,1999 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games Menu                                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Arcade Games#@@Action controlled by keyboard and players reflexes.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_generated.txt"^Games_-_Arcade_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@Board Games#@@Classic board games.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_board_generated.txt"^Games_-_Board_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_board_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@Card Games#@@Played with a deck of playing cards.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_card_generated.txt"^Games_-_Card_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_card_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@MUD Games#@@Multi-user dungeon adventure games.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_mud_generated.txt"^Games_-_Mud_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_mud_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@Puzzles#@@Mastermind clones, suduku, mazes, create punch card/tapes.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_puzzle_generated.txt"^Games_-_Puzzle_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_puzzle_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@Quiz Games#@@Challenge your mind.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_quiz_generated.txt"^Games_-_Quiz_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_quiz_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@RPG Games#@@Single-player role-playing games.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_rpg_generated.txt"^Games_-_RPG_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_rpg_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@Sims/Anims#@@Simulations and animations. ASCII movies.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_sims_generated.txt"^Games_-_Simulation_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_sims_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@Strategy Games#@@1-2 Players.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_strategy_generated.txt"^Games_-_Strategy_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_strategy_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@Word Games#@@Boggle, hangman, pig-latin, create banners.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_word_generated.txt"^Games_-_Word_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_word_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#! End Listing Games Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Arcade Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ascii-invaders#@@Space Invader clone.#@@f_app_cmd^$GUI^ascii-invaders#@@0^1^0^0^0
+#
+#@@asciijump#@@Ski jump game.#@@f_app_cmd^$GUI^asciijump#@@0^0^0^0^0
+#
+#@@freesweep#@@Minesweeper game.#@@f_app_cmd^$GUI^freesweep#@@0^0^0^0^1
+#
+#@@galaxis#@@Find lifeboats in space before oxygen runs out.#@@f_app_cmd^$GUI^galaxis#@@0^1^0^0^0
+#
+#@@gnuski#@@Downhill skiing while avoiding trees.#@@f_app_cmd^$GUI^gnuski#@@0^1^0^0^0
+#
+#@@moon-buggy#@@Drive a moon buggy on the moon.#@@f_app_cmd^$GUI^moon-buggy#@@0^0^0^0^0
+#
+#@@ninvaders#@@Space invaders-like game ncurses-based.#@@f_app_cmd^$GUI^ninvaders#@@0^0^0^1^1
+#
+#@@nsnake#@@Variation of BSDs snake game.#@@f_app_cmd^$GUI^nsnake#@@0^0^0^0^0
+#
+#@@Pac-Man#@@Pac-Man clones.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_pacman_generated.txt"^Games_-_Pacman_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_pacman_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@robots#@@Be chased by killer robots.#@@f_app_cmd^$GUI^robots#@@0^0^0^0^0
+#
+#@@snake#@@Be chased by a snake while collecting money.#@@f_app_cmd^$GUI^snake#@@0^0^0^18^0
+#
+#@@spacezero#@@Space combat in real-time, 2-player network game.#@@f_app_cmd^$GUI^spacezero#@@0^0^0^0^0
+#
+#@@Tetris#@@Tetris clones.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_tetris_generated.txt"^Games_-_Tetris_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_tetris_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#@@worm#@@Be a growing worm, dont crash into yourself.#@@f_app_cmd^$GUI^worm#@@0^0^0^9^0
+#
+#@@MORE...#@@For more arcade game applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_2_generated.txt"^Games_-_Arcade_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_2_items_generated.txt"^$CLI_DIR/apps_games.lib
+#
+#! End Listing Games - Arcade Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Arcade 2 Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@xorcurses#@@Based on Xor released in 1987 by Astral Software.#@@f_app_cmd^$GUI^xorcurses#@@0^1^0^1^0
+#
+#@@zsnake#@@Variation of BSDs snake game.#@@f_app_cmd^$GUI^zsnake#@@0^0^0^18^0
+#
+#@@ztrack#@@First-person car racing game in amazing 3-D ASCII.#@@f_app_cmd^$GUI^ztrack#@@0^1^0^0^0
+#
+#! End Listing Games - Arcade 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Board Menu                             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@atom4#@@Board game strategy 2-player ncurses-based.#@@f_app_cmd^$GUI^atom4#@@1^0^0^1^0
+#
+#@@backgammon#@@Backgammon.#@@f_app_cmd^$GUI^backgammon#@@0^0^0^1^0
+#
+#@@gnubg#@@Gnu Backgammon played either from console or GTK+ GUI.#@@f_app_cmd^$GUI^gnubg^gnubg -t#@@1^0^0^0^0
+#
+#@@monop#@@Monopoly-like game.#@@f_app_cmd^$GUI^monop#@@0^0^0^2^0
+#
+#! End Listing Games - Board Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Card Menu                              |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@canfield#@@Solitaire card game with betting.#@@f_app_cmd^$GUI^canfield#@@0^0^0^0^0
+#
+#@@cpat#@@Solitaire collection curses-based.#@@f_app_cmd^$GUI^cpat#@@0^0^0^0^0
+#
+#@@cribbage#@@Cribbage Card game.#@@f_app_cmd^$GUI^cribbage#@@f_run_and_exit "Cribbage" "cribbage"^0^0^0^0
+#
+#@@dsol#@@dSol Solitaire card game.#@@f_app_cmd^$GUI^dsol#@@0^0^0^0^0
+#
+#@@freecell#@@Freecell card game.#@@f_app_cmd^$GUI^freecell#@@0^0^0^0^0
+#
+#@@go-fish#@@Go Fish card game.#@@f_app_cmd^$GUI^go-fish#@@0^0^0^0^0
+#
+#@@ttysolitaire#@@Color ncurses-based solitaire game.#@@f_app_cmd^$GUI^ttysolitaire#@@0^0^0^0^0
+#
+#! End Listing Games - Card Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Mud Menu                               |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@crawl#@@Explore a cave, retrieve the Orb of Zot.#@@f_app_cmd^$GUI^crawl#@@0^0^0^0^1
+#
+#@@tintin++#@@Telnet client to play MUDs [Multi-User Dungeons].#@@f_app_cmd^$GUI^tintin++#@@0^0^0^0^1
+#
+#! End Listing Games - Mud Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Puzzle Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@asciiportal#@@ASCIIpOrtal, go through a side-scrolling puzzle maze.#@@f_app_cmd^$GUI^asciiportal#@@0^1^0^0^0
+#
+#@@bcd#@@Reformat input as a punch card.#@@f_app_cmd^$GUI^bcd#@@f_run_and_exit "bcd" "bcd"^0^0^0^0
+#
+#@@dab#@@2-players try to complete the most boxes.#@@f_app_cmd^$GUI^dab#@@0^0^0^0^1
+#
+#@@braincurses#@@Guess the pattern of 4 pegs in 4 colors.#@@f_app_cmd^$GUI^braincurses#@@0^0^0^0^0
+#
+#@@greed#@@Greed numbers game, ncurses-based.#@@f_app_cmd^$GUI^greed#@@0^0^0^0^0
+#
+#@@masterm#@@Guess the pattern of 4 pegs in 5 colors.#@@f_app_cmd^$GUI^masterm#@@0^0^0^0^0
+#
+#@@mastermind-nc#@@Guess the pattern of 4 pegs in 5 colors.#@@f_app_cmd^$GUI^mastermind-nc#@@0^0^0^0^0
+#
+#@@moo#@@Guess the pattern of 4 digits of 1-9.#@@f_app_cmd^$GUI^moo#@@0^0^0^0^0
+#
+#@@nettoe#@@Tic-tac-toe vs. PC or networked human.#@@f_app_cmd^$GUI^nettoe#@@0^0^0^0^0
+#
+#@@nsuduko#@@Suduko game.#@@f_app_cmd^$GUI^nsuduko#@@0^0^0^0^0
+#
+#@@pente#@@5 in a row game.#@@f_app_cmd^$GUI^pente^pente -curses#@@1^0^0^0^0
+#
+#@@ppt#@@Reformat input as a paper tape.#@@f_app_cmd^$GUI^ppt#@@f_run_and_exit "ppt" "ppt"^0^0^0^0
+#
+#@@textmaze#@@Find the exit to the maze.#@@f_app_cmd^$GUI^textmaze#@@0^1^0^1:NC^1
+#
+#@@xorcurses#@@Based on Xor released in 1987 by Astral Software.#@@f_app_cmd^$GUI^xorcurses#@@0^1^0^1^0
+#
+#! End Listing Games - Puzzle Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Quiz Menu                              |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@arithmetic#@@Basic arithmetic quiz.#@@f_app_cmd^$GUI^arithmetic#@@0^0^0^10^0
+#
+#@@geekcode#@@Code tells others how geeky you are.#@@f_app_cmd^$GUI^geekcode#@@0^0^0^0^0
+#
+#@@morse#@@Morse code training.#@@f_app_cmd^$GUI^morse#@@0^0^0^10^0
+#
+#@@quiz#@@Quiz with choice of assorted topics.#@@f_app_cmd^$GUI^quiz#@@0^0^0^1^1
+#
+#! End Listing Games - Quiz Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - RPG Menu                               |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@adventure#@@Explore Colossal Cave. #@@f_app_cmd^$GUI^adventure#@@0^0^0^7^1
+#
+#@@battlestar#@@Tropical adventure game.#@@f_app_cmd^$GUI^battlestar#@@0^0^0^0^1
+#
+#@@GearHead#@@Post-nuclear apocalyptic game with 150 machines of destruction.#@@f_app_cmd^$GUI^GearHead#@@0^0^0^0^1
+#
+#@@hack#@@Explore the Dungeons of Doom.#@@f_app_cmd^$GUI^hack#@@0^0^0^0^1
+#
+#@@nethack#@@Retrieve the Amulet of Yendor in the 20th dungeon level.#@@f_app_cmd^$GUI^nethack#@@0^0^0^0^1
+#
+#@@overkill#@@2-D ASCII shooter game.#@@f_app_cmd^$GUI^overkill#@@0^0^0^0^1
+#
+#@@phantasia#@@Fight monsters and other players.#@@f_app_cmd^$GUI^phantasia#@@0^0^0^0^1
+#
+#@@slashem#@@Enter the Dungeons of Doom.#@@f_app_cmd^$GUI^slashem#@@0^0^0^0^1
+#
+#@@wump#@@Hunt the Wumpus, watch out for bats, pits.#@@f_app_cmd^$GUI^wump#@@0^0^0^0^1
+#
+#! End Listing Games - RPG Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Simulation Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@atc#@@Air traffic controller.#@@f_app_cmd^$GUI^atc#@@f_run_and_exit "Air Traffic Controller" "atc"^0^0^0^1
+#
+#@@bb#@@ASCII-art movie demo based on AAlib.#@@f_app_cmd^$GUI^bb#@@0^0^0^1^0
+#
+#@@star wars#@@Star Wars movie in ASCII.#@@f_starwars^$GUI^starwars#@@0^0^0^0^0
+#
+#! End Listing Games - Simulation Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Strategy Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@empire#@@War game build armies, planes, ships, capture cities.#@@f_app_cmd^$GUI^empire#@@0^0^0^1^0
+#
+#@@gomoku#@@2-player game of 5-in-a-row.#@@f_app_cmd^$GUI^gomoku#@@0^0^0^0^0
+#
+#@@hunt#@@Multi-user game. Kill everyone else.#@@f_app_cmd^$GUI^hunt#@@0^0^0^0^0
+#
+#@@sail#@@Command a Man OWar fighting ship.#@@f_app_cmd^$GUI^sail#@@0^0^0^1^0
+#
+#@@sst#@@Super Star Trek. Many enhancements, read sst.doc for details.#@@f_app_cmd^$GUI^sst#@@1^1^0^0^1
+#
+#@@trek#@@Star Trek blast Klingons.#@@f_app_cmd^$GUI^trek#@@1^0^0^16^0
+#
+#@@trekx#@@Trek 73 [1973] ported from Turbo PASCAL to C by Howard Chu.#@@f_app_cmd^$GUI^trekx#@@1^1^0^0^1
+#
+#@@mille#@@Travel 700 miles card game.#@@f_app_cmd^$GUI^mille#@@0^0^0^0^0
+#
+#@@vms-empire#@@Risk-like game of moving armies to conquer continents.#@@f_app_cmd^$GUI^vms-empire#@@0^0^0^0^0
+#
+#! End Listing Games - Strategy Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Word Menu                              |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@boggle#@@Word search game.#@@f_app_cmd^$GUI^boggle#@@0^0^0^10^0
+#
+#@@boxes#@@Displays text with a decorative display.#@@f_app_cmd^$GUI^boxes#@@1^0^0^0^1
+#
+#@@figlet#@@Creates banner with outline font.#@@f_app_cmd^$GUI^figlet#@@0^0^0^10^0
+#
+#@@fortune#@@Displays witty words and sayings.#@@f_app_cmd^$GUI^fortune#@@0^0^0^0^1
+#
+#@@hangman#@@Classic hangman word game.#@@f_app_cmd^$GUI^hangman#@@0^0^0^0^1
+#
+#@@hodie#@@Date and time in Latin.#@@f_app_cmd^$GUI^hodie#@@0^0^0^10^1
+#
+#@@letterize#@@Creates strings from numbers on a touch-tone telephone keypad.#@@f_app_cmd^$GUI^letterize#@@0^0^0^0^0
+#
+#@@lexter#@@Create words in a Tetris-like game.#@@f_app_cmd^$GUI^lexter#@@0^0^0^0^1
+#
+#@@pig#@@Converts text into pig-latin.#@@f_app_cmd^$GUI^pig#@@0^0^0^10^0
+#
+#@@rev#@@Reverse typing [not Boston Red Sox Reverse the Curse].#@@f_app_cmd^$GUI^rev#@@1^0^0^0^1
+#
+#@@rl#@@Randomize Lines scrambles words of a text file.#@@f_app_cmd^$GUI^rl#@@0^0^0^0^1
+#
+#@@shuf#@@Randomize Lines scrambles words of a text file.#@@f_app_cmd^$GUI^shuf#@@0^0^0^0^1
+#
+#@@sl#@@Steam locomotive [when you mis-type ls command].#@@f_app_cmd^$GUI^sl#@@0^0^0^0^0
+#
+#@@tac#@@Display text file in reverse line order, last line first.#@@f_app_cmd^$GUI^tac#@@0^0^0^0^1
+#
+#@@toilet#@@Creates banner with bold font.#@@f_app_cmd^$GUI^toilet#@@0^0^0^10^0
+#
+#! End Listing Games - Word Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Pacman Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@myman#@@Pac-Man-like game, ncurses-based.#@@f_app_cmd^$GUI^myman#@@0^0^0^0^1
+#
+#@@pacman4console#@@Pac-Man-like game, ncurses-based.#@@f_app_cmd^$GUI^pacman4console#@@0^0^0^0^1
+#
+#@@yaourt#@@Pac-Man-like game, ncurses-based.#@@f_app_cmd^$GUI^yaourt#@@0^0^0^0^0
+#
+#! End Listing Games - Pacman Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Games - Tetris Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@bastet#@@Tetris-like game.#@@f_app_cmd^$GUI^bastet#@@0^0^0^0^0
+#
+#@@ctris#@@Tetris-like game.#@@f_app_cmd^$GUI^ctris#@@0^0^0^0^0
+#
+#@@lexter#@@Create words in a Tetris-like game.#@@f_app_cmd^$GUI^lexter#@@0^0^0^0^0
+#
+#@@netris#@@Tetris-like game.#@@f_app_cmd^$GUI^netris#@@1^0^0^0^0
+#
+#@@petris#@@Tetris-like game.#@@f_app_cmd^$GUI^petris#@@0^0^0^5^0
+#
+#@@tetrix#@@Tetris-like game.#@@f_app_cmd^$GUI^tetrix#@@0^0^0^0^0
+#
+#@@tint#@@Tetris-like game.#@@f_app_cmd^$GUI^tint#@@0^0^0^0^0
+#
+#@@vitetris#@@tetris-like game 1-2 players, network play, custom graphics etc.#@@f_app_cmd^$GUI^vitetris#@@0^0^0^5^0
+#
+#! End Listing Games - Tetris Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |   Function f_install_ascii_invaders    |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses: ANS.
+# Outputs: ERROR, MENU_ITEM_NAME, APPNAME, APP_NAME_INSTALL, PRESS_KEY.
+#
+f_install_ascii_invaders () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "ascii-invaders - An ASCII-art game like Space Invaders using Curses." > $TEMP_FILES
+      echo "(c) 2001, 2013 Thomas Munro" >> $TEMP_FILES
+      echo >> $TEMP_FILES
+      echo "This script will do the following:" >> $TEMP_FILES
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILES
+      echo "2. Download \"ascii-invaders\" using wget from the author's web page." >> $TEMP_FILES
+      echo "   \"https://github.com/macdice/ascii-invaders/archive/master.zip\"" >> $TEMP_FILES
+      echo "3. Decompress and create the installation subdirectory ~/bin/ascii-invaders" >> $TEMP_FILES
+      echo "4. Compile the C source code to create the \"invaders\" file." >> $TEMP_FILES
+      echo "5. Copy \"invaders\" to \"/usr/local/bin\" directory." >> $TEMP_FILES
+      echo "6. Allow users to run \"invaders\" by setting permissions to r-x or 755." >> $TEMP_FILES
+      echo "7. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILES
+      f_message $1 "OK" "Install $2?" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+      #
+      # Blank the screen.
+      clear
+      #
+      if [ "$ANS" -eq 0 ] ; then
+         # Yes, Install ascii-invaders.
+         # 1. Change directory to your ~/bin/ascii-invaders folder.
+         cd ~
+         if [ ! -d "~/bin" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin
+         fi
+         #
+         if [ ! -d "~/bin/ascii-invaders" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin/ascii-invaders
+         fi
+         #
+         cd ~/bin/ascii-invaders
+         #
+         # 2. Download "ascii-invaders" using wget from the author's web page.
+         wget https://github.com/macdice/ascii-invaders/archive/master.zip
+         #
+         # 3. Decompress ascii-invaders-master.zip
+         unzip master.zip
+         #
+         # 3. Compile the C source code to create the ascii-invaders file.
+         cd ascii-invaders-master
+         make invaders.c
+         #
+         # 4. Move "ascii-invaders" to "/usr/local/bin" directory.
+         sudo cp invaders /usr/local/bin/
+         #
+         # 5.  Allow users to run "ascii-invaders" by setting permissions to r-x or 755.
+         sudo chmod 755 /usr/local/bin/invaders
+         ERROR=$? # Save error flag condition.
+         #
+         # 6. Add directory "/usr/local/bin" to your PATH command in ~/.bashrc.
+         #    Is the directory "/usr/local/bin" in your PATH of directories?
+         #    Check the $PATH
+         if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+            echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILES
+            echo "Append the directory name to your environment $PATH." >> $TEMP_FILES
+            echo $(tput bold)'PATH=$PATH'":/usr/local/bin" >> $TEMP_FILES
+            echo "export PATH" >> $TEMP_FILES
+            echo >> $TEMP_FILES
+            echo "       >>> IMPORTANT <<<" >> $TEMP_FILES
+            echo "After editing the file, .bashrc:" >> $TEMP_FILES
+            echo "Close Terminal for changes to take effect." >> $TEMP_FILES
+            echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILES
+            f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+            #
+            if [ $1 = "text" ] ; then
+               # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+               # Why needed? Function f_message uses application "Less" to display pages of text.
+               # But "Less" resets the terminal's colors to white on black.
+               f_configure_use
+            fi
+         fi
+         echo > $TEMP_FILES
+         echo "------------------------------------------------------" >> $TEMP_FILES
+         echo "Finished running installation script for \"$2\"." >> $TEMP_FILES
+         echo "------------------------------------------------------" >> $TEMP_FILES
+         echo >> $TEMP_FILES
+         echo "To run \"$2\", select it on the \"Arcade Games Menu\"." >> $TEMP_FILES
+         echo >> $TEMP_FILES
+         f_message $1 "OK" "Installation Finished" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      unset ANS
+      #
+} # End of function f_install_ascii_invaders
+#
+# +----------------------------------------+
+# |       Function f_install_galaxis       |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2=APP_NAME.
+# Outputs: ERROR, MENU_ITEM_NAME, APPNAME, APP_NAME_INSTALL, PRESS_KEY.
+#
+# Summary: Install Galaxis.
+#
+# Dependencies: f_message, f_yn_question.
+#
+f_install_galaxis () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "galaxis - Rescue 4 lifeboats from a crippled interstellar liner." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin/galaxis folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"galaxis\" using wget from the author's web page." >> $TEMP_FILE
+      echo "    \"http://www.catb.org/~esr/galaxis/galaxis-1.9.tar.gz\"" >> $TEMP_FILE
+      echo "3. Decompress and extract \"galaxis.c\" from the *.tgz file." >> $TEMP_FILE
+      echo "4. Compile the C source code to create the \"galaxis\" file." >> $TEMP_FILE
+      echo "5. Copy \"galaxis\" to \"/usr/local/bin\" directory." >> $TEMP_FILE
+      echo "6. Copy \"galaxis\" to "/usr/local/bin" directory." >> $TEMP_FILE
+      echo "7. Allow users to run \"galaxis\" by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "8. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Install $2?" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+      #
+      # Blank the screen.
+      clear
+      #
+      if [ "$ANS" -eq 0 ] ; then
+         # Yes, Install galaxis.
+         #
+         # 1. Change directory to your ~/bin/trek73c folder.
+         cd ~
+         if [ ! -d "~/bin" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin
+         fi
+         #
+         if [ ! -d "~/bin/galaxis" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin/galaxis
+         fi
+         #
+         cd ~/bin/galaxis
+         #
+         # 2. Download "galaxis" using wget from the author's web page.
+         wget http://www.catb.org/~esr/galaxis/galaxis-1.9.tar.gz
+         #
+         # 3. Decompress and extract "galaxis.c", "Makefile", etc. from the *.tar.gz file."
+         tar -xvf galaxis-1.9.tar.gz
+         #
+         cd galaxis-
+         #
+         # 4. Compile the C source code to create the galaxis file.
+         make galaxis
+         #
+         # 5. Copy \"galaxis\" to "/usr/local/bin" directory.
+         sudo cp ~/bin/galaxis/galaxis-/galaxis /usr/local/bin/
+         #
+         # 6. Compress and copy man pages for galaxis to "usr/share/man/man6" directory
+         gzip ~/bin/galaxis/galaxis-/galaxis.6
+         #
+         if [ -r ~/bin/galaxis/galaxis-/galaxis.6.gz ] ; then
+            sudo cp ~/bin/galaxis/galaxis-/galaxis.6.gz /usr/share/man/man6/
+         else
+            sudo cp ~/bin/galaxis/galaxis-/galaxis.6 /usr/share/man/man6/
+         fi
+         #
+         # 7.  Allow users to run galaxis by setting permissions to r-x or 755.
+         sudo chmod 755 /usr/local/bin/galaxis
+         ERROR=$? # Save error flag condition.
+         #
+         # 8. Add directory "/usr/local/bin" to your PATH command in ~/.bashrc.
+         #    Is the directory /usr/local/bin in your PATH of directories?
+         #    Check the $PATH
+         if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+            echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+            echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+            echo $(tput bold)'PATH=$PATH'":/usr/local/bin" >> $TEMP_FILE
+            echo "export PATH" >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+            echo "After editing the file, .bashrc:" >> $TEMP_FILE
+            echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+            echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+            #
+            if [ $1 = "text" ] ; then
+               # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+               # Why needed? Function f_message uses application "Less" to display pages of text.
+               # But "Less" resets the terminal's colors to white on black.
+               f_configure_use
+            fi
+         fi
+         echo "-------------------------------------------------------------" > $TEMP_FILE
+         echo "Finished running installation script for \"$2\"." >> $TEMP_FILE
+         echo "-------------------------------------------------------------" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "To run \"$2\", select it on the \"Arcade Games Menu\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "IMPORTANT: For instructions on playing, type \"?\" while playing the game." >> $TEMP_FILE
+         f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      unset ANS
+      #
+} # End of function f_install_galaxis
+#
+# +----------------------------------------+
+# |        Function f_install_gnuski       |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2=APP_NAME.
+#    Uses: ANS.
+# Outputs: ERROR, MENU_ITEM_NAME, APPNAME, APP_NAME_INSTALL, PRESS_KEY.
+#
+# Summary: Install Asciiquarium.
+#
+# Dependencies: f_message, f_yn_question.
+#
+f_install_gnuski () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "gnuski - A down-hill skiing game using Curses." > $TEMP_FILE
+      echo "(c) 2001, 2013 Thomas Munro" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"gnuski\" using wget from the author's web page." >> $TEMP_FILE
+      echo "\http://sourceforge.net/projects/gnuski/files/latest/download\"" >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/bin/gnuski" >> $TEMP_FILE
+      echo "4. Install ncurses if needed." >> $TEMP_FILE
+      echo "5. Compile the C source code to create the \"gnuski\" file." >> $TEMP_FILE
+      echo "6. Copy \"gnuski\" to \"/usr/local/bin\" directory." >> $TEMP_FILE
+      echo "7. Allow users to run \"gnuski\" by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "8. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Install $2?" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+      #
+      # Blank the screen.
+      clear
+      #
+      # Yes, Install gnuski.
+      if [ "$ANS" -eq 0 ] ; then
+         #
+         # Install libncurses-dev and ncurses-dev as pre-requisites.
+         f_install_ncurses
+         if [ "$ERROR" = "0" ] ; then
+            # Error code 1 $?=1 means no --help available.
+            # Error code 0 (zero) where $?=0 means no error.
+            #
+            # 1. Change directory to your ~/bin/gnuski folder.
+            cd ~
+            if [ ! -d "~/bin" ] ; then
+               # Target directory is missing, so create it.
+               mkdir ~/bin
+            fi
+            #
+            if [ ! -d "~/bin/gnuski" ] ; then
+               # Target directory is missing, so create it.
+               mkdir ~/bin/gnuski
+            fi
+            #
+            cd ~/bin/gnuski
+            #
+            # 2. Download "gnuski" using wget from the author's web page.
+            wget http://downloads.sourceforge.net/project/gnuski/gnuski/gnuski-0.3/gnuski-0.3.tar.gz
+            #
+            # 3. Decompress gnuski-master.zip
+            tar -xvf gnuski-0.3.tar.gz
+            #
+            # 3. Compile the C source code to create the gnuski file.
+            cd gnuski
+            make
+            #
+            # 4. Move "gnuski" to "/usr/local/bin" directory.
+            sudo cp gnuski /usr/local/bin/
+            #
+            # 5.  Allow users to run "gnuski" by setting permissions to r-x or 755.
+            sudo chmod 755 /usr/local/bin/gnuski
+            ERROR=$? # Save error flag condition.
+            #
+            # 6. Add directory "/usr/local/bin" to your PATH command in ~/.bashrc.
+            #    Is the directory "/usr/local/bin" in your PATH of directories?
+            #    Check the $PATH
+            if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+               echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+               echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+               echo 'PATH=$PATH'":/usr/local/bin" >> $TEMP_FILE
+               echo "export PATH" >> $TEMP_FILE
+               echo >> $TEMP_FILE
+               echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+               echo "After editing the file, .bashrc:" >> $TEMP_FILE
+               echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+               echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+               echo >> $TEMP_FILE
+               f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+               #
+               if [ $1 = "text" ] ; then
+                  # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+                  # Why needed? Function f_message uses application "Less" to display pages of text.
+                  # But "Less" resets the terminal's colors to white on black.
+                  f_configure_use
+               fi
+            fi
+            echo "-------------------------------------------------------------" > $TEMP_FILE
+            echo "Finished running installation script for \"$2\"." >> $TEMP_FILE
+            echo "-------------------------------------------------------------" >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            echo "To run \"$2\", select it on the \"Arcade Games Menu\"." >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            echo "IMPORTANT: For instructions on playing, type \"?\" while playing the game." >> $TEMP_FILE
+            f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+            #
+            if [ $1 = "text" ] ; then
+               # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+               # Why needed? Function f_message uses application "Less" to display pages of text.
+               # But "Less" resets the terminal's colors to white on black.
+               f_configure_use
+            fi
+         else
+            # Install ncurses failed.
+            f_message $1 "OK" "Install Failed" "Install of ncurses failed so cannot install $2."
+         fi
+      fi
+      unset ANS
+      #
+} # End of function f_install_gnuski
+#
+# +----------------------------------------+
+# |        Function f_install_ztrack       |
+# +----------------------------------------+
+#
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_install_ztrack () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [ ! -r "/usr/games/ztrack" ] ; then
+         echo "This script will install Ztrack without using a software package manager." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "If you wish to de-install Ztrack, you will have to delete files manually" >> $TEMP_FILE
+         echo "by typing: \"sudo rm /usr/games/ztrack\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "This script will install \"libncurses-dev\" and \"ncurses-dev\", if needed." >> $TEMP_FILE
+         echo "Afterwards, \"Ztrack\" will be installed." >> $TEMP_FILE
+         f_message $1 "OK" "Install $2?" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+         #
+         # Blank the screen.
+         clear
+         #
+         if [ "$ANS" -eq 0 ] ; then
+            # Yes, Install Ztrack.
+            # Install libncurses-dev and ncurses-dev as pre-requisites.
+            f_install_ncurses
+            if [ "$ERROR" = "0" ] ; then
+               # Error code 1 $?=1 means no --help available.
+               # Error code 0 (zero) where $?=0 means no error.
+               #
+               # Since dependencies are installed, now install Ztrack.
+               f_install_ztrack_2 $1 $2
+            else
+               # Install ncurses failed.
+               f_message $1 "OK" "Install Failed" "Install of ncurses failed so cannot install $2."
+            fi
+         fi
+         unset ANS  # Throw out this variable.
+      fi
+      #
+} # End of function f_install_ztrack
+#
+# +----------------------------------------+
+# |         Function f_install_ztrack_2    |
+# +----------------------------------------+
+#
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_install_ztrack_2 () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "This script will automatically download and install \"Ztrack\"." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"Ztrack\" using wget from:" >> $TEMP_FILE
+      echo "   http://www.ibiblio.org/pub/Linux/games/arcade" >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/bin/ztrack*" >> $TEMP_FILE
+      echo "4. Install Ztrack via:" >> $TEMP_FILE
+      echo "                           make" >> $TEMP_FILE
+      echo "                           sudo make install" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "   Installs files to /usr/local/bin/." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "5. Allow users to run Ztrack by setting permissions to r-x or 755 for all users." >> $TEMP_FILE
+      echo "6. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Download and Install $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # 1. Change directory to your ~/bin folder.
+      cd ~
+      if [ ! -d "~/bin" ] ; then
+         # Target directory is missing, so create it.
+         mkdir ~/bin
+      fi
+      #
+      # 2. Download "Ztrack" from "http://www.ibiblio.org/pub/Linux/games/arcade/ztrack-1.0.tar.gz" by using wget.
+      cd ~/bin
+      wget http://www.ibiblio.org/pub/Linux/games/arcade/ztrack-1.0.tar.gz
+      #
+      # 3. Decompress and create the installation subdirectory ~/bin/ztrack*.
+      tar -xf ztrack-1.0.tar.gz
+      #
+      # 4. Make and install Ztrack.
+      cd ~/bin/ztrack*
+      make
+      sudo make install
+      #
+      # 5. Allow users to run Ztrack by setting permissions to r-x or 755 for all users.
+      sudo chmod 755 /usr/games/ztrack*
+      ERROR=$? # Save error flag condition.
+      #
+      # 6. Add directory \"/usr/games\" to your PATH command in ~/.bashrc.
+      # Is the directory /usr/games in your PATH of directories?
+      # Check the $PATH
+      if [[ ! "$PATH" == *":/usr/games"* ]] ; then
+         echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+         echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+         echo $(tput bold)'PATH=$PATH'":/usr/games"
+         echo "export PATH" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+         echo "After editing the file, .bashrc:" >> $TEMP_FILE
+         echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+         echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+         f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      echo >> $TEMP_FILE
+      echo "Finished running installation script for \"Ztrack\"." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To run \"Ztrack\", select it on the \"Arcade Games Menu\" or \"Simulation Games\"." >> $TEMP_FILE
+      f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_install_ztrack_2
+#
+# +----------------------------------------+
+# |            Function f_atom4            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display help message.
+#
+# Dependencies: f_message.
+#
+f_atom4 () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "-mt  Selects the text (curses-based) interface. The curses-based interface" > $TEMP_FILE
+      echo "     requires a terminal which can display at least 9 colors." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "-mx  Selects the X11 interface. The X11 interface requires an X display" >> $TEMP_FILE
+      echo "     that supports at least 8-bit color. Note that currently, atom4 will" >> $TEMP_FILE
+      echo "     always connect to the X server specified in the $DISPLAY environment" >> $TEMP_FILE
+      echo "     variable." >> $TEMP_FILE
+      f_message $1 "OK" "Atom4 optional parameters" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_atom4
+#
+# +----------------------------------------+
+# |            Function f_gnubg            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_gnubg () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "gnubg - GNU Backgammon." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "gnubg -t starts backgammon in text mode." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "At the prompt, type: \"new game\" to start a new game." >> $TEMP_FILE
+      echo "           (No game)  new game" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "                     \"help\" for playing commands." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "                     \"q\" or \"quit\" to end game." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_gnubg
+#
+# +----------------------------------------+
+# |     Function f_install_asciiportal     |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2=APP_NAME.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Install Asciiquarium.
+#
+# Dependencies: f_message, f_yn_question.
+#
+f_install_asciiportal () {
+     #
+     # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "asciiportal - An ASCII-art game like Space Invaders using Curses." > $TEMP_FILE
+      echo "(c) 2001, 2013 Thomas Munro" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"asciiportal\" using wget from the author's web page." >> $TEMP_FILE
+      echo "   \"https://github.com/cymonsgames/ASCIIpOrtal/archive/master.zip\"" >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/bin/asciiportal" >> $TEMP_FILE
+      echo "4. Compile the C source code to create the \"asciiportal\" file." >> $TEMP_FILE
+      echo "5. Copy \"asciiportal\" to \"/usr/local/bin\" directory." >> $TEMP_FILE
+      echo "6. Allow users to run \"asciiportal\" by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "7. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Install $2?" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+      #
+      clear  # Blank the screen.
+      #
+      if [ "$ANS" -eq 0 ] ; then
+         # Yes, Install asciiportal.
+         #
+         # 1. Change directory to your ~/bin/asciiportal folder.
+         cd ~
+         if [ ! -d "~/bin" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin
+         fi
+         #
+         if [ ! -d "~/bin/asciiportal" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin/asciiportal
+         fi
+         #
+         cd ~/bin/asciiportal
+         #
+         # 2. Download "asciiportal" using wget from the author's web page.
+         wget https://github.com/cymonsgames/ASCIIpOrtal/archive/master.zip
+         #
+         # 3. Decompress asciiportal-master.zip
+         unzip master.zip
+         #
+         # 3. Compile the C source code to create the asciiportal file.
+         cd ASCIIpOrtal-master
+         make
+         #
+         # 4. Move "asciiportal" to "/usr/local/bin" directory.
+         sudo cp asciiportal /usr/local/bin/
+         #
+         # 5.  Allow users to run "asciiportal" by setting permissions to r-x or 755.
+         sudo chmod 755 /usr/local/bin/asciiportal
+         ERROR=$? # Save error flag condition.
+         #
+         # 6. Add directory "/usr/local/bin" to your PATH command in ~/.bashrc.
+         #    Is the directory "/usr/local/bin" in your PATH of directories?
+         #    Check the $PATH
+         if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+            echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+            echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+            echo $(tput bold)'PATH=$PATH'":/usr/local/bin" >> $TEMP_FILE
+            echo "export PATH" >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+            echo "After editing the file, .bashrc:" >> $TEMP_FILE
+            echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+            echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+            #
+            if [ $1 = "text" ] ; then
+               # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+               # Why needed? Function f_message uses application "Less" to display pages of text.
+               # But "Less" resets the terminal's colors to white on black.
+               f_configure_use
+            fi
+         fi
+         echo > $TEMP_FILE
+         echo "------------------------------------------------------" >> $TEMP_FILE
+         echo "Finished running installation script for \"$2\"." >> $TEMP_FILE
+         echo "------------------------------------------------------" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "To run \"$2\", select it on the \"Arcade Games Menu\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      unset ANS
+      #
+} # End of function f_install_asciiportal
+#
+# +----------------------------------------+
+# |            Function f_pente            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_pente () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "   Pente 2.2.5 by William Shubert - 31 July 2001" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "    -version,--version Print version information" >> $TEMP_FILE
+      echo "            -showthink Show computer thinking" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "  Display type options:" >> $TEMP_FILE
+      echo "     -[no]X11,-[no]x11 X11" >> $TEMP_FILE
+      echo "           -[no]curses Curses" >> $TEMP_FILE
+      echo "             -[no]text Plain text" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "  X11 Switches:" >> $TEMP_FILE
+      echo "                 -name Name to use for X resource database" >> $TEMP_FILE
+      echo "               -adfile Set name of ad file" >> $TEMP_FILE
+      echo "           -[no]iconic Start up as an icon" >> $TEMP_FILE
+      echo "             -geometry Starting geometry" >> $TEMP_FILE
+      echo "             -icongeom Icon geometry" >> $TEMP_FILE
+      echo "              -display Display to use" >> $TEMP_FILE
+      echo "            -[no]color Use color if possible" >> $TEMP_FILE
+      echo "          -[no]stealth Stealth mode" >> $TEMP_FILE
+      echo "             -language Language" >> $TEMP_FILE
+      echo "               -volume Sound volume, 0..100" >> $TEMP_FILE
+      echo "               -silent Same as \"-volume 0\"" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "          -help,--help Show this message" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_pente
+#
+# +----------------------------------------+
+# |       Function f_install_textmaze      |
+# +----------------------------------------+
+#
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message, f_yn_question, install_.
+#
+f_install_textmaze () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [ ! -r "/usr/local/bin/textmaze" ] ; then
+         echo "Textmaze - a playable maze drawn on-screen." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "This script will do the following:" >> $TEMP_FILE
+         echo "This script will install \"libncurses-dev\" and \"ncurses-dev\", if needed." >> $TEMP_FILE
+         echo "Afterwards, \"$2\" will be installed." >> $TEMP_FILE
+         f_message $1 "OK" "Install $2?" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+         #
+         # Blank the screen.
+         clear
+         #
+         if [ "$ANS" -eq 0 ] ; then
+            # Yes, Install TextMaze.
+            # Install libncurses-dev and ncurses-dev as pre-requisites.
+            f_install_ncurses
+            if [ "$ERROR" = "0" ] ; then
+               # Error code 1 $?=1 means no --help available.
+               # Error code 0 (zero) where $?=0 means no error.
+               #
+               # Since dependencies are installed, now install TextMaze.
+               f_install_textmaze_2
+            else
+               # Install ncurses failed.
+               f_message $1 "OK" "Install Failed" "Install of ncurses failed so cannot install $2."
+            fi
+         fi
+         unset ANS
+      fi
+      #
+} # End of function f_install_textmaze
+#
+# +----------------------------------------+
+# |       Function f_install_textmaze_2    |
+# +----------------------------------------+
+#
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_install_textmaze_2 () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "This script will automatically download and install \"TextMaze\"." > $TEMP_FILE
+      echo "The application itself is a single perl script so perl is a prerequisite." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"TextMaze\" by using wget from:" >> $TEMP_FILE
+      echo "   \"http://robobunny.com/projects/textmaze\textmaze.tar.gz.\"." >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/bin/TextMaze*" >> $TEMP_FILE
+      echo "4. Substitute line of textmaze to indicate the correct perl evironment." >> $TEMP_FILE
+      echo "5. Copy \"textmaze\" to \"/usr/local/bin\" directory." >> $TEMP_FILE
+      echo "6. Allow users to run textmaze by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "7. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Download and Install $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      # 1. Change directory to your ~/bin folder.
+      cd ~
+      if [ ! -d "~/bin" ] ; then
+         # Target directory is missing, so create it.
+         mkdir ~/bin
+      fi
+      cd ~/bin
+      #
+      # 2. Download "textmaze" from robobunny.com by using wget.
+      wget http://robobunny.com/projects/textmaze/textmaze.tar.gz
+      #
+      # 3. Decompress and create the installation subdirectory ~/bin/TextMaze
+      tar -xvzf textmaze.tar.gz
+      cd ~/bin/TextMaze*/
+      #
+      # 4. Substitute line for proper perl environment.
+      #    Change from <old-string>: "#!/usr/local/bin/perl"
+      #    Change   to <new-string>: "#!/usr/bin/env perl"
+      #    sed -i "s|<old-string>|<new-string>|" <target filename>
+      sed -i "s|#!/usr/local/bin/perl|#!/usr/bin/env perl|" textmaze
+      #
+      # 5. Copy TextMaze to /usr/local/bin directory.
+      if [ ! -d "/usr/local/bin" ] ; then
+         # Target directory is missing, so create it.
+         sudo mkdir -p /usr/local/bin
+      fi
+      sudo cp ~/bin/TextMaze*/textmaze /usr/local/bin/
+      #
+      # 6. Allow users to run TextMaze by setting permissions to r-x or 755 for all users.
+      sudo chmod 755 /usr/local/bin/textmaze
+      ERROR=$? # Save error flag condition.
+      #
+      # 7. Add directory /usr/local/bin to your PATH command in ~/.bashrc.
+      # Is the directory /usr/local/bin in your PATH of directories?
+      # Check the $PATH
+      if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+         echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+         echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+         echo $(tput bold)'PATH=$PATH'":/usr/local/bin"
+         echo "export PATH" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+         echo "After editing the file, .bashrc:" >> $TEMP_FILE
+         echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+         echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+         f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      echo > $TEMP_FILE
+      echo "Finished running installation script for \"TextMaze\"." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To run \"TextMaze\", select it on the \"Puzzle Games Menu\"." >> $TEMP_FILE
+      f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of f_install_textmaze_2
+#
+# +----------------------------------------+
+# |           Function f_starwars          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary: Display an ASCII movie of "Star Wars".
+#
+# Dependencies: f_message.
+#
+f_starwars () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "Star Wars ASCII Movie" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "The movie is played by running command:" >> $TEMP_FILE
+      echo "telnet towel.blinkenlights.nl" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "If telnet hangs while trying the ip-address," >> $TEMP_FILE
+      echo "then re-run this program and try again." >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      APP_CMD="telnet towel.blinkenlights.nl"
+      if [ -n "$3" ] ; then
+         APP_CMD=$3
+      else
+         APP_CMD=$2
+      fi
+      #
+      APP_CMD=$(echo $3 | tr " " "_")
+      #
+      source $CLI_DIR/cli-common.lib
+      f_app_run_and_exit $1 $2 $APP_CMD 0^0^0^26^0 1
+      #
+}  # End of function f_starwars
+#
+# +----------------------------------------+
+# |          Function f_install_sst        |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_install_sst () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "sst - Super Star Trek" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin/sst folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"sst\" using wget from the author's web page." >> $TEMP_FILE
+      echo "   \"http://www.almy.us/files/sstlinux.tar.gz\"" >> $TEMP_FILE
+      echo "3. Decompress and extract \"sst\" and \"sst.doc\" from the *.tar.gz file." >> $TEMP_FILE
+      echo "4. Move \"sst\" to \"/usr/local/bin\" directory." >> $TEMP_FILE
+      echo "5. Allow users to run \"sst\" by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "6. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Install $2?" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+      #
+      if [ "$ANS" -eq 0 ] ; then
+         # Yes, Install "sst".
+         #
+         # 1. Change directory to your ~/bin/sst folder.
+         cd ~
+         if [ ! -d "~/bin" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin
+         fi
+         #
+         if [ ! -d "~/bin/sst" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin/sst
+         fi
+         #
+         cd ~/bin/sst
+         #
+         #
+         # 2. Download "sst" using wget from the author's web page.
+         wget http://www.almy.us/files/sstlinux.tar.gz
+         #
+         # 3. Decompress and extract "sst" and "sst.doc" from the *.tar.gz file.
+         tar -xvf sstlinux.tar.gz
+         #
+         # 4. Move "sst" to "/usr/local/bin" directory.
+         sudo cp sst /usr/local/bin/
+         #
+         # 5.  Allow users to run "sst" by setting permissions to r-x or 755.
+         sudo chmod 755 /usr/local/bin/sst
+         ERROR=$? # Save error flag condition.
+         #
+         # 6. Add directory "/usr/local/bin" to your PATH command in ~/.bashrc.
+         #    Is the directory "/usr/local/bin" in your PATH of directories?
+         #    Check the $PATH
+         if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+            echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+            echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+            echo $(tput bold)'PATH=$PATH'":/usr/local/bin"
+            echo "export PATH" >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+            echo "After editing the file, .bashrc:" >> $TEMP_FILE
+            echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+            echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+            #
+            if [ $1 = "text" ] ; then
+               # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+               # Why needed? Function f_message uses application "Less" to display pages of text.
+               # But "Less" resets the terminal's colors to white on black.
+               f_configure_use
+            fi
+         fi
+         #
+         echo > $TEMP_FILE
+         echo "-------------------------------------------------" >> $TEMP_FILE
+         echo "Finished running installation script for \"$2\"." >> $TEMP_FILE
+         echo "-------------------------------------------------" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "To run \"sst\", select it on the \"Simulation Games and Animation Menu\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "For instructions on playing:" >> $TEMP_FILE
+         echo "Read the \"sst.doc\" file in your \"~/bin/sst\" directory." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "While playing the game, for help type '?' at the COMMAND> prompt." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Installation Finished" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      unset ANS
+} # End of function f_install_sst
+#
+# +----------------------------------------+
+# |       Function f_install_startrek      |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_install_startrek () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "--------------------------------------------------------------------------" > $TEMP_FILE
+      echo "Programmer's note: I could not get this C-language source code to compile." >> $TEMP_FILE
+      echo "                   Hopefully you can compile it." >> $TEMP_FILE
+      echo "--------------------------------------------------------------------------" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "startrek - Super Star Trek Classic (v1.1) ported to C by Chris Nystrom" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin/startrek folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"startrek.c\" source code using wget from the author's web page." >> $TEMP_FILE
+      echo "   \"http://www.dunnington.u-net.com/public/startrek/startrek.c\"" >> $TEMP_FILE
+      echo "3. Compile the C source code to create the \"startrek\" file." >> $TEMP_FILE
+      echo "4. Copy \"startrek\" to \"/usr/local/bin\" directory." >> $TEMP_FILE
+      echo "5. Allow users to run \"startrek\" by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "6. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Install $2?" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+      #
+      if [ "$ANS" -eq 0 ] ; then
+         # Yes, Install "startrek".
+         #
+         # 1. Change directory to your ~/bin/startrek folder.
+         cd ~
+         if [ ! -d "~/bin" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin
+         fi
+         #
+         if [ ! -d "~/bin/startrek" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin/startrek
+         fi
+         #
+         cd ~/bin/startrek
+         #
+         # 2. Download "startrek.c" using wget from the author's web page.
+         wget http://www.dunnington.u-net.com/public/startrek/startrek.c
+         #
+         # 3. Compile the C source code to create the startrek file.
+         gcc -Wall -W -Werror startrek.c -o startrek
+         # or make startrek
+         #
+         # 4. Move "startrek" to "/usr/local/bin" directory.
+         sudo cp ~/startrek /usr/local/bin/
+         #
+         # 5.  Allow users to run "startrek" by setting permissions to r-x or 755.
+         sudo chmod 755 /usr/local/bin/startrek
+         ERROR=$? # Save error flag condition.
+         #
+         # 6. Add directory "/usr/local/bin" to your PATH command in ~/.bashrc.
+         #    Is the directory "/usr/local/bin" in your PATH of directories?
+         #    Check the $PATH
+         if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+            echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+            echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+            echo $(tput bold)'PATH=$PATH'":/usr/local/bin"
+            echo "export PATH" >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+            echo "After editing the file, .bashrc:" >> $TEMP_FILE
+            echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+            echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+            f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+            #
+            if [ $1 = "text" ] ; then
+               # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+               # Why needed? Function f_message uses application "Less" to display pages of text.
+               # But "Less" resets the terminal's colors to white on black.
+               f_configure_use
+            fi
+         fi
+         #
+         echo > $TEMP_FILE
+         echo "------------------------------------------------------" >> $TEMP_FILE
+         echo "Finished running installation script for \"$2\"." >> $TEMP_FILE
+         echo "------------------------------------------------------" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "To run \"startrek\", select it on the \"Simulation Games and Animation Menu\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "IMPORTANT: For instructions on playing, type \"-\" while playing the game." >> $TEMP_FILE
+         f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      unset ANS
+      #
+} # End of function f_install_startrek
+#
+# +----------------------------------------+
+# |         Function f_install_trekx       |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_install_trekx () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "trekx - Trek 73 a Star Trek game from 1973" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin/trek73 folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"trekx\" using wget from the author's web page." >> $TEMP_FILE
+      echo "   \"http://highlandsun.com/hyc/trek73c.tgz\"" >> $TEMP_FILE
+      echo "3. Decompress and extract \"trekx.c\", \"Makefile\", and \"Makefile.O\" from the *.tgz file." >> $TEMP_FILE
+      echo "4. Compile the C source code to create the \"trekx\" file." >> $TEMP_FILE
+      echo "5. Copy \"trekx\" to \"/usr/local/bin\" directory." >> $TEMP_FILE
+      echo "6. Allow users to run \"trekx\" by setting permissions to r-x or 755." >> $TEMP_FILE
+      echo "7. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Install $2?" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+      #
+      if [ "$ANS" -eq 0 ] ; then
+         # Yes, Install trekx.
+         #
+         # 1. Change directory to your ~/bin/trek73c folder.
+         cd ~
+         if [ ! -d "~/bin" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin
+         fi
+         #
+         if [ ! -d "~/bin/trek73c" ] ; then
+            # Target directory is missing, so create it.
+            mkdir ~/bin/trek73c
+         fi
+         #
+         cd ~/bin/trek73c
+         #
+         # 2. Download "trekx" using wget from the author's web page.
+         wget http://highlandsun.com/hyc/trek73c.tgz
+         #
+         # 3. Decompress and extract "trekx.c", "Makefile" and "Makefile.O" from the *.tgz file."
+         tar -xvf trek73c.tgz
+         #
+         # 4. Compile the C source code to create the trekx file.
+         make trekx
+         #
+         # 4. Move "trekx" to "/usr/local/bin" directory.
+         sudo cp ~/bin/trek73c/trekx /usr/local/bin/
+         #
+         # 5.  Allow users to run trekx by setting permissions to r-x or 755.
+         sudo chmod 755 /usr/local/bin/trekx
+         ERROR=$? # Save error flag condition.
+         #
+         # 6. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc.
+         #    Is the directory /usr/local/bin in your PATH of directories?
+         #    Check the $PATH
+         if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+            echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+            echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+            echo $(tput bold)'PATH=$PATH'":/usr/local/bin"
+            echo "export PATH" >> $TEMP_FILE
+            echo >> $TEMP_FILE
+            echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+            echo "After editing the file, .bashrc:" >> $TEMP_FILE
+            echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+            echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+            f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+            #
+            if [ $1 = "text" ] ; then
+               # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+               # Why needed? Function f_message uses application "Less" to display pages of text.
+               # But "Less" resets the terminal's colors to white on black.
+               f_configure_use
+            fi
+         fi
+         echo > $TEMP_FILE
+         echo "-------------------------------------------------------------" >> $TEMP_FILE
+         echo "Finished running installation script for \"trekx\" (Trek 73)." >> $TEMP_FILE
+         echo "-------------------------------------------------------------" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "To run \"trekx\", select it on the \"Simulation Games and Animation Menu\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "IMPORTANT: For instructions on playing, type \"-\" while playing the game." >> $TEMP_FILE
+         f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      unset ANS
+      #
+} # End of function f_install_trekx
+#
+# +----------------------------------------+
+# |             Function f_trek            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_trek () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "Trek - Star Trek game included in the package bsdgames." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "For instructions while playing the game:" >> $TEMP_FILE
+      echo
+      echo "Type a '?' at the 'Command:' prompt." >> $TEMP_FILE
+      echo
+      echo "Command: ?" >> $TEMP_FILE
+      echo "abandon       capture         cloak      computer" >> $TEMP_FILE
+      echo "damages      destruct          dock          help" >> $TEMP_FILE
+      echo "impulse        lrscan          move       phasers" >> $TEMP_FILE
+      echo "    ram          dump          rest        shield" >> $TEMP_FILE
+      echo " srscan        status     terminate       torpedo" >> $TEMP_FILE
+      echo " undock        visual          warp" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+}  #End of function f_trek
+#
+# +----------------------------------------+
+# |              Function f_trekx          |
+# +----------------------------------------+
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_trekx () {      clear # Blank the screen.
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "trekx - Super Star Trek." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "For instructions while playing the game:" >> $TEMP_FILE
+      echo "Type a '-' (dash) at the 'CODE>' prompt." >> $TEMP_FILE
+      echo
+      echo "CODE> -" >> $TEMP_FILE
+      echo "1  Fire Phasers                  q  Lock Phasers" >> $TEMP_FILE
+      echo "2  Fire Photon Torpedoes         w  Lock Tubes" >> $TEMP_FILE
+      echo "3  Anti-Matter Probe Control     e  Alter Power Distribution" >> $TEMP_FILE
+      echo "4  Load/Unload Torpedoes         r  Change Firing Parameters" >> $TEMP_FILE
+      echo "5  Change Course & Speed         t  Alter Display Radius" >> $TEMP_FILE
+      echo "6  Pursue Enemy Vessel           y  Run from Enemy Vessel" >> $TEMP_FILE
+      echo "7  Damage Report                 u  Scan Enemy Vessel" >> $TEMP_FILE
+      echo "8  Self-Destruction              i  Engineering Separation" >> $TEMP_FILE
+      echo "9  Ask Enemy to Surrender        o  Surrender" >> $TEMP_FILE
+      echo "0  Attempt Defenseless Ruse      p  Attempt Corbomite Bluff" >> $TEMP_FILE
+      echo "-  List Commands                 [  Quit Game" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To quit game: Type a left square-bracket at the CODE> prompt" >> $TEMP_FILE
+      echo "CODE> [" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+#
+}  #End of function f_trekx
+#
+# +----------------------------------------+
+# |            Function f_netris           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_netris () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "netris - Tetris-like game." >> $TEMP_FILE
+      echo "Netris version 0.52 (C) 1994-1996,1999  Mark H. Weaver <mhw@netris.org>" >> $TEMP_FILE
+      echo "Usage: netris <options>" >> $TEMP_FILE
+      echo "  -h         Print usage information" >> $TEMP_FILE
+      echo "  -w         Wait for connection" >> $TEMP_FILE
+      echo "  -c <host>  Initiate connection" >> $TEMP_FILE
+      echo "  -p <port>  Set port number (default is 9284)" >> $TEMP_FILE
+      echo "  -k <keys>  Remap keys.  The argument is a prefix of the string" >> $TEMP_FILE
+      echo "               containing the keys in order: left, rotate, right, drop," >> $TEMP_FILE
+      echo "               down-faster, toggle-spying, pause, faster, redraw, new." >> $TEMP_FILE
+      echo "               \"^\" prefixes controls.  (default is \"jkl mspf^ln\")" >> $TEMP_FILE
+      echo "  -i <sec>   Set the step-down interval, in seconds" >> $TEMP_FILE
+      echo "  -r <robot> Execute <robot> (a command) as a robot controlling" >> $TEMP_FILE
+      echo "               the game instead of the keyboard" >> $TEMP_FILE
+      echo "  -F           Use fair robot interface" >> $TEMP_FILE
+      echo "  -s <seed> Start with given random seed" >> $TEMP_FILE
+      echo "  -D        Drops go into drop mode" >> $TEMP_FILE
+      echo "              This means that sliding off a cliff after a drop causes" >> $TEMP_FILE
+      echo "              another drop automatically" >> $TEMP_FILE
+      echo "  -S        Disable inverse/bold/color for slow terminals" >> $TEMP_FILE
+      echo "  -C        Disable color" >> $TEMP_FILE
+      echo "  -H        Show distribution and warranty information" >> $TEMP_FILE
+      echo "  -R        Show rules" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      f_run_and_exit $1 $2 "netris" 0^0^0^0^0 1
+      #
+} # End of f_netris
+#
+# +----------------------------------------+
+# |            Function f_boxes            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display help message.
+#
+# Dependencies: f_message.
+#
+f_boxes () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "boxes - takes a text file and surrounds the words with a box design." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "boxes [OPTIONS] file ..." >> $TEMP_FILE
+         echo "-l list all box designs." >> $TEMP_FILE
+         echo "-d <box design> choose design to use." >> $TEMP_FILE
+         echo "-a alignment"  >> $TEMP_FILE
+         echo "   followed by \"hc\" for horizontal centering." >> $TEMP_FILE
+         echo "               \"hl\" for left alignment." >> $TEMP_FILE
+         echo "               \"hr\" for right alignment." >> $TEMP_FILE
+         echo "               \"vc\" for vertical centering." >> $TEMP_FILE
+         echo "               \"vt\" for vertical top." >> $TEMP_FILE
+         echo "               \"vb\" for vertical bottom." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+         echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage: box [OPTIONS] <filename>" >> $TEMP_FILE
+         echo "Example use: \"boxes -d dog -a hc <filename>\"." >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_boxes
+#
+# +----------------------------------------+
+# |             Function f_rev             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_rev () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "rev - takes a text file or standard input (keyboard) and reverses the words." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "rev [-V] [-h] file ..." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $APP_NAME'" >> $TEMP_FILE
+         echo "                        '$APP_NAME --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      APP_NAME=""
+} # End of function f_rev
+#

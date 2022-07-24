@@ -1,0 +1,183 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu
+#        f_create_a_menu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_x.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Favorites Menu                                 |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ranger#@@File manager.#@@f_app_cmd^$GUI^ranger#@@0^0^0^1^0
+#
+#@@mc#@@File Manager, Midnight Commander.#@@f_app_cmd^$GUI^mc#@@0^0^0^0^0
+#
+#@@ninvaders#@@Space invaders-like game ncurses-based.#@@f_app_cmd^$GUI^ninvaders#@@0^0^0^1^1
+#
+#@@Favorites HOW-TOs#@@How to edit Favorites Menu and add/delete apps.#@@f_favorites_how_to^$GUI
+#
+#! End Listing Favorites Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +----------------------------------------+
+# |           Function f_app_cmd           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - App name.
+#          $3 - Optional Default App Command with parameters.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Call function to enter application command and run it.
+#
+# Dependencies: f_app_cmd_input.
+#
+f_app_cmd () {
+      #
+      #
+      #==================================================================
+      # EDIT THE LINES BELOW TO INCLUDE THE DIRECTORY AND FILE NAME
+      # OF THIS FILE SO CORRESPONDING APP_CODE CAN BE EXTRACTED.
+      #==================================================================
+      #
+      #
+      CURR_FILE="cli-favorites.lib"
+      #
+      source $CLI_DIR/cli-common.lib
+      #
+      APP_CMD=$(echo $3 | tr " " "_")
+      #
+      f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+      #
+} # End of function f_app_cmd.
+#
+# +----------------------------------------+
+# |       Function f_favorites_how_to      |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - App name.
+#          $3 - Optional Default App Command with parameters.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Call function to enter application command and run it.
+#
+# Dependencies: f_message
+#
+f_favorites_how_to () {
+      #
+      TEMP_FILE="$CLI_DIR/main_favorites_temp.txt"
+      #
+      echo > $TEMP_FILE
+      echo "The Favorites Menu provides a convenient means to include your most-used" >> $TEMP_FILE
+      echo "applications in one quickly accessible menu." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*TO ADD AN APPLICATION to the Favorites Menu:" >> $TEMP_FILE
+      echo "Go to the specific application menu containing the application menu option." >> $TEMP_FILE
+      echo "When prompted to enter the application command," >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "enter: <application name> fav." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Example:" >> $TEMP_FILE
+      echo "Enter nano command (nano): nano fav" >> $TEMP_FILE
+      echo "                           nano FAV" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*TO DELETE AN APPLICATION from the Favorites Menu:" >> $TEMP_FILE
+      echo "Use a text editor to edit file, cli-favorites.lib and under the section," >> $TEMP_FILE
+      echo "'Customize Menu choice options below' delete the comment line containing" >> $TEMP_FILE
+      echo "the application data." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Please note: You may rearrange the order of the menu items by using an" >>$TEMP_FILE
+      echo "             editor to change the order of the corresponding comment lines." >>$TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*OVERVIEW" >> $TEMP_FILE
+      echo "The library file, cli-favorites.lib contains the menu options for the" >> $TEMP_FILE
+      echo "Favorites Menu. They are the favorite applications chosen by the user." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "The file, cli-favorites.lib, contains the data of the selected favorite" >> $TEMP_FILE
+      echo "applications within  the section, 'Customize Menu choice options below'." >> $TEMP_FILE
+      echo "The option string includes all the information needed to run the app." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Format of Favorites Menu option string:" >> $TEMP_FILE
+      echo "#@@Menu Option#@@Description of Menu Option" >> $TEMP_FILE
+      echo "#@@Corresponding function or action or command^arg1^arg2^arg3" >> $TEMP_FILE
+      echo "#@@^arg1^arg2^arg3^arg4^arg5" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Example:" >> $TEMP_FILE
+      echo "#@@nano#@@Simple full-screen text editor.#@@f_app_cmd^$GUI^nano#@@0^0^0^0^0" >> $TEMP_FILE
+      #
+      f_message $1 "OK" "HOW-TO Favorites Menu" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_favorites_how_to.

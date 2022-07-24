@@ -1,0 +1,364 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2022-06-26 11:28"
+#
+# Set THIS_FILE_LIB to the name of this script library.
+THIS_FILE_LIB="apps_audio.lib"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This Library of functions for the Demonstration Menu is a
+#& child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script "cliappmenu.sh" for Code History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Audio Menu                                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@CD Rippers#@@Copy music off CD-ROM to files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_cdrippers_generated.txt"^Audio_-_CD_Rippers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_cdrippers_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#
+#@@Editors#@@Audio editors/converters of file formats.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_editors_generated.txt"^Audio_-_Editors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_editors_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#
+#@@Music Players#@@Play music CD-ROM or music files. Jukebox, playlists.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_generated.txt"^Audio_-_Music_Players_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#
+#@@Music Taggers #@@Audio music taggers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_taggers_generated.txt"^Audio_-_Music_Taggers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_taggers_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#
+#@@Radio-Music#@@Listen to Internet radio stations and music sites.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_radio_generated.txt"^Audio_-_Radio_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_radio_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#
+#@@Speech Synthesizers#@@Text-to-speech. Have text files read back to you.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_speech_synthesizers_generated.txt"^Audio_-_Speech_Synthesizers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_speech_synthesizers_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#
+#! End Listing Audio Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Audio - CD Rippers Menu                        |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@abcde#@@Audio CD ripper Ogg/Vorbis, MP3, FLAC, Ogg/Speex, MPP/MP+, M4A.#@@f_app_cmd^$GUI^abcde#@@0^0^0^0^1
+#
+#@@acripper#@@Audio CD ripper ogg encoder with freedb.org client, FLAC, MP3.#@@f_app_cmd^$GUI^acripper#@@0^0^0^0^1
+#
+#@@cdda2wav#@@CD-audio extraction program with paranoia support. #@@f_app_cmd^$GUI^cdda2wav#@@0^0^0^0^1
+#
+#@@cdparanoia#@@Audio CD ripper to WAV, AIFC, AIFC or raw 16 bit linear PCM.#@@f_app_cmd^$GUI^cdparanoia#@@0^0^0^0^1
+#
+#@@cdrdao#@@Records audio or data CD-Rs in disk-at-once [DAO] mode.#@@f_app_cmd^$GUI^cdrdao#@@0^0^0^0^1
+#
+#@@cdrskin#@@Limited cdrecord compatibility wrapper for libburn. CD/DVD/BD.#@@f_app_cmd^$GUI^cdrskin#@@0^0^0^0^1
+#
+#@@cdw#@@Front-end wodim, mkisofs/genisoimage, xorriso, ncurses-based.#@@f_app_cmd^$GUI^cdw#@@0^0^0^0^0
+#
+#@@crip#@@Ogg-vorbis front-end to cdparanoia w/on-line database access.#@@f_app_cmd^$GUI^crip#@@0^0^0^0^1
+#
+#@@jack#@@Audio CD ripper.#@@f_app_cmd^$GUI^jack#@@0^0^0^0^1
+#
+#@@gramophone#@@Play/rip/record/process CDs, sound files. Ncurses-based.#@@f_app_cmd^$GUI^gramophone#@@0^0^0^0^1
+#
+#@@lxdvdrip#@@Data and Video DVD ripper, authoring, previewing, burning.#@@f_app_cmd^$GUI^lxdvdrip#@@0^0^0^0^1
+#
+#@@ripit#@@RipIT audio CD for MP3, Ogg Vorbis, FLAC, M4A, MPC, WV, WAV.#@@f_app_cmd^$GUI^ripit#@@0^0^0^0^1
+#
+#@@rubyripper#@@Secure audio CD ripper rips multiple times to compare/correct.#@@f_app_cmd^$GUI^rubyripper#@@0^0^0^0^1
+#
+#! End Listing Audio - CD Rippers Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Audio - Editors Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@abc2abc#@@An abc prettyprinter/transposer.#@@f_app_cmd^$GUI^abc2abc#@@0^0^0^0^1
+#
+#@@abc2midi#@@Convert ABC music source files to standard MIDI format.#@@f_app_cmd^$GUI^abc2midi#@@0^0^0^0^1
+#
+#@@abcm2ps#@@Converts ABC music source files to PS sheet music format.#@@f_app_cmd^$GUI^abcm2ps#@@0^0^0^0^0
+#
+#@@avconv#@@Audio/Video converter grab from live A/V source, resizes video.#@@f_app_cmd^$GUI^avconv#@@0^0^0^0^0
+#
+#@@avinfo#@@Audio/Video information automatic extractor/file list generator.#@@f_app_cmd^$GUI^avinfo#@@0^0^0^0^1
+#
+#@@cutmp3#@@MP3 file editor dependent on mpg123. Save selections to a file.#@@f_app_cmd^$GUI^cutmp3#@@0^0^0^0^1
+#
+#@@exiftool#@@Display audio/video/image file properties [ls-like format].#@@f_app_cmd^$GUI^exiftool#@@0^0^0^0^1
+#
+#@@ecasound#@@Multitrack audio processing, record, convert, playback, mixing.#@@f_app_cmd^$GUI^ecasound#@@0^0^0^0^1
+#
+#@@ffmpeg#@@Multimedia Record, convert, stream and playback.#@@f_app_cmd^$GUI^ffmpeg#@@0^0^0^0^1
+#
+#@@mediainfo#@@Display audio/video file properties and metadata. #@@f_app_cmd^$GUI^mediainfo#@@0^0^0^0^1
+#
+#@@mftext#@@Dump MIDI file as text, describes what is in the MIDI file.#@@f_app_cmd^$GUI^mftext#@@0^0^0^0^1
+#
+#@@midi2abc#@@Convert standard MIDI files to ABC music source format.#@@f_app_cmd^$GUI^midi2abc#@@0^0^0^0^1
+#
+#@@midicopy#@@Extract/copy specific MIDI file tracks/channels/time intervals.#@@f_app_cmd^$GUI^midicopy#@@0^0^0^0^1
+#
+#@@normalize#@@Adjusts volume of multiple audio files to a standard level.#@@f_app_cmd^$GUI^normalize#@@0^0^0^0^1
+#
+#@@sox#@@Audio file cut/paste and combine, speed playback.#@@f_app_cmd^$GUI^sox#@@0^0^0^0^1
+#
+#! End Listing Audio - Editors Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Audio - Music Players Menu                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@adcd#@@Very simple CD player.#@@f_app_cmd^$GUI^adcd#@@0^0^0^0^0
+#
+#@@bongo#@@Front-end to Emacs for mpg123, ogg123, timidity, mikmod.#@@f_app_cmd^$GUI^bongo#@@0^0^0^0^0
+#
+#@@camp#@@Music player with Graphic visualizer.#@@f_app_cmd^$GUI^camp#@@0^0^0^0^0
+#
+#@@ccx2#@@Front-end to XMMS2 music player.#@@f_app_cmd^$GUI^ccx2#@@0^0^0^0^1
+#
+#@@cdcd#@@CD player. Single-line command, gives prompt.#@@f_app_cmd^$GUI^cdcd#@@0^0^0^0^1
+#
+#@@clxmms#@@Front-end to XMMS music player.#@@f_app_cmd^$GUI^clxmms#@@0^0^0^0^1
+#
+#@@cmus#@@Music player, MP3,  Ogg Vorbis, ncurses-based.#@@f_app_cmd^$GUI^cmus#@@0^0^0^1^0
+#
+#@@consolecandy#@@MP3 player with spectrum analyzer and other eye-candy.#@@f_app_cmd^$GUI^consolecandy#@@0^0^0^0^0
+#
+#@@cplay#@@Music MP3, Ogg Vorbis, MOD, wav, Speex, ncurses-based.#@@f_app_cmd^$GUI^cplay#@@0^0^0^0^0
+#
+#@@cvlc#@@Music player, ncurses-based, depends on vlc.#@@f_app_cmd^$GUI^cvlc#@@0^0^0^0^0
+#
+#@@dcd#@@Simple CD player with track/playlist information.#@@f_app_cmd^$GUI^dcd#@@0^0^0^0^0
+#
+#@@draai#@@A wrapper for mpc. Single-line command.#@@f_app_cmd^$GUI^draai#@@0^0^0^0^1
+#
+#@@emms#@@Emacs extension plays MP3, Ogg Vorbis, FLAC, etc.#@@f_app_cmd^$GUI^emms#@@0^0^0^0^0
+#
+#@@herrie#@@Music playlist and file browser on split screen.#@@f_app_cmd^$GUI^herrie#@@0^0^0^0^0
+#
+#@@jac#@@CD player, creates playlist.#@@f_app_cmd^$GUI^jac#@@0^0^0^0^0
+#
+#@@MORE...#@@For more music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_generated.txt"^Audio_-_Music_Players_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#
+#! End Listing Audio - Music Players Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Audio - Music Players 2 Menu                   |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@juke#@@Music Jukebox, ncurses-based.#@@f_app_cmd^$GUI^juke#@@0^0^0^0^0
+#
+#@@kuechenstation#@@Front-end to XMMS2 music player.#@@f_app_cmd^$GUI^kuechenstation#@@0^0^0^0^1
+#
+#@@mcdp#@@CD player, adjust volume, repeat track/cd, ncurses-based.#@@f_app_cmd^$GUI^mcdp#@@0^0^0^0^0
+#
+#@@mcplay#@@Playlist ncurses-based.#@@f_app_cmd^$GUI^mcplay#@@0^0^0^0^0
+#
+#@@mikmod#@@MOD, XM, IT or S3M player.#@@f_app_cmd^$GUI^mikmod#@@0^0^0^0^0
+#
+#@@mjs#@@MP3 player, ncurses-based.#@@f_app_cmd^$GUI^mjs#@@0^0^0^0^0
+#
+#@@moc#@@Music player, ncurses-based.#@@f_app_cmd^$GUI^moc#@@0^0^0^0^0
+#
+#@@moosic#@@Front-end to mpd. Auto-starts mpd daemon if needed.#@@f_app_cmd^$GUI^moosic#@@0^0^0^0^1
+#
+#@@mp3blaster#@@Music player, playlists, groups, ncurses-based.#@@f_app_cmd^$GUI^mp3blaster#@@0^0^0^0^0
+#
+#@@mpc#@@Front-end to mpd. Single-line command.#@@f_app_cmd^$GUI^mpc#@@0^0^0^0^1
+#
+#@@mpd#@@Music Player Daemon server-side app for playing music.#@@f_app_cmd^$GUI^mpd#@@0^0^0^0^1
+#
+#@@mpg123#@@Music player MPEG 1.0/2.0/2.5 stream [layers 1, 2 and 3].#@@f_app_cmd^$GUI^mpg123#@@0^0^0^0^1
+#
+#@@mplayer#@@Multimedia player MPEG,AVI, Ogg/OGM, QT/MOV/MP4, ASF/WMA/WMV.#@@f_app_cmd^$GUI^mplayer#@@0^0^0^0^1
+#
+#@@mplayer2#@@Multimedia player similar to mplayer.#@@f_app_cmd^$GUI^mplayer2#@@0^0^0^0^1
+#
+#@@mussort#@@Sort music files by artist and album via tag information.#@@f_app_cmd^$GUI^mussort#@@0^0^0^0^1
+#
+#@@MORE...#@@For more music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_3_generated.txt"^Audio_-_Music_Players_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_3_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#
+#! End Listing Audio - Music Players 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Audio - Music Players 3 Menu                   |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ncmpc#@@Music player, ncurses-based.#@@f_app_cmd^$GUI^ncmpc#@@0^0^0^1^0
+#
+#@@ncmpy#@@A [Python+Curses] MPD client. Playback, playlist, lyrics.#@@f_app_cmd^$GUI^ncmpy#@@0^0^0^0^0
+#
+#@@ncmpcpp#@@Music player and visualizer, ncurses-based. [Use w/mpd].#@@f_app_cmd^$GUI^ncmpcpp#@@0^0^0^1^0
+#
+#@@ncxmms2#@@Front-end to XMMS2 music player.#@@f_app_cmd^$GUI^ncxmms2#@@0^0^0^0^1
+#
+#@@nplay#@@Front-end to mplayer.#@@f_app_cmd^$GUI^nplay#@@0^0^0^0^1
+#
+#@@nvlc#@@vlc-based music player with ncurses interface.#@@f_app_cmd^$GUI^nvlc#@@0^0^0^1^0
+#
+#@@ogg123#@@Plays Ogg Vorbis ogg files.#@@f_app_cmd^$GUI^ogg123#@@0^0^0^1^0
+#
+#@@opencubicplayer#@@Graphic visualizer, speed, pitch, filters, ncurses-based.#@@f_app_cmd^$GUI^opencubicplayer#@@0^0^0^0^0
+#
+#@@orpheus#@@Music player ncurses-based.#@@f_app_cmd^$GUI^orpheus#@@0^0^0^0^0
+#
+#@@peyote#@@With cuesheet support, wv, wav, flac, ape, ogg, mp3, m4a.#@@f_app_cmd^$GUI^peyote#@@0^0^0^0^0
+#
+#@@pms#@@Front-end to mpd. Playlists, ncurses-based.#@@f_app_cmd^$GUI^pms#@@0^0^0^0^0
+#
+#@@pytone#@@Jukebox, cross-fading, search, mixer, ncurses-based.#@@f_app_cmd^$GUI^pytone#@@0^0^0^0^0
+#
+#@@timidity#@@MIDI player or daemon adding MIDI support to ALSA.#@@f_app_cmd^$GUI^timidity#@@0^0^0^0^0
+#
+#@@vimpc#@@vi-like music player, list playlists w/vi keybindings.#@@f_app_cmd^$GUI^vimpc#@@0^0^0^0^1
+#
+#@@vitunes#@@vi-like music player.#@@f_app_cmd^$GUI^vitunes#@@0^0^0^0^1
+#
+#@@MORE...#@@For more music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_generated.txt"^Audio_-_Music_Players_4_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#
+#! End Listing Audio - Music Players 3 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Audio - Music Players 4 Menu                   |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@xmms2-client-cli#@@Front-end to XMMS2 music player.#@@f_app_cmd^$GUI^xmms2-client-cli#@@0^0^0^0^1
+#
+#@@yauap#@@Music player based on Gstreamer, MP3, network streams.#@@f_app_cmd^$GUI^yauap#@@0^0^0^0^1
+#
+#@@vux#@@Ogg and mp3 player.#@@f_app_cmd^$GUI^vux#@@0^0^0^0^1
+#
+#! End Listing Audio - Music Players 4 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Audio - Music Taggers Menu                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@audiotag#@@Music tagger.#@@f_app_cmd^$GUI^audiotag#@@0^0^0^0^0
+#
+#@@beets#@@Music tagger.#@@f_app_cmd^$GUI^beets#@@0^0^0^0^0
+#
+#@@dagger#@@Tag and rename [based on tag] MP3 and OGG Vorbis files.#@@f_app_cmd^$GUI^dagger#@@0^0^0^0^0
+#
+#@@easytag#@@Music tagger.#@@f_app_cmd^$GUI^easytag#@@0^0^0^0^0
+#
+#@@id3ed#@@Music tagger.#@@f_app_cmd^$GUI^id3ed#@@0^0^0^0^0
+#
+#@@id3fsd#@@Directory tree based on music tags rather than file names.#@@f_app_cmd^$GUI^id3fsd#@@0^0^0^0^0
+#
+#@@id3tool#@@Music tagger.#@@f_app_cmd^$GUI^id3tool#@@0^0^0^0^0
+#
+#@@lltag#@@Music tagger.#@@f_app_cmd^$GUI^lltag#@@0^0^0^0^0
+#
+#! End Listing Audio - Music Taggers Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Audio - Radio Menu                             |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@cloudruby#@@Interfaces with music cloud service Soundcloud.com.#@@f_app_cmd^$GUI^cloudruby#@@0^0^0^1^0
+#
+#@@dradio#@@Streaming radio on world-wide web.#@@f_app_cmd^$GUI^dradio#@@0^0^0^1^0
+#
+#@@radio#@@Streaming radio, ncurses-based.#@@f_app_cmd^$GUI^radio#@@0^0^0^0^0
+#
+#@@pianobar#@@Streaming radio player for Pandora Radio.#@@f_app_cmd^$GUI^pianobar#@@0^0^0^0^1
+#
+#@@pyradio#@@Streaming radio, written in python.#@@f_app_cmd^$GUI^pyradio#@@0^0^0^0^0
+#
+#@@shell-fm#@@Streaming radio player for last.fm radio.#@@f_app_cmd^$GUI^shell-fm#@@0^0^0^0^1
+#
+#! End Listing Audio - Radio Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Audio - Speech Synthesizers Menu               |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ebook-speaker#@@Reads aloud EPUB and MS Reader eBooks.#@@f_app_cmd^$GUI^ebook-speaker#@@0^0^0^0^1
+#
+#@@edbrowse#@@Audio web browser, editor, and reads aloud email.#@@f_app_cmd^$GUI^edbrowse#@@0^0^0^0^1
+#
+#@@festival#@@Reads text from text files or interactively on screen.#@@f_app_cmd^$GUI^festival#@@0^0^0^6^1
+#
+#@@screader#@@Reads screen text.#@@f_app_cmd^$GUI^screader#@@0^0^0^0^1
+#
+#! End Listing Audio - Speech Synthesizers Menu (Required line, do not delete).
+#

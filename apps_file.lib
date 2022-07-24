@@ -1,0 +1,2135 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files Menu                                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Bin/Hex#@@View/Edit/Compare binary, hexadecimal files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_binhex_generated.txt"^Files_-_Bin/Hex_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_binhex_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@CD/DVD Burners#@@Write files to CD/DVD.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_cd_dvd_burners_generated.txt"^Files_-_CD/DVD_Burn_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_cd_dvd_burners_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Checksum#@@Display/Create file checksums to verify file integrity.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_checksum_generated.txt"^Files_-_Checksum_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_checksum_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Compare#@@Show differences between text files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compare_generated.txt"^Files_-_Comparison_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compare_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Convert#@@Convert between different file formats.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_converters_generated.txt"^Files_-_Converters_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_converters_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Compress#@@Compress/Decompress files tar, zip, gz, bz, rar, xz, 7z, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_generated.txt"^Files_-_Compression_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Edit#@@Create/Edit text files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_editors_generated.txt"^Files_-_Editors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_editors_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Encryption#@@Encrypt/Decrypt files for privacy and security.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_encryption_generated.txt"^Files_-_Encryption_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_encryption_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Find#@@File search.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_search_generated.txt"^Files_-_Find_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_search_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Managers#@@Directory tree views, rename, add/delete, files, folders.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_generated.txt"^Files_-_Managers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Operations#@@Directory/file copy, move, secure delete, recovery, backup.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_operations_generated.txt"^Files_-_Operations_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_operations_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Splitters#@@File splitters.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_splitters_generated.txt"^Files_-_Splitters_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_splitters_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Transfer#@@File transfer via FTP, HTTP clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_transfer_generated.txt"^Files_-_Transfer_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_transfer_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@Viewers#@@View files a page at a time.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_viewers_generated.txt"^Files_-_Viewers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_viewers_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#! End Listing Files Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Apple MacIntosh Menu                   |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@binhex#@@Converts files to BinHex format.#@@f_app_cmd^$GUI^binhex#@@0^0^0^0^1
+#
+#@@frommac#@@Receives files from the Macintosh.#@@f_app_cmd^$GUI^frommac#@@0^0^0^0^1
+#
+#@@hexbin#@@Converts files to MacBinary bin format.#@@f_app_cmd^$GUI^hexbin#@@0^0^0^0^1
+#
+#@@macunpack#@@Extract files from Macintosh MacBinary archive.#@@f_app_cmd^$GUI^macunpack#@@0^0^0^0^1
+#
+#@@macsave#@@Reads a sequence of MacBinary archived files and saves them.#@@f_app_cmd^$GUI^macsave#@@0^0^0^0^1
+#
+#@@macstream#@@Converts files to a MacBinary stream written to std. output.#@@f_app_cmd^$GUI^macstream#@@0^0^0^0^1
+#
+#@@tomac#@@Transmit files to the Macintosh using XMODEM protocol.#@@f_app_cmd^$GUI^tomac#@@0^0^0^0^1
+#
+#@@uudeview#@@Decoder/encoder for hqx, uuencode, xxencode, BASE64, BinHex.#@@f_app_cmd^$GUI^uudeview#@@0^0^0^0^1
+#
+#! End Listing Files - Apple MacIntosh Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Back-up Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@dtrx#@@Use tar without remembering which flags for each file to use.#@@f_app_cmd^$GUI^dtrx#@@0^0^0^0^1
+#
+#@@pax#@@Multiple file tar archiver and copier, preserves file metadata.#@@f_app_cmd^$GUI^pax#@@0^0^0^0^1
+#
+#@@rsync#@@File backup, mirror, directories and files.#@@f_app_cmd^$GUI^rsync#@@0^0^0^0^1
+#
+#@@tar#@@File backup, compress files.#@@f_app_cmd^$GUI^tar#@@0^0^0^0^1
+#
+#! End Listing Files - Back-up Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Bin/Hex Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@bbe#@@sed-like editor for binary files.#@@f_app_cmd^$GUI^bbe#@@0^0^0^0^1
+#
+#@@beav#@@Binary file editor and viewer.#@@f_app_cmd^$GUI^beav#@@0^0^0^0^1
+#
+#@@biew#@@Hex and Binary file editor and viewer.#@@f_app_cmd^$GUI^biew#@@0^0^0^0^1
+#
+#@@bvi#@@Binary file editor and viewer with vi-like key bindings.#@@f_app_cmd^$GUI^bvi#@@0^0^0^0^1
+#
+#@@bviplus#@@Binary file editor and viewer with vi-like key bindings.#@@f_app_cmd^$GUI^bviplus#@@0^0^0^0^1
+#
+#@@codemetre#@@Count lines of code w/o comments in source code.#@@f_app_cmd^$GUI^codemetre#@@0^0^0^0^1
+#
+#@@colout#@@Colorize matching text pattern in a text file.#@@f_app_cmd^$GUI^colout#@@0^0^0^0^1
+#
+#@@dhex#@@Hexadecimal editor with diff mode, ncurses-based.#@@f_app_cmd^$GUI^dhex#@@0^0^0^0^0
+#
+#@@gitview#@@ASCII/HEX file viewer.#@@f_app_cmd^$GUI^gitview#@@0^0^0^0^0
+#
+#@@hexedit#@@Hexadecimal editor.#@@f_app_cmd^$GUI^hexedit#@@0^0^0^0^0
+#
+#@@hexer#@@Hex editor with vi-like bindings.#@@f_app_cmd^$GUI^hexer#@@0^0^0^0^0
+#
+#@@tweak#@@Hex editor with emacs-like keybindings, ncurses-based.#@@f_app_cmd^$GUI^tweak#@@0^0^0^0^0
+#
+#@@vbindiff#@@Displays in hexadecimal and ASCII, works with up to 4GB files.#@@f_app_cmd^$GUI^vbindiff#@@0^0^0^0^1
+#
+#@@xdelta#@@diff binary files, results can be applied to original bin file.#@@f_app_cmd^$GUI^xdelta#@@0^0^0^0^1
+#
+#@@xdelta3#@@diff binary files. Delta files in RFC3284 [VCDIFF] format.#@@f_app_cmd^$GUI^xdelta3#@@0^0^0^0^1
+#
+#! End Listing Files - Bin/Hex Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - CD/DVD Burn Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@bashburn#@@CD/DVD Write audio/data/iso images. Features ASCII menus.#@@f_app_cmd^$GUI^bashburn#@@0^0^0^0^0
+#
+#@@burn#@@Write audio/data/iso image or copy CDs.#@@f_app_cmd^$GUI^burn#@@0^0^0^0^0
+#
+#@@cdck#@@Check the quality of a written CD.#@@f_app_cmd^$GUI^cdck#@@0^0^0^0^0
+#
+#@@cdrecord#@@CD burning. Obsoleted by wodim. May be hard-linked to wodim.#@@f_app_cmd^$GUI^cdrecord#@@1^0^0^0^0
+#
+#@@isodebug#@@Print mkisofs debug information from media.#@@f_app_cmd^$GUI^isodebug#@@0^0^0^0^0
+#
+#@@isoinfo#@@Analyze/verify ISO/9660/Joliet/Rock-Ridge filesystems.#@@f_app_cmd^$GUI^isoinfo#@@0^0^0^0^0
+#
+#@@isovfy#@@Verify the ISO-9660 structures.#@@f_app_cmd^$GUI^isovfy#@@0^0^0^0^0
+#
+#@@lsdvd#@@Reads contents of DVDs.#@@f_app_cmd^$GUI^lsdvd#@@0^0^0^0^0
+#
+#@@mkcd#@@CD burning.#@@f_app_cmd^$GUI^mkcd#@@0^0^0^0^0
+#
+#@@mkisofs#@@Create hybrid ISO9660/JOLIET/HFS filesystems w/Rock Ridge.#@@f_app_cmd^$GUI^mkisofs#@@0^0^0^0^0
+#
+#@@mybashburn#@@CD burning.#@@f_app_cmd^$GUI^mybashburn#@@0^0^0^0^0
+#
+#@@simpleburner#@@CD burning.#@@f_app_cmd^$GUI^simpleburner#@@0^0^0^0^0
+#
+#@@wodim#@@CD/DVD Write audio/data/iso image. Single line command.#@@f_app_cmd^$GUI^wodim#@@1^0^0^0^0
+#
+#@@xorriso#@@CD/DVD Write iso images to Rock Ridge ISO 9660 filesystems.#@@f_app_cmd^$GUI^xorriso#@@1^0^0^0^0
+#
+#! End Listing Files - CD/DVD Burn Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Checksum Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@cdck#@@Check the quality of a written CD.#@@f_app_cmd^$GUI^cdck#@@0^0^0^0^0
+#
+#@@cfv#@@One application to create/verify many types of checksum files.#@@f_app_cmd^$GUI^cfv#@@0^0^0^0^0
+#
+#@@md5pass#@@Create a password hash. Usage: md5pass [PASSWORD][SALT]#@@f_app_cmd^$GUI^md5pass#@@1^0^0^0^1
+#
+#@@md5sum#@@Display md5 checksum. Usage: md5sum [OPTION] [FILE]#@@f_app_cmd^$GUI^md5sum#@@1^0^0^0^1
+#
+#@@sha1pass#@@Create a password hash. Usage: sha1pass [PASSWORD][SALT]#@@f_app_cmd^$GUI^sha1pass#@@1^0^0^0^1
+#
+#@@sha1sum#@@Display sha1 checksum. Usage: sha1sum [OPTION] [FILE]#@@f_app_cmd^$GUI^sha1sum#@@1^0^0^0^1
+#
+#! End Listing Files - Checksum Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Comparison Menu                        |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@cmp#@@Compares 2 text files with byte comparison.#@@f_app_cmd^$GUI^#@@f_diff_msg^0^0^0^1
+#
+#@@colordiff#@@Differences between 2 text files shown in color.#@@f_app_cmd^$GUI^colordiff#@@f_diff_msg^0^0^0^1
+#
+#@@comm#@@Compares 2 sorted files line by line.#@@f_app_cmd^$GUI^comm#@@1^0^0^0^1
+#
+#@@diff#@@Differences between 2 text files shown using greater or less-than signs.#@@f_app_cmd^$GUI^diff#@@f_diff_msg^0^0^0^1
+#
+#@@diff3#@@Differences between 3 text files#@@f_app_cmd^$GUI^diff3#@@f_diff3_msg^0^0^0^1
+#
+#@@diffh#@@Differences between 2 text files in a color HTML page.#@@f_app_cmd^$GUI^diffh#@@f_diff_msg^0^0^0^1
+#
+#@@dwdiff#@@Like wdiff but allows whitespace to be included.#@@f_app_cmd^$GUI^dwdiff#@@f_diff_msg^0^0^0^1
+#
+#@@imediff2#@@Interactive 2-way file merge.#@@f_app_cmd^$GUI^imediff2#@@f_diff_msg^0^0^0^1
+#
+#@@sdiff#@@GNU sdiff does a side-by-side merge of file differences.#@@f_app_cmd^$GUI^sdiff#@@f_diff_msg^0^0^0^1
+#
+#@@vimdiff#@@Differences between 2 text files shown in color highlights.#@@f_app_cmd^$GUI^vimdiff#@@f_diff_msg^0^0^0^1
+#
+#@@wdiff#@@Differences between 2 text files shown using +/- signs.#@@f_app_cmd^$GUI^wdiff#@@f_diff_msg^0^0^0^1
+#
+#@@zcmp#@@Compares 2 gzip files. See cmp for usage.#@@f_app_cmd^$GUI^zcmp#@@f_diff_msg^0^0^0^1
+#
+#@@zdiff#@@Differences between 2 gzip files. See diff for usage.#@@f_app_cmd^$GUI^zdiff#@@f_diff_msg^0^0^0^1
+#
+#! End Listing Files - Comparison Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Compression Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@2a#@@Archive manager uses only ncurses and libarchive.#@@f_app_cmd^$GUI^2a#@@0^0^0^0^1
+#
+#@@acat#@@Exract files in archives to standard output [screen or file].#@@f_app_cmd^$GUI^acat#@@0^0^0^0^1
+#
+#@@als#@@List files in archives [tar, gzip, zip etc.].#@@f_app_cmd^$GUI^als#@@0^0^0^0^1
+#
+#@@apack#@@File compress create archives [tar, gzip, zip etc.].#@@f_app_cmd^$GUI^apack#@@0^0^0^0^1
+#
+#@@atool#@@Manages file archives [tar, gzip, zip etc.].#@@f_app_cmd^$GUI^atool#@@0^0^0^0^1
+#
+#@@aunpack#@@File decompress extract from archives [tar, gzip, zip etc.].#@@f_app_cmd^$GUI^aunpack#@@0^0^0^0^1
+#
+#@@bunzip2#@@File decompress to bzip [Burrows-Wheeler algorithm].#@@f_app_cmd^$GUI^bunzip2#@@0^0^0^0^1
+#
+#@@bzcat#@@File decompress to stdout.#@@f_app_cmd^$GUI^bzcat#@@0^0^0^0^1
+#
+#@@bzip2#@@File compress to bzip [Burrows-Wheeler algorithm].#@@f_app_cmd^$GUI^bzip2#@@0^0^0^0^1
+#
+#@@bzip2recover#@@Recovers data from damaged bzip2 files.#@@f_app_cmd^$GUI^bzip2recover#@@0^0^0^0^1
+#
+#@@compress#@@File compression creates Z compressed files.#@@f_app_cmd^$GUI^compress#@@0^0^0^0^1
+#
+#@@cpio#@@Archive files and extract files from archives.#@@f_app_cmd^$GUI^cpio#@@0^0^0^0^1
+#
+#@@dtrx#@@Smart extract tar, zip, deb, rpm, gz, bz2, cab, 7z etc.#@@f_app_cmd^$GUI^dtrx#@@0^0^0^0^1
+#
+#@@gitunpack#@@Unpacks archives using other appropriate apps/utilities.#@@f_app_cmd^$GUI^gitunpack#@@0^0^0^0^1
+#
+#@@gunzip#@@File decompress gzip files.#@@f_app_cmd^$GUI^gunzip#@@0^0^0^0^1
+#
+#@@MORE...#@@For more file compression applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_2_generated.txt"^Files_-_Compression_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#! End Listing Files - Compression Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Compression 2 Menu                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@gzip#@@File compress, to gzip files.#@@f_app_cmd^$GUI^gzip#@@0^0^0^0^1
+#
+#@@gzexe#@@Compress executable file. When run, decompresses/executes.#@@f_app_cmd^$GUI^gzexe#@@0^0^0^0^1
+#
+#@@lhasa#@@Decompresses LHA [.lzh] archive files.#@@f_app_cmd^$GUI^lhasa#@@0^0^0^0^1
+#
+#@@lzma#@@Compress/Decompress files in the LZMA format.#@@f_app_cmd^$GUI^lzma#@@0^0^0^0^1
+#
+#@@lzip#@@Compress files based on the LZMA algorithm.#@@f_app_cmd^$GUI^lzip#@@0^0^0^0^1
+#
+#@@lzop#@@Compress files gzip-like but faster.#@@f_app_cmd^$GUI^lzop#@@0^0^0^0^1
+#
+#@@macunpack#@@Extracts files from Macintosh MacBinary archive.#@@f_app_cmd^$GUI^macunpack#@@0^0^0^0^1
+#
+#@@p7zip#@@File compress, to 7z files, 7z better than zip compression.#@@f_app_cmd^$GUI^p7zip#@@0^0^0^0^1
+#
+#@@pdlzip#@@Simpler,compress files based on the LZMA algorithm.#@@f_app_cmd^$GUI^pdlzip#@@0^0^0^0^1
+#
+#@@rzip#@@Compresses large files, history buffer up to 900MB.#@@f_app_cmd^$GUI^rzip#@@0^0^0^0^1
+#
+#@@unace#@@File decompress ACE 1.x archives. [ACE proprietary format].#@@f_app_cmd^$GUI^unace#@@0^0^0^0^1
+#
+#@@unarj#@@Decompress or list ARJ archives.#@@f_app_cmd^$GUI^unarj#@@0^0^0^0^1
+#
+#@@uncompress#@@Decompress Z compressed files.#@@f_app_cmd^$GUI^uncompress#@@0^0^0^0^1
+#
+#@@unp#@@Extract many kinds of archive files with one command.#@@f_app_cmd^$GUI^unp#@@0^0^0^0^1
+#
+#@@unxc#@@File decompress xz files.#@@f_app_cmd^$GUI^unxc#@@0^0^0^0^1
+#
+#@@MORE...#@@For more file compression applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_3_generated.txt"^Files_-_Compression_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_3_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#! End Listing Files - Compression 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Compression 3 Menu                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@unzip#@@File decompress zip files.#@@f_app_cmd^$GUI^unzip#@@0^0^0^0^1
+#
+#@@xz#@@File compress xz files.#@@f_app_cmd^$GUI^xz#@@0^0^0^0^1
+#
+#@@xzcat#@@File cat xz files.#@@f_app_cmd^$GUI^xzcat#@@0^0^0^0^1
+#
+#@@xzgrep#@@File grep xz files.#@@f_app_cmd^$GUI^xzgrep#@@0^0^0^0^1
+#
+#@@zcat#@@Displays gzip files.#@@f_app_cmd^$GUI^zcat#@@0^0^0^0^1
+#
+#@@zcmp#@@Compares 2 gzip files by invoking cmp. See cmp.#@@f_app_cmd^$GUI^zcmp#@@0^0^0^0^1
+#
+#@@zdiff#@@Compares 2 gzip files by invoking diff. See diff.#@@f_app_cmd^$GUI^zdiff#@@0^0^0^0^1
+#
+#@@zegrep#@@Search gzip file by invoking egrep. See egrep.#@@f_app_cmd^$GUI^zegrep#@@0^0^0^0^1
+#
+#@@zgrep#@@Search gzip file by invoking grep. See grep.#@@f_app_cmd^$GUI^zgrep#@@0^0^0^0^1
+#
+#@@zmore#@@Display file contents in a gzip archive, one screen at a time.#@@f_app_cmd^$GUI^zmore#@@0^0^0^0^1
+#
+#@@zip#@@File compress files to zip files.#@@f_app_cmd^$GUI^zip#@@0^0^0^0^1
+#
+#@@zipinfo#@@List detailed information about a zip archive.#@@f_app_cmd^$GUI^zipinfo#@@0^0^0^0^1
+#
+#@@zipnote#@@Edit/display comments in a zip file, rename zipped files.#@@f_app_cmd^$GUI^zipnote#@@0^0^0^0^1
+#
+#@@zipsplit#@@File compress files to zip files.#@@f_app_cmd^$GUI^zipsplit#@@0^0^0^0^1
+#
+#! End Listing Files - Compression 3 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Converters Menu                        |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@abcm2ps#@@Converts ABC music source files to PS sheet music format.#@@f_app_cmd^$GUI^abcm2ps#@@0^0^0^0^0
+#
+#@@catdoc#@@Microsoft Word to text converter.#@@f_app_cmd^$GUI^catdoc#@@0^0^0^0^0
+#
+#@@csvkit#@@Suite of utilities for converting to and working with CSV.#@@f_app_cmd^$GUI^csvkit#@@0^0^0^0^0
+#
+#@@ctodo#@@Intuitive, simple interface saves data in plain text files.#@@f_app_cmd^$GUI^ctodo#@@0^0^0^0^1
+#
+#@@dehtml#@@Strips HTML code from text.#@@f_app_cmd^$GUI^dehtml#@@0^0^0^0^1
+#
+#@@ebook2cw#@@Converts plain text ebooks to  morse code mp3/ogg audio files.#@@f_app_cmd^$GUI^ebook2cw#@@0^0^0^0^1
+#
+#@@enscript#@@Convert text file to Post-Script file.#@@f_app_cmd^$GUI^enscript#@@0^0^0^0^1
+#
+#@@html2txt#@@Strips HTML code from text.#@@f_app_cmd^$GUI^html2txt#@@0^0^0^0^1
+#
+#@@ical2rem#@@iCalendar ics [Google, Yahoo, Lotus Notes] to Remind format.#@@f_app_cmd^$GUI^ical2rem#@@0^0^0^0^1
+#
+#@@pdftops#@@Converts PDF to PS [PostScript] format.#@@f_app_cmd^$GUI^pdftops#@@0^0^0^0^1
+#
+#@@ps2ascii#@@Converts PS [PostScript] to text format.#@@f_app_cmd^$GUI^ps2ascii#@@0^0^0^0^1
+#
+#@@ps2pdf#@@Converts PS [PostScript] to PDF format.#@@f_app_cmd^$GUI^ps2pdf#@@0^0^0^0^1
+#
+#@@remupdate#@@Download Google Calendars then converts to Remind format.#@@f_app_cmd^$GUI^remupdate#@@0^0^0^0^1
+#
+#@@txt2html#@@Converts plain ASCII text to HTML format.#@@f_app_cmd^$GUI^txt2html#@@1^0^0^0^1
+#
+#@@txt2man#@@Converts plain ASCII text to man format.#@@f_app_cmd^$GUI^txt2man#@@1^0^0^0^1
+#
+#@@MORE...#@@More file format conversion applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_converters_2_generated.txt"^Files_-_Converters_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_converters_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#! End Listing Files - Converters Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Converters 2 Menu                      |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@txt2pdbdoc#@@Converts plain ASCII text to PDB doc format for Palm Pilots.#@@f_app_cmd^$GUI^txt2pdbdoc#@@1^0^0^0^1
+#
+#@@txt2regex#@@Converts human sentences to regex. Regular Expression Wizard.#@@f_app_cmd^$GUI^txt2regex#@@1^0^0^0^1
+#
+#@@txt2tags#@@Converts plain ASCII text to a variety of formats.#@@f_app_cmd^$GUI^txt2tags#@@1^0^0^0^1
+#
+#@@unoconv#@@Converts any document that LibreOffice imports or exports.#@@f_app_cmd^$GUI^unoconv#@@0^0^0^0^1
+#
+#@@unrtf#@@Converts RTF to HTML, LaTeX, txt, PS.#@@f_app_cmd^$GUI^unrtf#@@0^0^0^0^1
+#
+#@@vilistextum#@@Strips HTML code from text.#@@f_app_cmd^$GUI^vilistextum#@@0^0^0^0^1
+#
+#@@wp2x#@@Converts WordPerfect 5.x documents to HTML, LaTeX, troff...#@@f_app_cmd^$GUI^wp2x#@@0^0^0^0^1
+#
+#@@xls2csv#@@Microsoft Excel to csv [comma separated values] converter.#@@f_app_cmd^$GUI^xls2csv#@@0^0^0^0^1
+#
+#@@xmlto#@@Converts XML to DVI XSL-FO, HTML, XHTML, epub, man, PDF, PS.#@@f_app_cmd^$GUI^xmlto#@@0^0^0^0^1
+#
+#! End Listing Files - Converters 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Deletion Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@gitwipe#@@Overwrites file contents with a random sequence of numbers.#@@f_app_cmd^$GUI^gitwipe#@@0^0^0^0^1
+#
+#@@shred#@@Delete files securely without recovery.#@@f_app_cmd^$GUI^shred#@@0^0^0^0^1
+#
+#@@scrub#@@Erase disks, NNSA NAP-14, DoD 5220.22-M, BSI, 35-pass Gutmann.#@@f_app_cmd^$GUI^scrub#@@0^0^0^0^1
+#
+#@@wipe#@@Secure file deletion.#@@f_app_cmd^$GUI^wipe#@@0^0^0^0^1
+#
+#! End Listing Files - Deletion Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Editors Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@aee#@@Advanced Easy Editor.#@@f_app_cmd^$GUI^aee#@@0^0^0^0^1
+#
+#@@dav#@@Text editor.#@@f_app_cmd^$GUI^dav#@@0^0^0^15^0
+#
+#@@ed#@@Classic CLI text editor.#@@f_app_cmd^$GUI^ed#@@0^0^0^0^1
+#
+#@@emacs#@@Full screen text editor with plug-ins.#@@f_app_cmd^$GUI^emacs#@@0^0^0^0^0
+#
+#@@jed#@@JED text editor with drop-down menus.#@@f_app_cmd^$GUI^jed#@@1^0^0^25^0
+#
+#@@jed-extra#@@JED text editor enhancements.#@@f_app_cmd^$GUI^jed-extra#@@0^0^0^0^0
+#
+#@@joe#@@Text editor. Ctrl-K H for help.#@@f_app_cmd^$GUI^joe#@@1^0^0^11^0
+#
+#@@jupp#@@Fork of joe editor with enhancements.#@@f_app_cmd^$GUI^jupp#@@0^0^0^0^0
+#
+#@@nano#@@Simple full-screen text editor.#@@f_app_cmd^$GUI^nano#@@0^0^0^0^0
+#
+#@@pico#@@Simple full-screen text editor.#@@f_app_cmd^$GUI^pico#@@0^0^0^0^0
+#
+#@@pyp#@@Pyed Piper app has awk-sed-like features using Python-based sub-commands.#@@f_app_cmd^$GUI^pyp#@@0^0^0^0^0
+#
+#@@rrep#@@Replace text in files.#@@f_app_cmd^$GUI^rrep#@@0^0^0^0^0
+#
+#@@vi#@@Classic full-screen text editor.#@@f_app_cmd^$GUI^vi#@@0^0^0^14^0
+#
+#@@vim#@@vi Improved text editor.#@@f_app_cmd^$GUI^vim#@@0^0^0^14^0
+#
+#@@zile#@@Very small Emacs-subset editor.#@@f_app_cmd^$GUI^zile#@@0^0^0^12^0
+#
+#! End Listing Files - Editors Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Encryption Menu                        |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@apg#@@Password generator that can specify a pattern.#@@f_app_cmd^$GUI^apg#@@0^0^0^0^1
+#
+#@@bcrypt#@@Uses the blowfish encryption algorithm.#@@f_app_cmd^$GUI^bcrypt#@@0^0^0^0^1
+#
+#@@ccrypt#@@Uses the Rijndael cipher algorithm.#@@f_app_cmd^$GUI^ccrypt#@@0^0^0^0^1
+#
+#@@cpm#@@Password manager using PGP-encryption, ncurses-based.#@@f_app_cmd^$GUI^cpm#@@0^0^0^0^1
+#
+#@@crypt#@@Wrapper for mcrypt, backward compatible to old Unix crypt.#@@f_app_cmd^$GUI^crypt#@@0^0^0^0^1
+#
+#@@gnupg#@@Gnu Privacy Guard symmetric encryption/decryption.#@@f_app_cmd^$GUI^gnupg#@@0^0^0^0^1
+#
+#@@gpg#@@OpenPGP encryption and signing tool.#@@f_app_cmd^$GUI^gpg#@@0^0^0^0^1
+#
+#@@lspgpot#@@Extracts owner trust values from PGP keyrings.#@@f_app_cmd^$GUI^lspgpot#@@0^0^0^0^1
+#
+#@@mcrypt#@@Simple crypting, a replacement for the old Unix crypt.#@@f_app_cmd^$GUI^mcrypt#@@0^0^0^0^1
+#
+#@@md5pass#@@Create a password hash. Usage md5pass [PASSWORD][SALT]#@@f_app_cmd^$GUI^md5pass#@@1^0^0^0^1
+#
+#@@mdecrypt#@@Decrypts files encrypted by mcrypt.#@@f_app_cmd^$GUI^mdecrypt#@@0^0^0^0^1
+#
+#@@mimencode#@@Encodes a file to the MIME standard.#@@f_app_cmd^$GUI^mimencode#@@0^0^0^0^1
+#
+#@@nasty#@@Helps you to recover forgotten PGP/GPG pass-phrase.#@@f_app_cmd^$GUI^nasty#@@0^0^0^0^1
+#
+#@@pass#@@Manage passwords [uses gpg, pwgen, git, xsel].#@@f_app_cmd^$GUI^pass#@@0^0^0^0^1
+#
+#@@pgp#@@Pretty Good Privacy [pgp].#@@f_app_cmd^$GUI^pgp#@@0^0^0^0^1
+#
+#@@MORE...#@@More file encryption applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_encryption_2_generated.txt"^Files_-_Encryption_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_encryption_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#! End Listing Files - Encryption Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Encryption 2 Menu                      |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@rephrase#@@Recover partially forgotten PGP/GPG pass-phrase.#@@f_app_cmd^$GUI^rephrase#@@0^0^0^0^1
+#
+#@@scrypt#@@Uses the scrypt key derivation function. Better than bcrypt.#@@f_app_cmd^$GUI^scrypt#@@0^0^0^0^1
+#
+#@@sha1pass#@@Create a password hash. Usage sha1pass [PASSWORD][SALT]#@@f_app_cmd^$GUI^sha1pass#@@1^0^0^0^1
+#
+#@@truecrypt#@@Program released under TrueCrypt License [not Open-source].#@@f_app_cmd^$GUI^truecrypt#@@0^0^0^0^0
+#
+#@@zcrypt#@@Another crypt program.#@@f_app_cmd^$GUI^zcrypt#@@0^0^0^0^1
+#
+#@@shar#@@Makes shell file archives for transmission by E-mail services.#@@f_app_cmd^$GUI^shar#@@0^0^0^0^1
+#
+#@@unshar#@@Unpacks shell file archives made by shar.#@@f_app_cmd^$GUI^unshar#@@0^0^0^0^1
+#
+#@@uudecode#@@Decodes files encoded with uuencode.#@@f_app_cmd^$GUI^uudecode#@@0^0^0^0^1
+#
+#@@uuencode#@@Encodes binary files containing non-ASCII characters.#@@f_app_cmd^$GUI^uuencode#@@0^0^0^0^1
+#
+#! End Listing Files - Encryption 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Find Menu                              |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@ag#@@Silver searcher Search files for string, faster than grep.#@@f_app_cmd^$GUI^ag#@@f_search_msg^0^0^0^1
+#
+#@@duff#@@Duplicate file finder.#@@f_app_cmd^$GUI^duff#@@f_search_msg^0^0^0^1
+#
+#@@egrep#@@Search files for string1 or string2. Same as grep -E.#@@f_app_cmd^$GUI^egrep#@@f_search_msg^0^0^0^1
+#
+#@@fdupes#@@Finds duplicate files uses md5sum and byte comparisons.#@@f_app_cmd^$GUI^fdupes#@@f_search_msg^0^0^0^1
+#
+#@@fgrep#@@Search files for list of fixed strings. Same as grep -F.#@@f_app_cmd^$GUI^fgrep#@@f_search_msg^0^0^0^1
+#
+#@@file#@@Determines file type.#@@f_app_cmd^$GUI^file#@@f_search_msg^0^0^0^1
+#
+#@@find#@@Find files using pattern matching.#@@f_app_cmd^$GUI^find#@@1^0^0^0^1
+#
+#@@gitrgrep#@@Recursive version of grep.#@@f_app_cmd^$GUI^gitrgrep#@@f_search_msg^0^0^0^1
+#
+#@@gitregrep#@@Recursive version of the egrep.#@@f_app_cmd^$GUI^gitregrep#@@f_search_msg^0^0^0^1
+#
+#@@gitrfgrep#@@Recursive version of the fgrep. #@@f_app_cmd^$GUI^gitrfgrep#@@f_search_msg^0^0^0^1
+#
+#@@grep#@@Search files for a string.#@@f_app_cmd^$GUI^grep#@@f_search_msg^0^0^0^1
+#
+#@@locate#@@Find files using an internal database, mlocate.#@@f_app_cmd^$GUI^locate#@@1^0^0^0^1
+#
+#@@missidentify#@@Finds win32 applications.#@@f_app_cmd^$GUI^missidentify#@@f_search_msg^0^0^0^1
+#
+#@@rdfind#@@Find duplicate files.#@@f_app_cmd^$GUI^rdfind#@@f_search_msg^0^0^0^1
+#
+#@@rrep#@@Replace text in files.#@@f_app_cmd^$GUI^rrep#@@f_search_msg^0^0^0^1
+#
+#@@MORE...#@@More file find applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_find_2_generated.txt"^Files_-_Find_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_find_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#! End Listing Files - Find Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Find 2 Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@tre-agrep#@@Find files by approximate [similar] pattern matches.#@@f_app_cmd^$GUI^tre-agrep#@@0^0^0^0^1
+#
+#@@updatedb#@@Update the internal database, mlocate, used by locate.#@@f_app_cmd^$GUI^updatedb#@@0^0^0^0^1
+#
+#! End Listing Files - Find 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Managers Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@autojump#@@Jump to favorite directory using partial directory name.#@@f_app_cmd^$GUI^autojump#@@0^0^0^0^0
+#
+#@@cdargs#@@cd with bookmarks, can bookmark paths of directories.#@@f_app_cmd^$GUI^cdargs#@@0^0^0^0^1
+#
+#@@cdd#@@cd navigate with vi key-bindings h, j, k, l, k, q keys.#@@f_app_cmd^$GUI^cdd#@@0^0^0^0^1
+#
+#@@clex#@@File manager.#@@f_app_cmd^$GUI^clex#@@0^0^0^17^1
+#
+#@@detox#@@File name clean up.#@@f_app_cmd^$GUI^detox#@@0^0^0^0^1
+#
+#@@dired#@@File manager for Emacs.#@@f_app_cmd^$GUI^dired#@@0^0^0^0^1
+#
+#@@entr#@@Detects file/directory changes, responds by running a command.#@@f_app_cmd^$GUI^entr#@@0^0^0^0^1
+#
+#@@exiftool#@@Display jpeg file properties in ls-like format.#@@f_app_cmd^$GUI^exiftool#@@0^0^0^0^1
+#
+#@@fasd#@@Quick access to recently/frequently used files and directories.#@@f_app_cmd^$GUI^fasd#@@0^0^0^0^1
+#
+#@@findmnt#@@Find a filesystem.#@@f_app_cmd^$GUI^findmnt#@@0^0^0^0^1
+#
+#@@fd#@@File and directory management tool.#@@f_app_cmd^$GUI^fd#@@0^0^0^0^0
+#
+#@@fdclone#@@File manager based on fd by Atsushi Idei for MS-DOS[tm].#@@f_app_cmd^$GUI^fdclone#@@0^0^0^0^0
+#
+#@@j2#@@Quick access to recently/frequently used files and directories.#@@f_app_cmd^$GUI^j2#@@0^0^0^0^1
+#
+#@@jhead#@@Display jpeg file properties.#@@f_app_cmd^$GUI^jhead#@@0^0^0^0^1
+#
+#@@lfm#@@Last File Manager, Midnight Commander-like.#@@f_app_cmd^$GUI^lfm#@@0^0^0^0^0
+#
+#@@MORE...#@@For more file manager applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_2_generated.txt"^Files_-_Managers_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#! End Listing Files - Managers Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Managers 2 Menu                        |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@mc#@@File Manager, Midnight Commander.#@@f_app_cmd^$GUI^mc#@@0^0^0^0^0
+#
+#@@ncdt#@@Display directory tree with tree summary, MP3 file information.#@@f_app_cmd^$GUI^ncdt#@@0^0^0^0^0
+#
+#@@pilot#@@Simple file browser from Aline.#@@f_app_cmd^$GUI^pilot#@@0^0^0^0^0
+#
+#@@ranger#@@File manager.#@@f_app_cmd^$GUI^ranger#@@0^0^0^1^0
+#
+#@@smbc#@@Samba file manager for folder shares with Microsoft Windows.#@@f_app_cmd^$GUI^smbc#@@1^0^0^0^1
+#
+#@@tree#@@Display directory tree.#@@f_app_cmd^$GUI^tree#@@0^0^0^0^1
+#
+#@@vdir#@@List directory equivalent to ls -l.#@@f_app_cmd^$GUI^vdir#@@0^0^0^0^1
+#
+#@@vfu#@@File manager, ncurses-based.#@@f_app_cmd^$GUI^vfu#@@0^0^0^0^0
+#
+#@@vifm#@@File manager with vi-like commands.#@@f_app_cmd^$GUI^vifm#@@0^0^0^14^0
+#
+#@@wcd#@@Jump to a directory using partial directory name [wildcards].#@@f_app_cmd^$GUI^wcd#@@0^0^0^0^0
+#
+#@@xd#@@Smart cd change directory, uses abbreviated directory names.#@@f_app_cmd^$GUI^xd#@@0^0^0^0^1
+#
+#! End Listing Files - Managers 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Move-Copy Menu                         |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@adcpmvsrc#@@Replaces cp, mv, features progress bar, MiB/s, time remaining.#@@f_app_cmd^$GUI^adcpmvsrc#@@1^0^0^0^1
+#
+#@@advcpmv#@@Replaces cp, mv, features progress bar, MiB/s, time remaining.#@@f_app_cmd^$GUI^advcpmv#@@0^0^0^0^1
+#
+#@@dd#@@Copy a file by bytes or blocks.#@@f_app_cmd^$GUI^dd#@@0^0^0^0^1
+#
+#@@icp#@@The interactive cp app allows file name to be edited in terminal.#@@f_app_cmd^$GUI^icp#@@0^0^0^0^1
+#
+#@@imv#@@The interactive mv app allows file name to be edited in terminal.#@@f_app_cmd^$GUI^imv#@@0^0^0^0^1
+#
+#@@mmv#@@Move, copy, append, and link multiple files using wildcard patterns.#@@f_app_cmd^$GUI^mmv#@@0^0^0^0^1
+#
+#@@mrename#@@Scripts to rename many files automatically.#@@f_app_cmd^$GUI^mrename#@@0^0^0^0^1
+#
+#@@qcp#@@The quick cp app copies multiple files by using a text editor.#@@f_app_cmd^$GUI^qcp#@@0^0^0^0^1
+#
+#@@qmv#@@The quick move app renames multiple files by using a text editor.#@@f_app_cmd^$GUI^qmv#@@0^0^0^0^1
+#
+#! End Listing Files - Move-Copy Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Operations Menu                        |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Apple#@@Apple MacIntosh file utilities.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_apple_macintosh_generated.txt"^Files_-_Apple_MacIntosh_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_apple_macintosh_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@awk#@@Manipulate strings within a file parsed with delimiters.#@@f_app_cmd^$GUI^awk#@@0^0^0^0^1
+#
+#@@Back-up#@@File back-up and archive.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_backup_generated.txt"^Files_-_Back-up_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_backup_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@cwp#@@Catenate with Progress like cat with progress indication.#@@f_app_cmd^$GUI^cwp#@@0^0^0^0^1
+#
+#@@Delete#@@Secure Deletion utilities for disks and files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_delete_generated.txt"^Files_-_Deletion_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_delete_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@deurlname#@@Removes URL encoded characters from file names.#@@f_app_cmd^$GUI^deurlname#@@0^0^0^0^1
+#
+#@@gawk#@@awk-like, the GNU Projects implementation of awk.#@@f_app_cmd^$GUI^gawk#@@0^0^0^0^1
+#
+#@@igawk#@@gawk-like allows nested-includes.#@@f_app_cmd^$GUI^igawk#@@0^0^0^0^1
+#
+#@@Move-Copy#@@Rename/Move and copy utilities for files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_move_copy_generated.txt"^Files_-_Move-Copy_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_move_copy_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@pipebench#@@Shows progress of data through pipeline with progress bar.#@@f_app_cmd^$GUI^pipebench#@@1^0^0^0^1
+#
+#@@pv#@@Shows progress of data through pipeline with progress bar.#@@f_app_cmd^$GUI^pv#@@1^0^0^0^1
+#
+#@@Recovery#@@Recovery utilities for disks and files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_recovery_generated.txt"^Files_-_Recovery_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_recovery_items_generated.txt"^$CLI_DIR/apps_file.lib
+#
+#@@sed#@@String substitution within a file without using an editor.#@@f_app_cmd^$GUI^sed#@@0^0^0^0^1
+#
+#@@sort#@@Sort file by lines in alphabetical order.#@@f_app_cmd^$GUI^sort#@@0^0^0^0^1
+#
+#! End Listing Files - Operations Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Recovery Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@dares#@@Rescue data from damaged CDs/DVDs, ncurses-based.#@@f_app_cmd^$GUI^dares#@@0^0^0^0^1
+#
+#@@ddrescue#@@Rescue readable data from failing hard disk drives.#@@f_app_cmd^$GUI^ddrescue#@@0^0^0^0^1
+#
+#@@extundelete#@@Recover deleted files from ext3, ext4, and newer partitions.#@@f_app_cmd^$GUI^extundelete#@@0^0^0^0^1
+#
+#@@foremost#@@File recovery from within a img disk image file.#@@f_app_cmd^$GUI^foremost#@@1^0^0^0^1
+#
+#@@magicrescue#@@Scans a block device, rescues files, partitions, disks.#@@f_app_cmd^$GUI^magicrescue#@@0^0^0^0^1
+#
+#@@myrescue#@@Rescue data from failing drives, read good sectors first.#@@f_app_cmd^$GUI^myrescue#@@0^0^0^0^1
+#
+#@@photorec#@@File recovery.#@@f_app_cmd^$GUI^photorec#@@1^0^0^0^1
+#
+#@@safecopy#@@File recovery.#@@f_app_cmd^$GUI^safecopy#@@1^0^0^0^1
+#
+#@@safe-rm#@@Protect files from rm deletion.#@@f_app_cmd^$GUI^safe-rm#@@0^0^0^0^1
+#
+#@@scalpel#@@File carver [recovery] FATx, NTFS, ext2/3, or raw partitions.#@@f_app_cmd^$GUI^scalpel#@@0^0^0^0^1
+#
+#@@trash-cli#@@Remembers name, path, date, permissions of each trashed file.#@@f_app_cmd^$GUI^trash-cli#@@0^0^0^0^1
+#
+#! End Listing Files - Recovery Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Splitters Menu                         |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@csplit#@@Splits/Joins files.#@@f_app_cmd^$GUI^csplit#@@1^0^0^0^1
+#
+#@@cut#@@Carve files by character count, byte count, delimited fields.#@@f_app_cmd^$GUI^cut#@@0^0^0^0^1
+#
+#@@dirsplit#@@split directory files into fixed-sized chunks, save to CD, DVD.#@@f_app_cmd^$GUI^dirsplit#@@0^0^0^0^1
+#
+#@@hoz#@@File splitter using hacha file format.#@@f_app_cmd^$GUI^hoz#@@0^0^0^0^1
+#
+#@@lxsplit#@@Splits/Joins files even greater than 2 GB.#@@f_app_cmd^$GUI^lxsplit#@@0^0^0^0^1
+#
+#@@slice#@@Splits ASCII file w/delimiters into possibly overlapping slices.#@@f_app_cmd^$GUI^slice#@@0^0^0^0^1
+#
+#@@split#@@Splits/Joins files.#@@f_app_cmd^$GUI^split#@@1^0^0^0^1
+#
+#! End Listing Files - Splitters Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Transfer Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@cmdftp#@@File transfer client.#@@f_app_cmd^$GUI^cmdftp#@@0^0^0^0^1
+#
+#@@curl#@@File transfer, FILE, FTP, FTPS, GOPHER, HTTPS, IMAPS, LDAP, etc.#@@f_app_cmd^$GUI^curl#@@0^0^0^0^1
+#
+#@@ftp#@@File transfer via Internet standard File Transfer Protocol.#@@f_app_cmd^$GUI^ftp#@@0^0^0^0^1
+#
+#@@ftpfs#@@File transfer client.#@@f_app_cmd^$GUI^ftpfs#@@0^0^0^0^1
+#
+#@@lftp#@@Sophisticated sftp/ftp/http download/upload client program.#@@f_app_cmd^$GUI^lftp#@@0^0^0^0^1
+#
+#@@ncftp#@@Powerful file transfer client, download directory trees etc.#@@f_app_cmd^$GUI^ncftp#@@0^0^0^0^1
+#
+#@@npoll#@@Client receives npush served files across LAN.#@@f_app_cmd^$GUI^npoll#@@0^0^0^0^1
+#
+#@@npush#@@Serve file across LAN to any npoll client. #@@f_app_cmd^$GUI^npush#@@0^0^0^0^1
+#
+#@@scp#@@Secure Copy file transfer via ssh, asks for password if needed.#@@f_app_cmd^$GUI^scp#@@0^0^0^0^1
+#
+#@@woof#@@Woof [Web Offer One File] copies files via the HTTP protocol.#@@f_app_cmd^$GUI^woof#@@0^0^0^0^1
+#
+#@@wget#@@File downloader, HTTP, HTTPS, FTP with auto-retrying on fail.#@@f_app_cmd^$GUI^wget#@@0^0^0^0^1
+#
+#! End Listing Files - Transfer Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Files - Viewers Menu                           |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@head#@@Views the first few lines of a file.#@@f_app_cmd^$GUI^head#@@0^0^0^0^1
+#
+#@@less#@@File viewer and bi-directional pager.#@@f_app_cmd^$GUI^less#@@1^0^0^0^0
+#
+#@@more#@@File viewer pager.#@@f_app_cmd^$GUI^more#@@1^0^0^0^0
+#
+#@@most#@@File viewer and bi-directional pager.#@@f_app_cmd^$GUI^most#@@0^0^0^0^1
+#
+#@@tail#@@Views the last few lines of a file.#@@f_app_cmd^$GUI^tail#@@0^0^0^0^1
+#
+#! End Listing Files - Viewers Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |           Function f_cdrecord          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_cdrecord () {
+   #
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "cdrecord - Write files/iso image to CD-R." > $TEMP_FILE
+         echo "***OBSOLETED by wodim***" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: Find cdrom designation." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "$ cdrecord --devices" >> $TEMP_FILE
+         echo "wodim: Overview of accessible drives (2 found) :" >> $TEMP_FILE
+         echo "-------------------------------------------------------------------------" >> $TEMP_FILE
+         echo " 0  dev='/dev/sg0'   rwrw-- : 'SONY' 'DVD-ROM DDU1615'" >> $TEMP_FILE
+         echo " 1  dev='/dev/sg1'   rwrw-- : 'HL-DT-ST' 'DVD+-RW GSA-H21N'" >> $TEMP_FILE
+         echo "-------------------------------------------------------------------------" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: Burn an iso image file to a CD-R disk." >> $TEMP_FILE
+         echo "In some modern linux distributions, cdrecord really runs wodim." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "$ sudo cdrecord dev=/dev/sg1 -pad -v -eject /home/public/iso/<insert name of iso-file>.iso " >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man cdrecord'" >> $TEMP_FILE
+         echo "                        'cdrecord --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Cdrecord command help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of f_cdrecord
+#
+# +----------------------------------------+
+# |            Function f_wodim            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_wodim () {
+      #
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "wodim - Write files/iso image to an optical disk." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: Find cdrom designation." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "$ wodim --devices" >> $TEMP_FILE
+         echo "wodim: Overview of accessible drives (2 found) :" >> $TEMP_FILE
+         echo "-------------------------------------------------------------------------" >> $TEMP_FILE
+         echo " 0  dev='/dev/sg0'   rwrw-- : 'SONY' 'DVD-ROM DDU1615'" >> $TEMP_FILE
+         echo " 1  dev='/dev/sg1'   rwrw-- : 'HL-DT-ST' 'DVD+-RW GSA-H21N'" >> $TEMP_FILE
+         echo "-------------------------------------------------------------------------" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: Burn an iso image file to a CD-R disk." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "$ sudo wodim -v dev=/dev/sg1 -eject -data  <directory>/<iso-filename>.iso" >> $TEMP_FILE
+         echo "      -v     Verbose." >> $TEMP_FILE
+         echo "      -eject Eject CD/DVD media after burning." >> $TEMP_FILE
+         echo "      -speed Integer of speed factor x16 x32 x50, if none, then maximum." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man wodim'" >> $TEMP_FILE
+         echo "                        'wodim --help'" >> $TEMP_FILE
+         f_message $1 "OK" "Wodim command help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of f_wodim
+#
+# +----------------------------------------+
+# |           Function f_xorriso           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_xorriso () {
+      #
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "xorriso - Write files/iso image to an optical disk." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: Burn an iso image file to a CD-R disk." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "$ xorriso -as cdrecord -v dev=/dev/sr0 blank=as_needed <directory>/<iso-filename>.iso" >> $TEMP_FILE
+         echo "      -v     Verbose." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man xorriso'" >> $TEMP_FILE
+         echo "                        'xorriso --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Cdrecord command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of f_xorriso
+#
+# +----------------------------------------+
+# |           Function f_sha1pass          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_sha1pass () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "sha1pass - Create a password hash." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "sha1pass [PASSWORD] [SALT]" >> $TEMP_FILE
+         echo "*** For more help type: 'man sha1pass'" >> $TEMP_FILE
+         echo "                        'sha1pass --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "sha1pass without any SALT value causes a random salt value to be generated." >> $TEMP_FILE
+         f_message $1 "OK" "Sha1pass command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_sha1pass
+#
+# +----------------------------------------+
+# |           Function f_sha1sum           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_sha1sum () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "sha1sum - Display sha1 checksum." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "sha1sum [OPTION]... [FILE]..." >>$TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man sha1sum'" >> $TEMP_FILE
+         echo "                        'sha1sum --help'" >> $TEMP_FILE
+         f_message $1 "OK" "Sha1sum command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_sha1sum
+#
+# +----------------------------------------+
+# |           Function f_md5pass           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_md5pass () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "md5pass - Create a password hash." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "md5pass [PASSWORD] [SALT]" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man md5pass'" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "md5pass without any SALT value causes a random salt value to be generated." >> $TEMP_FILE
+      echo "Now run md5pass. Usage: 'md5pass'." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_md5pass
+#
+# +----------------------------------------+
+# |           Function f_md5sum            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_md5sum () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "md5sum - Display md5 checksum." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "md5sum [OPTION]... [FILE]..." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man md5sum'" >> $TEMP_FILE
+         echo "                        'md5sum --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now show help. Usage: man md5sum" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+     fi
+      #
+} # End of function f_md5sum
+#
+# +----------------------------------------+
+# |           Function f_txt2html          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_txt2html () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "txt2html - Convert plain text files to html." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "txt2html [ --append_file filename ] [ --append_head filename ]" >> $TEMP_FILE
+         echo "         [ --body_deco string ] [ --bold_delimiter string ]" >> $TEMP_FILE
+         echo "         [ --bullets string ] [ --bullets_ordered string ]" >> $TEMP_FILE
+         echo "         [ --caps_tag tag ]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man txt2html'" >> $TEMP_FILE
+         echo "                        'txt2html --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now show help. Usage: man txt2html" >> $TEMP_FILE
+         APP_NAME="man txt2html"
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+} # End of function f_txt2html
+#
+# +----------------------------------------+
+# |           Function f_txt2man           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_txt2man () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_NAME" == *" "* ]] ; then
+         echo "txt2man - Convert plain text files to man pages." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "txt2man [-hpTX] [-t mytitle] [-P pname] [-r rel] [-s sect] [-v vol]" >> $TEMP_FILE
+         echo "        [-I txt] [-B txt] [-d date] [ifile]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man txt2man'" >> $TEMP_FILE
+         echo "                        'txt2man --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Now show help. Usage: man txt2man" >> $TEMP_FILE
+         APP_NAME="man txt2man"
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+} # End of function f_txt2man
+#
+# +----------------------------------------+
+# |          Function f_txt2pdbdoc         |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_txt2pdbdoc () {
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "txt2pdbdoc - Convert plain text files to (Palm Pilot Database) Doc file *.pdb." > $TEMP_FILE
+         echo "             for PalmPilots & DocReaders. (Does anyone still have a PalmPilot?)" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage: txt2pdbdoc [-b] [-c] [-v] document-name file.txt file.pdb" >> $TEMP_FILE
+         echo "       txt2pdbdoc -d [-D] [-v] file.pdb [ file.txt ]" >> $TEMP_FILE
+         echo "       txt2pdbdoc -V" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man txt2pdbdoc'" >> $TEMP_FILE
+         echo "                        'txt2pdbdoc --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+} # End of function f_txt2pdbdoc
+#
+# +----------------------------------------+
+# |          Function f_txt2regex          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_txt2regex () {
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "txt2regex - Convert human sentences to regex." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "txt2regex --all|--prog <p1,p2,...,pN>" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man txt2regex'" >> $TEMP_FILE
+         echo "                        'txt2regex --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+} # End of function f_txt2regex
+#
+# +----------------------------------------+
+# |          Function f_txt2tags           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_txt2tags () {
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "txt2tags - Convert plain text files to ASCII Art, AsciiDoc, Creole, DocBook," > $TEMP_FILE
+         echo "           DokuWiki, Google Code Wiki, HTML, LaTeX, Lout, MagicPoint, Man page," >> $TEMP_FILE
+         echo "           MoinMoin, PageMaker, Plain Text, PmWiki, SGML, Wikipedia and XHTML." >> $TEMP_FILE
+         echo  >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "txt2tags [OPTIONS] [FILE]... " >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man txt2tags'" >> $TEMP_FILE
+         echo "                        'txt2tags --help'" >> $TEMP_FILE
+         f_message $1 "OK" "$2 command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+} # End of function f_txt2tags
+#
+# +----------------------------------------+
+# |            Function f_search_msg       |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_search_msg () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_CMD" == *"_"* ]] ; then
+         # If APP_NAME has no spaces (converted to underscores"_"), then neither [OPTIONS] nor file name are specified.
+         echo "Missing search parameters."  > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage: $2 [OPTION] [SEARCH STRING]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Examples:" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "grep [SEARCH STRING] [FILE]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "find [DIR] -iname \"[FILE NAME PATTERN]\"" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+         echo "                        '$2 --help'" >> $TEMP_FILE
+         f_message $1 "OK" "'$2' command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+         #
+      fi
+} # End of function f_search_msg.
+#
+# +----------------------------------------+
+# |            Function f_find             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_find () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_CMD" == *"_"* ]] ; then
+         # If APP_NAME has no spaces (converted to underscores"_"), then neither [OPTIONS] nor file name are specified.
+         echo "find - Find and search for files." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "find [-H] [-L] [-P] [-D debugopts] [-Olevel] [path...] [expression]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: find file with name *test-file* in directory /home/username/." >> $TEMP_FILE
+         echo "find /home/username/ -iname *\"test-file1\"*" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: find file and then delete it." >> $TEMP_FILE
+         echo "find /home/username/ -iname *\"test-file\"* -exec rm '{}' +" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man find'" >> $TEMP_FILE
+         echo "                        'find --help'" >> $TEMP_FILE
+         f_message $1 "OK" "'Find' command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_find.
+#
+# +----------------------------------------+
+# |           Function f_locate            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_locate () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_CMD" == *"_"* ]] ; then
+         # If APP_NAME has no spaces (converted to underscores"_"), then neither [OPTIONS] nor file name are specified.
+         echo "locate - Find and search for files."  > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "The locate command is dependent on an up-to-date database, mlocate." >> $TEMP_FILE
+         echo "To update the mlocate database, run the command, 'updatedb'." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage: locate [OPTION]... [PATTERN]..." >> $TEMP_FILE
+         echo "Search for entries in a mlocate database (/var/lib/mlocate/mlocate.db)" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: find all text files in the /usr directory." >> $TEMP_FILE
+         echo "locate /usr/*.txt" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example: find file with name *test-file* in directory /home/username/." >> $TEMP_FILE
+         echo "locate /home/username/*test-file*" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man locate'"  >> $TEMP_FILE
+         echo "                        'locate --help'" >> $TEMP_FILE
+         f_message $1 "OK" "'Find' command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+} # End of function f_locate.
+#
+# +----------------------------------------+
+# |          Function f_adcpmvsrc          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_adcpmvsrc () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "The commands \"cp\" and \"mv\" will be replaced by new customized versions" > $TEMP_FILE
+      echo "However, the original commands are still in their original directories." >> $TEMP_FILE
+      echo "The new customized versions of the commands will be in the \"/usr/local/bin\"" >> $TEMP_FILE
+      echo "directories." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Please be patient!!! This script will take a few minutes to complete its run." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your home folder." >> $TEMP_FILE
+      echo "2. Download \"coreutils\" from ftp.gnu.org by using wget." >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/coreutils-x.xx" >> $TEMP_FILE
+      echo "4. Download the customized commands via a patch from zwicke.org." >> $TEMP_FILE
+      echo "5. Install new customized commands via \"make\", \"make install\"." >> $TEMP_FILE
+      echo "6. Copy new commands to /usr/local/bin directory." >> $TEMP_FILE
+      echo "7. Add \"alias cp\" and \"alias mv\" to ~/.bashrc, if needed." >> $TEMP_FILE
+      echo "8. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      f_message $1 "OK" "adcpmvsrc Installation" $TEMP_FILE
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+      f_yn_question $1 "N" "Continue with install?" "Replace commands \"cp\" and \"mv\" by customized versions.\nContinue with install of adcpmvsrc?"
+      if [ "$ANS" -eq 0 ] ; then
+         f_adcpmvsrc_install
+      fi
+      #
+} # End of function f_adcpmvsrc
+#
+# +----------------------------------------+
+# |       Function f_adcpmvsrc_install     |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_adcpmvsrc_install () {
+      #
+      # 1. Change directory to your home folder.
+      cd ~
+      #
+      # 2. Download "coreutils" from ftp.gnu.org by using wget.
+      wget http://ftp.gnu.org/gnu/coreutils/coreutils-8.21.tar.xz
+      #
+      # 3. Decompress and create the installation subdirectory ~/coreutils-x.xx
+      tar xvJf coreutils-8.21.tar.xz
+      cd coreutils-8.21/
+      #
+      # 4. Download the customized commands via a patch from zwicke.org.
+      wget http://zwicke.org/web/advcopy/advcpmv-0.5-8.21.patch
+      #
+      # 5. Install new customized commands via "make", "make install".
+      patch -p1 -i advcpmv-0.5-8.21.patch
+      ./configure
+      make
+      make install
+      #
+      # 6. Copy new commands to /usr/local/bin directory.
+      if [ ! -d "/usr/local/bin" ] ; then
+         # Target directory is missing, so create it.
+      sudo mkdir -p /usr/local/bin
+      fi
+      sudo cp ~/coreutils-*/src/cp /usr/local/bin/cp
+      sudo cp ~/coreutils-*/src/mv /usr/local/bin/mv
+      #
+      # 7. Add \"alias cp\" and \"alias mv\" to ~/.bashrc, if needed.
+      # Add alias cp to ~/.bashrc if needed.
+      XNUM=$(grep "/usr/local/bin/cp -g" -c ~/.bashrc)
+      if [ "$XNUM" = "0" ] ; then
+         # Edit file ~/.bashrc and add alias for cp.
+         echo -e "alias cp=\"/usr/local/bin/cp -g\"" >> ~/.bashrc
+      fi
+      #
+      # Add alias mv to ~/.bashrc if needed.
+      XNUM=$(grep "/usr/local/bin/mv -g" -c ~/.bashrc)
+      if [ "$XNUM" = "0" ] ; then
+         # Edit file ~/.bashrc and add alias for "mv".
+         echo -e "alias mv=\"/usr/local/bin/mv -g\"" >> ~/.bashrc
+      fi
+      #
+      # 8. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc.
+      # Is the directory /usr/local/bin in your PATH of directories?"
+      # Check the $PATH
+      if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+         echo "If needed, edit file \"~/.bashrc\" PATH." > $TEMP_FILE
+         echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+         echo "'PATH=$PATH':/usr/local/bin" >> $TEMP_FILE
+         echo "export PATH" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+         echo "After editing the file, .bashrc:" >> $TEMP_FILE
+         echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+         echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Edit Path" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+      fi
+      #
+} # End of function f_adcpmvsrc_install
+#
+# +----------------------------------------+
+# |          Function f_pipebench          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_pipebench () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "pipebench - Displays a progress bar of a process." > $TEMP_FILE
+      echo "Pipebench shows the current throughput and amount of data going through a pipe." >> $TEMP_FILE
+      echo "It can be used to show the progress of a large md5sum process:" >> $TEMP_FILE
+      echo "                   cat bigfile | pipebench | md5sum." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Example:" >> $TEMP_FILE
+      echo "dd if=/dev/hdd | pipebench | dd of=/dev/hdc" >> $TEMP_FILE
+      f_message $1 "OK" "Pipebench command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_pipebench
+#
+# +----------------------------------------+
+# |             Function f_pv              |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_pv () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "pv [FILENAME]" > $TEMP_FILE
+      echo "pv [FILENAME] > /path/to/output" >> $TEMP_FILE
+      echo "pv [OPTIONS] [FILENAME] | command1" >> $TEMP_FILE
+      echo "pv [OPTIONS] [FILENAME] | command1 > output.file" >> $TEMP_FILE
+      echo "pv [FILENAME] | command1" >> $TEMP_FILE
+      echo "command1 | pv | command2" >> $TEMP_FILE
+      echo "pv [OPTIONS] input.file | command1 | pv -options > output.file" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Example:" >> $TEMP_FILE
+      echo "pv virus-scan.log | gzip > virus-scan.log.gz" >> $TEMP_FILE
+      echo "611MB 0:00:11 [58.3MB/s] [=>      ] 15% ETA 0:00:59" >> $TEMP_FILE
+      f_message $1 "OK" "Pv command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_pv
+#
+# +----------------------------------------+
+# |          Function f_foremost           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_foremost () {
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "foremost - Recover deleted files." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "foremost [-h] [-V] [-d] [-vqwQT] [-b <blocksize>] [-o <dir>] [-t <type>]" >> $TEMP_FILE
+         echo "         [-s <num>] [-i <file>]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Recovers these file-types: jpg, gif, png, bmp, avi, exe, mpg, wav, riff,"  >> $TEMP_FILE
+         echo "wmv, mov, pdf, ole, doc, zip, rar, htm, cpp." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Run the default case" >> $TEMP_FILE
+         echo "foremost image.dd" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Search all defined types" >> $TEMP_FILE
+         echo "foremost -t all -i image.dd" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Search for gif and pdf's" >> $TEMP_FILE
+         echo "foremost -t gif,pdf -i image.dd" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man foremost'" >> $TEMP_FILE
+         echo "                        'foremost --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Foremost command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_foremost
+#
+# +----------------------------------------+
+# |          Function f_photorec           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_photorec () {
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "photorec - Recover lost files from harddisk, digital camera and cdrom." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "photorec [/log] [/debug] [/d recup_dir] [device|image.dd|image.e01]" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo           "OPTIONS" >> $TEMP_FILE
+         echo "         /log   create a photorec.log file" >> $TEMP_FILE
+         echo "         /debug add debug information" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man photorec'" >> $TEMP_FILE
+         echo "                        'photorec --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Photorec command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_photorec
+#
+# +----------------------------------------+
+# |          Function f_safecopy           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_safecopy () {
+      #
+      # If APP_NAME has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "safecopy - Recover lost data." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "safecopy [OPTIONS] <SOURCE> <TARGET>" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man safecopy'"  >> $TEMP_FILE
+         echo "                        'safecopy --help'" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         f_message $1 "OK" "Photorec command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_safecopy
+#
+# +----------------------------------------+
+# |           Function f_split             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_split () {
+      # If APP_CMD has no spaces, then neither [OPTIONS] nor file name are specified.
+      if [[ ! "$APP_CMD" == *" "* ]] ; then
+         echo "split - Split files into smaller pieces." > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage:" >> $TEMP_FILE
+         echo "split [OPTION]... [FILENAME] [PREFIX]" >> $TEMP_FILE
+         echo "split --bytes=1K LIST_APPS LIST_APPS_" >> $TEMP_FILE
+         echo       "will result in LIST_APPS_aa, LIST_APPS_ab, LIST_APPS_ac ..."  >> $TEMP_FILE
+         echo       "with each resulting file size being 1024 bytes." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Output  fixed-size  pieces of INPUT to PREFIXaa, PREFIXab, ...; default" >> $TEMP_FILE
+         echo "size is 1000 lines, and default PREFIX is 'x'.  With no INPUT, or  when" >> $TEMP_FILE
+         echo "INPUT is -, read standard input." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example:" >> $TEMP_FILE
+         echo "split -n 3\" (split into 3 parts); \"--bytes=1KB\" (split into 1000 byte parts)" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man split'"  >> $TEMP_FILE
+         echo "                        'split --help'" >> $TEMP_FILE
+         f_message $1 "OK" "Split command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+      fi
+      #
+} # End of function f_split.
+#
+# +----------------------------------------+
+# |             Function f_comm            |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_comm () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "comm - compare two sorted files line by line." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Usage:" >> $TEMP_FILE
+      echo "comm [OPTION]... FILE1 FILE2" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Output is in three columns of quoted lines." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "  Column 1      Column 2          Column 3" >> $TEMP_FILE
+      echo "Lines unique  Lines unique      Lines common" >> $TEMP_FILE
+      echo "  to FILE1      to FILE2     to FILE1 and FILE2" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "OPTIONS:" >> $TEMP_FILE
+      echo "         -1                 Suppress column 1." >> $TEMP_FILE
+      echo "         -2                 Suppress column 2." >> $TEMP_FILE
+      echo "         -3                 Suppress column 3." >> $TEMP_FILE
+      echo "         --no-check order   Do not check files for sort order." >> $TEMP_FILE
+      echo
+      echo "*** For more help type: 'man comm'" >> $TEMP_FILE
+      echo "                        'comm --help'" >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_comm
+#
+# +----------------------------------------+
+# |             Function f_diff_msg        |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_diff_msg () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_CMD" == *"_"* ]] ; then
+         # If APP_NAME has no spaces (converted to underscores"_"), then neither [OPTIONS] nor file name are specified.
+         echo "Missing file names to compare."  > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Usage: $2 [OPTION] FILE1 FILE2" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example:" >> $TEMP_FILE
+         echo "$2 file1 file2" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+         echo "                        '$2 --help'" >> $TEMP_FILE
+         f_message $1 "OK" "'$2' command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+         #
+      fi
+} # End of function f_diff_msg.
+#
+# +----------------------------------------+
+# |             Function f_diff3_msg       |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_diff3_msg () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [[ ! "$APP_CMD" == *"_"* ]] ; then
+         # If APP_NAME has no spaces (converted to underscores"_"), then neither [OPTIONS] nor file name are specified.
+         echo "Missing file names to compare."  > $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "diff3 [OPTION]... MYFILE OLDFILE YOURFILE" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Example:" >> $TEMP_FILE
+         echo "$2 file1 file2 file3" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "*** For more help type: 'man $2'" >> $TEMP_FILE
+         echo "                        '$2 --help'" >> $TEMP_FILE
+         f_message $1 "OK" "'$2' command Help" $TEMP_FILE
+         #
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use
+         fi
+         #
+         # Prevent app from running.
+         ERROR=1
+         #
+      fi
+} # End of function f_diff3_msg.
+#
+# +----------------------------------------+
+# |             Function f_jed             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_jed () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      f_message $1 "OK" "jed-extra" "Installing the jed-extra package will enable more features.\nDictionary, spell-check, file management, calendar, calculator, etc."
+      f_yn_question $1 "N" "Install Jed-Extra?" "Installing the jed-extra package will enable more features.\nDictionary, spell-check, file management, calendar, calculator, etc.\n\"Jed-Extra\" will be installed.\nDo you wish to install Jed-Extra?"
+      #
+      if [ "$ANS" -eq "0" ] ; then
+         #
+         # Install Jed-Extra
+         #
+         #  Inputs: $1 - GUI.
+         #          $2 - $APP_NAME Application name.
+         #          $3 - APP_CMD The complete user-entered string,
+         #               which may include application parameters and options.
+         #          $4 - $APP_CODE Application code.
+         #          $5 - Field number of application code.
+         #
+         APP_NAME="jed-extra"
+         APP_CMD="jed-extra"
+         APP_CODE="0^0^0^0^0"
+         #
+         source $CLI_DIR/cli-common.lib
+         source cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         # Blank the screen.
+         clear
+         #
+         f_app_install $1 $APP_NAME $APP_CMD $APP_CODE 1
+         #
+         # Pause to view installation messages.
+         f_press_enter_key_to_continue
+         #
+      fi
+      #
+} # End of function f_jed
+#
+# +----------------------------------------+
+# |             Function f_joe             |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Display man page help message.
+#
+# Dependencies: f_message, f_configure_use
+#
+f_joe () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "Usage:"  > $TEMP_FILE
+      echo "Regular Usage mode : joe [global-options] [ [local-options] filename ]..." >> $TEMP_FILE
+      echo " WordStar emulation: jstar [global-options] [ [local-options] filename ]..." >> $TEMP_FILE
+      echo "GNU-Emacs emulation: jmacs [global-options] [ [local-options] filename ]..." >> $TEMP_FILE
+      echo "    Restricted mode: rjoe [global-options] [ [local-options] filename ]..." >> $TEMP_FILE
+      echo "     PICO emulation: jpico [global-options] [ [local-options] filename ]..." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Available at: www.sourceforge.net/projects/joe-editor." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "*** For more help type: 'man joe'" >> $TEMP_FILE
+      echo "                        'joe --help'" >> $TEMP_FILE
+      f_message $1 "OK" "joe - Text editor with 5 emulations of other text editors" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+      #
+} # End of function f_joe
+#

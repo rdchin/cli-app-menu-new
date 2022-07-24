@@ -1,0 +1,2761 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+VERSION="2021-07-04 23:50"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing User-Interface Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Dialog#@@Dialog user interface.#@@f_config_dialog^$GUI
+#
+#@@Whiptail#@@Whiptail user interface.#@@f_config_whiptail^$GUI
+#
+#@@Text#@@Text user interface.#@@f_config_text^$GUI
+#
+#! End Listing User-Interface Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing CLI Font Color Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Red#@@Red on black.#@@f_color_red^$GUI
+#
+#@@Green#@@Green on black.#@@f_color_green^$GUI
+#
+#@@Yellow#@@Yellow on black.#@@f_color_yellow^$GUI
+#
+#@@Cyan#@@Cyan on black.#@@f_color_cyan^$GUI
+#
+#@@White#@@White on black.#@@f_color_white^$GUI
+#
+#@@BW#@@Black on white.#@@f_color_bw^$GUI
+#
+#@@BLUW#@@Blue on white.#@@f_color_bluw^$GUI
+#
+#@@RW#@@Red on white.#@@f_color_rw^$GUI
+#
+#@@MW#@@Magenta on white.#@@f_color_mw^$GUI
+#
+#@@WB#@@White on blue Classic Blueprint.#@@f_color_wb^$GUI
+#
+#@@YB#@@Yellow on blue.#@@f_color_yb^GUI
+#
+#! End Listing CLI Font Color Menu (Required line, do not delete).
+#
+# +----------------------------------------+
+# |         Function f_config_dialog       |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: GUI.
+#
+# Summary: The series of functions below set the terminal's color.
+#
+# Dependencies: f_message, f_config_update_ui, f_exit_script, f_config_install_ui.
+#
+f_config_dialog () {
+      #
+      command -v dialog >/dev/null
+      # "&>/dev/null" does not work in Debian distro.
+      # 1=standard messages, 2=error messages, &=both.
+      ERROR=$?
+      #
+      # Is Dialog GUI installed?
+      if [ $ERROR -eq 0 ] ; then
+         # Yes, Dialog is installed.
+         GUI="dialog"
+         f_message $GUI "OK" "User-Interface" "User-interface set to \"$GUI\"\nThis script will exit and $GUI UI will be used when restarted."
+         #
+         # Set text font colors and GUI.
+         f_config_update_ui $GUI
+         #
+         # Exit script
+         f_exit_script $GUI
+      else
+         # No, Dialog is not installed.
+         f_message $GUI "OK" "User-Interface" "Dialog is not installed, user-interface is still set to \"$GUI\"."
+         #
+         # Ask user if want to install Dialog.
+         f_config_install_ui $1 dialog "0^0^0^0^1"
+      fi
+      #
+} # End of function f_config_dialog.
+#
+# +----------------------------------------+
+# |        Function f_config_whiptail      |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: GUI.
+#
+# Summary: The series of functions below set the terminal's color.
+#
+# Dependencies: f_message, f_config_update_ui, f_exit_script, f_config_install_ui.
+#
+f_config_whiptail () {
+      #
+      command -v whiptail >/dev/null
+      # "&>/dev/null" does not work in Debian distro.
+      # 1=standard messages, 2=error messages, &=both.
+      ERROR=$?
+      #
+      # Is Whiptail GUI installed?
+      if [ $ERROR -eq 0 ] ; then
+         # Yes, Whiptail is installed.
+         GUI="whiptail"
+         f_message $GUI "OK" "User-Interface" "User-interface set to \"$GUI\"\nThis script will exit and $GUI UI will be used when restarted."
+         #
+         # Set text font colors and GUI.
+         f_config_update_ui $GUI
+         #
+         # Exit script
+         f_exit_script $GUI
+      else
+         # No, Whiptail is not installed.
+         f_message $GUI "OK" "User-Interface" "Whiptail is not installed, user-interface is still set to \"$GUI\"."
+         #
+         # Ask user if want to install Whiptail.
+         f_config_install_ui $1 whiptail "0^0^0^0^1"
+      fi
+      #
+} # End of function f_config_whiptail.
+#
+# +----------------------------------------+
+# |          Function f_config_text        |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: GUI.
+#
+# The series of functions below set the terminal's color.
+#
+f_config_text () {
+      #
+      GUI="text"
+      f_message $GUI "OK" "User-Interface" "User-interface set to \"$GUI\"\nThis script will exit and $GUI  UI will be used when restarted."
+      #
+      # Set text font colors and GUI.
+      f_config_update_ui $GUI
+      #
+      # Exit script
+      f_exit_script $GUI
+      #
+} # End of function f_config_text.
+#
+# +----------------------------------------+
+# |      Function f_config_install_ui      |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - Desired GUI.
+#          $3 - APP Code.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Ask user if want to install the UI, if so install UI.
+#
+# Dependencies: yn_question, f_press_enter_key_to_continue, f_exit_script,
+#               f_config_update_ui
+#
+f_config_install_ui () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      #TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      f_yn_question $1 "N" "Install $2 user-interface?" "Installing the $2 package allows $2 UI display boxes.\nDo you wish to install $2?"
+      #
+      if [ "$ANS" -eq "0" ] ; then
+         #
+         # Install Dialog
+         #
+         #  Inputs: $1 - GUI.
+         #          $2 - $APP_NAME Application name.
+         #          $3 - APP_CMD The complete user-entered string,
+         #               which may include application parameters and options.
+         #          $4 - $APP_CODE Application code.
+         #          $5 - Field number of application code.
+         #
+         source $CLI_DIR/cli-common.lib
+         source $CLI_DIR/cli-web-sites.lib
+         source ~/common_bash_function.lib
+         #
+         # Blank the screen.
+         clear
+         #
+         f_app_install $1 $2 $2 $3 1
+         #
+         # Pause to view installation messages.
+         f_press_enter_key_to_continue
+         #
+         GUI=$2
+         f_message $2 "OK" "User-Interface" "User-interface set to \"$GUI\"\nThis script will exit and $GUI UI will be used when restarted."
+         #
+         # Set text font colors and GUI.
+         f_config_update_ui $GUI
+         #
+         # Exit script
+         f_exit_script $GUI
+      else
+         # No, Dialog is not installed.
+         f_message $1 "OK" "User-Interface" "Dialog is not installed, user-interface is still set to \"$1\"."
+         #
+      fi
+      #
+} # End of function f_config_install_ui
+#
+# +----------------------------------------+
+# |         Function f_color_<color>       |
+# +----------------------------------------+
+#
+#  Inputs: None.
+#    Uses: None.
+# Outputs: FCOLOR, BCOLOR, ECOLOR
+#
+# The series of functions below set the terminal's color.
+#
+f_color_red () {
+      #
+      FCOLOR="Red" ; BCOLOR="Black"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_red
+#
+f_color_green () {
+      #
+      FCOLOR="Green" ; BCOLOR="Black"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_green
+#
+f_color_yellow () {
+      #
+      FCOLOR="Yellow" ; BCOLOR="Black"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_yellow
+#
+f_color_blue () {
+      #
+      FCOLOR="Blue" ; BCOLOR="Black"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_blue
+#
+f_color_magenta () {
+      #
+      FCOLOR="Magenta" ; BCOLOR="Black"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_magenta
+#
+f_color_cyan () {
+      #
+      FCOLOR="Cyan" ; BCOLOR="Black"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_cyan
+#
+f_color_white () {
+      #
+      FCOLOR="White" ; BCOLOR="Black"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_white
+#
+f_color_bw () {
+      #
+      FCOLOR="Black" ; BCOLOR="White"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_bw
+#
+f_color_bluw () {
+      #
+      FCOLOR="Blue" ; BCOLOR="White"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_bw
+#
+f_color_rw () {
+      #
+      FCOLOR="Red" ; BCOLOR="White"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_rw
+#
+f_color_mw () {
+      #
+      FCOLOR="Magenta" ; BCOLOR="White"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_mw
+#
+f_color_wb () {
+      #
+      FCOLOR="White" ; BCOLOR="Blue"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_wb
+#
+f_color_yb () {
+      #
+      FCOLOR="Yellow" ; BCOLOR="Blue"
+      f_color_2 $FCOLOR $BCOLOR
+      #
+} # End of function f_color_yb
+#
+# +----------------------------------------+
+# |            Function f_color_2          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - FCOLOR
+#          $2 - BCOLOR
+#    Uses: CNT, TPUTX.
+# Outputs: None.
+#
+# Summary:
+#
+# Dependencies:
+#
+f_color_2 () {  # Set terminal display properties.
+      #
+      # Change text font colors.
+      f_term_color $FCOLOR $BCOLOR
+      #
+      # Set text font colors and GUI and .
+      f_config_update_font_color $1 $2
+      #
+} # End of function f_color_2
+#
+# +----------------------------------------+
+# |          Function f_term_color         |
+# +----------------------------------------+
+#
+#  Inputs: $1 - FCOLOR
+#          $2 - BCOLOR
+#    Uses: CNT, TPUTX.
+# Outputs: None.
+#
+# Summary:
+#
+# Dependencies:
+#
+f_term_color () {  # Set terminal display properties.
+      #
+      # BASH commands to change the color of characters in a terminal.
+      # bold    "$(tput bold)"
+      # black   "$(tput setaf 0)"
+      # red     "$(tput setaf 1)"
+      # green   "$(tput setaf 2)"
+      # yellow  "$(tput setaf 3)"
+      # blue    "$(tput setaf 4)"
+      # magenta "$(tput setaf 5)"
+      # cyan    "$(tput setaf 6)"
+      # white   "$(tput setaf 7)"
+      # reset   "$(tput sgr0)"
+      #
+      # setterm does not work in X-window virtual terminals.
+      # setterm -foreground white -background black -bold on -store
+      #
+      # set background first because you must reset colors first to get true
+      # black background in some virtual X-terminals. Since "tput setab 0"
+      # appears light gray, use "tput sgr0" to reset colors.
+      #
+      # set CNT=1 background color then set CNT=2 font color.
+      for CNT in 1 2
+      do
+          if [ $CNT -eq 1 ] ; then
+
+             TPUTX="setab"  # Background color.
+             COLOR=$2
+          else
+             TPUTX="setaf"  #  Font color (Fore-ground color).
+             COLOR=$1
+          fi
+          case $COLOR in
+               [Bb] | [Bb][Ll] | [Bb][Ll][Aa]*)
+               if [ $CNT -eq 1 ] ; then
+                  echo -n $(tput sgr0)  # Black background selected.
+                                        # Reset colors to get true black.
+                  clear
+               else
+                  echo -n $(tput $TPUTX 0)  # Black font selected.
+               fi
+               ;;
+               [Bb] | [Bb][Ll] | [Bb][Ll][Uu]*)
+               echo -n $(tput $TPUTX 4)  # Blue font/background selected.
+               ;;
+               [Cc] | [Cc][Yy]*)
+               echo -n $(tput $TPUTX 6)  # Cyan font/background selected.
+               ;;
+               [Gg] | [Gg][Rr] | [Gg][Rr][Ee]*)
+               echo -n $(tput $TPUTX 2)  # Green font/background selected.
+               ;;
+               [Gg] | [Gg][Rr] | [Gg][Rr][Aa]*)
+               echo -n $(tput $TPUTX 237)  # Gray font/background selected.
+               ;;
+               [Mm] | [Mm][Aa]*)
+               echo -n $(tput $TPUTX 5)  # Magenta font/background selected.
+               ;;
+               [Rr] | [Rr][Ee] | [Rr][Ee][Dd])
+               echo -n $(tput $TPUTX 1)  # Red font/background selected.
+               ;;
+               [Rr] | [Rr][Ee] | [Rr][Ee][Ss]*)
+               echo -n $(tput sgr0)  # Reset selected.
+               ;;
+               [Ww] | [Ww][Hh]*)
+               echo -n $(tput $TPUTX 7)  # White font/background selected.
+               ;;
+               [Yy] | [Yy][Ee]*)
+               echo -n $(tput $TPUTX 3)  # Yellow font/background selected.
+               ;;
+          esac
+      done
+      #
+} # End of function f_term_color
+#
+# +----------------------------------------+
+# |       Function f_install_ncurses       |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#    Uses: APP_NAME, APP_CMD, APP_CODE.
+# Outputs:
+#
+# Summary: Install ncurses which is needed by text applications to draw
+#          lines, box corners, and other "graphical" screen effects.
+#
+# Dependencies: f_message.
+#
+f_install_ncurses () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      f_message $1 "OK" "This script will automatically install \"libncurses-dev\"."
+      #
+      clear  # blank screen
+      #
+      # Install libncurses-dev as a prerequisite.
+      APP_NAME="libncurses-dev"
+      APP_CMD=$APP_NAME
+      APP_CODE="0^0^0^0^0"
+      #
+      source cli-common.lib
+      source cli-web-sites.lib
+      source ~/common_bash_function.lib
+      #
+      # Blank the screen.
+      clear
+      #
+      f_app_install $1 $APP_NAME $APP_CMD $APP_CODE 1
+      #
+      # Pause to view installation messages.
+      f_press_enter_key_to_continue
+      #
+      if [ $ERROR -ne 0 ] ; then
+         # Failure to install libncurses-dev.
+         echo "Installation of \"$APP_NAME\" failed." > $TEMP_FILE
+         echo " Skipping installation of \"ncurses-dev\"." >> $TEMP_FILE
+         f_message $1 "OK" "Installation Failed" $TEMP_FILE
+         #
+         # Blank the screen.
+         clear
+      else
+         # Success at installing libncurses-dev.
+         f_message $1 "OK" "$APP_NAME Installed" "Installation of \"$APP_NAME\" is successful."
+         #
+         # Install ncurses-dev.
+         APP_NAME="ncurses-dev"
+         APP_CMD=$APP_NAME
+         APP_CODE="0^0^0^0^0"
+         #
+         # Blank the screen.
+         clear
+         #
+         f_app_install $1 $APP_NAME $APP_CMD $APP_CODE 1
+         #
+         # Pause to view installation messages.
+         f_press_enter_key_to_continue
+         #
+         if [ $ERROR -ne 0 ] ; then
+            # Failure to install ncurses-dev.
+            f_message $1 "OK" "Installation Failed" "Installation of \"$APP_NAME\" failed."
+         else
+            # Success at installing ncurses-dev.
+            f_message $1 "OK" "$APP_NAME Installed" "Installation of \"$APP_NAME\" is successful."
+           fi
+      fi
+} # End of function f_install_ncurses
+#
+# +----------------------------------------+
+# |    Function f_install_term-animation   |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Install Term Animation.
+#
+# Dependencies: f_message.
+#
+f_install_term-animation () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE_temp.txt
+      #
+      echo "This script will automatically download and install \"Term::Animation\"." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"Term::Animation\" by using wget from:" >> $TEMP_FILE
+      echo "   \"http:=//search.cpan.org/CPAN/authors/id/K/KB/KBAUCOM/Term-Animation-2.6.tar.gz\"." >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/Term-Animation*" >> $TEMP_FILE
+      echo "4. Install Term::Animation via:" >> $TEMP_FILE
+      echo "                                 perl Makefile.PL" >> $TEMP_FILE
+      echo "                                 make" >> $TEMP_FILE
+      echo "                                 make test" >> $TEMP_FILE
+      echo "                                 make install" >> $TEMP_FILE
+      echo " 5. Change directory back to your ~ home folder." >> $TEMP_FILE
+      f_message $1 "OK" "Download & install Term Animation" $TEMP_FILE
+      #
+      # Blank the screen.
+      clear
+      #
+      # 1. Change directory to your ~/bin folder.
+      cd ~
+      if [ ! -d "~/bin" ] ; then
+         # Target directory is missing, so create it.
+         mkdir ~/bin
+      fi
+      cd ~/bin
+      #
+      # 2. Download "Term::Animation" from:
+      #    http://search.cpan.org/CPAN/authors/id/K/KB/KBAUCOM/Term-Animation-2.6.tar.gz
+      # by using wget.
+      wget http://search.cpan.org/CPAN/authors/id/K/KB/KBAUCOM/Term-Animation-2.6.tar.gz
+      #
+      # 3. Decompress and create the installation subdirectory ~/bin/Term-Animation*
+      tar -xvzf Term-Animation-2.6.tar.gz
+      cd Term-Animation-2.6
+      #
+      # 4. Install Term::Animation via "perl Makefile.PL", "make", "make test", "make install".
+      perl Makefile.PL
+      make
+      make test
+      sudo make install
+      ERROR=$? # Save error flag condition.
+      #
+      # Pause to examine "make install" messages.
+      f_press_enter_key_to_continue
+      #
+      f_message $1 "OK" "Finished" "Finished running installation script for \"Term::Animation\"."
+      #
+      # 5.  Change directory back to your ~ home folder.
+      cd ~
+      #
+      unset X  # Throw out this variable.
+      #
+} # End of function f_install_term-animation
+#
+# +----------------------------------------+
+# |       Function f_install_xorcurses     |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_install_xorcurses () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      if [ ! -r "/usr/local/share/XorCurses" ] ; then
+         echo "This script will install XorCurses without using a software package manager." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "If you wish to de-install XorCurses, you will have to delete files manually" >> $TEMP_FILE
+         echo "by typing: \"sudo rm -r /usr/local/bin/ /usr/local/share/XorCurses\"." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "This script will install \"libncurses-dev\" and \"ncurses-dev\", if needed." >> $TEMP_FILE
+         echo "Afterwards, \"XorCurses\" will be installed." >> $TEMP_FILE
+         f_message $1 "OK" "Install $2?" $TEMP_FILE
+         #
+         f_yn_question $1 "N" "Install $2?" "Do you wish to install $2?"
+         #
+         if [ "$ANS" -eq 0 ] ; then
+            # Install libncurses-dev and ncurses-dev as pre-requisites.
+            f_install_ncurses
+            if [ "$ERROR" = "0" ] ; then
+               # Error code 1 $?=1 means no --help available.
+               # Error code 0 (zero) where $?=0 means no error.
+               #
+               # Since dependencies are installed, now install XorCurses.
+               f_install2_xorcurses $1 $2
+            else
+               # Install ncurses failed.
+               f_message $1 "OK" "Install Failed" "Install of ncurses failed so cannot install $2."
+            fi
+         fi
+         unset ANS  # Throw out this variable.
+      fi
+      #
+} # End of function f_install_xorcurses
+#
+# +----------------------------------------+
+# |       Function f_install2_xorcurses    |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_install2_xorcurses () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "This script will automatically download and install \"XorCurses\"." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "This script will do the following:" >> $TEMP_FILE
+      echo "1. Change directory to your ~/bin folder, creating it as necessary." >> $TEMP_FILE
+      echo "2. Download \"XorCurses\" using wget from:" >> $TEMP_FILE
+      echo "   http://jwm-art.net/art/archive" >> $TEMP_FILE
+      echo "3. Decompress and create the installation subdirectory ~/bin/xorcurses*" >> $TEMP_FILE
+      echo "4. Install XorCurses via:" >> $TEMP_FILE
+      echo "                           make" >> $TEMP_FILE
+      echo "                           sudo make install" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "   Installs files to /usr/local/bin/ and /usr/local/share/XorCurses." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "5. Allow users to run XorCurses by setting permissions to r-x or 755 for all users." >> $TEMP_FILE
+      echo "6. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc." >> $TEMP_FILE
+      f_message $1 "OK" "Download & Install $2" $TEMP_FILE
+      #
+      # 1. Change directory to your ~/bin folder.
+      cd ~
+      if [ ! -d "~/bin" ] ; then
+         # Target directory is missing, so create it.
+         mkdir ~/bin
+      fi
+      cd ~/bin
+      #
+      # 2. Download "XorCurses" from "http://jwm-art.net/art/archive" by using wget.
+      wget http://jwm-art.net/art/archive/XorCurses-0.2.2.tar.bz2
+      #
+      # 3. Decompress and create the installation subdirectory ~/bin/xorcurses*.
+      tar -xf XorCurses-0.2.2.tar.bz2
+      cd ~/bin/XorCurses-0.2.2
+      #
+      # 4. Make and install XorCurses.
+      make
+      sudo make install
+      #
+      # 5. Allow users to run XorCurses by setting permissions to r-x or 755 for all users.
+      sudo chmod 755 /usr/local/bin/xorcurses
+      ERROR=$? # Save error flag condition.
+      #
+      # 6. Add directory \"/usr/local/bin\" to your PATH command in ~/.bashrc.
+      # Is the directory /usr/local/bin in your PATH of directories?
+      # Check the $PATH
+      if [[ ! "$PATH" == *":/usr/local/bin"* ]] ; then
+         echo "If needed, edit file \"~/.bashrc\" PATH." >> $TEMP_FILE
+         echo "Append the directory name to your environment $PATH." >> $TEMP_FILE
+         echo $(tput bold)'PATH=$PATH'":/usr/local/bin"
+         echo "export PATH" >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "       >>> IMPORTANT <<<" >> $TEMP_FILE
+         echo "After editing the file, .bashrc:" >> $TEMP_FILE
+         echo "Close Terminal for changes to take effect." >> $TEMP_FILE
+         echo "Either logout or exit from Terminal and re-launch Terminal." >> $TEMP_FILE
+         f_message $1 "OK" "PATH Instructions" $TEMP_FILE
+      fi
+      echo >> $TEMP_FILE
+      echo "Finished running installation script for \"XorCurses\"." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To run \"XorCurses\", select it on the \"Arcade Games Menu\" or \"Board Games Menu\"." >> $TEMP_FILE
+      f_message $1 "OK" "Finished Installation of $2" $TEMP_FILE
+      #
+} # End of function f_install2_xorcurses
+#
+# +----------------------------------------+
+# |           Function f_app_cmd           |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - App name.
+#          $3 - Optional Default App Command with parameters.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Call function to enter application command and run it.
+#
+# Dependencies: f_app_cmd_input.
+#
+f_app_cmd () {
+      #
+      #
+      #==================================================================
+      # EDIT THE LINES BELOW TO INCLUDE THE DIRECTORY AND FILE NAME
+      # OF THIS FILE SO CORRESPONDING APP_CODE CAN BE EXTRACTED.
+      #==================================================================
+      #
+      #
+      CURR_FILE="main_favorites.lib"
+      #
+      source $CLI_DIR/cli-common.lib
+      #
+      APP_CMD=$(echo $3 | tr " " "_")
+      #
+      f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+      #
+} # End of function f_app_cmd.
+#
+# +----------------------------------------+
+# |          Function f_app_cmd_2          |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - App name.
+#          $3 - Optional Default App Command with parameters.
+#          $4 - CLI_DIR/CURR_FILE Current file name of (menu) library.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Call function to enter application command and run it.
+#
+# Dependencies: f_app_cmd_input.
+#
+f_app_cmd_2 () {
+      #
+      TEMP_FILE=$4"_temp.txt"
+      #
+      # Default Application Command.
+      if [ -n "$3" ] ; then
+         APP_CMD=$3
+      else
+         APP_CMD=$2
+      fi
+      #
+      f_app_cmd_input $1 $2 $4 $APP_CMD
+      #
+      # Delete TEMP_FILE.
+      TEMP_FILE=$CURR_FILE"_temp.txt"
+      if [ -e $TEMP_FILE ] ; then
+         rm $TEMP_FILE
+      fi
+      #
+} # End of function f_app_cmd_2.
+#
+# +----------------------------------------+
+# |        Function f_app_cmd_input        |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - App name.
+#          $3 - Menu directory/file name.
+#          $4 - Default app command.
+#    Uses: MENU_ITEM, MAT, MAX.
+# Outputs: ERROR, MENU_TITLE, DELIMITER.
+#
+# Summary: Enter application command and run it.
+#
+# Dependencies: f_app_input, f_app_code, f_process_app_command.
+#
+f_app_cmd_input () {
+      #
+      # Blank screen.
+      clear
+      #
+      if [ -z $4 ] ; then
+         f_app_input $1 $2 $2
+      else
+         f_app_input $1 $2 $4
+      fi
+      #
+      # Outputs ANS (Application commands).
+      # Substitute underscores for spaces to be able to pass ANS as a function parameter.
+      ANS=$(echo $ANS | tr ' ' '_')
+      #
+      TEMP_FILE=$CURR_FILE"_temp.txt"
+      # Extracts and sets APP_CODE, application code string.
+      f_app_code $2 $3
+      #
+      APP_CMD=$ANS
+      f_process_app_command $1 $2 "$APP_CMD" $APP_CODE $3
+      #
+      # Throw out this variable.
+      unset ANS
+      #
+      if [ -e $TEMP_FILE ] ; then
+         rm $TEMP_FILE
+      fi
+      #
+} # End of function f_app_cmd_input.
+#
+# +----------------------------------------+
+# |           Function f_app_input         |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1=GUI.
+#          $2=App name.
+#          $3=default app command.
+#    Uses: TEMP_FILE2
+# Outputs: ERROR, ANS.
+#
+# Summary: Enter application command.
+#
+# Dependencies: None.
+#
+f_app_input () {
+      #
+      # Change underscores to spaces to make human readable.
+      DEFAULT_CMD=$(echo $3 | tr '_' ' ')
+      #
+      case $1 in
+           dialog | whiptail)
+              # User-input via "inputbox" free-form application name entry.
+              TEMP_FILE2=$CURR_FILE"2.txt"
+              $1 --title "Enter '$2' command (with optional CLI options)" --cancel-button Exit --inputbox "Command '$2' (may include command-line options).\ni.e. '$2 --help', 'man $2'\n'$2 --version'\n'$2 fav' (to add to Favorites Menu).\nEnter command ($2):" 15 70 "$DEFAULT_CMD" 2>$TEMP_FILE2
+              ERROR=0
+              ANS=$(cat $TEMP_FILE2)
+              #
+              rm $TEMP_FILE2
+           ;;
+           text)
+              ERROR=0
+              echo "Enter '$2' command (with optional CLI options)"
+              echo
+              echo "  Command '$2' (may include command-line options)"
+              echo "          '$2 --version'"
+              echo
+              echo "For help: '$2 --help'"
+              echo "          'man $2'"
+              echo
+              echo "Add to Favorites Menu:"
+              echo "           '$2 fav'"
+              echo "           '$2 FAV'"
+              echo
+              echo -n "Enter $2 command ($DEFAULT_CMD): "
+              read ANS
+              #
+              if [ -z "$ANS" ] ; then
+                 ANS=$DEFAULT_CMD
+                 ERROR=1
+              fi
+           ;;
+      esac
+      #
+      unset DEFAULT_CMD
+      #
+} # End of function f_app_input.
+#
+# +----------------------------------------+
+# |           Function f_app_code          |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1=app name.
+#          $2=Menu directory/file name.
+#    Uses: LINE.
+# Outputs: APP_CODE.
+#
+# Summary: Get corresponding Application Code for the application.
+#
+# Dependencies: None.
+#
+f_app_code () {
+      #
+      # Get application code data of application
+      grep \#@@$1\#@@ $2 > $TEMP_FILE
+      #
+      # Extract APP_CODE.
+      APP_CODE=$(awk -F "#@@" '{ print $5 }' $TEMP_FILE)
+      #
+} # End of function f_app_code.
+#
+# +----------------------------------------+
+# |     Function f_process_app_command     |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - $GUI.
+#          $2 - APP_NAME Application name from menu.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - APP_CODE, the application code string.
+#          $5 - Menu directory/file name.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Process application command and run application or if missing,
+#          install application.
+#
+# Dependencies: f_message, f_app_run, f_favorite_app_add, f_press_key,
+#          f_process_app_command_2, f_app_install_question.
+#
+f_process_app_command () {
+      #
+      # 1. Is app installed?
+      #
+      # 2. Did user enter command for application help or version?
+      #    i.e. <appname> --help or man <appname> --version.
+      #
+      # 3. Is user-input a valid choice (menu item option)?
+      #    No, trap bad responses and re-display menu.
+      #
+      # 4. Is field 1 specified?
+      #    Yes, run function specified by field 1.
+      #
+      # 5. Is field 4 specified?
+      #    Yes, display message about how to quit application.
+      #
+      # 6. Is field 3 specified?
+      #    Yes, run function specified by field 3.
+      #
+      # 7. Run application, $APP_NAME by running the function f_app_run.
+      #
+      # The complete user-entered string passed as a set of arguments.
+      # i.e. "man <appname>, "<appname> --help" "<web browser><OPTIONS><URL>"
+      #
+      # Initialize default APP_CMD.
+      DEFAULT=""
+      #
+      case $APP_CMD in
+           "$2_"[Ff][Aa][Vv])
+              # Format "[application name] fav" or "[application name] FAV".
+              # User wants to mark the application as a "Favorite" application.
+              # Put the application as a menu item in the "Favorites" menu.
+              # Valid choice so force exit from While-loop.
+              f_favorite_app_add $1 $2 $5
+              ERROR=3
+              ;;
+           *$2*)
+              PRESS_KEY=0 # Reset flag.
+              #
+              #1. Test to see if the application is installed.
+              #   This returns path of application's run-time executable command.
+              #   Do not display any messages on screen.
+              #   Redirect error and standard output to null device.
+              command -v $2 &>/dev/null
+              # 1=standard messages, 2=error messages, &=both.
+              # Save error flag condition.
+              ERROR=$?
+              # Error code 1 $?=1 means application is not installed.
+              # Error code 0 (zero) where $?=0 means no error.
+           ;;
+           *)
+              # Invalid $2 APP_NAME command entered. APP_CMD does not contain APP_NAME.
+              PRESS_KEY=0 # Reset flag.
+              ERROR=-1
+           ;;
+      esac
+      #
+      case $ERROR in
+           -1)
+              # Invalid $2 APP_NAME command entered.
+              f_message $1 "OK" "Invalid Command" "Command does not match chosen application $2:\n\n$APP_CMD"
+           ;;
+           0)
+              # Application is installed, so process APP_CMD and any parameters.
+              # 2. Did user enter command for application help or version?
+              #    i.e. <appname> --help or man <appname> --version.
+              # 3. Is user-input a valid choice?
+              #
+              case $3 in
+                   "$2_--version" | "$2_--help" | "man_$2" )
+                      # Skip f_process_app_command_2 and simply run command.
+                      # If app is missing then f_app_run will ask if want to install.
+                      f_app_run $1 $2 $3 $4 2
+                   ;;
+                   *)
+                      f_process_app_command_2 $1 $2 $3 $4
+                   ;;
+              esac
+           ;;
+           1)
+              # Application is not installed.
+              f_app_install_question $1 $2 $3 $4 2
+           ;;
+      esac
+      #
+} # End of function f_process_app_command
+#
+# +----------------------------------------+
+# |    Function f_process_app_command_2    |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - $GUI.
+#          $2 - APP_NAME Application name from menu.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - APP_CODE, the application code string.
+#    Uses: ERROR.
+# Outputs: None.
+#
+# Summary: Process only valid application commands, not including --help,
+#          --version or man command options.
+#
+# Dependencies: f_eval_funct, f_quit_app_clause, f_app_run.
+#
+f_process_app_command_2 () {
+      #
+      # Format of Application Code:
+      # "#f_funct1^f_funct2^f_funct3^Quit-Code^PRESS_KEY
+      #   field-1  field-2  field-3  field-4   field-5
+      #
+      # field 1    *if 1 then function name is f_<APP_NAME>.
+      # 1/0/string *if <string> then function name is <string>.
+      #            *if 0 then ignored. No function is run.
+      #
+      #             When this menu item is selected, this function is run
+      #             before displaying the Quit-Code on the screen.
+      #
+      # field 2    *if 1 then function name is f_install_<APP_NAME>.
+      # 1/0/string  A function to install an application may be specified here.
+      #            *if <string> then function name is <string>.
+      #            *if 0 then ignored. No function is run.
+      #
+      #            This custom installation function is called only after the
+      #            distro's software package manager has failed to install the
+      #            application usually because the application is not
+      #            pre-packaged for the Linux distro (distribution).
+      #            See f_app_install for more details.
+      #
+      #            If install fails, then this custom install function will be
+      #            run which can be made to download the source code from the
+      #            application maintainer's web site and then compile and
+      #            install the application.
+      #
+      # field 3    *if <string> then function name is <string>.
+      # 0/string   *if 0 then ignored. No function is run.
+      #
+      #             When this menu item is selected, this function is run after
+      #             displaying the Quit-Code on the screen.
+      #
+      # field 4    *Quit-Code. See f_quit_app_clause for more details.
+      # string
+      #
+      # field 5    *Sets PRESS_KEY=0/1 to display:
+      #             "Press 'Enter' key to continue".
+      # 1/0         See f_press_key for more details.
+      #             This allows the user to see any messages displayed by the
+      #             application after it has been run.
+      #             Without PRESS_KEY=1, the screen is cleared to display the
+      #             menu and the user would miss any messages.
+      #
+      #             This setting may be overridden by any custom functions
+      #             which follow.
+      #             It is useful if the custom function displays a help message
+      #             which sets  PRESS_KEY=1
+      #             or has a f_press_enter_key_to_continue or a man page (which
+      #             does not need a PRESS_KEY=1). so you don't have to worry
+      #             about coding for PRESS_KEY within that custom function.
+      #
+      #             This can be used to initialize PRESS_KEY as it is set
+      #             before any custom functions in fields 1, 2, or 3 are run.
+      #
+      ERROR=0 # Reset error flag.
+      #
+      # Set the complete user-entered application command.
+      # It may be used by a specialized function in APP_CODE to determine
+      # if the command is bad to display help message.
+      APP_CMD=$3
+      #
+      # 4. Is field 1 specified?
+      # Specify 1st field of APP_CODE for function #1.
+      # If function is specified, then run function.
+      f_eval_funct $1 $2 $4 1
+      #
+      # Save ERROR flag results.
+      ERROR_SAV=$ERROR
+      #
+      # 5. Is field 4 specified?
+      # Specify 4th field of $APP_CODE for Quit Clause.
+      # APP_NAME is set to null if application is already run.
+      #
+      f_quit_app_clause $1 $2 $4 4
+      #
+      # Save ERROR flag results.
+      ERROR_SAV=$(expr $ERROR + $ERROR_SAV)
+      #
+      # 6. Is field 3 specified?
+      # Specify 3rd field of $APP_CODE for function #3.
+      # If function is specified, then run function.
+      #
+      f_eval_funct $1 $2 $4 3
+      #
+      # Restore previous ERROR flag results.
+      ERROR=$(expr $ERROR + $ERROR_SAV)
+      #
+      # 7. Run application program.
+      # APP_NAME="" is set when f_run_and_exit is run prior within
+      # function #1, #2, or #3.
+      #
+      if [ "$ERROR" -eq 0 ] ; then
+         f_app_run $1 $2 $3 $4 2
+      fi
+      #
+} # End of function f_process_app_command_2
+#
+# +----------------------------------------+
+# |          Function f_eval_funct         |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME Application name.
+#          $3 - APP_CODE Application code.
+#          $4 - Field number of application code.
+#    Uses: FIELD_VALUE, FUNCTION.
+# Outputs: ERROR.
+#
+# Summary: Process Application Code options and run any connected functions.
+#
+# Dependencies: None.
+#
+f_eval_funct () {
+      #
+      # Example of a menu item option:
+      #
+      # #@@elinks#@@Web browser, tables, frames, forms support, tabbed browsing.#@@f_app_cmd^$GUI^elinks^elinks lxer.com#@@0^0^0^1^0
+      #       1                                2                                       3      3a    3b          3c              4
+      # application name                   Description                              function  GUI   App     App Command      App Code
+      #
+      # The string is delimited by "#@@" into four parts.
+      # The 4th part contains the App Code.
+      #
+      # The App Code is delimited by carets (^) into 5 pieces or fields.
+      # The App Code from previous example is "0^0^0^1^0"
+      #
+      # Detailed explanation of the App Code.
+      #
+      # "#f_funct1^f_funct2^f_funct3^Quit-Code^PRESS_KEY
+      #   field-1  field-2  field-3  field-4   field-5
+      #
+      # field 1    *if 1 then function name is f_<APP_NAME>.
+      # 1/0/string *if <string> then function name is <string>.
+      #            *if 0 then ignored. No function is run.
+      #
+      #             When this menu item is selected, this function is run
+      #             before displaying the Quit-Code on the screen.
+      #
+      # field 2    *if 1 then function name is f_install_<APP_NAME>.
+      # 1/0/string  A function to install an application may be specified here.
+      #            *if <string> then function name is <string>.
+      #            *if 0 then ignored. No function is run.
+      #
+      #            This custom installation function is called only after the
+      #            distro's software package manager has failed to install the
+      #            application usually because the application is not
+      #            pre-packaged for the Linux distro (distribution).
+      #            See f_app_install for more details.
+      #
+      #            If install fails, then this custom install function will be
+      #            run which can be made to download the source code from the
+      #            application maintainer's web site and then compile and
+      #            install the application.
+      #
+      # field 3    *if <string> then function name is <string>.
+      # 0/string   *if 0 then ignored. No function is run.
+      #
+      #             When this menu item is selected, this function is run after
+      #             displaying the Quit-Code on the screen.
+      #
+      # field 4    *Quit-Code. See f_quit_app_clause for more details.
+      # string
+      #
+      # field 5    *Sets PRESS_KEY=0/1 to display:
+      #             "Press 'Enter' key to continue".
+      # 1/0         See f_press_key for more details.
+      #             This allows the user to see any messages displayed by the
+      #             application after it has been run.
+      #             Without PRESS_KEY=1, the screen is cleared to display the
+      #             menu and the user would miss any messages.
+      #
+      #             This setting may be overridden by any custom functions
+      #             which follow.
+      #             It is useful if the custom function displays a help message
+      #             which sets  PRESS_KEY=1
+      #             or has a f_press_enter_key_to_continue or a man page (which
+      #             does not need a PRESS_KEY=1). so you don't have to worry
+      #             about coding for PRESS_KEY within that custom function.
+      #
+      #             This can be used to initialize PRESS_KEY as it is set
+      #             before any custom functions in fields 1, 2, or 3 are run.
+      #
+      # Initialize variable.
+      FUNCTION=""
+      ERROR=0
+      #
+      # Extracts the field number ($4) from $APP_CODE ($3).
+      #
+      FIELD_VALUE=$(echo $3 | awk -F "^" '{print $X}' X=$4)
+      #
+      # Take action according to APP_CODE $3 field number ($4) 1, 2 or 3.
+      case "$4" in
+           1)  # if 1st field is a "1" then <f_app-name>.
+               # Custom application function for general usage.
+           case "$FIELD_VALUE" in
+                0)
+                   # No custom function specified.
+                ;;
+                1)
+                   # Set FUNCTION to the name of the custom function f_<app_name>.
+                   FUNCTION="f_$2 $1 $2"
+                ;;
+                *)
+                   # Set FUNCTION to the name of the custom function.
+                   FUNCTION="$FIELD_VALUE $1 $2"
+                ;;
+           esac
+           ;;
+           2)
+           # if 2nd field is a "1" then <f_install_app-name>.
+           # Custom application installation function.
+           case "$FIELD_VALUE" in
+                0)
+                   # No custom installation function needed.
+                ;;
+                1)
+                   # Set FUNCTION to the name of the custom installation function.
+                   FUNCTION="f_install_$2 $1 $2"
+                ;;
+                *)
+                   # Set FUNCTION to the name of the custom installation function.
+                   FUNCTION="$FIELD_VALUE $1 $2"
+                ;;
+           esac
+           ;;
+           3)
+           # If 3rd field is string "<f_any_name>".
+           # This function is called after the display of the Quit Code message.
+           case "$FIELD_VALUE" in
+                0)
+                   # No custom function specified.
+                ;;
+                *)
+                   # Set FUNCTION to the name of the custom function <f_any_name>.
+                   FUNCTION="$FIELD_VALUE $1 $2"
+                ;;
+           esac
+           ;;
+      esac
+      #
+      if [ -n "$FUNCTION" ] ; then
+         eval $FUNCTION  # Invoke (run) the function.
+         ERROR=$?
+      fi
+      #
+      # Restore user-selected CLI text colors.
+      if [ "$1" = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use $1
+      fi
+      #
+      if [ $ERROR -ne 0 ] ; then
+         f_message $1 "OK" "Running Function \"$FUNCTION\" failed" "The application \"$2\" failed when run."
+      fi
+      #
+      unset FIELD_VALUE FUNCTION
+      #
+} # End of function f_eval_funct
+#
+# +----------------------------------------+
+# |       Function f_quit_app_clause       |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME Application name.
+#          $3 - APP_CODE.
+#    Uses: XSTR, QUIT_FIELD, NO_CLEAR.
+# Outputs: None.
+#
+# Summary: Get string QUIT_FIELD instructions on how to quit app from APP_CODE.
+#
+# Dependencies: f_how_to_quit_application.
+#
+f_quit_app_clause () {
+      #
+      # Field 4 is the number of the Quit Code used by f_quit_app_clause.
+      # This will display the custom "How to quit" the application message.
+      #
+      # Example 1:
+      # String in Quit field of APP_CODE.
+      # #0^0^0^13:NC^0
+      # "13:NC" or format is "##:NC"
+      # This will not clear the screen and display message:
+      # To quit "$APP_NAME", type <Ctrl>-Z.
+      #
+      # Example 2:
+      # String in Quit field of APP_CODE.
+      # #0^0^0^6^0
+      # "6" or format is "##"
+      # This will clear the screen and display message:
+      # To quit "$APP_NAME", type "(quit)" including the parenthesis.
+      #
+      #%%1. "Q"
+      #%%2. "Q" or "quit"
+      #%%3. "Q" or <F10>
+      #%%4. ":q" <colon> q (which is the vi command for 'quit')
+      #%%5. (lose game and then) type "Q"
+      #%%6. "(quit)" including the parenthesis
+      #%%7. "quit"
+      #%%8. <Ctrl>+C
+      #%%9. <Ctrl>+C or <Ctrl>+D or crash into wall
+      #%%10. <Ctrl>+D
+      #%%11. <Ctrl>+K X
+      #%%12. <Ctrl>+X <Ctrl>+C
+      #%%13. <Ctrl>+Z
+      #%%14. <Esc> :q!
+      #%%15. <F5>
+      #%%16. at the prompt Command: "terminate"
+      #%%17. <Alt>+Q
+      #%%18. "X"
+      #%%19. <Ctrl>+Z or <Ctrl>+C
+      #%%20. "exit"
+      #%%21. "quit" or "exit"
+      #%%22. "q or to pause press "p"
+      #%%23. "any key"
+      #%%24. <Ctrl>+Q
+      #%%25. <Alt>+F X or (if in X-Windows) <shift>+<Alt>+F X
+      #%%26. <Ctrl>+Z
+      #%% # End of list marker (and awk field marker), DO NOT remove.
+          # This marker prevents awk from printing any more lines found by
+          # grep "#%%" below and including this line.
+      #
+      # Extract Quit field, 4th field.
+      QUIT_FIELD=$(echo $3 | awk -F "^" '{print $4}')
+      #
+      # QUIT_FIELD is now the number designation from the list above,
+      # corresponding to the keystroke sequence needed to quit the
+      # application.
+      # i.e. QUIT_FIELD=1 for keystroke sequence "Q"
+      #                =2 for "Q or quit"
+      #                =3 for "Q or <F10>"...
+      #
+      # If Quit field is not "0" and has a non-zero length.
+      if [ "$QUIT_FIELD" != "0" ] && [ -n "$QUIT_FIELD" ] ; then
+         #
+         NO_CLEAR=""
+         # Convert QUIT_FIELD "nc" to upper-case if there is one.
+         QUIT_FIELD=$(echo $QUIT_FIELD | tr '[:lower:]' '[:upper:]')
+         #
+         if [[ "$QUIT_FIELD" == *":NC"* ]] ; then
+            NO_CLEAR="no-clear"  # "no-clear" string exists.
+            # Strip ":NC" from QUIT_FIELD.
+            QUIT_FIELD=$(echo $QUIT_FIELD | awk -F ":" '{print $1}')
+         else
+            NO_CLEAR=""  # "no-clear" string is null.
+         fi
+         #
+         # Retrieve the corresponding Quit string from the list above
+         # with the matching QUIT_FIELD numeric designation.
+         # grep results in "NN. <Keystroke sequence>" in the TEMP_FILE.
+         #      i.e "13. <Ctrl>-Z".
+         QUIT_FIELD="$QUIT_FIELD\."
+         grep \#%%$QUIT_FIELD. $CLI_DIR/cli-common.lib >$TEMP_FILE
+         #
+         # awk strips away numbers "NN." leaving " <Keystroke sequence>"
+         #     i.e. "<Ctrl>-Z".
+         QUIT_FIELD=$(awk -F "." '{print $2}' $TEMP_FILE)
+         #
+         # Remove any <spaces> at the end of the string QUIT_FIELD.
+         QUIT_FIELD=$(echo $QUIT_FIELD | sed 's/ *$//')
+         #
+         f_how_to_quit_application $1 "$2" "$QUIT_FIELD" "$NO_CLEAR"
+      fi
+      #
+      unset XSTR QUIT_FIELD NO_CLEAR
+      #
+} # End of function f_quit_app_clause
+#
+# +----------------------------------------+
+# |       Function f_app_run_and_exit      |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - $APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - $APP_CODE Application code.
+#          $5 - Field number of application code.
+#
+#    Uses: X.
+# Outputs: APP_NAME, PRESS_KEY.
+#
+# Summary: Warning message and ask question "Run APP_NAME and then exit script.
+#
+# Dependencies: f_yn_question, f_app_run.
+#
+f_app_run_and_exit () {
+      #
+      f_yn_question $GUI "N" "Run & Exit" "To quit $2, type <Ctrl>-Z or <Ctrl>-C.\n(There is no way to cleanly return to the menu).\n\nRun $2 and exit script?"
+      case $ANS in
+           0)
+              f_app_run $1 $2 $3 $4 $5
+           ;;
+           *)
+              PRESS_KEY=0 # Do not display "Press 'Enter' key to continue."
+           ;;
+      esac
+      #
+} # End of function f_app_run_and_exit
+#
+# +----------------------------------------+
+# |            Function f_app_run          |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - $APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - $APP_CODE Application code.
+#          $5 - Field number of application code.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Ask question "Run APP_NAME
+#
+# Dependencies: f_press_key, f_option_press_enter_key, f_app_error,
+#               f_app_install_question.
+#
+f_app_run () {
+      #
+      # 1. Clear screen.
+      # 2. Run application.
+      # 3. Error?
+      #    No, DONE AND EXIT.
+      # 4. Error codes 1, 13, 62?
+      #    Yes, then call f_app_error to display error message.
+      #    Error codes 1, 13, 62?
+      #    Yes, DONE AND EXIT.
+      # 5. Error code 127?  Application not installed?
+      #    No, DONE AND EXIT.
+      #    Yes, then call f_app_error to display error message.
+      # 6. Does user want to install missing application?
+      #    No, DONE AND EXIT.
+      # 7. Yes, f_app_install_question calls f_app_install.
+      # 8. Was installation successful?
+      #    No, DONE AND EXIT.
+      # 9  Yes, run application.
+      # 10. Call f_app_error to display any error messages.
+      # 11. DONE AND EXIT.
+      #
+      # Convert string to integer -1. Also indicates valid menu choice.
+      # If valid, f_bad_application_menu_choice will not force PRESS_KEY=1.
+      #
+      # Blank the screen.
+      clear
+      #
+      # Change underscores to spaces to make human readable.
+      APP_CMD=$(echo $3 | tr '_' ' ')
+      #
+      case $3 in
+           "$2_--version")
+              PRESS_KEY=1
+              # Run application.
+              $APP_CMD
+              #
+              # Display a pause to display information if specified in APP_CODE.
+              f_option_press_enter_key
+           ;;
+           "$2_--help")
+              # Run application.
+              $APP_CMD | less
+           ;;
+           "man_$2")
+              PRESS_KEY=0
+              # Run application.
+              $APP_CMD
+           ;;
+           *)
+              # Set PRESS_KEY default before any custom functions
+              # since they may also set PRESS_KEY.
+              # PRESS_KEY is set depending on the value of field 5.
+              f_press_key $1 $4
+              #
+              # Run application.
+              $APP_CMD
+              #
+              ERROR=$? # Save error flag condition.
+              #
+              # Display a pause to display information if specified in APP_CODE.
+              f_option_press_enter_key
+           ;;
+      esac
+      #
+      case $ERROR in
+           0)
+           #No error, successful run.
+           ;;
+           127)
+           # Error code 127 means application is not installed.
+           f_app_error $1 $2 $3 $ERROR # Display error messages.
+           #
+           # Install application?
+           f_app_install_question $1 $2 $3 $4 $5
+           #
+           # Test to see if the application was installed successfully.
+           # This returns path of application's run-time executable command.
+           # Do not display any messages on screen.
+           # Redirect error and standard output to null device.
+           #
+           command -v $2 &>/dev/null
+           # 1=standard messages, 2=error messages, &=both.
+           #
+           # Save error flag condition.
+           ERROR=$?
+           # Error code 1 $?=1 means application not installed.
+           # Error code 0 (zero) where $?=0 means no error.
+           #
+           # Is the application is installed?
+           # If install is successful, then run application.
+           if [ "$ERROR" = "0" ] ; then
+              # Run application.
+              $APP_CMD
+              #
+              # Save error flag condition.
+              ERROR=$?
+              #
+              # Display any error messages.
+              f_app_error $1 $2 $3 $ERROR
+           fi
+           ;;
+           1 | 13 | 62 )
+              # Various errors.
+              # Display appropriate error message.
+              f_app_error $1 $2 $3 $ERROR
+           ;;
+           *)
+              # If any error [!0] occurs (error code is not zero).
+              # Display appropriate error message.
+              f_app_error $1 $2 $3 $ERROR
+           ;;
+      esac
+      #
+} # End of function f_app_run
+#
+# +----------------------------------------+
+# |          Function f_press_key          |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_CODE.
+#    Uses: X, XSTR.
+# Outputs: PRESS_KEY.
+#
+# Summary: Set flag PRESS_KEY which controls display of message
+#          "Press 'Enter' key to continue."
+#
+# Dependencies: None.
+#
+f_press_key () {
+      #
+      # Field 5 sets PRESS_KEY=1/0. May be over-ridden by subsequent functions
+      # which also set PRESS_KEY.
+      #
+      # Format of menu item options:
+      # "#f_funct1^f_funct2^f_funct3^Quit-Code^PRESS_KEY #MXX App Name - Description of application."
+      #   field-1  field-2  field-3  field-4   field-5   Marker
+      #
+      XSTR=$(echo $2 | awk -F "^" '{print $5}')
+      if [ "$XSTR" != 0 ] && [ -n "$XSTR" ] ; then
+          # Display "Press 'Enter' key to continue."
+          PRESS_KEY=1
+      else
+         # Do not display "Press 'Enter' key to continue."
+         PRESS_KEY=0
+      fi
+      export PRESS_KEY
+      unset X XSTR
+      #
+} # End of function f_press_key
+#
+# +----------------------------------------+
+# |   Function f_how_to_quit_application   |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - Application name.
+#          $3 - typed key to quit.
+#          $4 - string "no-clear" if screen should not be cleared.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display Quit message for web browsers and all other apps.
+#
+# Dependencies: f_message.
+#
+f_how_to_quit_application () {
+      #
+      if [ -z $4 ] ; then
+         # Blank the screen.
+         clear
+      fi
+      #
+      f_message $1 "OK" "How-To Quit $2" "\nTo quit \"$2\", type $3."
+      #
+} # End of function f_how_to_quit_application.
+#
+# +----------------------------------------+
+# |   Function f_option_press_enter_key    |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: PRESS_KEY.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display message "Press 'Enter' key to continue if PRESS_KEY is set.
+#
+# Dependencies: f_press_enter_key_to_continue
+#
+f_option_press_enter_key () { # Display message and wait for user input.
+      #
+      # $PRESS_KEY = 0 means Do not display "Press 'Enter' key to continue."
+      # $PRESS_KEY = 1 means Display "Press 'Enter' key to continue."
+      #
+      if [ "$PRESS_KEY" -eq 1 ] ; then
+         f_press_enter_key_to_continue
+      fi
+      #
+} # End of function f_option_press_enter_key
+#
+# +----------------------------------------+
+# |       Function f_app_install_msg       |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - Application name.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display a message how-to install packages using different distros.
+#
+# Dependencies: f_message.
+#
+f_app_install_msg () {
+      #
+      echo > $TEMP_FILE
+      echo "This $2 application is either not installed" >> $TEMP_FILE
+      echo "or is installed but --version, --help or man pages were never written for it." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      #
+      # Note the $APP_NAME is not necessarily the package name
+      # i.e. "trek" is in the "bsdgames" package.
+      #
+      echo "To install under Debian-based Linux use command:" >> $TEMP_FILE
+      echo "                           sudo apt-get install <application package name>" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To install under Red Hat-based Linux use command:" >> $TEMP_FILE
+      echo "                           sudo rpm -ivh <application package name>" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To install under Arch-based Linux use command:" >> $TEMP_FILE
+      echo "                           sudo pacman -S <application package name>" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "To install under Slackware-based Linux use command:" >> $TEMP_FILE
+      echo "                           sudo installpkg <application package name>" >> $TEMP_FILE
+      echo "                           sudo slackpkg <application package name>" >> $TEMP_FILE
+      echo  >> $TEMP_FILE
+      f_message $1 "OK" "Installation Instructions" $TEMP_FILE
+      #
+} # End of function f_app_install_msg.
+#
+# +----------------------------------------+
+# |      Function f_app_install_msg_2      |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - $APP_NAME_INSTALL software package name.
+#          $3 - Package manager install command.
+#    Uses: APP_INSTALL_CMD.
+# Outputs: None.
+#
+# Summary: If installation of app fails, display this informational message.
+#
+# Dependencies: f_message.
+#
+f_app_install_msg_2 () {
+      #
+      # Change underscores to spaces to make human readable.
+      APP_INSTALL_CMD=$(echo $3 | tr '_' ' ')
+      #
+      echo "Command \"$APP_INSTALL_CMD\" failed." > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Perhaps the software package \"$2\"is not pre-packaged" >> $TEMP_FILE
+      echo "in the software repositories for this Linux distribution." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Not all Linux distributions include all the applications in this menu." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "i.e. An application or software package that is available in the Red Hat" >> $TEMP_FILE
+      echo "     distribution may not be available in the Debian distribution," >> $TEMP_FILE
+      echo "     and vice versa." >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      f_message $1 "OK" "Missing Application" $TEMP_FILE
+      #
+      unset APP_INSTALL_CMD
+      #
+} # End of function f_app_install_msg_2
+#
+# +----------------------------------------+
+# |       Function f_favorite_app_add      |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - $GUI.
+#          $2 - APP_NAME Application name from menu.
+#          $3 - Menu directory/file name.
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Adds new user-selected favorite application as a new menu item
+#          within the "Favorites Menu". This function needs to be in the
+#          library cliappmenu.lib so that it is accessible from any
+#          Application Menu when the user enters "<application name> fav"
+#          in an Application Menu.
+#
+# Dependencies: f_message.
+#
+f_favorite_app_add () {
+      #
+      # Get menu item data.
+      LINE=$(grep "#@@$2#@@" $3)
+      # Copy menu item data into Favorites menu.
+      # Add new setting of GUI variable.
+      # Insert string LINE after "#@@Return#@@Return to previous menu.#@@break".
+      sed -i "/#@@Return#@@Return to previous menu.#@@break/a $LINE" $CLI_DIR/cli-favorites.lib
+      ERROR=$?
+      sed -i '/#@@Return#@@Return to previous menu.#@@break/a #' $CLI_DIR/cli-favorites.lib
+      #
+      if [ $ERROR -eq 0 ] ; then
+         # Display status message.
+         f_message $1 "NOK" "Favorites Menu Updated" "The Favorites Menu was successfully updated.\nAdded menu item $2 to Favorites Menu."
+      else
+         f_message $1 "OK" "Favorites Menu Not Updated" "The Favorites Menu was not updated.\nAn error occurred and menu item $2 was not added to the Favorites Menu."
+      fi
+      #
+} # End of function f_favorite_app_add
+#
+# +----------------------------------------+
+# |          Function f_app_error          |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - Application name from menu.
+#          $3 - The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - ERROR code.
+#
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display detailed error message for corresponding error code.
+#
+# Dependencies: f_message, f_yn_question, f_display_error_code.
+#
+f_app_error () {
+      #
+      case $4 in # Start of Error Number case statement.
+           1) # Error code 1 is a general error code. But it does not always
+              # mean there actually was an error.
+              # Some applications exit with error code 1
+              # even if successfully run.
+              # The Error Code 1 Number Exceptions case statement, takes care
+              # of those weird applications.
+              #
+              # Start of Error Code Number 1 Exceptions case statement.
+              case $2 in
+                   *diff*)
+                      # Do not display error message if error code 1
+                      # and apps colordiff, diff, imediff2, vimdiff, wdiff.
+                      # For diff apps, error code 1 means compared files are
+                      # different, not a real error.
+                   ;;
+                   xorcurses)
+                      # Do not display error message if error code 1
+                      # Application always exits with error code 1 for some
+                      # bizarre reason.
+                   ;;
+                   sudo' '*)
+                      # Display error message.
+                      f_display_error_code $1 $2 $4
+                      f_message $1 "OK" "Run $2 Error" "Try running \"$2\" without the sudo command.\nThere is a possibility that the application is not installed."
+                   ;;
+                   *)
+                      # Display error message.
+                      f_display_error_code $1 $2 $4
+                      f_yn_question $1 "N" "Run again?" "Run \"$2\" again this time using (temporary root permissions) sudo?"
+                      #
+                      case $ANS in  # Start of Use SUDO case statement.
+                           0) # Answer is Yes.
+                              sudo $3
+                              ERROR=$? # Save error flag condition.
+                              # Error code 1 $?=1 means sudo failed.
+                              # Error code 0 (zero) where $?=0 means no error.
+                              #
+                              if [ $ERROR -ne 0 ] ; then
+                                 # Error after running with sudo?
+                                 # Display error message.
+                                 f_display_error_code $1 $2 $4
+                                 #
+                                 echo "May be caused by bad sudo password, or user has no permission to use sudo," > $TEMP_FILE
+                                 echo "or bad $2 syntax." >> $TEMP_FILE
+                                 echo "Consult help using man $2." >> $TEMP_FILE
+                                 f_message $1 "OK" "Running \"sudo $2\" failed." $TEMP_FILE
+                                 #
+                              fi
+                           ;;
+                           1) # Answer is No.
+                              ERROR=0
+                           ;;
+                      esac # End of Use SUDO case statement.
+                   ;;
+              esac # End of Error Code Number 1 Exceptions case statement.
+           ;;
+           2) # Error code 2 means operand or files is missing.
+                # Display error message.
+                f_display_error_code $1 $2 $4
+                #
+                echo "Missing operand (file name(s) or names)." > $TEMP_FILE
+                echo "Try running \"$2\" again this time using operands." >> $TEMP_FILE
+                echo >> $TEMP_FILE
+                echo "Operands may be filenames as in the examples below." >> $TEMP_FILE
+                echo "Example: $2 <filename> or $2 <filename1> <filename2>" >> $TEMP_FILE
+                echo "Example: locate test1.txt     or diff test1.txt test2.txt" >> $TEMP_FILE
+                echo >> $TEMP_FILE
+                echo "Or operands may be a combination of parameters, options, and filenames." >> $TEMP_FILE
+                echo "Example: $2 <parameters> <filename> <options>" >> $TEMP_FILE
+                echo "Example: find /home -iname test1.txt -print" >> $TEMP_FILE
+                f_message $1 "OK" "Missing operands." $TEMP_FILE
+           ;;
+           100) # Error code 100 means installation application
+              # "apt-get" is locked by another process.
+              # Display error message.
+              f_display_error_code $1 $2 $4
+              #
+              f_message $1 "OK" "$2 Application Error" "This \"$2\" application may be locked and in use by another process."
+              #
+           ;;
+           126) # Error code 126 means bad interpreter.
+                # Programming language is not installed?
+                # Example: perl programming language cannot be found,
+                # or environment not specified in the perl script.
+              #
+              # Display error message.
+              f_display_error_code $1 $2 $4
+              #
+              echo "The programming environment may not be specified correctly in the first line" > $TEMP_FILE
+              echo "of the application." >> $TEMP_FILE
+              echo >> $TEMP_FILE
+              echo "Example: An application which is a perl script may not have the first line correct." >> $TEMP_FILE
+              echo "         Change from: #!/usr/local/bin/perl" >> $TEMP_FILE
+              echo "         Change   to: #!/usr/bin/env perl" >> $TEMP_FILE
+              f_message $1 "OK" "Programming Environment Error" $TEMP_FILE
+           ;;
+           127) # Error code 127 means application is not installed.
+              # Display error message.
+              f_display_error_code $1 $2 $4
+              f_message $1 "OK" "$2 Application Error" "This \"$2\" application cannot be run since it is not yet installed."
+           ;;
+           13 | 62 | [!0]) # All other errors are processed here.
+              # 13-some unknown app?
+              # 62-"command not found" freshclam log folders not set up.
+              # [!0]-not zero, any non-zero error number.
+              case $APP_NAME in  # Start of sudo-error case statement
+                   sudo' '*)
+                      # Display error message.
+                      f_display_error_code $1 $2 $4
+                      f_message $1 "OK" "$2 Application Error" "Try running \"$APP_NAME_TMP\" without the sudo command.\nThere is a possibility that the application is not installed."
+                   ;;
+                   *)
+                      # Display error message.
+                      f_display_error_code $1 $2 $4
+                      f_yn_question $1 "N" "Run again?" "Run \"$2\" again this time using (temporary root permissions) sudo?"
+                      case $ANS in  # Start of Use SUDO case statement.
+                           0) # Answer is Yes.
+                              sudo $3
+                              ERROR=$? # Save error flag condition.
+                              # Error code 1 $?=1 means sudo failed.
+                              # Error code 0 (zero) where $?=0 means no error.
+                              #
+                              if [ $ERROR -ne 0 ] ; then
+                                 # Error after running with sudo?
+                                 # Display error message.
+                                 f_display_error_code $1 $2 $4
+                                 #
+                                 echo "May be caused by bad sudo password, or user has no permission to use sudo," > $TEMP_FILE
+                                 echo "or bad $2 syntax." >> $TEMP_FILE
+                                 echo "Consult help using man $2." >> $TEMP_FILE
+                                 f_message $1 "OK" "Running \"sudo $2\" failed." $TEMP_FILE
+                                 #
+                              fi
+                           ;;
+                           1) # Answer is No.
+                              ERROR=0
+                           ;;
+                      esac # End of Use SUDO case statement.
+                   unset ANS  # Throw out this variable.
+                   ;;
+              esac # End of sudo-error case statement
+           ;;
+      esac # End of Error Number case statement.
+      #
+} # End of function f_app_error
+#
+# +----------------------------------------+
+# |     Function f_display_error_code      |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - Application name from menu.
+#          $3 - ERROR code.
+#
+#    Uses: None.
+# Outputs: None.
+#
+# Summary: Display error code.
+#
+# Dependencies: f_message.
+#
+f_display_error_code () {
+      #
+      # Use different color font for error messages.
+      echo "**********************************************************************" > $TEMP_FILE
+      echo ">>>>>>>>>> SEE ABOVE for application error messages, if any <<<<<<<<<<" >> $TEMP_FILE
+      echo "**********************************************************************" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "          ***********" >> $TEMP_FILE
+      echo "Error code >>> $3 <<<  from \"$2\" application." >> $TEMP_FILE
+      echo "          ***********" >> $TEMP_FILE
+      f_message $1 "OK" "Error Code" $TEMP_FILE
+      #
+} # End of function f_display_error_code
+#
+# +----------------------------------------+
+# |     Function f_app_install_question    |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - $APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - $APP_CODE Application code.
+#          $5 - Field number of application code.
+#    Uses: None.
+# Outputs: ERROR, PRESS_KEY.
+#
+# Summary: Ask question "Do you want to install APP_NAME?"
+#
+# Dependencies: f_yn_install_question, f_app_install.
+#
+f_app_install_question () {
+      #
+      # Blank the screen.
+      clear
+      #
+      f_yn_question $1 "N" "Install Application?" "Do you want to install \"$2\"?"
+      #
+      case $ANS in
+           0)
+              # Yes, install the application.
+              #
+              # Blank the screen.
+              clear
+              #
+              f_app_install $1 $2 $3 $4 $5
+           ;;
+           *)
+              # No, do not install the application.
+              # Do not display "Press 'Enter' key to continue."
+              PRESS_KEY=0
+           ;;
+      esac
+      #
+} # End of function f_app_install_question
+#
+# +----------------------------------------+
+# |         Function f_app_install         |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - $APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - $APP_CODE Application code.
+#          $5 - Field number of application code.
+#    Uses:
+# Outputs: ERROR.
+#
+# Summary: Install application, if necessary run custom install function
+#          or download from web.
+#
+# Dependencies: f_match_pkg_name_to_app_name, f_install_using_apt,
+#          f_install_using_slackpkg, f_install_using_installpkg,
+#          f_install_using_pacman, f_install_using_rpm,
+#          f_install_using_no_auto, f_eval_funct, f_message, f_web_install.
+#
+f_app_install () {
+      #
+      # 1. Since the application name may not match the software package name,
+      #    get the corresponding package name used by the distro's software
+      #    package manager.
+      # 2. Try installing application using distro's software package manager.
+      #    Determine which application installation manager is used
+      #    by checking if the requisite directory exists.
+      # 3. Install successful? Yes, DONE AND EXIT.
+      # 4. No, install failed, display error message and then check for a
+      #    custom install function.
+      # 5. Is there a custom install function specified in the menu?
+      #    No, skip to step 9.
+      # 6. Yes, try to install again by using the custom install function.
+      #    Custom install function format: f_install_<application name>.
+      #    (Usually a custom install function will download source code
+      #    from web and then compile it).
+      # 7. Did custom install succeed? Yes, DONE AND EXIT.
+      # 8. Is a maintainer's web site specified by lib_cli-web-sites.lib?
+      #    No, DONE AND EXIT
+      # 9. Yes, does user want to download application source code from the
+      #     maintainer's web site?
+      # 10. Yes, download source code and leave it to the user
+      #     to manually compile.
+      #
+      #
+      # 1. Since the application name may not match the software package name,
+      #    get the corresponding package name used by the distro's software
+      #    package manager.
+      #
+      f_match_pkg_name_to_app_name $1 $2
+      # Result APP_NAME_INSTALL is the software package name.
+      #
+      # 2. Try installing application using distro's software package manager.
+      #    Determine which application installation manager is used
+      #    by checking if the requisite directory exists.
+      #
+      # 3 to 10. Are included in code below.
+      #
+      # If /etc/apt directory exists, then use apt-get install
+      # for Debian-based packages.
+      if [ -d /etc/apt ] ; then
+         f_install_using_apt $1 $APP_NAME_INSTALL $3 $4 $5
+         #
+         # If <slackware Linux installation directory> exists,
+         # then use slackpkg or installpkg for slackware packages.
+      elif [ -d /var/lib/slackpkg ] ; then
+         # f_install_using_slackpkg $1 $APP_NAME_INSTALL
+         echo
+         # This if statement is commented out because slackpkg has
+         # error code $?=0 even if the install fails.
+         #
+         # If <slackware Linux installation directory> exists,
+         # then use slackpkg or installpkg for slackware packages.
+      elif [ -d /var/lib/installpkg ] ; then
+         # f_install_using_installpkg $1 $APP_NAME_INSTALL $4 $5
+         echo
+         # This if statement is commented out because slackpkg has
+         # error code $?=0 even if the install fails.
+         #
+         # if <arch Linux installation directory> exists, then use pacman
+         # for arch Linux packages.
+      elif [ -d /var/lib/pacman ] ; then
+         f_install_using_pacman $1 $APP_NAME_INSTALL $3 $4 $5
+         #
+         # if /var/lib/rpm directory exists, then use rpm install
+         # for RPM-based packages.
+         # rpm is last because some Slackware-based distros have
+         # rpm directories also.
+      elif [ -d /var/lib/rpm ] ; then
+         f_install_using_rpm $1 $APP_NAME_INSTALL $3 $4 $5
+         #
+      else
+         f_install_using_no_auto $1 $APP_NAME_INSTALL $3 $4 $5
+         #
+      fi
+      #
+      if [ "$ERROR" -ne 0 ] ; then
+         # If install via package manager failed then see if there is a custom
+         # install function.
+         #
+         # Reset ERROR Flag.
+         ERROR=0
+         #
+         f_eval_funct $1 $2 $4 $5
+         #
+         # Restore user-selected CLI text colors.
+         if [ $1 = "text" ] ; then
+            # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+            # Why needed? Function f_message uses application "Less" to display pages of text.
+            # But "Less" resets the terminal's colors to white on black.
+            f_configure_use $1
+         fi
+         #
+         if [ $ERROR -ne 0 ] ; then
+            # Error code 1 $?=1 means custom installation failed.
+            # Error code 0 (zero) where $?=0 means no error.
+            # If install via custom install function failed then
+            # see if there is a web install function.
+            # Use different color font for error messages.
+            #
+            f_message $1 "OK" "Installation Error" "The $2 automatic download/install from source code failed somehow..."
+            #
+            f_web_install $1 $2 $3 $4 $5
+         fi
+      else
+         # If custom install function does not exist,
+         # does a web install function exist?
+         # Is there a known web site with the source code?
+         # If web install function exists, run it.
+         f_web_install $1 $2 $3 $4 $5
+         #
+      fi
+      #
+      # Restore user-selected CLI text colors.
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use $1
+      fi
+      #
+} # End of function f_app_install
+#
+# +----------------------------------------+
+# |         Function f_web_install         |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - APP_CODE Application code.
+#          $5 - Field number of application code.
+#    Uses: ANS.
+# Outputs: ERROR, PRESS_KEY, APP_NAME_TMP.
+#
+# Summary: Download application from web site and install.
+#
+# Dependencies: f_yn_question, f_message, f_how_to_quit_application, f_app_run.
+#
+f_web_install () {
+      #
+      # Does a web install function exist?
+      # Function defines and sets WEB_SITE_INSTALL with the URL of an external installation web site.
+      source $CLI_DIR/cli-web-sites.lib
+      f_app_web_install $1 $2
+      #
+      # Value of $WEB_SITE_INSTALL
+      # ""              No web site is specified.
+      # <web site name> Web site of application source code
+
+      #  if a web install function exists run it.
+      if [ -n "$WEB_SITE_INSTALL" ] ; then
+         #
+         f_yn_question $1 "N" "Download from web site?" "Do want to use the elinks web browser to visit the project's web site\nand download the application manually?"
+         #
+         case $ANS in # Start of Install case statement.
+              0)
+                 # Blank the screen.
+                 clear
+                 f_message $1 "OK" "IMPORTANT" "When using the elinks web browser, select \"Save\" to download a file."
+                 #
+                 # Save name of application that did not install properly.
+                 APP_CMD="elinks $WEB_SITE_INSTALL"
+                 f_how_to_quit_application $1 $2 "q"
+                 f_app_run $1 $2 "$APP_CMD" $4 $5
+                 #
+                 if [ $ERROR -ne 0 ] ; then
+                    # Display error message.
+                    echo "Failed to automatically download the source code from a web site" > $TEMP_FILE
+                    echo "because the web site hosting source code is not known." >> $TEMP_FILE
+                    echo "You will have to do an Internet search to find a web site to download the" >> $TEMP_FILE
+                    echo "software. Please be sure to download from a reputable web site." >> $TEMP_FILE
+                    f_message $1 "OK" "Web site unknown" $TEMP_FILE
+                 fi
+                 #
+                 # Do not display "Press 'Enter' key to continue."
+                 PRESS_KEY=0
+              ;;
+              1 | *)
+                 # Do not display "Press 'Enter' key to continue."
+                 PRESS_KEY=0
+                 #
+                 # Blank the screen.
+                 clear
+              ;;
+         esac # End of Install case statement.
+         # Throw out this variable.
+         unset ANS
+      fi
+      #
+} # End of function f_web_install
+#
+# +----------------------------------------+
+# | Function f_match_pkg_name_to_app_name  |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - $APP_NAME Application name.
+#    Uses: None.
+# Outputs: APP_NAME_INSTALL.
+#
+# Summary: Below are cases where the APP_NAME is not the same as the
+#          package name used to install the application.
+#          i.e. The game 'trek' is installed using the package called 'bsdgames'.
+#
+# Dependencies: None.
+#
+f_match_pkg_name_to_app_name () {
+      #
+      # Initialize variable to APP_NAME.
+      APP_NAME_INSTALL=$2
+      #
+      case $2 in # Start of Match Name case statement.
+           aafire | aainfo | aatest | aasavefont)
+           APP_NAME_INSTALL="libaa-bin"
+           ;;
+           aaxine | cacaxine | fbxine)
+           APP_NAME_INSTALL="xine-console"
+           ;;
+           abc2midi | midi2abc | abc2abc | mftext | midicopy)
+           APP_NAME_INSTALL="abcmidi"
+           ;;
+           acat| als | apack | atool | aunpack)
+           APP_NAME_INSTALL="atool"
+           ;;
+           adventure | arithmetic | atc | backgammon | battlestar | bcd | boggle | caesar | canfield | countmail | cribbage | dab | go-fish | gomoku | hack | hangman | hunt | mille | monop | morse | number | pig | phantasia | pom | ppt | primes | quiz | random | rain | robots | rot13 | sail | snake | tetris | trek | wargames | worm | worms | wump | wtf)
+           APP_NAME_INSTALL="bsdgames"
+           ;;
+           ag)
+           # If /etc/apt directory exists, then use Debian package name.
+           if [ -d /etc/apt ] ; then
+              APP_NAME_INSTALL="silversearcher-ag"
+           fi
+           ;;
+           animate | composite | compare | conjure | convert | display | identify | import | mogrify | montage | stream)
+           APP_NAME_INSTALL="imagemagick"
+           ;;
+           aria2c)
+           APP_NAME_INSTALL="aria2"
+           ;;
+           barnowl | zcrypt)
+           APP_NAME_INSTALL="barnowl"
+           ;;
+           binhex | frommac | hexbin | macunpack | macsave | macstream | tomac)
+           APP_NAME_INSTALL="macutils"
+           ;;
+           cdrecord | readcd | cdda2wav | dirsplit | mkisofs | isodebug | isodump |  isoinfo | isovfy | rscsi)
+           APP_NAME_INSTALL="cdrtools"
+           ;;
+           checkbashisms)
+           APP_NAME_INSTALL="devscripts"
+           ;;
+           clamscan)
+           APP_NAME_INSTALL="clamav"
+           ;;
+           dadd | dconv | ddiff | dgrep | dround | dseq | dtest)
+           APP_NAME_INSTALL="dateutils"
+           ;;
+           exiftool)
+           APP_NAME_INSTALL="libimage-exiftool-perl"
+           ;;
+           e3*) # covers e3em, e3vi, e3pi, e3ne, e3ws.
+           APP_NAME_INSTALL="e3"
+           ;;
+           fbgs | fbi | ida | exiftran)
+           APP_NAME_INSTALL="fbi"
+           ;;
+           fd)
+           APP_NAME_INSTALL="fdclone"
+           ;;
+           geoiplookup)
+           APP_NAME_INSTALL="geoip-bin"
+           ;;
+           gitfm | gitps | gitview | gitwipe | gitkeys | gitmount | gitaction | gitunpack | gitrgrep | gitregrep | gitrfgrep)
+           APP_NAME_INSTALL="gnuit"
+           ;;
+           ifplugstatus)
+           APP_NAME_INSTALL="ifplugd"
+           ;;
+           jstar | jmacs | jpico | rjoe)
+           APP_NAME_INSTALL="joe"
+           ;;
+           lastb)
+           APP_NAME_INSTALL="last"
+           ;;
+           mattrib | mbadblocks | mcat | mcd | mclasserase | mcopy | mdel | mdeltree | mdir | mdoctorfat | mdu | mformat | minfo | mlabel | mmd | mmount | mpartition | mrd | mread | mmove | mren | mshowfat | mshortname | mtoolstest | mtype | mwrite | mzip)
+           APP_NAME_INSTALL="mtools"
+           ;;
+           moc)
+           APP_NAME_INSTALL="libqt4-dev"
+           ;;
+           mpstat | iostat | pidstat | sadf | sar)
+           APP_NAME_INSTALL="sysstat"
+           ;;
+           nagios3)
+           APP_NAME_INSTALL="nagios3-core"
+           ;;
+           npush | npull)
+           APP_NAME_INSTALL="ncp"
+           ;;
+           photorec)
+           APP_NAME_INSTALL="testdisk"
+           ;;
+           qmv | qcp | imv | icp | deurlname)
+           APP_NAME_INSTALL="renameutils"
+           ;;
+           tcpblast | netload | trafshow | netwatch | strobe | statnet | tcpspray)
+           APP_NAME_INSTALL="netdiag"
+           ;;
+           tide | xtide)
+           APP_NAME_INSTALL="xtide"
+           ;;
+           todo | todo2)
+           APP_NAME_INSTALL="devtodo"
+           ;;
+           trek73)
+           APP_NAME_INSTALL="trekx"
+           ;;
+           ttyplay)
+           APP_NAME_INSTALL="ttyrec"
+           ;;
+           weather)
+           APP_NAME_INSTALL="weather-util"
+           ;;
+           xz | unxz | xzcat | xzgrep)
+           APP_NAME_INSTALL="xz-utils"
+           ;;
+      esac # End of Match Name case statement.
+      #
+} # End of function f_match_pkg_name_to_app_name
+#
+# +----------------------------------------+
+# |      Function f_install_using_apt      |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - APP_CODE Application code.
+#          $5 - Field number of application code.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Install application using apt.
+#
+# Dependencies: f_press_enter_key_to_continue, f_app_install_msg_2,
+#          f_eval_funct, f_app_web_install.
+#
+f_install_using_apt () {
+      #
+      # Install software package.
+      sudo apt-get install $2
+      ERROR=$? # Save error flag condition.
+      if [ $ERROR -ne 0 ] ; then
+         # Error code 1 $?=1 means installation failed.
+         # Error code 0 (zero) where $?=0 means no error.
+         #
+         # Pause to allow viewing of any native error message.
+         f_press_enter_key_to_continue
+         #
+         # Display message on fail.
+         f_app_install_msg_2 $1 $2 "sudo_apt-get_install"
+         #
+         # If install via package manager failed then see if there is a
+         # custom install function.
+         # If 2nd field is a "1" then <f_install_app-name> is a
+         # custom installation function.
+         #
+         # Reset $ERROR to detect if custom install function fails.
+         ERROR=0
+         f_eval_funct $1 $2 $4 $5
+         #
+         if [ $ERROR -ne 0 ] ; then
+            # Error code 1 $?=1 means custom installation failed.
+            # Error code 0 (zero) where $?=0 means no error.
+            #
+            # Try downloading source code from a web site
+            # and manually installing.
+            f_app_web_install $1 $2 $3 $4 $5
+         fi
+      fi
+      #
+} # End of function f_install_using_apt
+#
+# +----------------------------------------+
+# |   Function f_install_using_slackpkg    |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - APP_CODE Application code.
+#          $5 - Field number of application code.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Install application using slackpkg.
+#
+# Dependencies: f_press_enter_key_to_continue, f_app_install_msg_2,
+#          f_eval_funct, f_app_web_install.
+#
+f_install_using_slackpkg () {
+      #
+      # Install software package.
+      sudo slackpkg install $APP_NAME_INSTALL
+      ERROR=$? # Save error flag condition.
+      # To Do List: find a way to indicate a failed install
+      # and alter if statement below.
+      #
+      if [ $ERROR -ne 0 ] ; then
+         # Error code 1 $?=1 means installation failed.
+         # Error code 0 (zero) where $?=0 means no error.
+         #
+         # Pause to allow viewing of any native error message.
+         f_press_enter_key_to_continue
+         #
+         # Display message on fail.
+         f_app_install_msg_2 $1 $2 "sudo_slackpkg_install"
+         #
+         # If install via package manager failed then see if there is a
+         # custom install function.
+         # If 2nd field is a "1" then <f_install_app-name> is a
+         # custom installation function.
+         #
+         # Reset $ERROR to detect if custom install function fails.
+         ERROR=0
+         f_eval_funct $1 $2 $4 $5
+         #
+         if [ $ERROR -ne 0 ] ; then
+            # Error code 1 $?=1 means custom installation failed.
+            # Error code 0 (zero) where $?=0 means no error.
+            #
+            # Try downloading source code from a web site
+            # and manually installing.
+            f_app_web_install $1 $2 $3 $4 $5
+         fi
+      fi
+      #
+} # End of function f_install_using_slackpkg
+#
+# +----------------------------------------+
+# |  Function f_install_using_installkpkg  |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - APP_CODE Application code.
+#          $5 - Field number of application code.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Install application using installpkg.
+#
+# Dependencies: f_press_enter_key_to_continue, f_app_install_msg_2,
+#          f_eval_funct, f_app_web_install.
+#
+f_install_using_installpkg () {
+      #
+      # Install software package.
+      sudo installpkg install $APP_NAME_INSTALL
+      ERROR=$? # Save error flag condition.
+      #
+      # This if statement is commented out because slackpkg
+      #  has error code $?=0 even if install fails.
+      #
+      # To Do List: find a way to indicate a failed install
+      # and alter if statement below.
+      #
+      if [ $ERROR -ne 0 ] ; then
+         # Error code 1 $?=1 means installation failed.
+         # Error code 0 (zero) where $?=0 means no error.
+         #
+         # Pause to allow viewing of any native error message.
+         f_press_enter_key_to_continue
+         #
+         # Display message on fail.
+         f_app_install_msg_2 $1 $2 "sudo_installpkg_install"
+         #
+         # If install via package manager failed then see if there is a
+         # custom install function.
+         # If 2nd field is a "1" then <f_install_app-name> is a
+         # custom installation function.
+         #
+         # Reset $ERROR to detect if custom install function fails.
+         ERROR=0
+         f_eval_funct $1 $2 $4 $5
+         #
+         if [ $ERROR -ne 0 ] ; then
+            # Error code 1 $?=1 means custom installation failed.
+            # Error code 0 (zero) where $?=0 means no error.
+            #
+            # Try downloading source code from a web site
+            # and manually installing.
+            f_app_web_install $1 $2 $3 $4 $5
+         fi
+      fi
+      #
+} # End of function f_install_using_installpkg
+#
+# +----------------------------------------+
+# |     Function f_install_using_pacman    |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - APP_CODE Application code.
+#          $5 - Field number of application code.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Install application using pacman.
+#
+# Dependencies: f_press_enter_key_to_continue, f_app_install_msg_2,
+#          f_eval_funct, f_app_web_install.
+#
+f_install_using_pacman () {
+      #
+      # Install software package.
+      sudo pacman -S $APP_NAME_INSTALL
+      ERROR=$? # Save error flag condition.
+      if [ $ERROR -ne 0 ] ; then
+         # Error code 1 $?=1 means installation failed.
+         # Error code 0 (zero) where $?=0 means no error.
+         #
+         # Pause to allow viewing of any native error message.
+         f_press_enter_key_to_continue
+         #
+         # Display message on fail.
+         f_app_install_msg_2 $1 $2 "sudo_pacman_-S"
+         #
+         # If install via package manager failed then see if there is a
+         # custom install function.
+         # If 2nd field is a "1" then <f_install_app-name> is a
+         # custom installation function.
+         #
+         # Reset $ERROR to detect if custom install function fails.
+         ERROR=0
+         f_eval_funct $1 $2 $4 $5
+         #
+         if [ $ERROR -ne 0 ] ; then
+            # Error code 1 $?=1 means installation failed.
+            # Error code 0 (zero) where $?=0 means no error.
+            #
+            # Try downloading source code from a web site
+            # and manually installing.
+            f_app_web_install $1 $2 $3 $4 $5
+         fi
+      fi
+      #
+} # End of function f_install_using_pacman
+#
+# +----------------------------------------+
+# |       Function f_install_using_rpm     |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - APP_CODE Application code.
+#          $5 - Field number of application code.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Install application using rpm.
+#
+# Dependencies: f_press_enter_key_to_continue, f_app_install_msg_2,
+#          f_eval_funct, f_app_web_install.
+#
+f_install_using_rpm () {
+      #
+      # Install software package.
+      sudo rpm -ivh $APP_NAME_INSTALL
+      ERROR=$? # Save error flag condition.
+      if [ $ERROR -ne 0 ] ; then
+         # Error code 1 $?=1 means installation failed.
+         # Error code 0 (zero) where $?=0 means no error.
+         #
+         # Pause to allow viewing of any native error message.
+         f_press_enter_key_to_continue
+         #
+         # Display message on fail.
+         f_app_install_msg_2 $1 $2 "sudo_rpm_-ivh"
+         #
+         # If install via package manager failed then see if there is a
+         # custom install function.
+         # If 2nd field is a "1" then <f_install_app-name> is a
+         # custom installation function.
+         #
+         # Reset $ERROR to detect if custom install function fails.
+         ERROR=0
+         #
+         f_eval_funct $1 $2 $4 $5
+         #
+         if [ $ERROR -ne 0 ] ; then
+            # Error code 1 $?=1 means custom installation failed.
+            # Error code 0 (zero) where $?=0 means no error.
+            #
+            # Try downloading source code from a web site
+            # and manually installing.
+            f_app_web_install $1 $2 $3 $4 $5
+         fi
+      fi
+      #
+} # End of function f_install_using_rpm
+#
+# +----------------------------------------+
+# |    Function f_install_using_no_auto    |
+# +----------------------------------------+
+#
+#     Rev: 2021-06-30
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME Application name.
+#          $3 - APP_CMD The complete user-entered string,
+#               which may include application parameters and options.
+#          $4 - APP_CODE Application code.
+#          $5 - Field number of application code.
+#    Uses: None.
+# Outputs: ERROR.
+#
+# Summary: Install application using manual install. No automatic install.
+#
+# Dependencies: f_eval_funct, f_app_web_install.
+#
+f_install_using_no_auto () {
+      #
+      f_message $1 "OK" "Manual install required" "You will have to install the $APP_NAME_INSTALL package manually.\n\nAutomatic install is only available for apt, rpm, slackpkg, pacman package managers."
+      #
+      # If install via package manager failed then see if there is a
+      # custom install function.
+      # If 2nd field is a "1" then <f_install_app-name> is a
+      # custom installation function.
+      #
+      # Reset $ERROR to detect if custom install function fails.
+      ERROR=0
+         f_eval_funct $1 $2 $4 $5
+      #
+      if [ $ERROR -ne 0 ] ; then
+         # Error code 1 $?=1 means custom installation failed.
+         # Error code 0 (zero) where $?=0 means no error.
+         #
+         # Try downloading source code from a web site
+         # and manually installing.
+            f_app_web_install $1 $2 $3 $4 $5
+      fi
+      #
+} # End of function f_install_using_no_auto
+#

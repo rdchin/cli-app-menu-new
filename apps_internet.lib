@@ -1,0 +1,451 @@
+#!/bin/bash
+#
+# ©2021 Copyright 2021 Robert D. Chin
+# Email: RDevChin@Gmail.com
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+#
+VERSION="2021-07-01 11:28"
+#
+# +----------------------------------------+
+# |            Brief Description           |
+# +----------------------------------------+
+#
+#& Brief Description
+#&
+#& This library of contains data to create a sub-menu.
+#& This library is a child dependency used by the following scripts.
+#&
+#& Parent script: cliappmenu.sh.
+#&
+#& See script cliappmenu.sh for the terms of the License under which this
+#& software is released.
+#
+# +----------------------------------------+
+# |           Code Change History          |
+# +----------------------------------------+
+#
+## Code Change History
+##
+## (Please see script cliappmenu.sh for Code Change History information.)
+#
+# +--------------------------------------------------------------------------+
+# |                                                                          |
+# |                 Customize Menu choice options below.                     |
+# |                                                                          |
+# +--------------------------------------------------------------------------+
+#
+#
+#
+#                 >>> !!!Warning!!! <<<
+#
+# The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+#
+# Forbidden characters include ; : * ' " & > <
+#
+# These characters will compromise the creation of arrays which
+# in turn creates the menu.
+#
+# General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
+#
+# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
+#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
+#
+# List of inputs for f_create_a_menu_cliappmenu.
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
+#          $3 - MENU_TITLE (Title of the sub-menu)
+#          $4 - TEMP_FILE (Temporary file).
+#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
+#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet Menu                                  |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@Bittorrent#@@File transfer.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_bittorrent_generated.txt"^Internet_-_Bittorrent_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_bittorrent_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@Blogging Clients#@@Blog clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_blogging_clients_generated.txt"^Internet_-_Blogging_Clients_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_blogging_clients_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@Downloaders#@@Download files, videos. and calculate file checksums.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_downloaders_generated.txt"^Internet_-_Downloaders_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_downloaders_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@Email#@@Email clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_email_generated.txt"^Internet_-_Email_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_email_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@FAX#@@FAX clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_fax_generated.txt"^Internet_-_FAX_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_fax_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@IM and Tweets#@@Tweet, AIM/ICQ, Yahoo!, MSN, IRC, Jabber/Google Talk...#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_im_and_tweets_generated.txt"^Internet_-_IM_and_Tweets_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_im_and_tweets_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@IRC Clients#@@Internet Relay Chat clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_irc_clients_generated.txt"^Internet_-_IRC_Clients_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_irc_clients_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@LAN Chat#@@Local Area Network Chat [not IRC].#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_lan_chat_generated.txt"^Internet_-_LAN_Chat_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_lan_chat_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@News Readers#@@Read news, RSS feeds, Usenet messages.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_generated.txt"^Internet_-_News_Readers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@Podcatchers#@@Podcaster readers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_podcatcher_generated.txt"^Internet_-_Podcatchers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_podcatcher_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@Remote Connection#@@Connect to other PCs remotely, cloud services.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_remote_connection_generated.txt"^Internet_-_Remote_Connection_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_remote_connection_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@Transfer#@@File transfer via FTP, HTTP clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_transfer_generated.txt"^Internet_-_Transfer_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_transfer_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#@@Web Browsers#@@Internet web  browsers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_browser_generated.txt"^Internet_-_Web_Browsers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_browser_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#! End Listing Internet Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - Bittorrent Menu                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@aria2c#@@Downloader supports BitTorrent/HTTP/HTTPS/FTP/Metalink.#@@f_app_cmd^$GUI^aria2c#@@0^0^0^0^1
+#
+#@@bitflu#@@Daemon includes web GUI interface, telnet, plug-ins.#@@f_app_cmd^$GUI^bitflu#@@0^0^0^0^1
+#
+#@@bittornado#@@Torrent file transfer.#@@f_app_cmd^$GUI^bittornado#@@0^0^0^0^1
+#
+#@@bittorrent#@@Torrent file transfer.#@@f_app_cmd^$GUI^bittorrent#@@0^0^0^0^1
+#
+#@@ctorrent#@@Torrent file transfer.#@@f_app_cmd^$GUI^ctorrent#@@0^0^0^0^1
+#
+#@@deluge#@@Torrent downloader, user-interfaces GTK+, web, console.#@@f_app_cmd^$GUI^deluge#@@0^0^0^0^1
+#
+#@@hefur#@@Bittorrent tracker, not a client/downloader written in C++.#@@f_app_cmd^$GUI^hefur#@@0^0^0^0^1
+#
+#@@mldonkey#@@Downloader supports BitTorrent/eDonkey/HTTP/FTP.#@@f_app_cmd^$GUI^mldonkey#@@0^0^0^0^1
+#
+#@@rtorrent#@@Torrent file transfer.#@@f_app_cmd^$GUI^rtorrent#@@0^0^0^0^1
+#
+#@@transmission#@@Torrent client web, console, Mac, GTK+ and Qt GUI clients.#@@f_app_cmd^$GUI^transmission#@@0^0^0^0^1
+#
+#! End Listing Internet - Bittorrent Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - Blogging Clients Menu               |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@blazeblogger#@@Blogger content management system.#@@f_app_cmd^$GUI^blazeblogger#@@0^0^0^0^1
+#
+#@@blogger-cli#@@Google blogging client.#@@f_app_cmd^$GUI^blogger-cli#@@0^0^0^0^1
+#
+#@@charm#@@Blogging client, LiveJournal, Atom, and MetaWeb [WordPress].#@@f_app_cmd^$GUI^charm#@@0^0^0^0^1
+#
+#@@nanoblogger#@@Blogger.#@@f_app_cmd^$GUI^nanoblogger#@@1^0^0^0^1
+#
+#@@wp-cli#@@WordPress blogging client.#@@f_app_cmd^$GUI^wp-cli#@@0^0^0^0^1
+#
+#! End Listing Internet - Blogging Clients Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - Downloaders Menu                    |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@axel#@@Downloader accelerator using multiple connections/mirrors.#@@f_app_cmd^$GUI^axel#@@0^0^0^0^1
+#
+#@@aria2c#@@Downloader supports HTTP/HTTPS/FTP/BitTorrent/Metalink.#@@f_app_cmd^$GUI^aria2c#@@0^0^0^0^1
+#
+#@@cclive#@@Download/Play Youtube videos. Rewrite of clive.#@@f_app_cmd^$GUI^cclive#@@0^0^0^0^1
+#
+#@@Checksum#@@Display/Create file checksums to verify file integrity.#@@f_menu_file_checksum^$GUI
+#
+#@@yougrabber#@@Download/Play Youtube videos.#@@f_app_cmd^$GUI^yougrabber#@@0^0^0^0^1
+#
+#@@youtube-dl#@@Download/Play Youtube videos.#@@f_app_cmd^$GUI^youtube-dl#@@0^0^0^0^1
+#
+#! End Listing Internet - Downloaders Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - Email Menu                          |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@alpine#@@E-mail client, FOSS version of pine.#@@f_app_cmd^$GUI^alpine#@@0^0^0^0^1
+#
+#@@cone#@@E-mail client.#@@f_app_cmd^$GUI^cone#@@0^0^0^0^1
+#
+#@@elmo#@@E-mail client.#@@f_app_cmd^$GUI^elmo#@@0^0^0^0^1
+#
+#@@fetchyahoo#@@E-mail client.#@@f_app_cmd^$GUI^fetchyahoo#@@0^0^0^0^1
+#
+#@@gnus#@@E-mail, NNTP, RSS client for Emacs.#@@f_app_cmd^$GUI^gnus#@@0^0^0^0^1
+#
+#@@heirloom-mailx#@@E-mail client.#@@f_app_cmd^$GUI^heirloom-mailx#@@0^0^0^0^1
+#
+#@@mu4e#@@E-mail client for Emacs.#@@f_app_cmd^$GUI^mu4e#@@0^0^0^0^1
+#
+#@@mutt#@@E-mail client.#@@f_app_cmd^$GUI^mutt#@@0^0^0^0^1
+#
+#@@abook#@@Address book with or w/o mutt, features tabbed fields.#@@f_app_cmd^$GUI^abook#@@0^0^0^0^1
+#
+#@@lbdb#@@Little Brothers Database for mutt mail reader.#@@f_app_cmd^$GUI^lbdb#@@0^0^0^0^1
+#
+#@@nedmail#@@E-mail client.#@@f_app_cmd^$GUI^nedmail#@@0^0^0^0^1
+#
+#@@pine#@@E-mail client.#@@f_app_cmd^$GUI^pine#@@0^0^0^0^1
+#
+#@@re-alpine#@@E-mail client.#@@f_app_cmd^$GUI^re-alpine#@@0^0^0^0^1
+#
+#@@sup#@@E-mail client.#@@f_app_cmd^$GUI^sup#@@0^0^0^0^1
+#
+#@@urlview#@@Extracts URL from email text.#@@f_app_cmd^$GUI^urlview#@@0^0^0^0^1
+#
+#! End Listing Internet - Email Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - FAX Menu                            |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@efax#@@FAX over modem.#@@f_app_cmd^$GUI^efax#@@0^0^0^0^1
+#
+#@@hylafax-client#@@Works with HylaFAX server software.#@@f_app_cmd^$GUI^hylafax-client#@@0^0^0^0^1
+#
+#! End Listing Internet - FAX Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - IM and Tweets Menu                  |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@barnowl#@@BarnOwl supports AIM, IRC, Jabber, Zephyr.#@@f_app_cmd^$GUI^barnowl#@@0^0^0^4:NC^1
+#
+#@@bitlbee#@@Jabber, Google Talk, Facebook, ICQ, AIM, MSN, Yahoo! Twitter.#@@f_app_cmd^$GUI^bitlbee#@@0^0^0^0^1
+#
+#@@bti#@@Tweet to Twitter.com, Identi.ca or any other StatusNet.#@@f_app_cmd^$GUI^bti#@@0^0^0^0^1
+#
+#@@centericq#@@Supports the ICQ2000, Yahoo, AIM, MSN, IRC and Jabber.#@@f_app_cmd^$GUI^centericq#@@0^0^0^0^1
+#
+#@@centerim#@@Supports the ICQ2000, Yahoo, AIM, MSN, IRC and Jabber.#@@f_app_cmd^$GUI^centerim#@@0^0^0^0^1
+#
+#@@climm#@@Supports ICQ, Jabber, XMPP, GoogleTalk.#@@f_app_cmd^$GUI^climm#@@0^0^0^0^1
+#
+#@@ekg2#@@IM client supports plug-ins GG, Jabber, IRCs ncurses, GTK2.#@@f_app_cmd^$GUI^ekg2#@@0^0^0^0^1
+#
+#@@emacs-jabber#@@Jabber client for Emacs.#@@f_app_cmd^$GUI^emacs-jabber#@@0^0^0^0^1
+#
+#@@finch#@@AIM/ICQ, Yahoo, MSN, IRC, Jabber/XMPP/Google Talk, Napster.#@@f_app_cmd^$GUI^finch#@@0^0^0^0^0
+#
+#@@freetalk#@@Jabber client.#@@f_app_cmd^$GUI^freetalk#@@0^0^0^0^1
+#
+#@@mcabber#@@Jabber client.#@@f_app_cmd^$GUI^mcabber#@@0^0^0^0^1
+#
+#@@naim#@@Supports AIM, IRC, ICQ, Lily, CMC.#@@f_app_cmd^$GUI^naim#@@0^0^0^0^1
+#
+#@@turses#@@Twitter client, multiple accounts, timelines, and columns.#@@f_app_cmd^$GUI^turses#@@0^0^0^0^1
+#
+#@@twidge#@@Twitter and identi.ca client.#@@f_app_cmd^$GUI^twidge#@@0^0^0^0^1
+#
+#! End Listing Internet - IM and Tweets Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - IRC Clients Menu                    |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@bitchx#@@IRC client.#@@f_app_cmd^$GUI^bitchx#@@0^0^0^0^1
+#
+#@@epic5#@@IRC client based on ircI.#@@f_app_cmd^$GUI^epic5#@@0^0^0^0^1
+#
+#@@erc#@@IRC client for Emacs, powerful, modular, and extensible.#@@f_app_cmd^$GUI^erc#@@0^0^0^0^1
+#
+#@@ii#@@Minimalist FIFO and filesystem-based IRC client. Based on sic.#@@f_app_cmd^$GUI^ii#@@0^0^0^0^1
+#
+#@@ircii#@@Termcap based interface. Supports /encrypt -cast.#@@f_app_cmd^$GUI^ircii#@@0^0^0^0^1
+#
+#@@irssi#@@Supports SILC and ICB protocols via plug-ins.#@@f_app_cmd^$GUI^irssi#@@0^0^0^0^1
+#
+#@@pcw#@@Pop-up chat windows, front-end for ii IRC-client.#@@f_app_cmd^$GUI^pcw#@@0^0^0^0^1
+#
+#@@pork#@@Ncurses-based AOL Instant Messenger and IRC client.#@@f_app_cmd^$GUI^pork#@@0^0^0^0^0
+#
+#@@scrollz#@@An advanced, faster IRC client based on ircII code.#@@f_app_cmd^$GUI^scrollz#@@0^0^0^0^1
+#
+#@@sic#@@Fast small IRC client.#@@f_app_cmd^$GUI^sic#@@0^0^0^0^1
+#
+#! End Listing Internet - IRC Clients Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - LAN Chat Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@talk#@@Copies lines from your terminal to that of another user.#@@f_app_cmd^$GUI^talk#@@0^0^0^0^1
+#
+#@@weechat#@@WeeChat [Wee Enhanced Environment for Chat] fast, light client.#@@f_app_cmd^$GUI^weechat#@@0^0^0^0^1
+#
+#@@ytalk#@@Multi-user chat program can do multiple connections.#@@f_app_cmd^$GUI^ytalk#@@0^0^0^0^1
+#
+#! End Listing Internet - LAN Chat Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - News Readers Menu                   |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@canto#@@RSS feeder.#@@f_app_cmd^$GUI^canto#@@0^0^0^0^1
+#
+#@@cortex#@@Dump news web page to text.#@@f_app_cmd^$GUI^cortex#@@0^0^0^0^1
+#
+#@@gnus#@@News reader and E-mail client for Emacs.#@@f_app_cmd^$GUI^gnus#@@0^0^0^0^1
+#
+#@@hacker-top#@@Dump news web page to text.#@@f_app_cmd^$GUI^hacker-top#@@0^0^0^0^1
+#
+#@@hdlns#@@Display BBC news headlines via RSS feed.#@@f_app_cmd^$GUI^hdlns#@@0^0^0^0^1
+#
+#@@newsbeuter#@@RSS feeder.#@@f_app_cmd^$GUI^newsbeuter#@@0^0^0^0^1
+#
+#@@nn#@@News reader.#@@f_app_cmd^$GUI^nn#@@0^0^0^0^1
+#
+#@@nrss#@@RSS feeder.#@@f_app_cmd^$GUI^nrss#@@0^0^0^0^1
+#
+#@@olive#@@RSS feeder.#@@f_app_cmd^$GUI^olive#@@0^0^0^0^1
+#
+#@@raggle#@@RSS feeder.#@@f_app_cmd^$GUI^raggle#@@0^0^0^0^1
+#
+#@@rawdog#@@RSS feeder.#@@f_app_cmd^$GUI^rawdog#@@0^0^0^0^1
+#
+#@@reddit-top#@@Dump news web page to text.#@@f_app_cmd^$GUI^reddit-top#@@0^0^0^0^1
+#
+#@@rn#@@News reader.#@@f_app_cmd^$GUI^rn#@@0^0^0^0^1
+#
+#@@rsstail#@@RSS feeder.#@@f_app_cmd^$GUI^rsstail#@@0^0^0^0^1
+#
+#@@snownews#@@RSS feeder.#@@f_app_cmd^$GUI^snownews#@@0^0^0^0^1
+#
+#@@MORE...#@@For more news reader applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_2_generated.txt"^Internet_-_News_Readers_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_2_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#
+#! End Listing Internet - News Readers Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - News Readers 2 Menu                 |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@slrn#@@News reader.#@@f_app_cmd^$GUI^slrn#@@0^0^0^0^1
+#
+#@@tin#@@News reader.#@@f_app_cmd^$GUI^tin#@@0^0^0^0^1
+#
+#@@trn#@@News reader.#@@f_app_cmd^$GUI^trn#@@0^0^0^0^1
+#
+#! End Listing Internet - News Readers 2 Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - Podcatchers Menu                     |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@bashpodder#@@Podcatcher.#@@f_app_cmd^$GUI^bashpodder#@@1^1^0^0^1
+#
+#@@goldenpod#@@Podcatcher.#@@f_app_cmd^$GUI^goldenpod#@@0^0^0^0^1
+#
+#@@hpodder#@@Podcatcher.#@@f_app_cmd^$GUI^hpodder#@@0^0^0^0^1
+#
+#@@podget#@@Podcatcher.#@@f_app_cmd^$GUI^podget#@@0^0^0^0^1
+#
+#@@podracer#@@Podcatcher.#@@f_app_cmd^$GUI^podracer#@@0^0^0^0^1
+#
+#@@uraniacast#@@Podcatcher.#@@f_app_cmd^$GUI^uraniacast#@@0^0^0^0^1
+#
+#! End Listing Internet - Podcatchers Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - Remote Connection Menu              |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@cpu#@@Remote connection.#@@f_app_cmd^$GUI^cpu#@@0^0^0^0^1
+#
+#@@openssh#@@Remote connection.#@@f_app_cmd^$GUI^openssh#@@0^0^0^0^1
+#
+#@@grive#@@Google Drive client for cloud storage on Google.#@@f_app_cmd^$GUI^grive#@@0^0^0^0^1
+#
+#@@ssh#@@Remote connection.#@@f_app_cmd^$GUI^ssh#@@0^0^0^0^1
+#
+#@@sslh#@@Remote connection.#@@f_app_cmd^$GUI^sslh#@@0^0^0^0^1
+#
+#! End Listing Internet - Remote Connection Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - Transfer Menu                       |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@cmdftp#@@File transfer client.#@@f_app_cmd^$GUI^cmdftp#@@0^0^0^0^1
+#
+#@@curl#@@File transfer, FILE, FTP, FTPS, GOPHER, HTTPS, IMAPS, LDAP, etc.#@@f_app_cmd^$GUI^curl#@@0^0^0^0^1
+#
+#@@ftp#@@File transfer via Internet standard File Transfer Protocol.#@@f_app_cmd^$GUI^ftp#@@0^0^0^0^1
+#
+#@@ftpfs#@@File transfer client.#@@f_app_cmd^$GUI^ftpfs#@@0^0^0^0^1
+#
+#@@lftp#@@Sophisticated sftp/ftp/http download/upload client program.#@@f_app_cmd^$GUI^lftp#@@0^0^0^0^1
+#
+#@@ncftp#@@Powerful file transfer client, download directory trees etc.#@@f_app_cmd^$GUI^ncftp#@@0^0^0^0^1
+#
+#@@scp#@@Secure Copy file transfer via ssh, asks for password if needed.#@@f_app_cmd^$GUI^scp#@@0^0^0^0^1
+#
+#@@woof#@@Woof [Web Offer One File] copies files via the HTTP protocol.#@@f_app_cmd^$GUI^woof#@@0^0^0^0^1
+#
+#@@wget#@@File downloader, HTTP, HTTPS, FTP with auto-retrying on fail.#@@f_app_cmd^$GUI^wget#@@0^0^0^0^1
+#
+#! End Listing Internet - Transfer Menu (Required line, do not delete).
+#
+#! +--------------------------------------------------------------+
+#! | Start Listing Internet - Web Browsers Menu                   |
+#! |               (Required header, do not delete).              |
+#! +--------------------------------------------------------------+
+#
+#@@Return#@@Return to previous menu.#@@break
+#
+#@@elinks#@@Web browser, tables, frames, forms support, tabbed browsing.#@@f_app_cmd^$GUI^elinks^elinks lxer.com#@@0^0^0^1^0
+#
+#@@fbcmd#@@Facebook client.#@@f_app_cmd^$GUI^fbcmd#@@0^0^0^1^0
+#
+#@@links#@@Web browser, no graphics mode.#@@f_app_cmd^$GUI^links^links lxer.com#@@0^0^0^1^0
+#
+#@@links2#@@Web browser, has graphics mode.#@@f_app_cmd^$GUI^links2^links2 lxer.com#@@0^0^0^1^0
+#
+#@@lynx#@@Web browser, NLS support.#@@f_app_cmd^$GUI^lynx^lynx lxer.com#@@0^0^0^1^0
+#
+#@@pastebinit#@@Send text to web site pastebin for public viewing. #@@f_app_cmd^$GUI^pastebinit#@@0^0^0^1^0
+#
+#@@retawq#@@Web browser, multi-threaded.#@@f_app_cmd^$GUI^retawq^retawq lxer.com#@@0^0^0^1^0
+#
+#@@surfraw#@@Search the web using a web search site.#@@f_app_cmd^$GUI^surfraw#@@0^0^0^0^0
+#
+#@@w3m#@@Web browser, tables, frames support, IPv6 support.#@@f_app_cmd^$GUI^w3m^w3m lxer.com#@@0^0^0^1^0
+#
+#! End Listing Internet - Web Browsers Menu (Required line, do not delete).
