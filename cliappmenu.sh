@@ -24,22 +24,13 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-07-24 17:03"
+VERSION="2022-07-25 13:02"
 #
 # Set THIS_FILE to the name of this script file.
 THIS_FILE=$(basename $0)
 #
 # Set to a file name used for the generated menu code.
 GENERATED_FILE=$THIS_FILE"_menu_generated.lib"
-#
-# Source library which contains f_script_path.
-source common_bash_function.lib
-#
-# Set variables THIS_DIR, SCRIPT_PATH to directory path of script.
-f_script_path
-#
-# Set Temporary file using $THIS_DIR from f_script_path.
-TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 #
 # Set the location of the "cliapp-dir" sub-directory.
 # Use a sub-directory where you have privileges to edit the library files
@@ -65,26 +56,36 @@ CLI_DIR="/home/USER/cliapp-dir"
 if [ ! -d "$CLI_DIR" ] ; then
    # Blank the screen.
    clear
-   echo > $TEMP_FILE
-   echo "Library cliapp-dir Path Error" >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "CLI_DIR=\"$CLI_DIR\" variable is not set correctly." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "Check directory path of cliapp-dir." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "Edit file cliappmenu.sh to set CLI_DIR correctly." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "It is located under Section \"Default Variable Values\" of file cliappmenu.sh." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "Here is the command to set CLI_DIR using the Sed application." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "Example:  (Actual user name is 'robert')." >> $TEMP_FILE
-   echo >> $TEMP_FILE
-   echo "sed -i 's|^CLI_DIR=\"/home/<username>/cliapp-dir\"|CLI_DIR=\"/home/robert/cliapp-dir\"|g' cliappmenu.sh" >> $TEMP_FILE
-   echo >> $TEMP_FILE
    #
-   f_message "text" "OK" "Library cliapp-dir Path Error" "$TEMP_FILE"
+   # Format message display for 80x24 terminal display resolution.
+   #
+   echo "CLI_DIR variable is not set correctly."
+   echo
+   echo "Current value is: \"CLI_DIR=$CLI_DIR\""
+   echo "           Error: This directory path does not exist."
+   echo
+   echo "You may have to create a new sub-directory in your home directory"
+   echo "to keep all the scripts and library files together and organized."
+   echo
+   echo "   NOTE: The sub-directory will contain all library scripts"
+   echo "         EXCEPT cliappmenu.sh, cliappmenu.lib, common_bash_function.lib."
+   echo "         which should be in the /home/<username>/ directory."
+   echo
+   echo "Edit file cliappmenu.sh to set CLI_DIR correctly to a valid directory path."
+   echo "It is located under Section \"Default Variable Values\" of file cliappmenu.sh."
+   echo
+   echo "Here is the command to set CLI_DIR using the Sed application:"
+   echo "Example: (where actual user name is \"robert\")."
+   echo "         Sub-directory I used is \"/home/robert/cliapp-dir\""
+   echo "         but you can name your directory whatever you want."
+   echo
+   echo "sed -i 's|^CLI_DIR=\"/home/USER/cliapp-dir\"|CLI_DIR=\"/home/robert/cliapp-dir\"|g' cliappmenu.sh"
+   #
+   # Display message and wait for user input.
+   echo
+   echo -n "Press '"Enter"' key to continue."
+   read X
+   unset X  # Throw out this variable.
    #
    # Exit script and return to command-line.
    exit 1
@@ -98,6 +99,15 @@ source cliappmenu.lib
 source $CLI_DIR/cli-common.lib
 source $CLI_DIR/cli-web-sites.lib
 source $CLI_DIR/cli-favorites.lib
+#
+# Source library which contains f_script_path.
+source common_bash_function.lib
+#
+# Set variables THIS_DIR, SCRIPT_PATH to directory path of script.
+f_script_path
+#
+# Set Temporary file using $THIS_DIR from f_script_path.
+TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 #
 # +----------------------------------------+
 # |            Brief Description           |
@@ -199,6 +209,8 @@ source $CLI_DIR/cli-favorites.lib
 ## Includes changes to cliappmenu.lib, cli-common.lib.
 ##
 ## 2022-07-25 *Section "Code Change History" updated for version 5.0 "Gail".
+##            *Section "Default Variable Values" change error message display
+##             at start-up of script to not use f_message or $TEMP_FILE.
 ##
 ## 2022-07-24 *Release version 5.0 "Gail".
 ##            *f_create_a_menu_cliappmenu, f_eval_funct, f_app_install added
@@ -244,7 +256,6 @@ source $CLI_DIR/cli-favorites.lib
 ##
 ## 2022-04-25 *Section "Default Variable Values" added instructions to set
 ##             variable "CLI_DIR".
-##
 ##
 ## 2021-07-09 *f_config, f_config_update_font_color, f_config_update_ui
 ##             bugs fixed and updated format of file ~/.cliappmenu.cfg.
