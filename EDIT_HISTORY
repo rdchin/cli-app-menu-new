@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2021 Copyright 2021 Robert D. Chin
+# ©2022 Copyright 2022 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # Usage: sh EDIT_HISTORY
@@ -77,7 +77,7 @@ sed -n 's/^##//'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 ##             title string, all the menu data was consolidated into only a
 ##             few library files.
 ##
-## 2021-07-01 *Release version 4.0 "Farrah".
+## 2021-07-01 *Testing version 4.0 "Farrah".
 ##             This is a total rewrite of the entire program using a new
 ##             approach and IS NOT BACKWARD COMPATIBLE with any previous
 ##             versions 3.1 or older.

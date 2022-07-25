@@ -24,13 +24,22 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-07-24 16:11"
+VERSION="2022-07-24 17:03"
 #
 # Set THIS_FILE to the name of this script file.
 THIS_FILE=$(basename $0)
 #
 # Set to a file name used for the generated menu code.
 GENERATED_FILE=$THIS_FILE"_menu_generated.lib"
+#
+# Source library which contains f_script_path.
+source common_bash_function.lib
+#
+# Set variables THIS_DIR, SCRIPT_PATH to directory path of script.
+f_script_path
+#
+# Set Temporary file using $THIS_DIR from f_script_path.
+TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 #
 # Set the location of the "cliapp-dir" sub-directory.
 # Use a sub-directory where you have privileges to edit the library files
@@ -56,30 +65,26 @@ CLI_DIR="/home/USER/cliapp-dir"
 if [ ! -d "$CLI_DIR" ] ; then
    # Blank the screen.
    clear
-   echo
-   echo "Library cliapp-dir Path Error"
-   echo
-   echo "CLI_DIR=\"$CLI_DIR\" variable is not set correctly."
-   echo
-   echo "Check directory path of cliapp-dir."
-   echo
-   echo "Edit file cliappmenu.sh to set CLI_DIR correctly."
-   echo
-   echo "It is located under Section \"Default Variable Values\" of file cliappmenu.sh."
-   echo
-   echo
-   echo "Here is the command to set CLI_DIR using the Sed application:"
-   echo
-   echo "Example: (where actual user name is 'robert')."
-   echo
-   echo "sed -i 's|^CLI_DIR=\"/home/<username>/cliapp-dir\"|CLI_DIR=\"/home/robert/cliapp-dir\"|g' cliappmenu.sh"
-   echo
+   echo > $TEMP_FILE
+   echo "Library cliapp-dir Path Error" >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "CLI_DIR=\"$CLI_DIR\" variable is not set correctly." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "Check directory path of cliapp-dir." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "Edit file cliappmenu.sh to set CLI_DIR correctly." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "It is located under Section \"Default Variable Values\" of file cliappmenu.sh." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "Here is the command to set CLI_DIR using the Sed application." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "Example:  (Actual user name is 'robert')." >> $TEMP_FILE
+   echo >> $TEMP_FILE
+   echo "sed -i 's|^CLI_DIR=\"/home/<username>/cliapp-dir\"|CLI_DIR=\"/home/robert/cliapp-dir\"|g' cliappmenu.sh" >> $TEMP_FILE
+   echo >> $TEMP_FILE
    #
-   # Display message and wait for user input.
-   echo
-   echo -n "Press '"Enter"' key to continue."
-   read X
-   unset X  # Throw out this variable.
+   f_message "text" "OK" "Library cliapp-dir Path Error" "$TEMP_FILE"
    #
    # Exit script and return to command-line.
    exit 1
@@ -93,15 +98,6 @@ source cliappmenu.lib
 source $CLI_DIR/cli-common.lib
 source $CLI_DIR/cli-web-sites.lib
 source $CLI_DIR/cli-favorites.lib
-#
-# Source library which contains f_script_path.
-source common_bash_function.lib
-#
-# Set variables THIS_DIR, SCRIPT_PATH to directory path of script.
-f_script_path
-#
-# Set Temporary file using $THIS_DIR from f_script_path.
-TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 #
 # +----------------------------------------+
 # |            Brief Description           |
@@ -202,11 +198,17 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ##
 ## Includes changes to cliappmenu.lib, cli-common.lib.
 ##
-## 2022-07-24 *f_create_a_menu_cliappmenu, f_eval_funct, f_app_install added
+## 2022-07-25 *Section "Code Change History" updated for version 5.0 "Gail".
+##
+## 2022-07-24 *Release version 5.0 "Gail".
+##            *f_create_a_menu_cliappmenu, f_eval_funct, f_app_install added
 ##             call to f_configure_use to restore UI text colors if an error
 ##             occurs during app eval or app install.
 ##            *README and EDIT_HISTORY updated documentation.
 ##            *Section "Main Program" improved documentation.
+##            *Section "Default Variable Values" bug fixed TEMP_FILE needed
+##             to be defined earlier in the section when used for error
+##             messages at start-up of script.
 ##
 ## 2022-07-23 *README updated documentation for new menu structure.
 ##
@@ -232,12 +234,17 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ## 2022-06-26 *Section "Audio Menu", "Database Menu", Development Menu"
 ##             updated to latest standards.
 ##
-## 2022-06-24 *Section "CLI Action Menu", "CLI Application Menu",
+## 2022-06-24 *Development on version 5.0 "Gail" started.
+##             New process to display menus, allows multiple menu item data to
+##             be stored in one library file. All menus belonging to a category
+##             are consolidated into the corresponiding library file.
+##            *Section "CLI Action Menu", "CLI Application Menu",
 ##             "Configuration Menu", "Information Menu" updated to latest
 ##             standards.
 ##
 ## 2022-04-25 *Section "Default Variable Values" added instructions to set
 ##             variable "CLI_DIR".
+##
 ##
 ## 2021-07-09 *f_config, f_config_update_font_color, f_config_update_ui
 ##             bugs fixed and updated format of file ~/.cliappmenu.cfg.
@@ -249,7 +256,7 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ##            *f_search_app_add moved from cli-common.lib to cliappmenu.lib
 ##             to keep it with the other Search Menu functions.
 ##
-## 2021-07-01 *Release version 4.0.
+## 2021-07-01 *Testing version 4.0 "Farrah".
 ##            *Fixed bug with user-selected text UI colors not displaying.
 ##
 ## 2021-05-19 *Main Menu option Search fixed bugs. Updated README.
@@ -271,7 +278,7 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ## 2021-06-14 *main_configure.lib update config file functions.
 ##            *Section "Default Variable Values" update list of libraries.
 ##
-## 2021-04-22 *Development on version 4.0 started.
+## 2021-04-22 *Development on version 4.0 "Farrah" started.
 #
 # +------------------------------------+
 # |     Function f_display_common      |
