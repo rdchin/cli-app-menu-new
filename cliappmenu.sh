@@ -24,7 +24,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-07-25 13:02"
+VERSION="2022-07-25 23:51"
 #
 # Set THIS_FILE to the name of this script file.
 THIS_FILE=$(basename $0)
@@ -51,7 +51,7 @@ GENERATED_FILE=$THIS_FILE"_menu_generated.lib"
 #================================================================================
 #
 #
-CLI_DIR="/home/USER/cliapp-dir"
+CLI_DIR="/home/robert/cliapp-dir"
 #
 if [ ! -d "$CLI_DIR" ] ; then
    # Blank the screen.
@@ -161,7 +161,7 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 #?
 #? 1. The first prompt allows the user to select the application.
 #?
-#? 2. The second promt allows the user to enter application parameters.
+#? 2. The second prompt allows the user to enter application parameters.
 #?
 #?    Example: The selected application is the web browser "elinks".
 #?    Under the second prompt, you can enter:
@@ -186,6 +186,12 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 #?
 #? bash cliappmenu.sh --history  Displays script code history.
 #?                    --hist
+#?
+#?                               Force display to use a different UI.
+#? bash cliappmenu.sh text       Use Cmd-line user-interface (80x24 minimum).
+#?                    dialog     Use Dialog   user-interface.
+#?                    whiptail   Use Whiptail user-interface.
+#?
 #
 # +----------------------------------------+
 # |                Code Notes              |
@@ -211,6 +217,7 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ## 2022-07-25 *Section "Code Change History" updated for version 5.0 "Gail".
 ##            *Section "Default Variable Values" change error message display
 ##             at start-up of script to not use f_message or $TEMP_FILE.
+##            *Section "Help and Usage" updated.
 ##
 ## 2022-07-24 *Release version 5.0 "Gail".
 ##            *f_create_a_menu_cliappmenu, f_eval_funct, f_app_install added
