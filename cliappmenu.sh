@@ -24,7 +24,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-07-25 23:51"
+VERSION="2022-07-25 13:02"
 #
 # Set THIS_FILE to the name of this script file.
 THIS_FILE=$(basename $0)
@@ -42,7 +42,7 @@ GENERATED_FILE=$THIS_FILE"_menu_generated.lib"
 #
 # You need to specify CLI_DIR.
 #
-# Factory setting is CLI_DIR="/home/<username>/cliapp-dir"
+# Factory setting is CLI_DIR="/home/USER/cliapp-dir"
 #
 #
 #================================================================================
@@ -51,7 +51,7 @@ GENERATED_FILE=$THIS_FILE"_menu_generated.lib"
 #================================================================================
 #
 #
-CLI_DIR="/home/robert/cliapp-dir"
+CLI_DIR="/home/USER/cliapp-dir"
 #
 if [ ! -d "$CLI_DIR" ] ; then
    # Blank the screen.
