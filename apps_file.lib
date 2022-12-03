@@ -311,7 +311,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@gunzip#@@File decompress gzip files.#@@f_app_cmd^$GUI^gunzip#@@0^0^0^0^1
 #
-#@@MORE...#@@For more file compression applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_2_generated.txt"^Files_-_Compression_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@MORE...#@@More file compression applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_2_generated.txt"^Files_-_Compression_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_2_items_generated.txt"^$CLI_DIR/apps_file.lib
 #
 #! End Listing Files - Compression Menu (Required line, do not delete).
 #
@@ -352,7 +352,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@unxc#@@File decompress xz files.#@@f_app_cmd^$GUI^unxc#@@0^0^0^0^1
 #
-#@@MORE...#@@For more file compression applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_3_generated.txt"^Files_-_Compression_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_3_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@MORE...#@@More file compression applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_3_generated.txt"^Files_-_Compression_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_3_items_generated.txt"^$CLI_DIR/apps_file.lib
 #
 #! End Listing Files - Compression 2 Menu (Required line, do not delete).
 #
@@ -676,7 +676,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@lfm#@@Last File Manager, Midnight Commander-like.#@@f_app_cmd^$GUI^lfm#@@0^0^0^0^0
 #
-#@@MORE...#@@For more file manager applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_2_generated.txt"^Files_-_Managers_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@MORE...#@@More file manager applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_2_generated.txt"^Files_-_Managers_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_2_items_generated.txt"^$CLI_DIR/apps_file.lib
 #
 #! End Listing Files - Managers Menu (Required line, do not delete).
 #

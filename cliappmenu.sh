@@ -24,7 +24,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-07-25 13:02"
+VERSION="2022-12-02 23:16"
 #
 # Set THIS_FILE to the name of this script file.
 THIS_FILE=$(basename $0)
@@ -42,7 +42,7 @@ GENERATED_FILE=$THIS_FILE"_menu_generated.lib"
 #
 # You need to specify CLI_DIR.
 #
-# Factory setting is CLI_DIR="/home/USER/cliapp-dir"
+# Factory setting is CLI_DIR="/home/<username>/cliapp-dir"
 #
 #
 #================================================================================
@@ -214,6 +214,20 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ##
 ## Includes changes to cliappmenu.lib, cli-common.lib.
 ##
+## 2022-12-02 *Section "System" application menu bug fixed.
+##            *f_app_cmd bug fixed; use $ARRAY_SOURCE_FILE as defined in
+##             f_create_a_menu_cliappmenu.
+##            *f_app_cmd bug fixed; a second version in cli-favorites.lib
+##             had a hard-coded array source file and missing bug fixes
+##             which caused running app to fail on the first try.
+##            *f_create_a_menu_cliappmenu added $ARRAY_SOURCE_FILE.
+##            *f_menu_main added deleting of ARRAY_FILE on exit.
+##            *Section "Listing CLI Action Menu" change option 0. from
+##             "f_exit_script" to "break" to allow f_menu_main to delete
+##             all generated temporary files rather than using script
+##             f_exit_script which only deletes TEMP_FILE.
+##             
+##
 ## 2022-07-25 *Section "Code Change History" updated for version 5.0 "Gail".
 ##            *Section "Default Variable Values" change error message display
 ##             at start-up of script to not use f_message or $TEMP_FILE.
@@ -356,7 +370,7 @@ f_display_common () {
 # |          Function f_menu_main          |
 # +----------------------------------------+
 #
-#     Rev: 2021-06-18
+#     Rev: 2022-12-02
 #  Inputs: $1 - "text", "dialog" or "whiptail" the preferred user-interface.
 #    Uses: ARRAY_FILE, GENERATED_FILE, MENU_TITLE.
 # Outputs: None.
@@ -420,8 +434,16 @@ f_menu_main () {
          rm $TEMP_FILE
       fi
       #
+      #
+      # Set THIS_FILE to the name of this script file.
+      THIS_FILE=$(basename $0)
+      #
       if [ -e  $GENERATED_FILE ] ; then
          rm  $GENERATED_FILE
+      fi
+      #
+      if [ -e  $ARRAY_FILE ] ; then
+         rm  $ARRAY_FILE
       fi
       #
 } # End of function f_menu_main.

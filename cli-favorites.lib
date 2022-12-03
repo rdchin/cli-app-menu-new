@@ -44,6 +44,8 @@
 #
 #@@ranger#@@File manager.#@@f_app_cmd^$GUI^ranger#@@0^0^0^1^0
 #
+#@@links#@@Web browser, no graphics mode.#@@f_app_cmd^$GUI^links^links lxer.com#@@0^0^0^1^0
+#
 #@@mc#@@File Manager, Midnight Commander.#@@f_app_cmd^$GUI^mc#@@0^0^0^0^0
 #
 #@@ninvaders#@@Space invaders-like game ncurses-based.#@@f_app_cmd^$GUI^ninvaders#@@0^0^0^1^1
@@ -79,39 +81,6 @@ VERSION="2021-07-01 11:28"
 ## Code Change History
 ##
 ## (Please see script cliappmenu.sh for Code Change History information.)
-#
-# +----------------------------------------+
-# |           Function f_app_cmd           |
-# +----------------------------------------+
-#
-#  Inputs: $1 - GUI.
-#          $2 - App name.
-#          $3 - Optional Default App Command with parameters.
-#    Uses: None.
-# Outputs: None.
-#
-# Summary: Call function to enter application command and run it.
-#
-# Dependencies: f_app_cmd_input.
-#
-f_app_cmd () {
-      #
-      #
-      #==================================================================
-      # EDIT THE LINES BELOW TO INCLUDE THE DIRECTORY AND FILE NAME
-      # OF THIS FILE SO CORRESPONDING APP_CODE CAN BE EXTRACTED.
-      #==================================================================
-      #
-      #
-      CURR_FILE="cli-favorites.lib"
-      #
-      source $CLI_DIR/cli-common.lib
-      #
-      APP_CMD=$(echo $3 | tr " " "_")
-      #
-      f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
-      #
-} # End of function f_app_cmd.
 #
 # +----------------------------------------+
 # |       Function f_favorites_how_to      |

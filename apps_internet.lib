@@ -337,7 +337,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@snownews#@@RSS feeder.#@@f_app_cmd^$GUI^snownews#@@0^0^0^0^1
 #
-#@@MORE...#@@For more news reader applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_2_generated.txt"^Internet_-_News_Readers_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_2_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@MORE...#@@More news reader applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_2_generated.txt"^Internet_-_News_Readers_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_2_items_generated.txt"^$CLI_DIR/apps_internet.lib
 #
 #! End Listing Internet - News Readers Menu (Required line, do not delete).
 #

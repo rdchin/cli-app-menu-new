@@ -70,28 +70,30 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Backup#@@File Backup.#@@f_menu_system_backup^$GUI
+#@@Arcade Games#@@Action controlled by keyboard and players reflexes.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_generated.txt"^Games_-_Arcade_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_items_generated.txt"^$CLI_DIR/apps_games.lib
+
+#@@Backup#@@File Backup.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_file_backup_generated.txt"^System_-_Back-up_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_file_backup_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
-#@@Disks#@@Disk information.#@@f_menu_system_disks^$GUI
+#@@Disks#@@Disk information.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_generated.txt"^System_-_Disks_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
-#@@Health#@@Anti-virus scanners, root-kit detectors, stress tests etc.#@@f_menu_system_health^$GUI
+#@@Health#@@Anti-virus scanners, root-kit detectors, stress tests etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_health_generated.txt"^System_-_Health_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_health_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
-#@@Logs#@@Log file viewers, command line history, send mssg. to users.#@@f_menu_system_logs^$GUI
+#@@Logs#@@Log file viewers, command line history, send mssg. to users.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_logs_generated.txt"^System_-_Logs_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_logs_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
-#@@Mainboard#@@Information on PC mainboard, memory, etc.#@@f_menu_system_mainboard^$GUI
+#@@Mainboard#@@Information on PC mainboard, memory, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_mainboard_generated.txt"^System_-_Mainboard_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_mainboard_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
-#@@Monitors#@@Resources, and disk I/O monitors.#@@f_menu_system_monitors^$GUI
+#@@Monitors#@@Resources, and disk I/O monitors.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_generated.txt"^System_-_Monitors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
-#@@Linux#@@Linux information and configuration kernel configuration.#@@f_menu_system_linux^$GUI
+#@@Linux#@@Linux information and configuration kernel configuration.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_linux_generated.txt"^System_-_Linux_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_linux_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
-#@@Peripherals#@@Information on PC peripherals, PCI devices, hard drives, etc.#@@f_menu_system_peripherals^$GUI
+#@@Peripherals#@@Information on PC peripherals, PCI devices, hard drives, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_generated.txt"^System_-_Peripherals_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
-#@@Process#@@System process monitoring, killing.#@@f_menu_system_process^$GUI
+#@@Process#@@System process monitoring, killing.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_process_generated.txt"^System_-_Process_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_process_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
 #! End Listing System Menu (Required line, do not delete).
 #
 #! +--------------------------------------------------------------+
-#! | Start Listing System - Backup Menu                           |
+#! | Start Listing System - Back-up Menu                           |
 #! |               (Required header, do not delete).              |
 #! +--------------------------------------------------------------+
 #
@@ -103,7 +105,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@tar#@@File backup, compress files.#@@f_app_cmd^$GUI^tar#@@0^0^0^0^1
 #
-#! End Listing System - Backup Menu (Required line, do not delete).
+#! End Listing System - Back-up Menu (Required line, do not delete).
 #
 #! +--------------------------------------------------------------+
 #! | Start Listing System - Disks Menu                            |
@@ -142,7 +144,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@hdparm#@@Show/set disk parameters, settings. #@@f_app_cmd^$GUI^hdparm#@@0^0^0^0^1
 #
-#@@MORE...#@@For more system disk information applications.#@@$GUI^CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_generated.txt"^System_-_Disk_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_generated.txt"^$CLI_DIR/apps_system.lib
+#@@MORE...#@@More system disk applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_2_generated.txt"^System_-_Disks_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_2_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
 #! End Listing System - Disks Menu (Required line, do not delete).
 #
@@ -208,7 +210,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@smb-nat#@@Netbios audit servers running NetBIOS file sharing services.#@@f_app_cmd^$GUI^smb-nat#@@1^0^0^0^1
 #
-#@@MORE...#@@More applications.#@@$GUI^CLI_DIR/$THIS_FILE_LIB"_apps_system_health_2_generated.txt"^System_-_Health_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_health_2_generated.txt"^$CLI_DIR/apps_system.lib
+#@@MORE...#@@More system health applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_health_2_generated.txt"^System_-_Health_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_health_2_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
 #! End Listing System - Health Menu (Required line, do not delete).
 #
@@ -338,7 +340,8 @@ VERSION="2021-07-01 11:28"
 #
 #@@nmon#@@CPU usage, memory, network, disk usage, processes, resources.#@@f_app_cmd^$GUI^nmon#@@0^0^0^0^0
 #
-#@@MORE...#@@For more system monitor applications.#@@$GUI^CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_generated.txt"^System_-_Monitors_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_generated.txt"^$CLI_DIR/apps_system.lib
+#@@MORE...#@@More system monitor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_2_generated.txt"^System_-_Monitors_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_2_items_generated.txt"^$CLI_DIR/apps_system.lib
+
 #
 #! End Listing System - Monitors Menu (Required line, do not delete).
 #
@@ -439,7 +442,8 @@ VERSION="2021-07-01 11:28"
 #
 #@@mzip#@@Change protection mode and eject disk on Zip/Jaz drive.#@@f_app_cmd^$GUI^mzip#@@0^0^0^0^1
 #
-#@@MORE...#@@For more peripheral system applications.#@@$GUI^CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_2_generated.txt"^System_-_Peripherals_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_2_generated.txt"^$CLI_DIR/apps_system.lib
+#@@MORE...#@@More peripheral system applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_2_generated.txt"^System_-_Peripherals_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_2_items_generated.txt"^$CLI_DIR/apps_system.lib
+#
 #
 #! End Listing System - Peripherals Menu (Required line, do not delete).
 #
@@ -501,7 +505,8 @@ VERSION="2021-07-01 11:28"
 #
 #@@pswatcher#@@Execute commands when certain processes are run.#@@f_app_cmd^$GUI^pswatcher#@@0^0^0^0^1
 #
-#@@MORE...#@@For more system process applications.#@@$GUI^CLI_DIR/$THIS_FILE_LIB"_apps_system_process_2_generated.txt"^System_-_Process_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_process_2_generated.txt"^$CLI_DIR/apps_system.lib
+#@@MORE...#@@More system process applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_process_2_generated.txt"^System_-_Process_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_process_2_items_generated.txt"^$CLI_DIR/apps_system.lib
+#
 #
 #! End Listing System - Process Menu (Required line, do not delete).
 #

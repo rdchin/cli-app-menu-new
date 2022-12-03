@@ -23,7 +23,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-07-24 16:22"
+VERSION="2022-10-05 21:07"
 #
 # WARNING: Do not define $THIS_FILE within a library script.
 #
@@ -63,6 +63,15 @@ VERSION="2022-07-24 16:22"
 ## Code Change History
 ##
 ## (After each edit made, please update Code History and VERSION.)
+##
+## 2022-10-05 *f_menu_main_TEMPLATE improved comments.
+##
+## 2022-09-13 *f_message added warning message in comments that any
+##             text file must be a temporary file and will be deleted.
+##
+## 2022-09-09 *f_message bug fixed dialog/whiptail titles now display in
+##             their entirety rather than being truncated if the title
+##             string length is longer than the text string length.
 ##
 ## 2022-07-24 *f_abort, f_exit_script,f_update_menu_txt,
 ##             f_create_show_menu made minor cosmetic changes.
@@ -2565,16 +2574,18 @@ f_yn_defaults () {
 # |       Function f_message     |
 # +------------------------------+
 #
-#     Rev: 2022-05-19
+#     Rev: 2022-09-13
 #  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
 #               to allow reader to read text by using sleep n command.
+#               "NOK" DOES NOT WORK FOR WHIPTAIL. Earlier versions of Whiptail do not have an --infobox option to use for "NOK".
 #          $3 - Title.
 #                  (String must either begin and end with double-quotes
 #                  Underscores in text string are not converted to spaces).
 #          $4 - Text string or text file.
+#               !!!WARNING: ANY TEXT FILE MUST BE A TEMPORARY FILE AND WILL BE DELETED!!!
 #                  (String must either begin and end with double-quotes
 #                  Underscores in text string are not converted to spaces).
 #          $5 - (Optional for functions f_msg_ui/txt_str_nok) Pause for $5 seconds to allow text to be read.
@@ -2634,13 +2645,22 @@ f_message () {
               # Get columns (width).
               XSCREEN=$(stty size | awk '{ print $2 }')
               #
-              # Is $4 a text string or a text file?
+              # Is $4 a text file?
               if [ -e "$4" ] ; then
-                 #
+                 # Yes, $4 is a text file.
                  # If $4 is a text file, then calculate number of lines and length
                  # of sentences to calculate height and width of Dialog box.
                  # Calculate dialog/whiptail box dimensions $YBOX, $XBOX.
                  f_msg_ui_file_box_size "$4"
+                 #
+                 # Calculate length of $3 title string length.
+                 XTITLE_LEN=$(echo "$3" | wc -c)
+                 #
+                 # Is the Title string length longer than the message line length?
+                 if [ $XTITLE_LEN -gt $XBOX ] ; then
+                    # Yes, increase $XBOX to greater integer or longer box width.
+                    XBOX=$XTITLE_LEN
+                 fi
                  #
                  if [ "$2" = "OK" ] ; then
                     # Display contents of text file with an [OK] button.
@@ -2654,11 +2674,21 @@ f_message () {
                  rm $4
                  #
               else
+                 # No, $4 is a text string.
                  # If $4 is a text string, then does it contain just one
                  # sentence or multiple sentences delimited by "\n"?
                  # Calculate the length of the longest of sentence.
                  # Calculate dialog/whiptail box dimensions $YBOX, $XBOX.
                  f_msg_ui_str_box_size "$4"
+                 #
+                 # Calculate length of $3 title string length.
+                 XTITLE_LEN=$(echo "$3" | wc -c)
+                 #
+                 # Is the Title string length longer than the message line length?
+                 if [ $XTITLE_LEN -gt $XBOX ] ; then
+                    # Yes, increase $XBOX to greater integer or longer box width.
+                    XBOX=$XTITLE_LEN
+                 fi
                  #
                  if [ "$2" = "OK" ] ; then
                     # Display contents of text string with an [OK] button.
@@ -2925,6 +2955,7 @@ f_msg_ui_file_ok () {
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
+#               "NOK" DOES NOT WORK FOR WHIPTAIL. Earlier versions of Whiptail do not have an --infobox option to use for "NOK".
 #               to allow reader to read text by using sleep n command.
 #          $3 - Title.
 #          $4 - Text string or text file.
@@ -3005,6 +3036,7 @@ f_msg_ui_file_nok () {
               # Uncomment line below for older versions of Whiptail lacking --infobox option.
               whiptail --title "$3" --textbox "$4" $Y $X
               #
+              # "NOK" DOES NOT WORK FOR WHIPTAIL. Earlier versions of Whiptail do not have an --infobox option to use for "NOK".
               # Later versions of Whiptail have --infobox option.
               #
               # Use --infobox to display text without an "OK" button.
@@ -3220,6 +3252,7 @@ f_msg_ui_str_ok () {
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
 #               to allow reader to read text by using sleep n command.
+#               "NOK" DOES NOT WORK FOR WHIPTAIL. Earlier versions of Whiptail do not have an --infobox option to use for "NOK".
 #          $3 - Title.
 #          $4 - Text string or text file.
 #          $5 - Box Height in characters.
@@ -3291,6 +3324,7 @@ f_msg_ui_str_nok () {
                  X=$XSCREEN
               fi
               #
+              # "NOK" DOES NOT WORK FOR WHIPTAIL. Earlier versions of Whiptail do not have an --infobox option to use for "NOK".
               # Whiptail only has options --textbox or--msgbox (not --infobox in earlier versions).
               # f_msg_ui_str_box_size creates $ZNO which is the text string $4 but stripped of any Dialog "\Z" commands.
               # Ideally we want to use whiptail --title "$3" --infobox "$ZNO" $Y $X
@@ -3903,7 +3937,7 @@ f_update_menu_gui () {
 # |          Function f_menu_main_TEMPLATE          |
 # +----------------------------------------+
 #
-#     Rev: 2021-03-07
+#     Rev: 2022-10-05
 #  Inputs: $1 - "text", "dialog" or "whiptail" the preferred user-interface.
 #    Uses: ARRAY_FILE, GENERATED_FILE, MENU_TITLE.
 # Outputs: None.
@@ -3918,9 +3952,9 @@ f_update_menu_gui () {
 # PLEASE NOTE: RENAME THIS FUNCTION WITHOUT SUFFIX "_TEMPLATE" AND COPY
 #              THIS FUNCTION INTO THE MAIN SCRIPT WHICH WILL CALL IT.
 #
-f_menu_main_TEMPLATE () { # Create and display the Main Menu.
+f_menu_main_TEMPLATE () {
       #
-      #THIS_FILE="example.sh"
+      # Create and display the Main Menu.
       GENERATED_FILE=$THIS_DIR/$THIS_FILE"_menu_main_generated.lib"
       #
       # Does this file have menu items in the comment lines starting with "#@@"?

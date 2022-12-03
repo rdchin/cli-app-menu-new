@@ -103,7 +103,7 @@ THIS_FILE_LIB="apps_development.lib"
 #
 #@@man2html#@@Browse man pages using a web browser.#@@f_app_cmd^$GUI^man2html#@@0^0^0^0^1
 #
-#@@MORE...#@@For more development applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_development_2_generated.txt"^Development_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_development_2_items_generated.txt"^$CLI_DIR/apps_development.lib
+#@@MORE...#@@More development applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_development_2_generated.txt"^Development_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_development_2_items_generated.txt"^$CLI_DIR/apps_development.lib
 #
 #! End Listing Development Menu (Required line, do not delete).
 #

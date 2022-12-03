@@ -766,9 +766,11 @@ f_install2_xorcurses () {
 # |           Function f_app_cmd           |
 # +----------------------------------------+
 #
+#     Rev: 2022-12-02
 #  Inputs: $1 - GUI.
 #          $2 - App name.
 #          $3 - Optional Default App Command with parameters.
+#               $3 includes spaces for parameters as if entered using CLI.
 #    Uses: None.
 # Outputs: None.
 #
@@ -778,20 +780,25 @@ f_install2_xorcurses () {
 #
 f_app_cmd () {
       #
-      #
-      #==================================================================
-      # EDIT THE LINES BELOW TO INCLUDE THE DIRECTORY AND FILE NAME
-      # OF THIS FILE SO CORRESPONDING APP_CODE CAN BE EXTRACTED.
-      #==================================================================
-      #
-      #
-      CURR_FILE="main_favorites.lib"
-      #
+      # Source the CLI Common Library.
       source $CLI_DIR/cli-common.lib
       #
-      APP_CMD=$(echo $3 | tr " " "_")
+      # Is $3 (Optional Default App Command with parameters) specified?
+      # Set APP_CMD so it may be passed as a function parameter.
+      if [ -z $3 ] ; then
+         # No, is not specified, set APP_CMD to $2 App name.
+         APP_CMD=$2
+      else
+         # Yes, is specified, set APP_CMD to $3.
+         # Substitute underscores for spaces in $APP_CMD
+         # to allow it to be passed as a function's parameter.
+         APP_CMD=$(echo $3 | tr " " "_")
+      #      
+      fi
       #
-      f_app_cmd_2 $1 $2 $APP_CMD "$CLI_DIR/$CURR_FILE"
+      # Note: ARRAY_SOURCE_FILE is set in f_create_a_menu_cliappmenu.
+      # 
+      f_app_cmd_2 $1 $2 $ARRAY_SOURCE_FILE $APP_CMD
       #
 } # End of function f_app_cmd.
 #
@@ -802,8 +809,8 @@ f_app_cmd () {
 #     Rev: 2021-06-30
 #  Inputs: $1 - GUI.
 #          $2 - App name.
-#          $3 - Optional Default App Command with parameters.
-#          $4 - CLI_DIR/CURR_FILE Current file name of (menu) library.
+#          $3 - CLI_DIR/CURR_FILE Current file name of (menu) library.
+#          $4 - Optional Default App Command with parameters.
 #    Uses: None.
 # Outputs: None.
 #
@@ -813,19 +820,13 @@ f_app_cmd () {
 #
 f_app_cmd_2 () {
       #
-      TEMP_FILE=$4"_temp.txt"
+      # Define temporary file.
+      TEMP_FILE=$3"_temp.txt"
       #
-      # Default Application Command.
-      if [ -n "$3" ] ; then
-         APP_CMD=$3
-      else
-         APP_CMD=$2
-      fi
-      #
-      f_app_cmd_input $1 $2 $4 $APP_CMD
+      f_app_cmd_input $1 "$2" $3 $4
       #
       # Delete TEMP_FILE.
-      TEMP_FILE=$CURR_FILE"_temp.txt"
+      TEMP_FILE=$3"_temp.txt"
       if [ -e $TEMP_FILE ] ; then
          rm $TEMP_FILE
       fi
@@ -839,8 +840,8 @@ f_app_cmd_2 () {
 #     Rev: 2021-06-30
 #  Inputs: $1 - GUI.
 #          $2 - App name.
-#          $3 - Menu directory/file name.
-#          $4 - Default app command.
+#          $3 - CLI_DIR/CURR_FILE Current file name of (menu) library.
+#          $4 - Optional Default App Command with parameters.
 #    Uses: MENU_ITEM, MAT, MAX.
 # Outputs: ERROR, MENU_TITLE, DELIMITER.
 #
@@ -853,23 +854,30 @@ f_app_cmd_input () {
       # Blank screen.
       clear
       #
-      if [ -z $4 ] ; then
-         f_app_input $1 $2 $2
+      TEMP_FILE=$3"_temp.txt"
+      #
+      # Is $4 (Optional Default App Command with parameters) specified?
+      if [ -z "$4" ] ; then
+         # No, there is no optional default app command, so use the app name as the command instead.
+         f_app_input $1 "$2" "$2"
       else
-         f_app_input $1 $2 $4
+         # Yes, an optional default app command exists, so use it as the command. 
+         f_app_input $1 "$2" "$4"
       fi
       #
-      # Outputs ANS (Application commands).
-      # Substitute underscores for spaces to be able to pass ANS as a function parameter.
-      ANS=$(echo $ANS | tr ' ' '_')
-      #
-      TEMP_FILE=$CURR_FILE"_temp.txt"
-      # Extracts and sets APP_CODE, application code string.
-      f_app_code $2 $3
-      #
-      APP_CMD=$ANS
-      f_process_app_command $1 $2 "$APP_CMD" $APP_CODE $3
-      #
+      # Was the Whiptail/Dialog "Cancel" button pressed within f_app_input?
+      if [ $ERROR -eq 0 ] ; then
+         # No, continue to process ANS (APP_CMD).
+         # f_app_input outputs $ANS (Application commands) with user-entered parameters.
+         # Substitute underscores for spaces to be able to pass it as a function parameter.
+         APP_CMD=$(echo $ANS | tr ' ' '_')
+         #
+         # Extracts and sets APP_CODE, application code string.
+         f_app_code "$2" "$3"
+         #
+         f_process_app_command $1 "$2" $APP_CMD $APP_CODE $3
+         #
+      fi
       # Throw out this variable.
       unset ANS
       #
@@ -883,10 +891,10 @@ f_app_cmd_input () {
 # |           Function f_app_input         |
 # +----------------------------------------+
 #
-#     Rev: 2021-06-30
+#     Rev: 2022-12-02
 #  Inputs: $1=GUI.
 #          $2=App name.
-#          $3=default app command.
+#          $3=default app command with underscores substituted for spaces.
 #    Uses: TEMP_FILE2
 # Outputs: ERROR, ANS.
 #
@@ -896,21 +904,32 @@ f_app_cmd_input () {
 #
 f_app_input () {
       #
-      # Change underscores to spaces to make human readable.
+      # Set DEFAULT_CMD. Change underscores to spaces to make human readable.
       DEFAULT_CMD=$(echo $3 | tr '_' ' ')
       #
       case $1 in
            dialog | whiptail)
               # User-input via "inputbox" free-form application name entry.
-              TEMP_FILE2=$CURR_FILE"2.txt"
+              #
+              # Set TEMP_FILE2 to receive output from Dialog/Whiptail --inputbox.
+              TEMP_FILE2=$CLI_DIR/$CURR_FILE"_temp2.txt"
+              #
               $1 --title "Enter '$2' command (with optional CLI options)" --cancel-button Exit --inputbox "Command '$2' (may include command-line options).\ni.e. '$2 --help', 'man $2'\n'$2 --version'\n'$2 fav' (to add to Favorites Menu).\nEnter command ($2):" 15 70 "$DEFAULT_CMD" 2>$TEMP_FILE2
-              ERROR=0
-              ANS=$(cat $TEMP_FILE2)
+              #
+              # Set outputs ERROR, ANS.
+              ERROR=$?
+              # 0 - if the YES or OK button is pressed (DIALOG_OK).
+              # 1 - if the No or Cancel button is pressed (DIALOG_CANCEL).
+              #
+              if [ $ERROR -eq 0 ] ; then
+                 ANS=$(cat $TEMP_FILE2)
+              else
+                 ANS=""
+              fi
               #
               rm $TEMP_FILE2
            ;;
            text)
-              ERROR=0
               echo "Enter '$2' command (with optional CLI options)"
               echo
               echo "  Command '$2' (may include command-line options)"
@@ -927,8 +946,13 @@ f_app_input () {
               read ANS
               #
               if [ -z "$ANS" ] ; then
+                 # Default command accepted so ANS is null.
+                 # Set ANS to default command.
                  ANS=$DEFAULT_CMD
-                 ERROR=1
+                 ERROR=0
+              else
+                 # User-entered command entered as $ANS.
+                 ERROR=0
               fi
            ;;
       esac
@@ -1508,7 +1532,7 @@ f_app_run_and_exit () {
 #    Uses: None.
 # Outputs: ERROR.
 #
-# Summary: Ask question "Run APP_NAME
+# Summary: Run APP_CMD.
 #
 # Dependencies: f_press_key, f_option_press_enter_key, f_app_error,
 #               f_app_install_question.

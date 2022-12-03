@@ -198,7 +198,7 @@ THIS_FILE_LIB="apps_audio.lib"
 #
 #@@jac#@@CD player, creates playlist.#@@f_app_cmd^$GUI^jac#@@0^0^0^0^0
 #
-#@@MORE...#@@For more music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_generated.txt"^Audio_-_Music_Players_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@MORE...#@@More music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_generated.txt"^Audio_-_Music_Players_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_items_generated.txt"^$CLI_DIR/apps_audio.lib
 #
 #! End Listing Audio - Music Players Menu (Required line, do not delete).
 #
@@ -239,7 +239,7 @@ THIS_FILE_LIB="apps_audio.lib"
 #
 #@@mussort#@@Sort music files by artist and album via tag information.#@@f_app_cmd^$GUI^mussort#@@0^0^0^0^1
 #
-#@@MORE...#@@For more music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_3_generated.txt"^Audio_-_Music_Players_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_3_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@MORE...#@@More music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_3_generated.txt"^Audio_-_Music_Players_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_3_items_generated.txt"^$CLI_DIR/apps_audio.lib
 #
 #! End Listing Audio - Music Players 2 Menu (Required line, do not delete).
 #
@@ -280,7 +280,7 @@ THIS_FILE_LIB="apps_audio.lib"
 #
 #@@vitunes#@@vi-like music player.#@@f_app_cmd^$GUI^vitunes#@@0^0^0^0^1
 #
-#@@MORE...#@@For more music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_generated.txt"^Audio_-_Music_Players_4_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@MORE...#@@More music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_generated.txt"^Audio_-_Music_Players_4_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_items_generated.txt"^$CLI_DIR/apps_audio.lib
 #
 #! End Listing Audio - Music Players 3 Menu (Required line, do not delete).
 #

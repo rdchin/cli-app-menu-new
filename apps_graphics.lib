@@ -144,7 +144,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@jp2a#@@Convert jpg images to ascii images.#@@f_app_cmd^$GUI^jp2a#@@0^0^0^0^1
 #
-#@@MORE...#@@For more image-graphics applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_2_tools_generated.txt"^Graphics_-_Tools_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_2_tools_items_generated.txt"^$CLI_DIR/apps_graphics.lib
+#@@MORE...#@@More image-graphics applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_2_tools_generated.txt"^Graphics_-_Tools_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_2_tools_items_generated.txt"^$CLI_DIR/apps_graphics.lib
 #
 #! End Listing Graphics - Tools Menu (Required line, do not delete).
 #

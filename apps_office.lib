@@ -334,7 +334,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@ps2ascii#@@Converts PS [PostScript] to text format.#@@f_app_cmd^$GUI^ps2ascii#@@0^0^0^0^1
 #
-#@@MORE...#@@For more PDF and PS applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_PDF-PS_documents_2_generated.txt"^Office_-_PDF-PS documents_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_PDF-PS_documents_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@MORE...#@@More PDF and PS applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_PDF-PS_documents_2_generated.txt"^Office_-_PDF-PS documents_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_PDF-PS_documents_2_items_generated.txt"^$CLI_DIR/apps_office.lib
 #
 #! End Listing Office - PDF-PS documents Menu (Required line, do not delete).
 #
@@ -505,7 +505,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@fte-console#@@fte for consoles, no internationalization I18N support.#@@f_app_cmd^$GUI^fte-console#@@0^0^0^0^0
 #
-#@@MORE...#@@For more text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_2_generated.txt"^Text_-_Editors_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@MORE...#@@More text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_2_generated.txt"^Text_-_Editors_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_2_items_generated.txt"^$CLI_DIR/apps_office.lib
 #
 #! End Listing Text - Editors Menu (Required line, do not delete).
 #
@@ -546,7 +546,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@mped#@@Text editor, ncurses-based.#@@f_app_cmd^$GUI^mped#@@0^0^0^0^0
 #
-#@@MORE...#@@For more text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_3_generated.txt"^Text_-_Editors_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_3_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@MORE...#@@More text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_3_generated.txt"^Text_-_Editors_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_3_items_generated.txt"^$CLI_DIR/apps_office.lib
 #
 #! End Listing Text - Editors 2 Menu (Required line, do not delete).
 #
@@ -587,7 +587,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@vim-latexsuite#@@LaTeX plug-in for vim.#@@f_app_cmd^$GUI^vim-latexsuite#@@0^0^0^14^0
 #
-#@@MORE...#@@For more text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_4_generated.txt"^Text_-_Editors_4_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_4_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@MORE...#@@More text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_4_generated.txt"^Text_-_Editors_4_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_4_items_generated.txt"^$CLI_DIR/apps_office.lib
 #
 #! End Listing Text - Editors 3 Menu (Required line, do not delete).
 #

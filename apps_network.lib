@@ -372,7 +372,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@nslookup#@@Query Internet domain name servers.#@@f_app_cmd^$GUI^nslookup^nslookup www.distrowatch.com#@@1^0^0^20:NC^1
 #
-#@@MORE...#@@For more WAN applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_2_generated.txt"^Network_-_WAN_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_2_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@MORE...#@@More WAN applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_2_generated.txt"^Network_-_WAN_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_2_items_generated.txt"^$CLI_DIR/apps_network.lib
 #
 #! End Listing Network - WAN Menu (Required line, do not delete).
 #
