@@ -772,7 +772,7 @@ f_install2_xorcurses () {
 #          $3 - Optional Default App Command with parameters.
 #               $3 includes spaces for parameters as if entered using CLI.
 #    Uses: None.
-# Outputs: None.
+# Outputs: CURR_FILE.
 #
 # Summary: Call function to enter application command and run it.
 #
@@ -797,7 +797,9 @@ f_app_cmd () {
       fi
       #
       # Note: ARRAY_SOURCE_FILE is set in f_create_a_menu_cliappmenu.
-      # 
+      #
+      CURR_FILE=$ARRAY_SOURCE_FILE
+      #
       f_app_cmd_2 $1 $2 $ARRAY_SOURCE_FILE $APP_CMD
       #
 } # End of function f_app_cmd.
