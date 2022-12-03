@@ -798,8 +798,6 @@ f_app_cmd () {
       #
       # Note: ARRAY_SOURCE_FILE is set in f_create_a_menu_cliappmenu.
       #
-      CURR_FILE=$ARRAY_SOURCE_FILE
-      #
       f_app_cmd_2 $1 $2 $ARRAY_SOURCE_FILE $APP_CMD
       #
 } # End of function f_app_cmd.
