@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2022 Copyright 2022 Robert D. Chin
+# ©2023 Copyright 2023 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # Usage: source menu_module_main.lib
@@ -23,7 +23,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-12-02 23:16"
+VERSION="2023-06-21 11:58"
 #
 # Set THIS_FILE_LIB to the name of this script library.
 THIS_FILE_LIB=$(basename $0)
@@ -451,6 +451,12 @@ f_main_search () {
       #
       TEMP_FILE="$CLI_DIR/main_search_temp.txt"
       #
+      # Recover the saved copy of library since it is deleted automatically
+      # when the user exits from the script, cliappmenu.sh.
+      if [ -e $CLI_DIR/main_search_results.lib.save ] ; then
+         cp $CLI_DIR/main_search_results.lib.save $CLI_DIR/main_search_results.lib
+      fi
+      #
       # Reset Search Results Menu to null results.
       # Delete all menu option items.
       sed -i "/^#@@*/d" $CLI_DIR/main_search_results.lib
@@ -492,6 +498,14 @@ f_main_search () {
       else
          f_message $1 "OK" "Search again" "No application name entered, please search again."
       fi
+      #
+      # Save a copy of library since it is deleted automatically
+      # when the user exits from the script, cliappmenu.sh.
+      if [ -e $CLI_DIR/main_search_results.lib ] ; then
+         cp $CLI_DIR/main_search_results.lib $CLI_DIR/main_search_results.lib.save
+      fi
+      #
+
       #
       # Delete TEMP_FILE, if it exists.
       TEMP_FILE="$CLI_DIR/main_search_temp.txt"
@@ -544,7 +558,7 @@ f_search_app_add () {
               while read LINE
                   do
                      # Insert string before "# End of Custom Menu choice options.".
-                     sed -i "/# End of Custom Menu choice options./i $LINE" $CLI_DIR/main_search_results.lib
+                     sed -i "/#! End Listing Search Results Menu (Required line, do not delete)./i $LINE" $CLI_DIR/main_search_results.lib
                      let ERROR=$ERROR+$?
                   done < $TEMP_FILE_3
               #
@@ -552,7 +566,7 @@ f_search_app_add () {
               # Insert string LINE after "# Additional libraries below. DO NOT DELETE THIS COMMENT LINE."
               while read LINE
                   do
-                     sed -i "/      # Beginning of Additional Libraries below. DO NOT DELETE THIS COMMENT LINE./a source $LINE" $CLI_DIR/main_search_results.lib
+                     sed -i "/# Beginning of Additional Libraries below. DO NOT DELETE THIS COMMENT LINE./a source $LINE" $CLI_DIR/main_search_results.lib
                      let ERROR=$ERROR+$?
                   done < $TEMP_FILE_2
               #
@@ -574,13 +588,13 @@ f_search_app_add () {
               sed -i "/^#@@*/d" $CLI_DIR/main_search_results.lib
               #
               # Add menu option "Return to previous menu."
-              sed -i "/# Format:*/a #@@Return#@@Return to previous menu.#@@break" $CLI_DIR/main_search_results.lib
+              sed -i "/# Beginning of Menu item list. DO NOT DELETE THIS COMMENT LINE./a #@@Return#@@Return to previous menu.#@@break" $CLI_DIR/main_search_results.lib
               #
               # Delete added sourced libraries.
               sed -i '/source/d' cliapp-dir/main_search_results.lib
               #
               # Restore original source library.
-              #sed -i "/      # Beginning of Additional Libraries below. DO NOT DELETE THIS COMMENT LINE./a source $CLI_DIR/cli-common.lib" $CLI_DIR/main_search_results.lib
+              #sed -i "/# Beginning of Additional Libraries below. DO NOT DELETE THIS COMMENT LINE./a source $CLI_DIR/cli-common.lib" $CLI_DIR/main_search_results.lib
               #
               if [ -e $CLI_DIR/cliappmenu_main_search_results_temp.txt ] ; then
                  rm $CLI_DIR/cliappmenu_main_search_results_temp.txt

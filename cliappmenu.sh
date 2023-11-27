@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2022 Copyright 2022 Robert D. Chin
+# ©2023 Copyright 2023 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # Usage: bash cliappmenu.sh
@@ -24,7 +24,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-12-02 23:16"
+VERSION="2023-06-21 11:58"
 #
 # Set THIS_FILE to the name of this script file.
 THIS_FILE=$(basename $0)
@@ -51,7 +51,7 @@ GENERATED_FILE=$THIS_FILE"_menu_generated.lib"
 #================================================================================
 #
 #
-CLI_DIR="/home/USER/cliapp-dir"
+CLI_DIR="/home/robert/cliapp-dir"
 #
 if [ ! -d "$CLI_DIR" ] ; then
    # Blank the screen.
@@ -213,6 +213,15 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ## (After each edit made, please update Code History and VERSION.)
 ##
 ## Includes changes to cliappmenu.lib, cli-common.lib.
+##
+## 2023-11-26 *Updated copyright year. Uploaded project to GitHub.
+##
+## 2023-06-21 *apps_screen_tools.lib added "neofetch" application.
+##
+## 2022-12-04 *Section "Network" bug fixed, some apps had a flag set
+##             to run non-existent custom functions. Flag unset.
+##            *f_app_cmd now properly defines variable CURRENT_FILE.
+##            *Section "Search" is now working, code was incomplete.
 ##
 ## 2022-12-02 *Section "System" application menu bug fixed.
 ##            *f_app_cmd bug fixed; use $ARRAY_SOURCE_FILE as defined in

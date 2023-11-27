@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2022 Copyright 2022 Robert D. Chin
+# ©2023 Copyright 2023 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
@@ -773,7 +773,7 @@ f_binclock () {
          f_configure_use
       fi
       #
-      #  Function f_run_and_exit arguments and parameters.
+      #  Function f_app_run_and_exit arguments and parameters.
       #
       #  Inputs: $1 - GUI.
       #          $2 - $APP_NAME Application name.
@@ -782,7 +782,7 @@ f_binclock () {
       #          $4 - $APP_CODE Application code.
       #          $5 - Field number of application code.
       #
-      f_run_and_exit $1 $2 "binclock -nl" 0^0^0^0^0 1
+      f_app_run_and_exit $1 $2 "binclock -nl" 0^0^0^0^0 1
       #
 } # End of f_binclock
 #

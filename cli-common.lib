@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2022 Copyright 2022 Robert D. Chin
+# ©2023 Copyright 2023 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
@@ -798,6 +798,9 @@ f_app_cmd () {
       #
       # Note: ARRAY_SOURCE_FILE is set in f_create_a_menu_cliappmenu.
       #
+      CURR_FILE=$(basename $ARRAY_SOURCE_FILE)
+      #
+      #
       f_app_cmd_2 $1 $2 $ARRAY_SOURCE_FILE $APP_CMD
       #
 } # End of function f_app_cmd.
@@ -1105,8 +1108,9 @@ f_process_app_command () {
 #    Uses: ERROR.
 # Outputs: None.
 #
-# Summary: Process only valid application commands, not including --help,
-#          --version or man command options.
+# Summary: Process only valid application commands, 
+#          except --help, --version or man command options.
+#          Anaylyze Application Code fields 1, 4, 3, 2.
 #
 # Dependencies: f_eval_funct, f_quit_app_clause, f_app_run.
 #
@@ -1167,7 +1171,8 @@ f_process_app_command_2 () {
       #             This can be used to initialize PRESS_KEY as it is set
       #             before any custom functions in fields 1, 2, or 3 are run.
       #
-      ERROR=0 # Reset error flag.
+      # Reset error flag.
+      ERROR=0
       #
       # Set the complete user-entered application command.
       # It may be used by a specialized function in APP_CODE to determine
@@ -1201,7 +1206,7 @@ f_process_app_command_2 () {
       ERROR=$(expr $ERROR + $ERROR_SAV)
       #
       # 7. Run application program.
-      # APP_NAME="" is set when f_run_and_exit is run prior within
+      # APP_NAME="" is set when f_app_run_and_exit is run prior within
       # function #1, #2, or #3.
       #
       if [ "$ERROR" -eq 0 ] ; then
@@ -1604,7 +1609,7 @@ f_app_run () {
       #
       case $ERROR in
            0)
-           #No error, successful run.
+           # No error, successful run.
            ;;
            127)
            # Error code 127 means application is not installed.

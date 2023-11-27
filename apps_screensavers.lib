@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2022 Copyright 2022 Robert D. Chin
+# ©2023 Copyright 2023 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
@@ -90,7 +90,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@termsaver#@@Screensaver for text terminals.#@@f_app_cmd^$GUI^termsaver#@@f_hint^0^0^8:NC^0
 #
-#@@textmaze#@@Playable Maze on screen#@@f_app_cmd^$GUI^textmaze#@@f_hint^1^0^1:NC^1
+#@@textmaze#@@Playable Maze on screen.#@@f_app_cmd^$GUI^textmaze#@@f_hint^0^0^1:NC^1
 #
 #@@ticker#@@Scrolls text across the screen.#@@f_app_cmd^$GUI^ticker#@@f_hint^0^0^8:NC^0
 #

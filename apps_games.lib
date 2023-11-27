@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2022 Copyright 2022 Robert D. Chin
+# ©2023 Copyright 2023 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
@@ -174,7 +174,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@cpat#@@Solitaire collection curses-based.#@@f_app_cmd^$GUI^cpat#@@0^0^0^0^0
 #
-#@@cribbage#@@Cribbage Card game.#@@f_app_cmd^$GUI^cribbage#@@f_run_and_exit "Cribbage" "cribbage"^0^0^0^0
+#@@cribbage#@@Cribbage Card game.#@@f_app_cmd^$GUI^cribbage#@@f_app_run_and_exit "Cribbage" "cribbage"^0^0^0^0
 #
 #@@dsol#@@dSol Solitaire card game.#@@f_app_cmd^$GUI^dsol#@@0^0^0^0^0
 #
@@ -208,7 +208,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@asciiportal#@@ASCIIpOrtal, go through a side-scrolling puzzle maze.#@@f_app_cmd^$GUI^asciiportal#@@0^1^0^0^0
 #
-#@@bcd#@@Reformat input as a punch card.#@@f_app_cmd^$GUI^bcd#@@f_run_and_exit "bcd" "bcd"^0^0^0^0
+#@@bcd#@@Reformat input as a punch card.#@@f_app_cmd^$GUI^bcd#@@f_app_run_and_exit "bcd" "bcd"^0^0^0^0
 #
 #@@dab#@@2-players try to complete the most boxes.#@@f_app_cmd^$GUI^dab#@@0^0^0^0^1
 #
@@ -228,7 +228,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@pente#@@5 in a row game.#@@f_app_cmd^$GUI^pente^pente -curses#@@1^0^0^0^0
 #
-#@@ppt#@@Reformat input as a paper tape.#@@f_app_cmd^$GUI^ppt#@@f_run_and_exit "ppt" "ppt"^0^0^0^0
+#@@ppt#@@Reformat input as a paper tape.#@@f_app_cmd^$GUI^ppt#@@f_app_run_and_exit "ppt" "ppt"^0^0^0^0
 #
 #@@textmaze#@@Find the exit to the maze.#@@f_app_cmd^$GUI^textmaze#@@0^1^0^1:NC^1
 #
@@ -287,7 +287,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@atc#@@Air traffic controller.#@@f_app_cmd^$GUI^atc#@@f_run_and_exit "Air Traffic Controller" "atc"^0^0^0^1
+#@@atc#@@Air traffic controller.#@@f_app_cmd^$GUI^atc#@@f_app_run_and_exit "Air Traffic Controller" "atc"^0^0^0^1
 #
 #@@bb#@@ASCII-art movie demo based on AAlib.#@@f_app_cmd^$GUI^bb#@@0^0^0^1^0
 #
@@ -1898,7 +1898,7 @@ f_netris () {
          f_configure_use
       fi
       #
-      f_run_and_exit $1 $2 "netris" 0^0^0^0^0 1
+      f_app_run_and_exit $1 $2 "netris" 0^0^0^0^0 1
       #
 } # End of f_netris
 #

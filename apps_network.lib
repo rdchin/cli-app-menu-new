@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2022 Copyright 2022 Robert D. Chin
+# ©2023 Copyright 2023 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
@@ -152,7 +152,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@ufw#@@Firewall configuration and status.#@@f_app_cmd^$GUI^ufw^ufw status verbose#@@1^0^0^0^1
 #
-#@@vuurmuur#@@Firewall manager, monitoring, logging, ssh, ncurses GUI.#@@f_app_cmd^$GUI^vuurmuur#@@1^0^0^0^1
+#@@vuurmuur#@@Firewall manager, monitoring, logging, ssh, ncurses GUI.#@@f_app_cmd^$GUI^vuurmuur#@@0^0^0^0^1
 #
 #! End Listing Network - Firewalls Menu (Required line, do not delete).
 #
@@ -269,7 +269,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@packit#@@Network auditing, spoofing, security testing.#@@f_app_cmd^$GUI^packit#@@0^0^0^0^1
 #
-#@@snort#@@Packet sniffer/logger, Network Intrusion Detection System.#@@f_app_cmd^$GUI^snort#@@f_run_and_exit "snort" "snort"^0^0^0^1
+#@@snort#@@Packet sniffer/logger, Network Intrusion Detection System.#@@f_app_cmd^$GUI^snort#@@f_app_run_and_exit "snort" "snort"^0^0^0^1
 #
 #@@tcpdump#@@Packet sniffer/logger.#@@f_app_cmd^$GUI^tcpdump#@@1^0^0^0^1
 #
@@ -315,21 +315,21 @@ VERSION="2021-07-01 11:28"
 #
 #@@iptraf-ng#@@Fork of iptraf.#@@f_app_cmd^$GUI^iptraf-ng#@@0^0^0^0^0
 #
-#@@nagios3#@@IP LAN monitor. Display network hosts, devices, connections.#@@f_app_cmd^$GUI^nagios3#@@1^0^0^0^1
+#@@nagios3#@@IP LAN monitor. Display network hosts, devices, connections.#@@f_app_cmd^$GUI^nagios3#@@0^0^0^0^1
 #
 #@@nc#@@Netcat reads/writes data across network.#@@f_app_cmd^$GUI^nc#@@0^0^0^0^0
 #
-#@@netstat#@@Print network connections, routing tables, interface stats, etc.#@@f_app_cmd^$GUI^netstat -l#@@1^0^0^1:NC^0
+#@@netstat#@@Print network connections, routing tables, interface stats, etc.#@@f_app_cmd^$GUI^netstat^netstat -l#@@0^0^0^1:NC^1
 #
-#@@netwatch#@@Protocol monitor ncurses-based.#@@f_app_cmd^$GUI^netwatch#@@1^0^0^1^1
+#@@netwatch#@@Protocol monitor ncurses-based.#@@f_app_cmd^$GUI^netwatch#@@0^0^0^1^1
 #
-#@@ntop#@@Display network usage and status information in a web browser.#@@f_app_cmd^$GUI^ntop#@@1^0^0^0^0
+#@@ntop#@@Display network usage and status information in a web browser.#@@f_app_cmd^$GUI^ntop#@@0^0^0^0^0
 #
-#@@opennms#@@Network management application. Discovery, reports, statistics.#@@f_app_cmd^$GUI^opennms#@@1^0^0^0^0
+#@@opennms#@@Network management application. Discovery, reports, statistics.#@@f_app_cmd^$GUI^opennms#@@0^0^0^0^0
 #
 #@@pmacct#@@Traffic information monitor.#@@f_app_cmd^$GUI^pmacct#@@0^0^0^0^1
 #
-#@@slurm#@@Simple Linux Utility for Resource Management. I/O load monitor.#@@f_app_cmd^$GUI^slurm#@@1^0^0^1:NC^0
+#@@slurm#@@Simple Linux Utility for Resource Management. I/O load monitor.#@@f_app_cmd^$GUI^slurm#@@0^0^0^1:NC^0
 #
 #@@sntop#@@IP LAN monitor. Display network hosts and connections.#@@f_app_cmd^$GUI^sntop#@@1^0^0^1:NC^0
 #
@@ -395,9 +395,9 @@ VERSION="2021-07-01 11:28"
 #
 #@@traceroute#@@Trace network path to destination. #@@f_app_cmd^$GUI^traceroute^traceroute lxer.com#@@1^0^0^0^1
 #
-#@@tracepath#@@Trace network path to destination, show MTU.#@@f_app_cmd^$GUI^tracepath#@@1^0^0^0^1
+#@@tracepath#@@Trace network path to destination, show MTU.#@@f_app_cmd^$GUI^tracepath#@@0^0^0^0^1
 #
-#@@traceproto#@@Trace network path to destination. #@@f_app_cmd^$GUI^traceproto#@@1^0^0^0^1
+#@@traceproto#@@Trace network path to destination. #@@f_app_cmd^$GUI^traceproto#@@0^0^0^0^1
 #
 #! End Listing Network - WAN 2 Menu (Required line, do not delete).
 #
@@ -823,6 +823,40 @@ f_ufw () {
 } # End of function f_ufw
 #
 # +----------------------------------------+
+# |           Function f_vuurmuur          |
+# +----------------------------------------+
+#
+#  Inputs: $1 - GUI.
+#          $2 - APP_NAME.
+#    Uses:
+# Outputs:
+#
+# Summary:
+#
+# Dependencies: f_message.
+#
+f_vuurmuur () {
+      #
+      # Define TEMP_FILE with the same definition used in f_app_cmd.
+      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
+      #
+      echo "Vuurmuur Firewall - Manage iptables and monitor network" > $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "Installation instructions for Debian and Ubuntu:" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      echo "https://www.vuurmuur.org/trac/wiki/InstallationDebian" >> $TEMP_FILE
+      echo >> $TEMP_FILE
+      f_message $1 "OK" "$2 command Help" $TEMP_FILE
+      #
+      if [ $1 = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use
+      fi
+} # End of function f_vuurmuur
+#
+# +----------------------------------------+
 # |            Function f_arping           |
 # +----------------------------------------+
 #
@@ -972,7 +1006,7 @@ f_ping () {
 } # End of function f_ping
 #
 # +----------------------------------------+
-# |              Function f_ss             |
+# |             Function f_sntop           |
 # +----------------------------------------+
 #
 #  Inputs: $1 - GUI.
@@ -984,33 +1018,31 @@ f_ping () {
 #
 # Dependencies: f_message.
 #
-f_ss () {
+f_sntop () {
       #
       # Define TEMP_FILE with the same definition used in f_app_cmd.
       TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
       #
-      echo "ss - Display TCP/UDP Network and Socket Information." > $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "Usage:" >> $TEMP_FILE
-      echo  "ss [options] [ FILTER ]"
-      echo "    -h, --help      Show summary of options." >> $TEMP_FILE
-      echo "    -a, --all       Display  both  listening  and  non-listening sockets." >> $TEMP_FILE
-      echo "    -l, --listening Display only listening sockets." >> $TEMP_FILE
-      echo "    -e, --extended  Show detailed socket information" >> $TEMP_FILE
-      echo "    -m, --memory    Show socket memory usage." >> $TEMP_FILE
-      echo "    -p, --processes Show process using socket." >> $TEMP_FILE
-      echo "    -i, --info      Show internal TCP information." >> $TEMP_FILE
-      echo "    -s, --summary   Print summary statistics." >> $TEMP_FILE
-      echo "    -4, --ipv4      Display only IP version 4 sockets (alias for -f inet)." >> $TEMP_FILE
-      echo "    -6, --ipv6      Display only IP version 6 sockets (alias for -f inet6)." >> $TEMP_FILE
-      echo "    -0, --packet    Display PACKET sockets (alias for -f link)." >> $TEMP_FILE
-      echo "    -t, --tcp       Display TCP sockets." >> $TEMP_FILE
-      echo "    -u, --udp       Display UDP sockets." >> $TEMP_FILE
-      echo "    -d, --dccp      Display DCCP sockets." >> $TEMP_FILE
-      echo "    -w, --raw       Display RAW sockets." >> $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
-      echo "                        '$2 --help'" >> $TEMP_FILE
+      echo "Usage: sntop [FLAG(S)...]"  > $TEMP_FILE
+       echo  >> $TEMP_FILE
+       echo "-d, --daemon           allow use as a daemon" >> $TEMP_FILE
+       echo "-o, --once		poll and display once, then exit" >> $TEMP_FILE
+       echo "-c, --nocolor		disable use of ncurses' color" >> $TEMP_FILE
+       echo "-p, --ping		use 'ping' in lieu of 'fping'. MUCH SLOWER!" >> $TEMP_FILE
+       echo "-w, --html		generate html output of results" >> $TEMP_FILE
+       echo "-s, --secure		secure mode: interactive commands are disabled" >> $TEMP_FILE
+       echo "-e, --wfile=file	output html to <file> instead of sntop.html" >> $TEMP_FILE
+       echo "-f, --conf=file	read conf data from <file> instead of ~/.sntoprc." >> $TEMP_FILE
+       echo "note, sntop will still try to read from" >> $TEMP_FILE
+	   echo "/etc/sntoprc if <file> fails" >> $TEMP_FILE
+       echo "-r, --refresh=time	refresh every <time> seconds instead of every 180" >> $TEMP_FILE
+       echo "-a, --alarm=action	when a site goes down, execute action" >> $TEMP_FILE
+       echo "-l, --log=action	when a site changes status, execute action" >> $TEMP_FILE
+       echo "-b, --byte=bytes	bytes of ping data to send" >> $TEMP_FILE
+       echo "-v, --version		display version information and exit" >> $TEMP_FILE
+       echo "-h, --help		display this help and exit" >> $TEMP_FILE
+      echo  >> $TEMP_FILE
+      echo "See 'man sntop'" >> $TEMP_FILE
       f_message $1 "OK" "$2 command Help" $TEMP_FILE
       #
       if [ $1 = "text" ] ; then
@@ -1020,7 +1052,7 @@ f_ss () {
          f_configure_use
       fi
       #
-} # End of function f_ss
+} # End of function f_sntop
 #
 # +----------------------------------------+
 # |           Function f_ethtool           |
@@ -1083,55 +1115,6 @@ f_ethtool () {
       #
 } # End of function f_ethtool
 #
-# +----------------------------------------+
-# |              Function f_ip             |
-# +----------------------------------------+
-#
-#  Inputs: $1 - GUI.
-#          $2 - APP_NAME.
-#    Uses:
-# Outputs:
-#
-# Summary:
-#
-# Dependencies: f_message.
-#
-f_ip () {
-      #
-      # Define TEMP_FILE with the same definition used in f_app_cmd.
-      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
-      #
-      echo "IP - manipulate routing, devices, policy routing and tunnels." > $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "Usage:" >> $TEMP_FILE
-      echo "ip [ OPTIONS ] OBJECT { COMMAND | help }" >> $TEMP_FILE
-      echo "OBJECT := { link | addr | addrlabel | route | rule | neigh | tunnel | maddr |" >> $TEMP_FILE
-      echo " mroute }" >> $TEMP_FILE
-      echo "link      - network device." >> $TEMP_FILE
-      echo "address   - protocol (IP or IPv6) address on a device." >> $TEMP_FILE
-      echo "addrlabel - label configuration for protocol address selection." >> $TEMP_FILE
-      echo "neighbor  - ARP or NDISC cache entry." >> $TEMP_FILE
-      echo "route     - routing table entry." >> $TEMP_FILE
-      echo "rule      - rule in routing policy database." >> $TEMP_FILE
-      echo "maddress  - multicast address." >> $TEMP_FILE
-      echo "mroute    - multicast routing cache entry." >> $TEMP_FILE
-      echo "tunnel    - tunnel over IP." >> $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "OPTIONS := { -V[ersion] | -s[tatistics] | -r[esolve] | -f[amily] { inet | inet6" >> $TEMP_FILE
-      echo "             | ipx | dnet | link } | -o   OBJECT" >> $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
-      echo "                        '$2 --help'" >> $TEMP_FILE
-      f_message $1 "OK" "$2 command Help" $TEMP_FILE
-      #
-      if [ $1 = "text" ] ; then
-         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
-         # Why needed? Function f_message uses application "Less" to display pages of text.
-         # But "Less" resets the terminal's colors to white on black.
-         f_configure_use
-      fi
-      #
-} # End of function f_ip
 #
 # +----------------------------------------+
 # |           Function f_iwlist            |
@@ -1540,56 +1523,6 @@ f_geoip () {
 } # End of function f_geoip
 #
 # +----------------------------------------+
-# |              Function f_ip             |
-# +----------------------------------------+
-#
-#  Inputs: $1 - GUI.
-#          $2 - APP_NAME.
-#    Uses:
-# Outputs:
-#
-# Summary:
-#
-# Dependencies: f_message.
-#
-f_ip () {
-      #
-      # Define TEMP_FILE with the same definition used in f_app_cmd.
-      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
-      #
-      echo "IP - manipulate routing, devices, policy routing and tunnels." > $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "Usage:" >> $TEMP_FILE
-      echo "ip [ OPTIONS ] OBJECT { COMMAND | help }" >> $TEMP_FILE
-      echo "OBJECT := { link | addr | addrlabel | route | rule | neigh | tunnel | maddr |" >> $TEMP_FILE
-      echo " mroute }" >> $TEMP_FILE
-      echo "link      - network device." >> $TEMP_FILE
-      echo "address   - protocol (IP or IPv6) address on a device." >> $TEMP_FILE
-      echo "addrlabel - label configuration for protocol address selection." >> $TEMP_FILE
-      echo "neighbor  - ARP or NDISC cache entry." >> $TEMP_FILE
-      echo "route     - routing table entry." >> $TEMP_FILE
-      echo "rule      - rule in routing policy database." >> $TEMP_FILE
-      echo "maddress  - multicast address." >> $TEMP_FILE
-      echo "mroute    - multicast routing cache entry." >> $TEMP_FILE
-      echo "tunnel    - tunnel over IP." >> $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "OPTIONS := { -V[ersion] | -s[tatistics] | -r[esolve] | -f[amily] { inet | inet6" >> $TEMP_FILE
-      echo "             | ipx | dnet | link } | -o   OBJECT" >> $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
-      echo "                        '$2 --help'" >> $TEMP_FILE
-      f_message $1 "OK" "$2 command Help" $TEMP_FILE
-      #
-      if [ $1 = "text" ] ; then
-         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
-         # Why needed? Function f_message uses application "Less" to display pages of text.
-         # But "Less" resets the terminal's colors to white on black.
-         f_configure_use
-      fi
-      #
-} # End of function f_ip
-#
-# +----------------------------------------+
 # |              Function f_mtr            |
 # +----------------------------------------+
 #
@@ -1776,54 +1709,6 @@ f_install_speedtest_cli () {
       unset ANS
       #
 } # End of function f_install_speedtest_cli
-#
-# +----------------------------------------+
-# |             Function f_ping            |
-# +----------------------------------------+
-#
-#  Inputs: $1 - GUI.
-#          $2 - APP_NAME.
-#    Uses:
-# Outputs:
-#
-# Summary:
-#
-# Dependencies: f_message.
-#
-f_ping () {
-      #
-      # Define TEMP_FILE with the same definition used in f_app_cmd.
-      TEMP_FILE=$CLI_DIR/$CURR_FILE"_temp.txt"
-      #
-      echo "ping - Send ICMP ECHO_REQUEST to network hosts." > $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "Usage:" >> $TEMP_FILE
-      echo "ping  [-LRUbdfnqrvVaAB] [-c count] [-m mark] [-i interval] [-l preload]" >> $TEMP_FILE
-      echo "      [-p pattern] [-s packetsize] [-t ttl] [-w deadline] [-F flowlabel]" >> $TEMP_FILE
-      echo "      [-I interface]  [-M  hint] [-N nioption] [-Q tos] [-S sndbuf]" >> $TEMP_FILE
-      echo "      [-T timestamp option] [-W timeout] [hop ...] destination" >> $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "Usage: ping destination where destination may be an IP-address or url." >> $TEMP_FILE
-      echo "       i.e. ping 192.168.1.1 or ping www.sourceforge.net" >> $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "*** For more help type: 'man $2'" >> $TEMP_FILE
-      echo "                        '$2 --help'" >> $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "Pinging this PC (localhost) for 5 times as an example." >> $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "Now run ping. Usage: ping localhost -c 5" >> $TEMP_FILE
-      echo >> $TEMP_FILE
-      echo "Many web sites block pings resulting in a message: '100% packet loss'." >> $TEMP_FILE
-      f_message $1 "OK" "$2 command Help" $TEMP_FILE
-      #
-      if [ $1 = "text" ] ; then
-         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
-         # Why needed? Function f_message uses application "Less" to display pages of text.
-         # But "Less" resets the terminal's colors to white on black.
-         f_configure_use
-      fi
-      #
-} # End of function f_ping
 #
 # +----------------------------------------+
 # |         Function f_speedometer         |

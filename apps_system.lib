@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2022 Copyright 2022 Robert D. Chin
+# ©2023 Copyright 2023 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
@@ -368,9 +368,9 @@ VERSION="2021-07-01 11:28"
 #
 #@@sysv-rc-conf#@@Enable/disable startup scripts/services ncurses-based.#@@f_app_cmd^$GUI^sysv-rc-conf#@@0^0^0^1^0
 #
-#@@tload#@@System load average graphical monitor.#@@f_app_cmd^$GUI^tload#@@f_run_and_exit "tload" "tload"^0^0^0^1
+#@@tload#@@System load average graphical monitor.#@@f_app_cmd^$GUI^tload#@@f_app_run_and_exit "tload" "tload"^0^0^0^1
 #
-#@@ttyload#@@Color-coded graphs of CPU load average.#@@f_app_cmd^$GUI^ttyload#@@f_run_and_exit "ttyload" "ttyload"^0^0^8^1
+#@@ttyload#@@Color-coded graphs of CPU load average.#@@f_app_cmd^$GUI^ttyload#@@f_app_run_and_exit "ttyload" "ttyload"^0^0^8^1
 #
 #@@yacpi#@@ACPI monitor, ncurses-based.#@@f_app_cmd^$GUI^yacpi#@@0^0^0^1^0
 #
