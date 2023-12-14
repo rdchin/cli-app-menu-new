@@ -214,7 +214,11 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ##
 ## Includes changes to cliappmenu.lib, cli-common.lib.
 ##
-## 2023-11-26 *Updated copyright year. Uploaded project to GitHub.
+## 2023-12-14 *Section "Main" changed from: f_test_environment $1
+##                            changed   to: f_test_environment $GUI
+##             If string parameter $1 was not a UI, then f_arguments would
+##             exit out of the script cleanly, but really want to use $GUI
+##             as the argument. (See common_bash_function.lib, f_argments).
 ##
 ## 2023-06-21 *apps_screen_tools.lib added "neofetch" application.
 ##
@@ -531,7 +535,7 @@ f_arguments $1 $2
 # fi
 #
 # Test for BASH environment.
-f_test_environment $1
+f_test_environment $GUI
 #
 # If an error occurs, the f_abort() function will be called.
 # trap 'f_abort' 0
