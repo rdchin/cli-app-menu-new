@@ -24,7 +24,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2023-06-21 11:58"
+VERSION="2023-12-14 19:25"
 #
 # Set THIS_FILE to the name of this script file.
 THIS_FILE=$(basename $0)
@@ -219,6 +219,8 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ##             If string parameter $1 was not a UI, then f_arguments would
 ##             exit out of the script cleanly, but really want to use $GUI
 ##             as the argument. (See common_bash_function.lib, f_argments).
+##
+## 2023-11-26 *Updated copyright year. Uploaded project to GitHub.
 ##
 ## 2023-06-21 *apps_screen_tools.lib added "neofetch" application.
 ##
