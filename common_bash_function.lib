@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2022 Copyright 2022 Robert D. Chin
+# ©2023 Copyright 2023 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # Usage: source common_bash_function.lib
@@ -23,7 +23,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-10-05 21:07"
+VERSION="2023-12-25 22:54"
 #
 # WARNING: Do not define $THIS_FILE within a library script.
 #
@@ -63,6 +63,53 @@ VERSION="2022-10-05 21:07"
 ## Code Change History
 ##
 ## (After each edit made, please update Code History and VERSION.)
+##
+## 2023-12-25 *f_select_file for "whiptail" and "text" UI uses application
+##             "fzf" which is licensed under the "MIT License".
+##             Improved documentation for f_select_file.
+##
+## 2023-12-23 *f_select_file for "whiptail" and "text" UI uses application
+##             "fzf" which does a search for files. Set fzf to pattern
+##             match on the starting letters of file name.
+##
+## 2023-12-21 *f_select_file_verify, f_select_file_output added.
+##            *f_select_file simplified for "dialog" UI.
+##            *f_select_dir brought improvements from Dialog to Whiptail
+##             case statements.
+##            *f_show_mount_points simplified.
+##
+## 2023-12-17 *f_select_dir, f_select_file improved look and feel with 
+##             better dynamic resizing of Dialog box size with a warning
+##             message if X-window size is too small for Dialog box.
+##            *f_select_file bug fixed to display warning if a directory is
+##             selected rather than a file. Added a messoge if Dialog
+##             fselect "Cancel" button is pressed.
+##
+## 2023-11-23 *f_show_mount_points added to display both LAN Samba shares, 
+##             and mount-points and locally mounted devices. such as
+##             USB drives, and even RAID md devices.
+##
+## 2023-11-19 *f_select_dir made all UI consistent allowing one or more
+##             directories to be selected by Whiptail or Text UI.
+##            *f_yn_question fixed bug syntax error in case statement
+##             for Dialog and Whiptail UI.
+##
+## 2023-10-10 *Improved comments to be more consistent.
+##
+## 2023-08-30 *f_web_browser added command "chromium".
+##
+## 2023-08-07 *f_web_browser changed order of web browser preferences.
+##             Improved comments for clarity.
+##
+## 2023-06-09 *f_message bug fix deleted temp file when user-interface
+##             is "text" and text to be displayed was in a temp file.
+##
+## 2023-02-06 *f_web_browser bug fix corrected command-line commands for
+##             opening web browsers, Chromium and Google Chrome.
+##
+## 2023-01-23 *f_web_browser added.
+##
+## 2023-01-21 *f_text_editor fixed bug, missing parameter for f_message.
 ##
 ## 2022-10-05 *f_menu_main_TEMPLATE improved comments.
 ##
@@ -424,7 +471,7 @@ VERSION="2022-10-05 21:07"
 # +------------------------------------+
 #
 #     Rev: 2021-03-31
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - Delimiter of text to be displayed.
 #          $3 - "NOK", "OK", or null [OPTIONAL] to control display of "OK" button.
 #          $4 - Pause $4 seconds [OPTIONAL]. If "NOK" then pause to allow text to be read.
@@ -494,7 +541,7 @@ f_display_common_TEMPLATE () {
 # +----------------------------------------+
 #
 #     Rev: 2022-05-19
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - [OPTIONAL] File name to compare.
 #          FILE_TO_COMPARE.
 #    Uses: SERVER_DIR, MP_DIR, LOCAL_REPO_DIR, $FILE_TO_COMPARE, FILE_LIST,
@@ -601,7 +648,7 @@ f_check_version_TEMPLATE () {
 # +----------------------------------------+
 #
 #     Rev: 2022-05-19
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - Samba File server Directory
 #          $3 - Local Mount Point (Directory)
 #          $4 - File server Target Directory.
@@ -730,7 +777,7 @@ f_version_compare () {
       #
       unset LINE VER VER_MSG VERSION_RELEASE ERROR2
       #
-} # End of function f_version_compare.
+}  # End of function f_version_compare.
 #
 # +----------------------------------------+
 # |         Function f_script_path         |
@@ -757,7 +804,7 @@ f_script_path () {
       SCRIPT_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
       THIS_DIR=$SCRIPT_PATH  # Set $THIS_DIR to location of this script.
       #
-} # End of function f_script_path.
+}  # End of function f_script_path.
 #
 # +----------------------------------------+
 # |         Function f_arguments           |
@@ -928,16 +975,18 @@ f_arguments () {
 #
 f_detect_ui () {
       #
+      # Test if Dialog UI is installed.
       command -v dialog >/dev/null
       # "&>/dev/null" does not work in Debian distro.
       # 1=standard messages, 2=error messages, &=both.
       ERROR=$?
-      # Is Dialog GUI installed?
+      #
+      # Is Dialog is installed?
       if [ $ERROR -eq 0 ] ; then
          # Yes, Dialog installed.
          GUI="dialog"
       else
-         # Is Whiptail GUI installed?
+         # Is Whiptail UI installed?
          command -v whiptail >/dev/null
          # "&>/dev/null" does not work in Debian distro.
          # 1=standard messages, 2=error messages, &=both.
@@ -946,19 +995,19 @@ f_detect_ui () {
             # Yes, Whiptail installed.
             GUI="whiptail"
          else
-            # No CLI GUIs installed
+            # No CLI dialog box applications are installed
             GUI="text"
          fi
       fi
       #
-} # End of function f_detect_ui.
+}  # End of function f_detect_ui.
 #
 # +----------------------------------------+
 # |      Function f_test_environment       |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - X-window Application name.
 #                  (String must either begin and end with double-quotes
 #                  or must not include spaces but must have underscores substituting for spaces).
@@ -981,14 +1030,14 @@ f_test_environment () {
       #   f_abort $1
       #fi
       #
-} # End of function f_test_environment.
+}  # End of function f_test_environment.
 #
 # +----------------------------------------+
 # |          Function f_test_dash          |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $BASH_VERSION (System variable), GUI.
 #    Uses: None.
 # Outputs: exit 1.
@@ -1019,14 +1068,14 @@ f_test_dash () {
          f_abort $1
       fi
       #
-} # End of function f_test_dash
+}  # End of function f_test_dash
 #
 # +----------------------------------------+
 # |         Function f_test_connect_TEMPLATE        |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #    Uses: None.
 # Outputs: None.
 #
@@ -1050,14 +1099,14 @@ f_test_connect_TEMPLATE () {
       #
       f_test_connection $1 8.8.8.8 1
       #
-} # End of function f_test_connect
+}  # End of function f_test_connect
 #
 # +----------------------------------------+
 # |        Function f_test_connection      |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - Network name of server, IP address, or web site address (URL).
 #          $3 - Pause n seconds to read message (Optional).
 #    Uses: None.
@@ -1080,14 +1129,14 @@ f_test_connection () {
       #
       clear # Blank the screen.
       #
-} # End of function f_test_connection.
+}  # End of function f_test_connection.
 #
 # +----------------------------------------+
 # |           Function f_username          |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - USERNAME (default or "n" for none. One word without spaces).
 #          $3 - String (server and/or mount-point) used in prompt.
 #                  (String must begin and end with double-quotes if it includes spaces).
@@ -1147,14 +1196,14 @@ f_username() {
       #
       unset PRINT_STRING3
       #
-} # End of function f_username.
+}  # End of function f_username.
 #
 # +----------------------------------------+
 # |           Function f_password          |
 # +----------------------------------------+
 #
 #     Rev: 2022-04-24
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - String (server and/or username) used in prompt.
 #                  (String must begin and end with double-quotes if it includes spaces).
 #                  or must have underscores substituting for spaces).
@@ -1211,14 +1260,14 @@ f_password() {
       #
       unset PRINT_STRING2
       #
-} # End of function f_password.
+}  # End of function f_password.
 #
 # +----------------------------------------+
 # |      Function f_bad_sudo_password      |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #    Uses: None.
 # Outputs: None.
 #
@@ -1232,7 +1281,7 @@ f_bad_sudo_password () {
       #
       clear # Blank the screen.
       #
-} # End of function f_bad_sudo_password.
+}  # End of function f_bad_sudo_password.
 #
 # +----------------------------------------+
 # | Function f_press_enter_key_to_continue |
@@ -1255,14 +1304,14 @@ f_press_enter_key_to_continue () {
       read X
       unset X  # Throw out this variable.
       #
-} # End of function f_press_enter_key_to_continue.
+}  # End of function f_press_enter_key_to_continue.
 #
 # +----------------------------------------+
 # |         Function f_exit_script         |
 # +----------------------------------------+
 #
 #     Rev: 2022-07-24
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #    Uses: None.
 # Outputs: None.
 #
@@ -1282,14 +1331,14 @@ f_exit_script () {
       clear
       #
       exit 0
-} # End of function f_exit_script
+}  # End of function f_exit_script
 #
 # +----------------------------------------+
 # |              Function f_abort          |
 # +----------------------------------------+
 #
 #     Rev: 2022-07-24
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #    Uses: None.
 # Outputs: None.
 #
@@ -1321,14 +1370,14 @@ f_abort () {
       #
       exit 1
       #
-} # End of function f_abort.
+}  # End of function f_abort.
 #
 # +------------------------------------+
 # |          Function f_about          |
 # +------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "NOK", "OK", or null [OPTIONAL] to control display of "OK" button.
 #          $3 - Pause $3 seconds [OPTIONAL]. If "NOK" then pause to allow text to be read.
 #          THIS_DIR, THIS_FILE, VERSION.
@@ -1348,14 +1397,14 @@ f_about () {
       DELIM="^#&"
       f_display_common $1 $DELIM $2 $3
       #
-} # End of f_about.
+}  # End of f_about.
 #
 # +------------------------------------+
 # |      Function f_code_history       |
 # +------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "NOK", "OK", or null [OPTIONAL] to control display of "OK" button.
 #          $3 - Pause $3 seconds [OPTIONAL]. If "NOK" then pause to allow text to be read.
 #          THIS_DIR, THIS_FILE, VERSION.
@@ -1375,14 +1424,14 @@ f_code_history () {
       DELIM="^##"
       f_display_common $1 $DELIM $2 $3
       #
-} # End of function f_code_history.
+}  # End of function f_code_history.
 #
 # +------------------------------------+
 # |      Function f_help_message       |
 # +------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "NOK", "OK", or null [OPTIONAL] to control display of "OK" button.
 #          $3 - Pause $3 seconds [OPTIONAL]. If "NOK" then pause to allow text to be read.
 #          THIS_DIR, THIS_FILE, VERSION.
@@ -1402,14 +1451,164 @@ f_help_message () {
       DELIM="^#?"
       f_display_common $1 $DELIM $2 $3
       #
-} # End of f_help_message.
+}  # End of f_help_message.
+#
+# +----------------------------------------+
+# |      Function f_show_mount_points      |
+# +----------------------------------------+
+#
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
+#          $THIS_FILE,
+#    Uses: X, Y, ERROR, $TEMP_FILE.
+# Outputs: None.
+#
+# Summary: Display the mount-points and local devices.
+#
+# Dependencies: df, grep, lsblk, f_message.
+#
+f_show_mount_points () {
+      #
+      # Blank the screen.
+      clear
+      #
+      date >$TEMP_FILE
+      echo >>$TEMP_FILE
+      echo "------------------------------------------------------------------" >>$TEMP_FILE
+      echo "Display status of any shared directories from remote file servers." >>$TEMP_FILE
+      echo "------------------------------------------------------------------" >>$TEMP_FILE
+      #
+      # Note: The applications "df" and "findmnt" can show the same
+      #       formatted information using certain optional parameters.
+      #       Using "findmnt" without the --df will display a tree-like format
+      #       of the file systems.
+      #
+      # Example:
+      # These will display identical formatted information.
+      # df --all --human-readable --output=source,size,avail,target | grep /media/
+      # findmnt --all --df --output=source,size,avail,target | grep /media/
+      #
+      # Example:
+      # Application "findmnt" will display a tree-like format of the file systems.
+      # Below will include both the mounted native disk along with the mounted
+      # block devices (USB or external drives).
+      # findmnt --all --output=source,size,avail,target | head -n 2
+      # findmnt --all --output=source,size,avail,target | grep /media/
+      #
+      # Application "df" will display the same information but without the tree.
+      # df --all --human-readable --output=source,size,avail,target | head -n 1
+      # df --all --human-readable --output=source,size,avail,target | grep /media/
+      #
+      # Test if this version of "df" has these OPTIONS.
+      df --all --human-readable --output=source,avail,target >/dev/null 2>&1
+      ERROR=$?
+      #
+      if [ $ERROR -eq 1 ] ; then
+         # Older version of "df" or nothing mounted, so use df with minimal OPTIONS.
+         # Use traditional display of data.
+         # Get df column header line.
+         DF_CMD_HEAD_1="df --all --human-readable | head -n 1 >>$TEMP_FILE  2>&1"
+         #
+         # Get /mnt/ file server mount-points
+         DF_CMD_1="df --all --human-readable | grep "//" >>$TEMP_FILE 2>&1"
+         #
+         # Now display information for local block devices i.e. USB drives, etc.
+         # Get df column header line.
+         DF_CMD_HEAD_2="df --all --human-readable | head -n 1 >>$TEMP_FILE  2>&1"
+         #
+         # Get /media/ local devices mount-points.
+         DF_CMD_2="df --all --human-readable | grep -e /media/ -e /md >>$TEMP_FILE 2>&1"
+      else
+         # Newer version of "df" in use.
+         # Use simplifed display of data.
+         # Get df column header line.
+         DF_CMD_HEAD_1="df --all --human-readable --output=source,size,avail,target | head -n 1 >>$TEMP_FILE"
+         #
+         # Get /mnt/ file server mount-points
+         DF_CMD_1="df --all --human-readable --output=source,size,avail,target | grep /mnt/ >>$TEMP_FILE"
+         #
+         # Now display information for local block devices i.e. USB drives, etc.
+         # Get df column header line.
+         DF_CMD_HEAD_2="df --all --human-readable --output=source,size,used,avail,target | head -n 1 >>$TEMP_FILE"
+         #
+         # Get /media/ local devices mount-points.
+         DF_CMD_2="df --all --human-readable --output=source,size,used,avail,target | grep -e /media/ -e /md >>$TEMP_FILE"
+      fi
+      #
+      # Get df column header line.
+      eval $DF_CMD_HEAD_1
+      #
+      # Get /mnt/ file server mount-points
+      eval $DF_CMD_1
+      ERROR=$?
+      #
+      # Are there any file server share-points mounted on /mnt/?
+      if [ $ERROR -eq 0 ] ; then
+         # Yes, remote file server share-points mounted.
+         echo >>$TEMP_FILE
+         # Get username, mounted file server share-point, mount-point information from /etc/mtab.
+         grep "//" /etc/mtab | awk -F "," '{ print $1,$5 }' | awk '{ print $5" mounted "$1." on "$2}' >>$TEMP_FILE
+         echo >>$TEMP_FILE
+      else
+         # No, remote file server share-points not mounted.
+         echo "N/A             N/A   N/A  No remote server mounted" >>$TEMP_FILE
+         echo >>$TEMP_FILE
+      fi
+      #
+      echo "----------------------------------------------------------------------" >>$TEMP_FILE
+      echo "Display status of any mounted local block devices i.e. USB drives etc." >>$TEMP_FILE
+      echo "----------------------------------------------------------------------" >>$TEMP_FILE
+      # Now display information for local block devices i.e. USB drives, etc.
+      # Get df column header line.
+      eval $DF_CMD_HEAD_2
+      #
+      # Get /media/ local devices mount-points.
+      eval $DF_CMD_2
+      ERROR=$?
+      #
+      # Are there any local block devices mounted on /media/?
+      if [ $ERROR -eq 1 ] ; then
+         # No, local block devices not mounted.
+         echo "N/A             N/A   N/A  No local block devices mounted" >>$TEMP_FILE
+         echo >>$TEMP_FILE
+      fi
+      #
+      echo >>$TEMP_FILE
+      echo "------------------------------------------------------------" >>$TEMP_FILE
+      echo "List all recognized local block devices i.e. USB drives etc." >>$TEMP_FILE
+      echo "------------------------------------------------------------" >>$TEMP_FILE
+      #
+      # Print /dev/sd[a-z][1-9] i.e. "/dev/sdb1" block devices HDDs, SSDs, USB drives
+      # using the lsblk command with only necessary columns displayed.
+      #
+      # Print column header line
+      # awk 'BEGIN { print "DEVICE  SIZE   FSTYPE             MOUNTPOINT" }' >>$TEMP_FILE
+      echo "NAME    SIZE   USED     USE%   AVAIL    FSTYPE   MOUNTPOINT" >>$TEMP_FILE
+      #
+      # Print filtered results of command lsblk.
+      # Use --tree to relate RAID md devices to RAID member drive devices.
+      #
+      # Easier to read information on RAID devices.
+      lsblk -fs --tree --output NAME,SIZE,FSUSED,FSUSE%,FSAVAIL,FSTYPE,MOUNTPOINT | grep -e sd[a-z][1-9] -e md | awk  '{ printf "%-7s %-6s %-8s %-6s %-8s %-8s %s\n", $1,$2,$3,$4,$5,$6,$7 }' >>$TEMP_FILE
+      #
+      # Display results.
+      f_message $1 "OK" "(use arrow keys to scroll up/down/side-ways)" $TEMP_FILE
+      #
+      # Delete temporary file.
+      if [ -r $TEMP_FILE ] ; then
+         rm $TEMP_FILE
+      fi
+      #
+      # Throw out these variables.
+      unset X Y ERROR
+      #
+}  # End of function f_show_mount_points.
 #
 # +----------------------------------------+
 # |         Function f_file_manager        |
 # +----------------------------------------+
 #
 #     Rev: 2022-04-08
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - TARGET_DIR.
 #                  (String must either begin and end with double-quotes
 #                  or must not include spaces but must have underscores substituting for spaces).
@@ -1530,14 +1729,14 @@ f_file_manager () {
       # Throw out this variable.
       unset FILE_MGR FILE_MGR_APPS
       #
-} # End of function f_file_manager.
+}  # End of function f_file_manager.
 #
 # +----------------------------------------+
 # |         Function f_text_editor         |
 # +----------------------------------------+
 #
 #     Rev: 2022-04-08
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - String "[Description of] File(s)"
 #                  (String must either begin and end with double-quotes
 #                  or must have underscores substituting for spaces).
@@ -1621,7 +1820,8 @@ f_text_editor () {
          for TEXT_EDITOR in $TEXT_EDITOR_APPS
              do
                 if [ "$RUNAPP" -eq 0 ] ; then
-                   type $TEXT_EDITOR >/dev/null 2>&1  # Test if $TEXT_EDITOR application is installed.
+                   # Test if $TEXT_EDITOR application is installed.
+                   type $TEXT_EDITOR >/dev/null 2>&1
                    ERROR=$?
                    if [ "$ERROR" -eq 0 ] ; then
                       # Opening text editor to allow editing.
@@ -1650,20 +1850,121 @@ f_text_editor () {
              done
          #
          if [ "$RUNAPP" -eq 0 ] ; then
-            f_message "OK" "Text Editor Error" "Text editor was not automatically detected."
+            f_message $1 "OK" "Text Editor Error" "Text editor was not automatically detected."
          fi
          #
          unset RUNAPP TEXT_EDITOR TEXT_EDITOR_APPS
       fi
       #
-} # End of function f_text_editor.
+}  # End of function f_text_editor.
+#
+# +----------------------------------------+
+# |          Function f_web_browser        |
+# +----------------------------------------+
+#
+#     Rev: 2023-08-07
+#  Inputs: $1=GUI
+#    Uses: WEB_BROWSER_FOUND, WEB_BROWSER_APPS.
+# Outputs: WEB_BROWSER, RUNAPP, ERROR.
+#
+# Summary: Detect web browser application.
+#
+# Dependencies: f_message.
+#
+f_web_browser () {
+      #
+      #   +--------------------------------------------------------------+
+      #   | Determine what environment is in use, pure CLI or X-Windows? |
+      #   +--------------------------------------------------------------+
+      # Determine if user is in a pure CLI environment
+      # or if using a CLI within an X-Window on a GUI Desktop.
+      #
+      # Set XWIN equal to the value of $DISPLAY.
+      XWIN=$(echo $DISPLAY)
+      #
+      # $DISPLAY is null if in a pure CLI environment.
+      # $DISPLAY is not null then in an X-Window environment.
+      #
+      # In an X-Window environment:
+      # Format of $DISPLAY is: <hostname>:<Display number>.<Screen number>
+      #
+      # If on local PC (localhost) in X-Windows then <hostname> is null.
+      # i.e. ":0" or ":0.0"
+      #
+      # If on a remote file server "Mainfileserver" in X-Windows then:
+      # i.e. "Mainfileserver:0" or "Mainfileserver:0.1"
+      #
+      # Is the environment a pure CLI environment?
+      if [ -z $XWIN ] ; then
+         # Yes, a pure CLI environment so use only CLI file manager apps.
+         # List web browsers in preferred order with most preferred first.
+         #
+         #
+         #================================================================================
+         # EDIT $WEB_BROWSER_APPS BELOW TO LIST FAVORITE WEB BROWSER APPS FOR CLI.
+         # THE WEB BROWSER APPS ARE LISTED IN THE ORDER OF PREFERENCE.
+         # THE FIRST APP IN THE LIST IS THE ONE FIRST USED (IF INSTALLED). 
+         # IF NOT INSTALLED, THE FOR-LOOP WILL TRY THE NEXT APP.
+         #================================================================================
+         #
+         #
+         WEB_BROWSER_APPS="links2 links elinks w3m "
+      else
+         # No, it is an X-Window environment so can use both X-Window and CLI file manager apps.
+         # List web browsers in preferred order with most preferred first.
+         #
+         #
+         #================================================================================
+         # EDIT $WEB_BROWSER_APPS BELOW TO LIST FAVORITE WEB BROWSER APPS FOR X-WINDOWS.
+         # THE WEB BROWSER APPS ARE LISTED IN THE ORDER OF PREFERENCE.
+         # THE FIRST APP IN THE LIST IS THE ONE FIRST USED (IF INSTALLED). 
+         # IF NOT INSTALLED, THE FOR-LOOP WILL TRY THE NEXT APP.
+         #================================================================================
+         #
+         #
+         WEB_BROWSER_APPS="chromium chromium-browser google-chrome google-chrome-stable firefox opera vivaldi"
+      fi
+      #
+      # Detect installed web browser (in order of preference).
+      #
+      # Initialize variables.
+      RUNAPP=0
+      #
+      for WEB_BROWSER in $WEB_BROWSER_APPS
+          do
+             # Is $WEB_BROWSER application is installed?
+             if [ $RUNAPP -eq 0 ] ; then
+                type $WEB_BROWSER >/dev/null 2>&1
+                ERROR=$?
+                #
+                # Is $WEB_BROWSER installed?
+                if [ $ERROR -eq 0 ] ; then
+                   # Yes, installed.
+                   RUNAPP=1
+                   WEB_BROWSER_FOUND=$WEB_BROWSER
+                fi
+             fi
+          done
+      #
+      # Was a web browser detected? 
+      # For-loop outputs $WEB_BROWSER_FOUND.
+      if [ $RUNAPP -eq 1 ] ; then
+         # Set output to $WEB_BROWSER.
+         WEB_BROWSER=$WEB_BROWSER_FOUND
+      else
+         f_message $1 "OK" "Web Browser Error" "\nWeb browser was not automatically detected."
+      fi
+      #
+      unset WEB_BROWSER_FOUND WEB_BROWSER_APPS
+      #
+}  # End of function f_web_browser.
 #
 # +----------------------------------------+
 # |          Function f_select_dir         |
 # +----------------------------------------+
 #
 #     Rev: 2022-04-29
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - String "[Description] Directory".
 #                  (String must either begin and end with double-quotes
 #                  or must have underscores substituting for spaces).
@@ -1672,8 +1973,9 @@ f_text_editor () {
 #          $4 - [Optional] 1/0 1=Select only one directory
 #                            0 or null=Select multiple directories.
 #          THIS_DIR.
-#    Uses: TEMP_FILE, ANS, ERROR, SCRIPT_LIST.
-# Outputs: ANS (List of selected files), ERROR.
+#    Uses: TEMP_FILE2, ANS, ERROR, SCRIPT_LIST.
+# Outputs: ANS (List of selected directories delimited by spaces)
+#          ERROR.
 #
 # Summary: Prompt user-entered file name.
 #
@@ -1681,62 +1983,73 @@ f_text_editor () {
 #
 f_select_dir () {
       #
-      # Get the screen resolution or X-window size.
-      # Get rows (height).
-      YSCREEN=$(stty size | awk '{ print $1 }')
-      # Get columns (width).
-      XSCREEN=$(stty size | awk '{ print $2 }')
-      #
-      # If window size is less than 80 x 24, then Dialog f_select_dir will not work properly.
-      if [ $YSCREEN -lt 24 ] || [ $XSCREEN -lt 80 ] ; then
-         f_message $1 "OK" "Window Size too Small" "\nThis window is too small at $XSCREEN x $YSCREEN.\n\nThe minimum window size is 80 characters x 30 lines but preferably at least 120x40.\n\nPlease increase the window size now."
-         #
-         # Get the screen resolution or X-window size.
-         # Get rows (height).
-         YSCREEN=$(stty size | awk '{ print $1 }')
-         # Get columns (width).
-         XSCREEN=$(stty size | awk '{ print $2 }')
-      fi
-      #
       # Initialize variable DEFAULT_DIR to passed argument base directory.
       DEFAULT_DIR=$3
       #
       # Format string, substitute spaces for underscores.
       DIR_DESCR=$(echo $2 | tr "_" " ")
       #
+      TEMP_FILE2=$THIS_DIR/$THIS_FILE"_temp2.txt"
+      #
+      # Delete TEMP_FILE2.
+      if [ -e "$TEMP_FILE2" ] ; then
+         rm $TEMP_FILE2
+      fi
+      #
       case $1 in
-           dialog)
-              TEMP_FILE2=$THIS_DIR/$THIS_FILE"_temp2.txt"
-              #
-              # Delete TEMP_FILE2.
-              if [ -e "$TEMP_FILE2" ] ; then
-                 rm $TEMP_FILE2
-              fi
-              #
-              DIR_DESCR=$2
+           dialog)              
               # Is the length of $DIR_DESCR String longer than 28 characters?
               # Truncate string length so Dialog f_select works on an 80x24 character VGA display.
-              DIR_DESCR=${DIR_DESCR:0:28}
+              #DIR_DESCR=${DIR_DESCR:0:28}
               #
               # Initialize variables.
               DIR_SELECTED=""
               ANS=""
-              # Initialize variable DEFAULT_DIR to passed argument base directory.
-              DEFAULT_DIR=$3
               #
               # Reset ERROR for while-loop to work.
               ERROR=0
               #
               while [ "$ERROR" -eq 0 ]
                     do
-                       # Dialog needs about 16 more lines for the header and [OK] button.
-                       let Y=$YSCREEN-16
+                       # During the While-Loop, this allows for dynamic
+                       # resizing of the  Dialog directory selector if the
+                       # user re-sizes the X-window to see more files.
+                       #
+                       # Get the screen resolution or X-window size.
+                       # Get rows (height).
+                       YSCREEN=$(stty size | awk '{ print $1 }')
+                       #
+                       if [ $YSCREEN -ge 28  ] ; then
+                          # Padding is 4, around Dialog --deselect box.
+                          let Y=$YSCREEN-4
+                       else
+                          # No padding around Dialog --deselect box.
+                          Y=$YSCREEN
+                       fi
+                       #
+                       # Get columns (width).
+                       XSCREEN=$(stty size | awk '{ print $2 }')
+                       #
+                       if [ $XSCREEN -ge 84 ] ; then
+                          # Padding is 4, around Dialog --deselect box.
+                          let X=$XSCREEN-4
+                       else
+                          # No padding around Dialog --deselect box.
+                          X=$XSCREEN
+                       fi
+                       #
+                       # The dialog --dselect --backtitle "Please choose $DIR_DESCR"
+                       # will only display if screen/window resolution is at least 30 lines vertically.
+                       # If less than 30 lines, the directory browser --dselect 
+                       # will still be displayed but without the --backtitle.
+                       #
                        # If number of lines exceeds screen/window height then set textbox height.
+                       # If window size is less than 80 x 24, then Dialog f_select_dir will not work properly.
+                       if [ $YSCREEN -lt 24 ] || [ $XSCREEN -lt 80 ] ; then
+                          f_message $1 "OK" "Window Size too Small" "\nThis window is too small at $XSCREEN x $YSCREEN.\n\nThe minimum window size is 80 characters x 24 lines but preferably at least 120x40.\n\nPlease increase the window size now."
+                       fi
                        #
-                       # Dialog needs about 0 more spaces for the right and left window frame.
-                       let X=$XSCREEN
-                       #
-                       DIR_SELECTED=$($1 --stdout --title "Use <tab>, <up/down arrows> and <spacebar> to select a $DIR_DESCR." --backtitle "Please choose $DIR_DESCR" --ok-label "Choose $DIR_DESCR" --cancel-label "Done choosing" --dselect $DEFAULT_DIR $Y $X)
+                       DIR_SELECTED=$($1 --stdout --title "Use <tab>, <up/down arrows> and <spacebar> to select a $DIR_DESCR." --backtitle "Please choose $DIR_DESCR" --ok-label "Choose $DIR_DESCR" --cancel-label "Done choosing" --dselect "$DEFAULT_DIR" $Y $X)
                        ERROR=$?
                        #
                        # From man dialog page.
@@ -1765,86 +2078,243 @@ f_select_dir () {
                        #
                        # -1   if errors occur inside dialog (DIALOG_ERROR) or dialog exits because the ESC key (DIALOG_ESC) was pressed.
                        #
+                       # Confirm directory selection.
                        if [ "$ERROR" -eq 0 ] && [ -n "$DIR_SELECTED" ] ; then
                           f_yn_question $1 "Y" "Confirm $DIR_DESCR name" "$DIR_DESCR name:\n$DIR_SELECTED\n\nIs the $DIR_DESCR name correct?"
                           #
                           # Is the selected directory name correct?
-                          if [ "$ANS" -ne 1 ] ; then
-                             if [ -d "$DIR_SELECTED" ] ; then
-                                # Yes, $DIR_DESCR name is correct. Note: $DIR_SELECTED includes "Directory Name".
-                                # Add selected directory name to list of selected directories in TEMP_FILE2
-                                echo $DIR_SELECTED >> $TEMP_FILE2
-                                #
-                                # Only select a single directory?
-                                if [ "$4" = 1 ] ; then
-                                   # Yes, a single directory has already been selected
-                                   # so exit loop by setting ERROR flag.
-                                   ERROR=1
-                                else
-                                   # No, multiple directories can be selected, so continue.
-                                   f_message $1 "NOK" "Directory Entered" "Directory name accepted. Enter next directory name or press \"Done Choosing\" button.\n\n$DIR_SELECTED" 2
-                                fi
-                             else
-                                # No, $DIR_SELECTED does not exist.
-                                f_message $1 "OK" "Error Directory Missing" "Directory does not exist:\n$DIR_SELECTED\n\n\Z1\ZbCreating a new empty directory.\Zn"
-                                mkdir -p $DIR_SELECTED
-                                #
-                                # Add selected directory to list of selected directories in TEMP_FILE2
-                                echo $DIR_SELECTED >> $TEMP_FILE2
-                             fi
+                          if [ "$ANS" -eq 0 ] ; then
+                             # Yes, so double-check directory name and/or create it if it does not exist.
+                             f_select_dir2 $1 "$DIR_DESCR" "$DIR_SELECTED" $4
                           fi
                        fi
                     done
               #
-              # Set ANS=contents of TEMP_FILE2 which is a string of selected directory names delimited by spaces.
+              # Reset ERROR since on exiting WHILE-loop it will always be EXIT=1.
+              ERROR=0
+              #
+              # Set ANS = contents of TEMP_FILE2 which is a string of selected directory names delimited by spaces.
               if [ -e "$TEMP_FILE2" ] ; then
                  ANS=$(cat $TEMP_FILE2)
-                 # f_message $1 "OK" "Continue" "\n\nContinue to process directories:\n\n$ANS"  # Diagnostic line.
-              else
+              else                 
                  ANS=""
+                 ERROR=1
               fi
+           ;;
+           whiptail)
+              # Is the length of $DIR_DESCR String longer than 28 characters?
+              # Truncate string length so Dialog f_select works on an 80x24 character VGA display.
+              #DIR_DESCR=${DIR_DESCR:0:28}
+              #
+              # Initialize variables.
+              DIR_SELECTED=""
+              ANS=""
+              #
+              # Reset ERROR for while-loop to work.
+              ERROR=0
+              #
+              while [ "$ERROR" -eq 0 ]
+                    do
+                       # During the While-Loop, this allows for dynamic
+                       # resizing of the  Dialog directory selector if the
+                       # user re-sizes the X-window to see more files.
+                       #
+                       # Get the screen resolution or X-window size.
+                       # Get rows (height).
+                       YSCREEN=$(stty size | awk '{ print $1 }')
+                       #
+                       if [ $YSCREEN -ge 28  ] ; then
+                          # Padding is 4, around Dialog --deselect box.
+                          let Y=$YSCREEN-4
+                       else
+                          # No padding around Dialog --deselect box.
+                          Y=$YSCREEN
+                       fi
+                       #
+                       # Get columns (width).
+                       XSCREEN=$(stty size | awk '{ print $2 }')
+                       #
+                       if [ $XSCREEN -ge 84 ] ; then
+                          # Padding is 4, around Dialog --deselect box.
+                          let X=$XSCREEN-4
+                       else
+                          # No padding around Dialog --deselect box.
+                          X=$XSCREEN
+                       fi
+                       #
+                       # User-input via "inputbox" free-form directory name entry.
+                       # $1 --title "Enter $DIR_DESCR" --cancel-button "Exit" --inputbox "Enter $DIR_DESCR name" $X $Y $DEFAULT_DIR 2>$TEMP_FILE
+                       $1 --title "Enter $DIR_DESCR" --cancel-button "Done Choosing" --inputbox "Enter $DIR_DESCR name" $Y $X "$DEFAULT_DIR" 2>$TEMP_FILE
+                       ERROR=$?
+                       DIR_SELECTED=$(cat $TEMP_FILE)
+                       #
+                       # Note: whiptail --inputbox outputs answer to STDERR. So redirect STDERR to $TEMP_FILE.                       
+                       #
+                       # From man dialog page.
+                       # whiptail  interprets  arguments  starting with a dash "-" as being arguments.  To avoid this, and start
+                       # some text in, for example, a menubox item, with a dash, whiptail honours the getopt convention  of  ac‐
+                       # cepting  the  special  argument  "--"  which  means  that all following arguments with dashes are to be
+                       # treated verbatim and not parsed as options.
+                       #
+                       # Exit status is subject to being overridden by environment variables.
+                       # The default values and corresponding environment variables that can override them are:
+                       #
+                       # 0    if the YES or OK button is pressed.
+                       #
+                       # 1    if the No or Cancel button is pressed.
+                       #
+                       # 255   if errors occur inside whiptail or whiptail exits because the ESC key was pressed.
+                       #
+                       # Confirm directory selection.
+                       if [ "$ERROR" -eq 0 ] && [ -n "$DIR_SELECTED" ] ; then
+                          f_yn_question $1 "Y" "Confirm $DIR_DESCR name" "$DIR_DESCR name:\n$DIR_SELECTED\n\nIs the $DIR_DESCR name correct?"
+                          #
+                          # Is the selected directory name correct?
+                          if [ "$ANS" -eq 0 ] ; then
+                             # Yes, so double-check directory name and/or create it if it does not exist.
+                             f_select_dir2 $1 "$DIR_DESCR" "$DIR_SELECTED" $4
+                          fi
+                       fi                    
+                    done
               #
               # Reset ERROR since on exiting WHILE-loop it will always be EXIT=1.
               ERROR=0
               #
+              # Set ANS = contents of TEMP_FILE2 which is a string of selected directory names delimited by spaces.
               if [ -e "$TEMP_FILE2" ] ; then
-                 rm $TEMP_FILE2
+                 ANS=$(cat $TEMP_FILE2)
+              else                 
+                 ANS=""
+                 ERROR=1
               fi
-              #
-           ;;
-           whiptail)
-              # User-input via "inputbox" free-form directory name entry.
-              $1 --title "User-entered $DIR_DESCR" --cancel-button "Exit" --inputbox "Enter $DIR_DESCR name:" 8 70 $DEFAULT_DIR 2>$TEMP_FILE
-              ERROR=$?
-              ANS=$(cat $TEMP_FILE)
-              #
            ;;
            text)
-              ERROR=0
-              # The user-entered directory name is whatever is after $3 default parent directory.
-              echo "User-entered $DIR_DESCR name"
-              echo
-              echo -n "Enter $DIR_DESCR name(s): $DEFAULT_DIR/"
-              read ANS
+              # User-input via text free-form directory name entry.
+              # Initialize variables.
+              DIR_SELECTED=""
+              ANS=""
               #
-              if [ -z "$ANS" ] ; then
-              ANS=$DEFAULT_DIR
+              # Reset ERROR for while-loop to work.
+              ERROR=0
+              #
+              while [ "$ERROR" -eq 0 ]
+                    do
+                       # The user-entered directory name is whatever is after $3 default parent directory.
+                       f_ask_question $1 "User-entered $DIR_DESCR name" "Enter $DIR_DESCR name(s):" "$DEFAULT_DIR"
+                       DIR_SELECTED="$ANS"
+                       # Confirm directory selection.
+                       if [ "$ERROR" -eq 0 ] && [ -n "$DIR_SELECTED" ] ; then
+                          f_yn_question $1 "Y" "Confirm $DIR_DESCR name" "$DIR_DESCR name:\n$DIR_SELECTED\n\nIs the $DIR_DESCR name correct?"
+                          #
+                          # Is the selected directory name correct?
+                          if [ "$ANS" -eq 0 ] ; then
+                             # Yes, so double-check directory name and/or create it if it does not exist.
+                             f_select_dir2 $1 "$DIR_DESCR" "$DIR_SELECTED" $4
+                          fi
+                       fi                    
+                    done
+              #
+              # Reset ERROR since on exiting WHILE-loop it will always be EXIT=1.
+              ERROR=0
+              #
+              # Set ANS = contents of TEMP_FILE2 which is a string of selected directory names delimited by spaces.
+              if [ -e "$TEMP_FILE2" ] ; then
+                 ANS=$(cat $TEMP_FILE2)
+              else                 
+                 ANS=""
+                 ERROR=1
               fi
            ;;
       esac
       #
-      if [ "$ERROR" -eq 1 ] ; then
-         return 1  # Return to Main Menu.
+      if [ -e "$TEMP_FILE" ] ; then
+         rm $TEMP_FILE
       fi
       #
-} # End of function f_select_dir.
+      if [ -e "$TEMP_FILE2" ] ; then
+         rm $TEMP_FILE2
+      fi
+      #
+      if [ "$ERROR" -eq 1 ] ; then
+         # Return to previous calling function.
+         return 1
+      else
+         return 0
+      fi
+      #
+}  # End of function f_select_dir.
+#
+# +----------------------------------------+
+# |          Function f_select_dir2        |
+# +----------------------------------------+
+#
+#     Rev: 2022-04-29
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
+#          $2 - String "[Description] Directory".
+#                  (String must either begin and end with double-quotes
+#                  or must have underscores substituting for spaces).
+#                  !!! String cannot be longer than 28 characters !!!
+#          $3 - Selected directory.
+#          $4 - [Optional] 1/0 1=Select only one directory
+#                            0 or null=Select multiple directories.
+#          THIS_DIR.
+#    Uses: None.
+# Outputs: TEMP_FILE2 (List of selected directories delimited by spaces)
+#          ERROR.
+#
+# Summary: Used in f_select_dir while-loop. Confirm a directory exists or if not create it.
+#
+# Dependencies: f_yn_question, f_message.
+#
+f_select_dir2 () {
+      #
+      # Confirm directory exists.
+      if [ -d "$3" ] ; then
+         # Yes, $3 exists and is correct. Note: $3 includes "Directory Name".
+         # Add selected directory name to list of selected directories in TEMP_FILE2
+         echo $3 >> $TEMP_FILE2
+         #
+         # Only select a single directory?
+         if [ "$4" -eq 1 ] ; then
+            # Yes, a single directory has already been selected
+            # so exit loop by setting ERROR flag.
+            ERROR=1
+         else
+            # No, multiple directories can be selected, so continue.
+            f_message $1 "OK" "Directory Entered" "Directory name accepted. Enter next directory name or press \"Done Choosing\" button.\n\n$3" 2
+         fi
+      else
+         # No, $3 does not exist. Create new directory?
+         if [ "$ERROR" -eq 0 ] && [ -n "$DIR_SELECTED" ] ; then
+            f_yn_question $1 "Y" "Error Directory Missing" "Directory does not exist:\n\nDo you want to create a new empty directory?\n\n$3"
+            #
+            if [ "$ANS" -eq 0 ] ; then
+               # Yes, create directory in user-space without using sudo permissions.
+               mkdir -p $3
+               ERROR=$?
+               #
+               if [ $ERROR -ne 0 ] ; then
+                  # Error creating directory.
+                  f_message $1 "OK" "Error Creating Directory" "Directory $2 cannot be created without sudo permissions.\n\nDirectory is missing:\n\n$3"
+               else
+                  # Add selected directory to list of selected directories in TEMP_FILE2
+                  echo $3 >> $TEMP_FILE2
+               fi
+            else
+               # No, do not create directory.
+               f_message $1 "OK" "Directory not created" "New directory not created.\n\n$3"
+            fi
+         fi
+      fi
+      #
+}  # End of function f_select_dir2.
 #
 # +----------------------------------------+
 # |         Function f_select_file         |
 # +----------------------------------------+
 #
 #     Rev: 2022-06-21
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - String "[Description] File(s)".
 #                  (String must either begin and end with double-quotes
 #                  or must have underscores substituting for spaces).
@@ -1854,7 +2324,8 @@ f_select_dir () {
 #                              0 or null=Select multiple files.
 #          THIS_DIR, THIS_FILE.
 #    Uses: TEMP_FILE, ANS, ERROR, SCRIPT_LIST.
-# Outputs: ANS (List of selected files: "DIR1/FILE1 DIR2/FILE2 DIR3/FILE3..."), ERROR.
+# Outputs: ANS (List of selected files delimited by spaces: "DIR1/FILE1 DIR2/FILE2 DIR3/FILE3...")
+#          ERROR.
 #
 # Summary: Prompt user-entered file name.
 #
@@ -1862,32 +2333,16 @@ f_select_dir () {
 #
 f_select_file () {
       #
-      # Get the screen resolution or X-window size.
-      # Get rows (height).
-      YSCREEN=$(stty size | awk '{ print $1 }')
-      # Get columns (width).
-      XSCREEN=$(stty size | awk '{ print $2 }')
-      #
-      # If window size is less than 80 x 24, then Dialog f_select_dir will not work properly.
-      if [ $YSCREEN -lt 24 ] || [ $XSCREEN -lt 80 ] ; then
-         f_message $1 "OK" "Window Size too Small" "\nThis window is too small at $XSCREEN x $YSCREEN.\n\nThe minimum window size is 80 characters x 24 lines but preferably at least 120x40.\n\nPlease increase the window size now."
-         #
-         # Get the screen resolution or X-window size.
-         # Get rows (height).
-         YSCREEN=$(stty size | awk '{ print $1 }')
-         # Get columns (width).
-         XSCREEN=$(stty size | awk '{ print $2 }')
-      fi
-      #
       # Initialize variable DEFAULT_DIR to passed argument base directory.
-      DEFAULT_DIR=$3
+      DEFAULT_DIR="$3"
+      #
+      TEMP_FILE2=$THIS_DIR/$THIS_FILE"_temp2.txt"
       #
       # Format string, substitute spaces for underscores.
       FILE_DESCR=$(echo "$2" | tr "_" " ")
       #
       case $1 in
            dialog)
-              TEMP_FILE2=$THIS_DIR/$THIS_FILE"_temp2.txt"
               #
               # Delete TEMP_FILE2.
               if [ -e "$TEMP_FILE2" ] ; then
@@ -1900,18 +2355,50 @@ f_select_file () {
               #
               # Is the length of $FILE_DESCR String longer than 28 characters?
               # Truncate string length so Dialog f_select works on an 80x24 character VGA display.
-              FILE_DESCR=${FILE_DESCR:0:28}
+              #FILE_DESCR=${FILE_DESCR:0:28}
               #
               # Reset ERROR for while-loop to work.
               ERROR=0
               #
               while [ "$ERROR" -eq 0 ]
                     do
-                       # Dialog needs about 16 more lines for the header and [OK] button.
-                       let Y=$YSCREEN-16
+                       # During the While-Loop, this allows for dynamic
+                       # resizing of the  Dialog file selector if the user
+                       # re-sizes the X-window to see more files.
                        #
-                       # Dialog needs about 0 more spaces for the right and left window frame.
-                       X=$XSCREEN
+                       # Get the screen resolution or X-window size.
+                       #
+                       # Get rows (height).
+                       YSCREEN=$(stty size | awk '{ print $1 }')
+                       #
+                       if [ $YSCREEN -ge 28  ] ; then
+                          # Padding is 4, around Dialog --fdeselect box.
+                          let Y=$YSCREEN-4
+                       else
+                          # No padding around Dialog --feselect box.
+                          Y=$YSCREEN
+                       fi
+                       #
+                       # Get columns (width).
+                       XSCREEN=$(stty size | awk '{ print $2 }')
+                       #
+                       if [ $XSCREEN -ge 84 ] ; then
+                          # Padding is 4, around Dialog --feselect box.
+                          let X=$XSCREEN-4
+                       else
+                          # No padding around Dialog --feselect box.
+                          X=$XSCREEN
+                       fi
+                       #
+                       # The dialog --fselect --backtitle "Please choose $FILE_DESCR"
+                       # will only display if screen/window resolution is at least 30 lines vertically.
+                       # If less than 30 lines, the directory browser --dselect 
+                       # will still be displayed but without the --backtitle.
+                       #
+                       # If window size is less than 80 x 24, then Dialog f_select_dir will not work properly.
+                       if [ $YSCREEN -lt 24 ] || [ $XSCREEN -lt 80 ] ; then
+                          f_message $1 "OK" "Window Size too Small" "\nThis window is too small at $XSCREEN x $YSCREEN.\n\nThe minimum window size is 80 characters x 24 lines but preferably at least 120x40.\n\nPlease increase the window size now."
+                       fi
                        #
                        FILE_SELECTED=$($1 --stdout --title "Use <tab>, <up/down arrows> and <spacebar> to select a $2." --backtitle "Please choose $FILE_DESCR" --ok-label "Choose $FILE_DESCR" --cancel-label "Done choosing" --fselect $DEFAULT_DIR $Y $X)
                        ERROR=$?
@@ -1942,143 +2429,106 @@ f_select_file () {
                        #
                        # -1   if errors occur inside dialog (DIALOG_ERROR) or dialog exits because the ESC key (DIALOG_ESC) was pressed.
                        #
-                       # Was any file selected?
-                       if [ $ERROR -eq 0 ] && [ -n $FILE_SELECTED ] ; then
-                          f_yn_question $1 "Y" "Confirm $FILE_DESCR name" "$FILE_DESCR name:\n$FILE_SELECTED\n\nIs the $FILE_DESCR name correct?"
-                          #
-                          # Is the selected file name correct?
-                          if [ "$ANS" -ne 1 ] ; then
-                             # Yes, $FILE_SELECTED name is correct. Note: $FILE_SELECTED includes "Directory/File Name".
-                             #
-                             # Does the file exist?
-                             if [ -e "$FILE_SELECTED" ] ; then
-                                # Yes, file $FILE_SELECTED exists.
-                                #
-                                # Set DEFAULT_DIR to newly selected base directory.
-                                DEFAULT_DIR=$(dirname $FILE_SELECTED)
-                                #
-                                # Add selected file to list of selected files in TEMP_FILE2
-                                echo $FILE_SELECTED >> $TEMP_FILE2
-                                #
-                                # Only select a single file?
-                                if [ "$4" = 1 ] ; then
-                                   # Yes, a single file has already been selected
-                                   # so exit loop by setting ERROR flag.
-                                   ERROR=1
-                                else
-                                   # No, multiple files can be selected, so continue.
-                                   f_message $1 "NOK" "File Entered" "File name accepted. Enter next file name or press \"Done choosing\" button.\n\n$FILE_SELECTED" 2
-                                fi
-                             else
-                                # No, $FILE_SELECTED does not exist.
-                                f_yn_question $1 "N" "Error $FILE_SELECTED Missing" "\n$FILE_SELECTED does not exist:\n$FILE_SELECTED\n\nDo you want to create a new directory/file?"
-                                if [ $ANS -eq 0 ] ; then
-                                   # Create new sub-directory.
-                                   mkdir -p $DEFAULT_DIR
-                                   #
-                                   # Create new file.
-                                   touch $FILE_SELECTED
-                                   #
-                                   # Add selected file to list of selected files in TEMP_FILE2
-                                   echo $FILE_SELECTED >> $TEMP_FILE2
-                                fi
-                             fi
-                          fi
-                       fi
+                       # Verify each file selected $FILE_SELECTED and append to file TEMP_FILE2.
+                       f_select_file_verify $1 "$FILE_DESCR" "$DEFAULT_DIR" "$FILE_SELECTED" $4
+                       # Outputs TEMP_FILE2 which has a list of file names in a single column.
                     done
-                    #
-              # Outputs: $TEMP_FILE2 has list of files delimited by spaces.
-              #         (List of selected files: "DIR1/FILE1 DIR2/FILE2 DIR3/FILE3...").
+              # Process output of file selection.
+              f_select_file_output $1 "$FILE_DESCR" "$DEFAULT_DIR" "$TEMP_FILE2" $4
+              # Outputs ANS a string with selected file names separated by spaces. 
+              # (List of selected files delimited by spaces: "DIR1/FILE1 DIR2/FILE2 DIR3/FILE3...")
+           ;;
+           whiptail | text)
               #
-              # If "Cancel" button was pressed during Dialog f_select, then $TEMP_FILE2 was never created.
-              # Was "Cancel" button pressed by user during f_select?
-              if [ -e "$TEMP_FILE2" ] ; then
-                 # No, continue with selected file(s)
-                 #
-                 # Were multiple files selected?
-                 if [ "$4" != 1 ] ; then
-                    # Yes, multiple files are selected so display list of files
-                    # followed by a Go/NoGo question.
-                    #
-                    # TEMP_FILE2 still contains the list of selected files which
-                    # was the result of the Dialog fselect command.
-                    # So don't change contents.
-                    #
-                    # Build a list of selected files followed by a Go/NoGo question.
-                    # Use temporary file TEMP_FILE3 for this.
-                    TEMP_FILE3=$TEMP_FILE2"_temp3.txt"
-                    cat $TEMP_FILE2 > $TEMP_FILE3
-                    echo >> $TEMP_FILE3
-                    echo "Are_all_the_file_names_correct?_Continue_to_process_files?" >> $TEMP_FILE3
-                    #
-                    # Convert text in TEMP_FILE3 to be displayable by function f_yn_question.
-                    # Convert text file into a single sentence string.
-                    # Convert the multi-lines of data in the temporary text file to a single line string.
-                    # This is needed because f_ask_question can take only a string as a parameter and not a file.
-                    #
-                    # Translate "\n" or the <crlf> to "|". Join all lines together delimited by "|".
-                    cat $TEMP_FILE3 | tr "\n" "|"  > $TEMP_FILE3"-out.txt" ; sed -i 's/|/\\n/g' $TEMP_FILE3"-out.txt"
-                    mv $TEMP_FILE3"-out.txt" $TEMP_FILE3
-                    X=$(cat $TEMP_FILE3)
-                    f_yn_question $1 "Y" "Continue?" $X
-                    #
-                    # Was the answer "Y" Continue?
-                    if [ $ANS -eq 0 ] ; then
-                       # Yes, continue with processing.
-                       ANS=$(cat $TEMP_FILE2)
-                    else
-                       # Do not continue with processing, set $ANS to null.
-                       ANS=""
-                    fi
-                 else
-                    # No, only a single file allowed to be selected ($4=1).
-                    # Set $ANS string to include the single file name.
-                    ANS=$(cat $TEMP_FILE2)
-                 fi
-              fi
-              #
-              # Reset ERROR since on exiting WHILE-loop it will always be EXIT=1.
-              ERROR=0
-              #
+              # Delete TEMP_FILE2.
               if [ -e "$TEMP_FILE2" ] ; then
                  rm $TEMP_FILE2
               fi
               #
-              if [ -e "$TEMP_FILE3" ] ; then
-                 rm $TEMP_FILE3
-              fi
-              #
-              if [ -e $TEMP_FILE3"-out.txt" ] ; then
-                 rm $TEMP_FILE3"-out.txt"
-              fi
-              #
-           ;;
-           whiptail)
-              # User-input via "inputbox" free-form file name entry.
-              $1 --title "User-entered $2" --cancel-button "Exit" --inputbox "Enter $2 name(s):" 8 70 $DEFAULT_DIR 2>$TEMP_FILE
-              ERROR=$?
-              ANS=$(cat $TEMP_FILE)
-              #
-           ;;
-           text)
+              # Reset ERROR for while-loop to work.
               ERROR=0
-              if [ "$4" = 1 ] ; then
-                 echo "Enter file name"
-                 echo
-                 echo "File name with full-path:"
-                 echo -n "Enter file name(s): "
-                 read ANS
-              else
-                 echo "Enter list of file names separated by spaces"
-                 echo
-                 echo "File names with full-path delimited by spaces:"
-                 echo -n "Enter file names: "
-                 read ANS
-             fi
               #
-              if [ -z "$ANS" ] ; then
-                 ERROR=1
+              # Check if application "fzf" is installed.
+              type fzf >/dev/null 2>&1
+              ERROR=$?
+              #
+              # Is "fzf" installed?
+              if [ $ERROR -eq 0 ] ; then
+                 # Yes, "fzf" is installed.
+                 #
+                 # fzf EXIT STATUS
+                 #       0      Normal exit
+                 #       1      No match
+                 #       2      Error
+                 #       130    Interrupted with CTRL-C or ESC
+                 #
+                 f_message $1 "OK" "$FILE_DESCR" "At the next prompt, select the desired file name\nby typing the first few letters of the name and using the up-down arrows.\n\nPress [ Enter ] key to select file name.\n\nPress [ Esc ] key or [ Ctrl+C ] to EXIT or CANCEL selection."
+                 #
+                 # Only a single file name to select?
+                 if [ "$4" = 1 ] ; then
+                    # Yes, select only 1 file name.
+                    ANS=$(fzf --query="^$DEFAULT_DIR" --pointer="=>" --prompt "Type file name and use up-down arrows. Esc key to skip. Select: ")
+                    #
+                    if [ $ERROR -eq 0 ] ; then
+                       # Verify each file selected $FILE_SELECTED and append to file TEMP_FILE2.
+                       f_select_file_verify $1 "$FILE_DESCR" "$DEFAULT_DIR" $ANS $4
+                       # Outputs TEMP_FILE2 which has a list of selected file names in a single column.
+                    fi
+                 else
+                    # No, select multiple file names.
+                    while [ "$ERROR" -eq 0 ]
+                          do
+                             # Application "fzf" limitation is you can only select sub-directories
+                             # of the default directory during the While-loop.
+                             # You cannot select a different parent directory from the default directory.
+                             # i.e. if you select a file from "/home/user/Documents" 
+                             #      then you cannot select a file from "/home/user/Downloads",
+                             #      but you could select a file from "/home/user/Documents/unread"
+                             #
+                             # My work-around is to make the default directory the user's Home directory.
+                             #
+                             ANS=$(fzf --query="^" --pointer="=>" --prompt "Type file name and use up-down arrows. Esc key to skip. Select: ")
+                             ERROR=$?
+                             #
+                             if [ $ERROR -eq 0 ] ; then
+                                # Verify each file selected $FILE_SELECTED and append to file TEMP_FILE2.
+                                f_select_file_verify $1 "$FILE_DESCR" "$DEFAULT_DIR" $ANS $4
+                                # Outputs TEMP_FILE2 which has a list of selected file names in a single column.
+                             fi
+                          done
+                 fi
+              else
+                 # No, "fzf" is not installed.
+                 #
+                 # Only a single file name to select?
+                 if [ "$4" = 1 ] ; then
+                    # Yes, select only 1 file name.
+                    f_ask_question $1 "Select a file" "Type file name with full path"
+                    #
+                    if [ $ERROR -eq 0 ] ; then
+                       # Verify each file selected $FILE_SELECTED and append to file TEMP_FILE2.
+                       f_select_file_verify $1 "$FILE_DESCR" "$DEFAULT_DIR" "$ANS" $4
+                       # Outputs TEMP_FILE2 which has a list of file names in a single column.
+                    fi
+                 else
+                    # No, select multiple file names.
+                    while [ "$ERROR" -eq 0 ]
+                          do
+                             f_ask_question $1 "Select a file" "Type file name with full path"
+                             #
+                             if [ $ERROR -eq 0 ] ; then
+                                # Verify each file selected $FILE_SELECTED and append to file TEMP_FILE2.
+                                f_select_file_verify $1 "$FILE_DESCR" "$DEFAULT_DIR" "$ANS" $4
+                                # Outputs TEMP_FILE2 which has a list of file names in a single column.
+                             fi
+                          done
+                 fi
               fi
+              #
+              # Process output of file selection.
+              f_select_file_output $1 "$FILE_DESCR" "$DEFAULT_DIR" "$TEMP_FILE2" $4
+              # Outputs ANS a string with selected file names separated by spaces. 
+              # (List of selected files delimited by spaces: "DIR1/FILE1 DIR2/FILE2 DIR3/FILE3...")
            ;;
       esac
       #
@@ -2086,14 +2536,227 @@ f_select_file () {
          return 1  # Return to Main Menu.
       fi
       #
-} # End of function f_select_file.
+}  # End of function f_select_file.
+#
+# +----------------------------------------+
+# |      Function f_select_file_verify     |
+# +----------------------------------------+
+#
+#     Rev: 2023-12-20
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
+#          $2 - String File Description
+#                  (String must either begin and end with double-quotes
+#                  or must have underscores substituting for spaces).
+#                  !!! String cannot be longer than 28 characters !!!
+#          $3 - Default directory or Default directory/file name.
+#          $4 - FILE_SELECTED File selected by user entry.
+#          $5 - [Optional] 1/0 1=Select only one file
+#                              0 or null=Select multiple files.
+#
+#          THIS_DIR, THIS_FILE.
+#    Uses: FILE_DESCR, DEFAULT_DIR, FILE_SELECTED, ANS, ERROR.
+# Outputs: TEMP_FILE2 - Temporary file contains a list of file names.
+#                              Example: cat $4
+#                                       DIR1/FILE1
+#                                       DIR2/FILE2
+#                                       DIR3/FILE3
+#          ERROR.
+#
+# Summary: Verify existence and choice of the user-entered file name.
+#
+# Dependencies: f_yn_question, f_message.
+#
+f_select_file_verify () {
+      #
+      # Initialize variables.
+      FILE_DESCR=$2
+      DEFAULT_DIR=$3
+      FILE_SELECTED=$4
+      #
+      # Was any file selected?
+      if [ $ERROR -eq 0 ] && [ -n $FILE_SELECTED ] ; then
+         f_yn_question $1 "Y" "Confirm $FILE_DESCR name" "$FILE_DESCR name:\n$FILE_SELECTED\n\nIs the $FILE_DESCR name correct?"
+         #
+         # Is the selected file name correct?
+         if [ "$ANS" -ne 1 ] ; then
+            # Yes, $FILE_SELECTED name is correct. Note: $FILE_SELECTED includes "Directory/File Name".
+            #
+            # Does the file exist?
+            if [ -f "$FILE_SELECTED" ] ; then
+               # Yes, file $FILE_SELECTED exists.
+               #
+               # Set DEFAULT_DIR to newly selected base directory.
+               DEFAULT_DIR=$(dirname $FILE_SELECTED)
+               #
+               # Add selected file to list of selected files in TEMP_FILE2
+               echo $FILE_SELECTED >> $TEMP_FILE2
+               #
+               # Only select a single file?
+               if [ "$5" = 1 ] ; then
+                  # Yes, a single file has already been selected
+                  # so exit loop by setting ERROR flag.
+                  ERROR=1
+               else
+                  # No, multiple files can be selected, so continue.
+                  case $1 in
+                  dialog) 
+                     f_message $1 "NOK" "File Entered" "File name accepted. Enter next file name or press \"Done choosing\" button.\n\n$FILE_SELECTED" 2
+                  ;;
+                  whiptail)
+                     f_message $1 "NOK" "File Entered" "File name accepted. Enter next file name or press \"Exit\" button.\n\n$FILE_SELECTED" 2
+                  ;;
+                  text)
+                     f_message $1 "NOK" "File Entered" "File name accepted. Enter next file name or press \"Esc\" key to exit.\n\n$FILE_SELECTED" 2
+                  ;;
+                  esac
+               fi
+            else
+               # No, $FILE_SELECTED does not exist.
+               f_yn_question $1 "N" "Error $FILE_SELECTED Missing" "\n$FILE_SELECTED does not exist:\n$FILE_SELECTED\n\nDo you want to create a new directory/file?"
+               #
+               if [ $ANS -eq 0 ] ; then
+                  # Create new sub-directory.
+                  mkdir -p $DEFAULT_DIR
+                  #
+                  # Create new file.
+                  touch $FILE_SELECTED
+                  #
+                  # Add selected file to list of selected files in TEMP_FILE2
+                  echo $FILE_SELECTED >> $TEMP_FILE2
+               fi
+            fi
+         fi
+      fi
+      #
+}  # End of function f_select_file_verify.
+#
+# +----------------------------------------+
+# |      Function f_select_file_output     |
+# +----------------------------------------+
+#
+#     Rev: 2023-12-20
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
+#          $2 - String File Description
+#                  (String must either begin and end with double-quotes
+#                  or must have underscores substituting for spaces).
+#                  !!! String cannot be longer than 28 characters !!!
+#          $3 - Default directory or Default directory/file name.
+#          $4 - Temporary file contains a list of file names.
+#                              Example: cat $4
+#                                       DIR1/FILE1
+#                                       DIR2/FILE2
+#                                       DIR3/FILE3
+#          $5 - [Optional] 1/0 1=Select only one file
+#                              0 or null=Select multiple files.
+#
+#          THIS_DIR, THIS_FILE.
+#    Uses: TEMP_FILE2, TEMP_FILE3.
+# Outputs: ANS (List of selected files delimited by spaces: "DIR1/FILE1 DIR2/FILE2 DIR3/FILE3...")
+#          ERROR.
+#
+# Summary: Prompt user-entered file name.
+#
+# Dependencies: f_yn_question, f_message.
+#
+f_select_file_output () {
+      #
+      # Outputs: $5 has list of files delimited by spaces.
+      #         (List of selected files: "DIR1/FILE1 DIR2/FILE2 DIR3/FILE3...").
+      #
+      # If "Cancel" button was pressed during Dialog f_select, then $5 was never created.
+      # Was "Cancel" button pressed by user during f_select?
+      if [ -f $4 ] ; then
+         # No, "Cancel" button was not pressed, continue with selected file(s)
+         #
+         # Were multiple files selected?
+         if [ "$5" != 1 ] ; then
+            # Yes, multiple files are selected so display list of files
+            # followed by a Go/NoGo question.
+            #
+            # $5 still contains the list of selected files which
+            # was the result of the Dialog fselect command.
+            # So don't change contents.
+            #
+            # Build a list of selected files followed by a Go/NoGo question.
+            # Use temporary file TEMP_FILE3 for this.
+            TEMP_FILE3=$4"_temp3.txt"
+            #
+            # Compose the text necessary to ask the question using function f_yn_question.
+            cat $4 > $TEMP_FILE3
+            echo >> $TEMP_FILE3
+            echo "Are_all_the_file_names_correct?_Continue_to_process_files?" >> $TEMP_FILE3
+            #
+            # Convert text in TEMP_FILE3 to be displayable by function f_yn_question.
+            # Convert text file into a single sentence string.
+            # Convert the multi-lines of data in the temporary text file to a single line string.
+            # This is needed because f_ask_question can take only a string as a parameter and not a file.
+            #
+            # Translate "\n" or the <crlf> to "|". Join all lines together delimited by "|".
+            cat $TEMP_FILE3 | tr "\n" "|"  > $TEMP_FILE3"-out.txt" ; sed -i 's/|/\\n/g' $TEMP_FILE3"-out.txt"
+            mv $TEMP_FILE3"-out.txt" $TEMP_FILE3
+            X=$(cat $TEMP_FILE3)
+            #
+            # Now can ask the actual question to continue or not.
+            f_yn_question $1 "Y" "Continue?" $X
+            #
+            # Was the answer "Y" Continue?
+            if [ $ANS -eq 0 ] ; then
+               # Yes, continue with processing.
+               # Use as input $4 Temp File of list of file names
+               # Output to ANS containing a string of file names delimited by a space.
+               if [ -e $TEMP_FILE3 ] ; then
+                  rm $TEMP_FILE3
+               fi
+               #
+               # Convert single-column list of file names contained in temp file $4
+               # to single string of file names delimited by space.
+               while read LINE
+                     do
+                        echo -n $LINE" " >> $TEMP_FILE3
+                     done < $4
+               ANS=$(cat $TEMP_FILE3)
+            else
+               # Do not continue with processing, set $ANS to null.
+               ANS=""
+            fi
+         else
+            # No, only a single file allowed to be selected ($4=1).
+            # Set $ANS string to include the single file name.
+            ANS=$(cat $4)
+         fi
+      else
+         # Yes, Cancel button pressed.
+         ANS=""
+      fi
+      #
+      # Reset ERROR since on exiting WHILE-loop it will always be EXIT=1.
+      ERROR=0
+      #
+      # clear                           # Diagnostic line.
+      # echo "Diagnostics display $4"   # Diagnostic line.
+      # cat $4                          # Diagnostic line.
+      # echo                            # Diagnostic line.
+      # echo ----                       # Diagnostic line.
+      # echo "Diagnostics display ANS"  # Diagnostic line.
+      # echo $ANS                       # Diagnostic line.
+      # read X                          # Diagnostic line.
+      #
+      if [ -e "$4" ] ; then
+         rm $4
+      fi
+      #
+      if [ -e "$TEMP_FILE3" ] ; then
+         rm $TEMP_FILE3
+      fi
+      #
+}  # End of function f_select_file_output.
 #
 # +----------------------------------------+
 # |         Function f_choose_files        |
 # +----------------------------------------+
 #
 #     Rev: 2022-02-28
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - String "[Data File Description] File(s)".
 #                  (String must either begin and end with double-quotes
 #                  or must have underscores substituting for spaces).
@@ -2138,7 +2801,7 @@ f_choose_files () {
 # +----------------------------------------+
 #
 #     Rev: 2022-05-17
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - Title string.
 #          $3 - Question text string or text file.
 #                  (String must either begin and end with double-quotes
@@ -2347,14 +3010,14 @@ f_ask_question () {
            ;;
       esac
       #
-} # End of function f_ask_question
+}  # End of function f_ask_question
 #
 # +----------------------------------------+
 # |          Function f_yn_question        |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "Y" or "N" - the default answer.
 #          $3 - Title string (may be null).
 #                  (String must either begin and end with double-quotes
@@ -2391,16 +3054,17 @@ f_yn_question () {
       #THIS_FILE="example_library.lib"
       TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
       #
-      # Get the screen resolution or X-window size.
-      # Get rows (height).
-      YSCREEN=$(stty size | awk '{ print $1 }')
-      # Get columns (width).
-      XSCREEN=$(stty size | awk '{ print $2 }')
-      #
       case $1 in
            dialog | whiptail)
-           # Calculate dialog/whiptail box dimensions $YBOX, $XBOX.
-           f_msg_ui_str_box_size "$4"
+              # Get the screen resolution or X-window size.
+              # Get rows (height).
+              YSCREEN=$(stty size | awk '{ print $1 }')
+              # Get columns (width).
+              XSCREEN=$(stty size | awk '{ print $2 }')
+              #
+              # Calculate dialog/whiptail box dimensions $YBOX, $XBOX.
+              f_msg_ui_str_box_size "$4"
+           ;;
       esac
       #
       case $1 in
@@ -2475,14 +3139,14 @@ f_yn_question () {
            ;;
       esac
       #
-} # End of function f_yn_question
+}  # End of function f_yn_question
 #
 # +------------------------------+
 # |    Function f_yn_defaults    |
 # +------------------------------+
 #
 #     Rev: 2022-04-01
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "Y" or "N" - the default answer.
 #          $3 - Title.
 #                  (String must either begin and end with double-quotes
@@ -2568,14 +3232,14 @@ f_yn_defaults () {
            ;;
       esac
       #
-} # End of function f_yn_defaults
+}  # End of function f_yn_defaults
 #
 # +------------------------------+
 # |       Function f_message     |
 # +------------------------------+
 #
 #     Rev: 2022-09-13
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
@@ -2720,6 +3384,9 @@ f_message () {
                     # Display contents of text file using command "cat" then pause for n seconds.
                  fi
                  #
+                 # Remove temporary text file.
+                 rm $4
+                 #
               else
                  # If $4 is a text string.
                  #
@@ -2739,7 +3406,7 @@ f_message () {
            ;;
       esac
       #
-} # End of function f_message.
+}  # End of function f_message.
 #
 # +-------------------------------+
 # |      Function f_msg_color     |
@@ -2828,7 +3495,7 @@ f_msg_color () {
              done
          #
       fi
-} # End of function f_msg_color.
+}  # End of function f_msg_color.
 #
 # +---------------------------------+
 # | Function f_msg_ui_file_box_size |
@@ -2860,14 +3527,14 @@ f_msg_ui_file_box_size () {
       # Calculate number of lines or Menu Choices to find maximum menu lines for Dialog or Whiptail.
       YBOX=$(wc --lines <$1)
       #
-} # End of function f_msg_ui_file_box_size.
+}  # End of function f_msg_ui_file_box_size.
 #
 # +------------------------------+
 # |   Function f_msg_ui_file_ok  |
 # +------------------------------+
 #
 #     Rev: 2022-06-05
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
@@ -2944,14 +3611,14 @@ f_msg_ui_file_ok () {
            ;;
       esac
       #
-} # End of function f_msg_ui_file_ok
+}  # End of function f_msg_ui_file_ok
 #
 # +------------------------------+
 # |  Function f_msg_ui_file_nok  |
 # +------------------------------+
 #
 #     Rev: 2022-06-05
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
@@ -3056,7 +3723,7 @@ f_msg_ui_file_nok () {
            ;;
       esac
       #
-} # End of function f_msg_ui_file_nok
+}  # End of function f_msg_ui_file_nok
 #
 # +--------------------------------+
 # | Function f_msg_ui_str_box_size |
@@ -3136,14 +3803,14 @@ f_msg_ui_str_box_size () {
            ;;
       esac
       #
-} # End of function f_msg_ui_str_box_size
+}  # End of function f_msg_ui_str_box_size
 #
 # +------------------------------+
 # |   Function f_msg_ui_str_ok   |
 # +------------------------------+
 #
 #     Rev: 2022-06-05
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
@@ -3240,14 +3907,14 @@ f_msg_ui_str_ok () {
            ;;
       esac
       #
-} # End of function f_msg_ui_str_ok.
+}  # End of function f_msg_ui_str_ok.
 #
 # +------------------------------+
 # |   Function f_msg_ui_str_nok  |
 # +------------------------------+
 #
 #     Rev: 2022-06-05
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
@@ -3332,14 +3999,14 @@ f_msg_ui_str_nok () {
            ;;
       esac
       #
-} # End of function f_msg_ui_str_nok.
+}  # End of function f_msg_ui_str_nok.
 #
 # +------------------------------+
 # |  Function f_msg_txt_str_ok   |
 # +------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
@@ -3372,14 +4039,14 @@ f_msg_txt_str_ok () {
       #
       clear  # Blank the screen.
       #
-} # End of function f_msg_txt_str_ok
+}  # End of function f_msg_txt_str_ok
 #
 # +------------------------------+
 # |  Function f_msg_txt_str_nok  |
 # +------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
@@ -3423,14 +4090,14 @@ f_msg_txt_str_nok () {
       #
       clear  # Blank the screen.
       #
-} # End of function f_msg_txt_str_nok
+}  # End of function f_msg_txt_str_nok
 #
 # +------------------------------+
 # |  Function f_msg_txt_file_ok  |
 # +------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
@@ -3456,14 +4123,14 @@ f_msg_txt_file_ok () {
       #
       clear  # Blank the screen.
       #
-} # End of function f_msg_txt_file_ok
+}  # End of function f_msg_txt_file_ok
 #
 # +------------------------------+
 # |  Function f_msg_txt_file_nok |
 # +------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
 #               at end of text but pause n seconds
@@ -3504,7 +4171,7 @@ f_msg_txt_file_nok () {
       #
       clear  # Blank the screen.
       #
-} # End of function f_msg_txt_file_nok
+}  # End of function f_msg_txt_file_nok
 #
 # +----------------------------------------+
 # |        Function f_menu_arrays          |
@@ -3606,14 +4273,14 @@ f_menu_arrays () {
       fi
       unset XSTR  # Throw out this variable.
       #
-} # End of f_menu_arrays.
+}  # End of f_menu_arrays.
 #
 # +----------------------------------------+
 # |        Function f_update_menu_txt      |
 # +----------------------------------------+
 #
 #     Rev: 2022-07-24
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - GENERATED_FILE.
 #          $3 - Menu Title.
 #                  (String must either begin and end with double-quotes
@@ -3653,7 +4320,7 @@ f_update_menu_txt () {
       echo "#" >>$2
       echo "# *** Function f_menu_txt$EXT ***" >>$2
       echo "#" >>$2
-      echo "#  Inputs: \$1 - \"text\", \"dialog\" or \"whiptail\" The command-line user-interface application in use." >>$2
+      echo "#  Inputs: \$1 - \"text\", \"dialog\" or \"whiptail\" the command-line user-interface in use." >>$2
       echo "#    Uses: X, MENU_TITLE, ARRAY_NAME, ARRAY_LEN, CHOICE, SUMMARY, FUNC." >>$2
       echo "# Outputs: None." >>$2
       echo "#" >>$2
@@ -3775,14 +4442,14 @@ f_update_menu_txt () {
       fi
       unset X Y XNUM YNUM MENU_TITLE ARRAY_NAME ARRAY_LEN CHOICE SUMMARY FUNC
       #
-} # End of function f_update_menu_txt.
+}  # End of function f_update_menu_txt.
 #
 # +----------------------------------------+
 # |        Function f_update_menu_gui      |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - GENERATED_FILE.
 #          $3 - Menu Title.
 #                  (String must either begin and end with double-quotes
@@ -3823,7 +4490,7 @@ f_update_menu_gui () {
       echo "#" >>$2
       echo "# *** Function f_menu_gui$EXT ***" >>$2
       echo "#" >>$2
-      echo "#  Inputs: \$1 - \"text\", \"dialog\" or \"whiptail\" The command-line user-interface application in use." >>$2
+      echo "#  Inputs: \$1 - \"text\", \"dialog\" or \"whiptail\" the command-line user-interface in use." >>$2
       echo "#    Uses: VERSION, THIS_FILE, CHOICE, SUMMARY, MENU_TITLE." >>$2
       echo "# Outputs: None." >>$2
       echo "#" >>$2
@@ -3923,7 +4590,7 @@ f_update_menu_gui () {
       echo "            done" >>$2
       echo "       unset MENU_TITLE CHOICE  # Throw out this variable." >>$2
       echo "       #" >>$2
-      echo "} # End of function f_menu_gui$EXT." >>$2
+      echo "}  # End of function f_menu_gui$EXT." >>$2
       #
       # Remove $TEMP_FILE.
       if [ -r $TEMP_FILE ] ; then
@@ -3931,14 +4598,14 @@ f_update_menu_gui () {
       fi
       unset X Y XNUM ARRAY_NAME ARRAY_LEN CHOICE SUMMARY FUNC
       #
-} # End of function f_update_menu_gui.
+}  # End of function f_update_menu_gui.
 #
 # +----------------------------------------+
 # |          Function f_menu_main_TEMPLATE          |
 # +----------------------------------------+
 #
 #     Rev: 2022-10-05
-#  Inputs: $1 - "text", "dialog" or "whiptail" the preferred user-interface.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #    Uses: ARRAY_FILE, GENERATED_FILE, MENU_TITLE.
 # Outputs: None.
 #
@@ -4012,14 +4679,14 @@ f_menu_main_TEMPLATE () {
          rm $TEMP_FILE
       fi
       #
-} # End of function f_menu_main.
+}  # End of function f_menu_main.
 #
 # +----------------------------------------+
 # |          Function f_menu_SUB-MENU_TEMPLATE  |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" the preferred user-interface.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #    Uses: ARRAY_FILE, GENERATED_FILE, MENU_TITLE.
 # Outputs: None.
 #
@@ -4081,7 +4748,7 @@ f_menu_sub_TEMPLATE () {
 # +----------------------------------------+
 #
 #     Rev: 2022-05-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
 #          $3 - MENU_TITLE (Title of the sub-menu)
 #          $4 - TEMP_FILE (Temporary file).
@@ -4109,7 +4776,7 @@ f_create_a_menu () {
       let MAX_LENGTH=$MAX_CHOICE_LENGTH+$MAX_SUMMARY_LENGTH
       #
       # Create generated menu script from array data.
-      #  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+      #  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
       #          $2 - GENERATED_FILE.
       #          $3 - Menu Title.
       #                  (String must either begin and end with double-quotes
@@ -4140,7 +4807,7 @@ f_create_a_menu () {
 # +----------------------------------------+
 #
 #     Rev: 2022-05-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
 #          $3 - MENU_TITLE (Title of the sub-menu)
 #          $4 - TEMP_FILE (Temporary file).
@@ -4164,7 +4831,7 @@ f_create_menu () {
       let MAX_LENGTH=$MAX_CHOICE_LENGTH+$MAX_SUMMARY_LENGTH
       #
       # Create generated menu script from array data.
-      #  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+      #  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
       #          $2 - GENERATED_FILE.
       #          $3 - Menu Title.
       #                  (String must either begin and end with double-quotes
@@ -4225,14 +4892,14 @@ f_menu_make () {
       #
       unset MENU_TITLE SEDSTR STARTING_LINE ENDING_LINE
       #
-} # End of function f_menu_make.
+}  # End of function f_menu_make.
 #
 # +----------------------------------------+
 # |       Function f_create_show_menu      |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - GENERATED_FILE.
 #          $3 - Menu Title.
 #                  (String must either begin and end with double-quotes
@@ -4281,14 +4948,14 @@ f_create_show_menu () {
       #
       clear  # Blank the screen.
       #
-} # End of function f_create_show_menu.
+}  # End of function f_create_show_menu.
 #
 # +----------------------------------------+
 # |             Function f_mount           |
 # +----------------------------------------+
 #
 #     Rev: 2022-01-21
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - File server Directory
 #          $3 - Mount Point (Directory)
 #          $4 - Default User Name (OPTIONAL)
@@ -4338,7 +5005,7 @@ f_mount () {
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - DL_SOURCE ("Local" or "Web")
 #          $3 - SERVER_DIR File server directory.
 #          $4 - MP_DIR Mount-point directory.
@@ -4399,14 +5066,14 @@ f_download_file () { # Create and display the Main Menu.
               ;;
       esac
       #
-} # End of function f_download_file.
+}  # End of function f_download_file.
 #
 # +----------------------------------------+
 # |          f_download_from_web_site      |
 # +----------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - DL_REPOSITORY Download Repository URL on the web.
 #          $3 - DL_FILE File to download.
 #    Uses: LINE.
@@ -4462,14 +5129,14 @@ f_download_from_web_site () {
       # Make downloaded file executable.
       chmod 755 $3
       #
-} # End of function f_download_from_web_site.
+}  # End of function f_download_from_web_site.
 #
 # +-----------------------------------------------+
 # |   Function f_download_from_local_repository   |
 # +-----------------------------------------------+
 #
 #     Rev: 2021-03-07
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - Local Repository Directory.
 #          $3 - File to download.
 #    Uses: TEMP_FILE.
@@ -4533,7 +5200,7 @@ f_download_from_local_repository () {
          f_message $1 "NOK" "Successful Update" $TEMP_FILE
       fi
       #
-} # End of function f_download_from_local_repository.
+}  # End of function f_download_from_local_repository.
 #
 # +----------------------------------------+
 # |             Function f_source          |
@@ -4562,5 +5229,5 @@ f_source () {
          esac
       fi
       #
-} # End of function f_source.
+}  # End of function f_source.
 #
