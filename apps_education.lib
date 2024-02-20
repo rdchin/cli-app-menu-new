@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# ©2023 Copyright 2023 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2021-07-01 11:28"
+VERSION="2024-02-20 00:33"
 #
 # Set THIS_FILE_LIB to the name of this script library.
 THIS_FILE_LIB="apps_education.lib"
@@ -40,31 +40,25 @@ THIS_FILE_LIB="apps_education.lib"
 # |                                                                          |
 # +--------------------------------------------------------------------------+
 #
-#
-#
 #                 >>> !!!Warning!!! <<<
 #
 # The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
-# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than
+# and less-than signs.
 #
-# Forbidden characters include ; : * ' " & > <
+# Forbidden characters include ; : * ' " & > < \
 #
 # These characters will compromise the creation of arrays which
 # in turn creates the menu.
 #
+# Note: The single-quotes (') and double-quotes (") and back-slashes (\)
+#       are ignored when the arrays are created, even if they are included
+#       in the Menu Item Description.
+#
 # General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
 #
-# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
-#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
-#
-# List of inputs for f_create_a_menu_cliappmenu.
-#
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
-#          $3 - MENU_TITLE (Title of the sub-menu)
-#          $4 - TEMP_FILE (Temporary file).
-#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
-#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+# Format of <Corresponding function or action or command> when using f_menu_main_all_menus.
+#        f_menu_main_all_menus^"text", "dialog", or "whiptail"^Menu Name^Library name containing menu entries
 #
 #! +--------------------------------------------------------------+
 #! | Start Listing Education Menu                                 |
@@ -79,13 +73,13 @@ THIS_FILE_LIB="apps_education.lib"
 #
 #@@gtypist#@@Typing tutor displays a sentence for practice.#@@f_app_cmd^$GUI^gtypist#@@0^0^0^0^0
 #
-#@@Hamradio#@@Morse code and Ham Radio applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_education_ham_radio_generated.txt"^Education_-_Ham_Radio_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_education_ham_radio_items_generated.txt"^$CLI_DIR/apps_education.lib
+#@@Ham Radio#@@Morse code and Ham Radio applications.#@@f_menu_main_all_menus^$GUI^Education_-_Ham_Radio_Menu^$CLI_DIR/apps_education.lib
 #
 #@@kon2#@@Japanese Kanji characters on Linux Console.#@@f_app_cmd^$GUI^kon2#@@0^0^0^0^1
 #
 #@@lifelines#@@Genealogy.#@@f_app_cmd^$GUI^lifelines#@@0^0^0^0^1
 #
-#@@Mathematics#@@Mathematics, problems.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_education_math_generated.txt"^Education_-_Math_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_education_math_items_generated.txt"^$CLI_DIR/apps_education.lib
+#@@Mathematics#@@Mathematics, problems.#@@f_menu_main_all_menus^$GUI^Education_-_Math_Menu^$CLI_DIR/apps_education.lib
 #
 #@@metar#@@Download METAR weather reports from NOAA HTTP servers.#@@f_app_cmd^$GUI^metar#@@1^0^0^0^1
 #

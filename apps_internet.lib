@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# ©2023 Copyright 2023 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2021-07-01 11:28"
+VERSION="2024-02-20 00:33"
 #
 # +----------------------------------------+
 # |            Brief Description           |
@@ -37,31 +37,25 @@ VERSION="2021-07-01 11:28"
 # |                                                                          |
 # +--------------------------------------------------------------------------+
 #
-#
-#
 #                 >>> !!!Warning!!! <<<
 #
 # The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
-# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than
+# and less-than signs.
 #
-# Forbidden characters include ; : * ' " & > <
+# Forbidden characters include ; : * ' " & > < \
 #
 # These characters will compromise the creation of arrays which
 # in turn creates the menu.
 #
+# Note: The single-quotes (') and double-quotes (") and back-slashes (\)
+#       are ignored when the arrays are created, even if they are included
+#       in the Menu Item Description.
+#
 # General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
 #
-# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
-#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
-#
-# List of inputs for f_create_a_menu_cliappmenu.
-#
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
-#          $3 - MENU_TITLE (Title of the sub-menu)
-#          $4 - TEMP_FILE (Temporary file).
-#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
-#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+# Format of <Corresponding function or action or command> when using f_menu_main_all_menus.
+#        f_menu_main_all_menus^"text", "dialog", or "whiptail"^Menu Name^Library name containing menu entries
 #
 #! +--------------------------------------------------------------+
 #! | Start Listing Internet Menu                                  |
@@ -70,31 +64,31 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Bittorrent#@@File transfer.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_bittorrent_generated.txt"^Internet_-_Bittorrent_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_bittorrent_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@Bittorrent#@@File transfer.#@@f_menu_main_all_menus^$GUI^Internet_-_Bittorrent_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@Blogging Clients#@@Blog clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_blogging_clients_generated.txt"^Internet_-_Blogging_Clients_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_blogging_clients_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@Blogging Clients#@@Blog clients.#@@f_menu_main_all_menus^$GUI^Internet_-_Blogging_Clients_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@Downloaders#@@Download files, videos. and calculate file checksums.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_downloaders_generated.txt"^Internet_-_Downloaders_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_downloaders_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@Downloaders#@@Download files, videos. and calculate file checksums.#@@f_menu_main_all_menus^$GUI^Internet_-_Downloaders_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@Email#@@Email clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_email_generated.txt"^Internet_-_Email_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_email_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@Email#@@Email clients.#@@f_menu_main_all_menus^$GUI^Internet_-_Email_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@FAX#@@FAX clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_fax_generated.txt"^Internet_-_FAX_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_fax_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@FAX#@@FAX clients.#@@f_menu_main_all_menus^$GUI^Internet_-_FAX_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@IM and Tweets#@@Tweet, AIM/ICQ, Yahoo!, MSN, IRC, Jabber/Google Talk...#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_im_and_tweets_generated.txt"^Internet_-_IM_and_Tweets_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_im_and_tweets_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@IM and Tweets#@@Tweet, AIM/ICQ, Yahoo!, MSN, IRC, Jabber/Google Talk...#@@f_menu_main_all_menus^$GUI^Internet_-_IM_and_Tweets_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@IRC Clients#@@Internet Relay Chat clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_irc_clients_generated.txt"^Internet_-_IRC_Clients_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_irc_clients_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@IRC Clients#@@Internet Relay Chat clients.#@@f_menu_main_all_menus^$GUI^Internet_-_IRC_Clients_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@LAN Chat#@@Local Area Network Chat [not IRC].#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_lan_chat_generated.txt"^Internet_-_LAN_Chat_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_lan_chat_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@LAN Chat#@@Local Area Network Chat [not IRC].#@@f_menu_main_all_menus^$GUI^Internet_-_LAN_Chat_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@News Readers#@@Read news, RSS feeds, Usenet messages.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_generated.txt"^Internet_-_News_Readers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@News Readers#@@Read news, RSS feeds, Usenet messages.#@@f_menu_main_all_menus^$GUI^Internet_-_News_Readers_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@Podcatchers#@@Podcaster readers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_podcatcher_generated.txt"^Internet_-_Podcatchers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_podcatcher_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@Podcatchers#@@Podcaster readers.#@@f_menu_main_all_menus^$GUI^Internet_-_Podcatchers_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@Remote Connection#@@Connect to other PCs remotely, cloud services.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_remote_connection_generated.txt"^Internet_-_Remote_Connection_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_remote_connection_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@Remote Connection#@@Connect to other PCs remotely, cloud services.#@@f_menu_main_all_menus^$GUI^Internet_-_Remote_Connection_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@Transfer#@@File transfer via FTP, HTTP clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_transfer_generated.txt"^Internet_-_Transfer_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_transfer_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@Transfer#@@File transfer via FTP, HTTP clients.#@@f_menu_main_all_menus^$GUI^Internet_-_Transfer_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@Web Browsers#@@Internet web  browsers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_browser_generated.txt"^Internet_-_Web_Browsers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_browser_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@Web Browsers#@@Internet web  browsers.#@@f_menu_main_all_menus^$GUI^Internet_-_Web_Browsers_Menu^$CLI_DIR/apps_internet.lib
 #
 #! End Listing Internet Menu (Required line, do not delete).
 #
@@ -337,7 +331,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@snownews#@@RSS feeder.#@@f_app_cmd^$GUI^snownews#@@0^0^0^0^1
 #
-#@@MORE...#@@More news reader applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_2_generated.txt"^Internet_-_News_Readers_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_news_readers_2_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@MORE...#@@More news reader applications.#@@f_menu_main_all_menus^$GUI^Internet_-_News_Readers_2_Menu^$CLI_DIR/apps_internet.lib
 #
 #! End Listing Internet - News Readers Menu (Required line, do not delete).
 #

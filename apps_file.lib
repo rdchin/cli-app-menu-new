@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# ©2023 Copyright 2023 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2021-07-01 11:28"
+VERSION="2024-02-20 00:33"
 #
 # +----------------------------------------+
 # |            Brief Description           |
@@ -37,31 +37,25 @@ VERSION="2021-07-01 11:28"
 # |                                                                          |
 # +--------------------------------------------------------------------------+
 #
-#
-#
 #                 >>> !!!Warning!!! <<<
 #
 # The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
-# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than
+# and less-than signs.
 #
-# Forbidden characters include ; : * ' " & > <
+# Forbidden characters include ; : * ' " & > < \
 #
 # These characters will compromise the creation of arrays which
 # in turn creates the menu.
 #
+# Note: The single-quotes (') and double-quotes (") and back-slashes (\)
+#       are ignored when the arrays are created, even if they are included
+#       in the Menu Item Description.
+#
 # General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
 #
-# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
-#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
-#
-# List of inputs for f_create_a_menu_cliappmenu.
-#
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
-#          $3 - MENU_TITLE (Title of the sub-menu)
-#          $4 - TEMP_FILE (Temporary file).
-#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
-#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+# Format of <Corresponding function or action or command> when using f_menu_main_all_menus.
+#        f_menu_main_all_menus^"text", "dialog", or "whiptail"^Menu Name^Library name containing menu entries
 #
 #! +--------------------------------------------------------------+
 #! | Start Listing Files Menu                                     |
@@ -70,33 +64,33 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Bin/Hex#@@View/Edit/Compare binary, hexadecimal files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_binhex_generated.txt"^Files_-_Bin/Hex_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_binhex_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Bin/Hex#@@View/Edit/Compare binary, hexadecimal files.#@@f_menu_main_all_menus^$GUI^Files_-_Bin/Hex_Menu^$CLI_DIR/apps_file.lib
 #
-#@@CD/DVD Burners#@@Write files to CD/DVD.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_cd_dvd_burners_generated.txt"^Files_-_CD/DVD_Burn_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_cd_dvd_burners_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@CD/DVD Burners#@@Write files to CD/DVD.#@@f_menu_main_all_menus^$GUI^Files_-_CD/DVD_Burn_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Checksum#@@Display/Create file checksums to verify file integrity.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_checksum_generated.txt"^Files_-_Checksum_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_checksum_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Checksum#@@Display/Create file checksums to verify file integrity.#@@f_menu_main_all_menus^$GUI^Files_-_Checksum_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Compare#@@Show differences between text files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compare_generated.txt"^Files_-_Comparison_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compare_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Compare#@@Show differences between text files.#@@f_menu_main_all_menus^$GUI^Files_-_Comparison_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Convert#@@Convert between different file formats.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_converters_generated.txt"^Files_-_Converters_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_converters_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Convert#@@Convert between different file formats.#@@f_menu_main_all_menus^$GUI^Files_-_Converters_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Compress#@@Compress/Decompress files tar, zip, gz, bz, rar, xz, 7z, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_generated.txt"^Files_-_Compression_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Compress#@@Compress/Decompress files tar, zip, gz, bz, rar, xz, 7z, etc.#@@f_menu_main_all_menus^$GUI^Files_-_Compression_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Edit#@@Create/Edit text files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_editors_generated.txt"^Files_-_Editors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_editors_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Edit#@@Create/Edit text files.#@@f_menu_main_all_menus^$GUI^Files_-_Editors_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Encryption#@@Encrypt/Decrypt files for privacy and security.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_encryption_generated.txt"^Files_-_Encryption_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_encryption_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Encryption#@@Encrypt/Decrypt files for privacy and security.#@@f_menu_main_all_menus^$GUI^Files_-_Encryption_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Find#@@File search.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_search_generated.txt"^Files_-_Find_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_search_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Find#@@File search.#@@f_menu_main_all_menus^$GUI^Files_-_Find_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Managers#@@Directory tree views, rename, add/delete, files, folders.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_generated.txt"^Files_-_Managers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Managers#@@Directory tree views, rename, add/delete, files, folders.#@@f_menu_main_all_menus^$GUI^Files_-_Managers_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Operations#@@Directory/file copy, move, secure delete, recovery, backup.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_operations_generated.txt"^Files_-_Operations_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_operations_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Operations#@@Directory/file copy, move, secure delete, recovery, backup.#@@f_menu_main_all_menus^$GUI^Files_-_Operations_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Splitters#@@File splitters.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_splitters_generated.txt"^Files_-_Splitters_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_splitters_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Splitters#@@File splitters.#@@f_menu_main_all_menus^$GUI^Files_-_Splitters_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Transfer#@@File transfer via FTP, HTTP clients.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_transfer_generated.txt"^Files_-_Transfer_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_transfer_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Transfer#@@File transfer via FTP, HTTP clients.#@@f_menu_main_all_menus^$GUI^Files_-_Transfer_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Viewers#@@View files a page at a time.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_viewers_generated.txt"^Files_-_Viewers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_viewers_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Viewers#@@View files a page at a time.#@@f_menu_main_all_menus^$GUI^Files_-_Viewers_Menu^$CLI_DIR/apps_file.lib
 #
 #! End Listing Files Menu (Required line, do not delete).
 #
@@ -311,7 +305,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@gunzip#@@File decompress gzip files.#@@f_app_cmd^$GUI^gunzip#@@0^0^0^0^1
 #
-#@@MORE...#@@More file compression applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_2_generated.txt"^Files_-_Compression_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@MORE...#@@More file compression applications.#@@f_menu_main_all_menus^$GUI^Files_-_Compression_2_Menu^$CLI_DIR/apps_file.lib
 #
 #! End Listing Files - Compression Menu (Required line, do not delete).
 #
@@ -352,7 +346,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@unxc#@@File decompress xz files.#@@f_app_cmd^$GUI^unxc#@@0^0^0^0^1
 #
-#@@MORE...#@@More file compression applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_3_generated.txt"^Files_-_Compression_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_compress_3_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@MORE...#@@More file compression applications.#@@f_menu_main_all_menus^$GUI^Files_-_Compression_3_Menu^$CLI_DIR/apps_file.lib
 #
 #! End Listing Files - Compression 2 Menu (Required line, do not delete).
 #
@@ -430,7 +424,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@txt2man#@@Converts plain ASCII text to man format.#@@f_app_cmd^$GUI^txt2man#@@1^0^0^0^1
 #
-#@@MORE...#@@More file format conversion applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_converters_2_generated.txt"^Files_-_Converters_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_converters_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@MORE...#@@More file format conversion applications.#@@f_menu_main_all_menus^$GUI^Files_-_Converters_2_Menu^$CLI_DIR/apps_file.lib
 #
 #! End Listing Files - Converters Menu (Required line, do not delete).
 #
@@ -554,7 +548,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@pgp#@@Pretty Good Privacy [pgp].#@@f_app_cmd^$GUI^pgp#@@0^0^0^0^1
 #
-#@@MORE...#@@More file encryption applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_encryption_2_generated.txt"^Files_-_Encryption_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_encryption_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@MORE...#@@More file encryption applications.#@@f_menu_main_all_menus^$GUI^Files_-_Encryption_2_Menu^$CLI_DIR/apps_file.lib
 #
 #! End Listing Files - Encryption Menu (Required line, do not delete).
 #
@@ -622,7 +616,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@rrep#@@Replace text in files.#@@f_app_cmd^$GUI^rrep#@@f_search_msg^0^0^0^1
 #
-#@@MORE...#@@More file find applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_find_2_generated.txt"^Files_-_Find_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_find_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@MORE...#@@More file find applications.#@@f_menu_main_all_menus^$GUI^Files_-_Find_2_Menu^$CLI_DIR/apps_file.lib
 #
 #! End Listing Files - Find Menu (Required line, do not delete).
 #
@@ -676,7 +670,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@lfm#@@Last File Manager, Midnight Commander-like.#@@f_app_cmd^$GUI^lfm#@@0^0^0^0^0
 #
-#@@MORE...#@@More file manager applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_2_generated.txt"^Files_-_Managers_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_managers_2_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@MORE...#@@More file manager applications.#@@f_menu_main_all_menus^$GUI^Files_-_Managers_2_Menu^$CLI_DIR/apps_file.lib
 #
 #! End Listing Files - Managers Menu (Required line, do not delete).
 #
@@ -745,15 +739,15 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Apple#@@Apple MacIntosh file utilities.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_apple_macintosh_generated.txt"^Files_-_Apple_MacIntosh_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_apple_macintosh_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Apple#@@Apple MacIntosh file utilities.#@@f_menu_main_all_menus^$GUI^Files_-_Apple_MacIntosh_Menu^$CLI_DIR/apps_file.lib
 #
 #@@awk#@@Manipulate strings within a file parsed with delimiters.#@@f_app_cmd^$GUI^awk#@@0^0^0^0^1
 #
-#@@Back-up#@@File back-up and archive.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_backup_generated.txt"^Files_-_Back-up_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_backup_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Back-up#@@File back-up and archive.#@@f_menu_main_all_menus^$GUI^Files_-_Back-up_Menu^$CLI_DIR/apps_file.lib
 #
 #@@cwp#@@Catenate with Progress like cat with progress indication.#@@f_app_cmd^$GUI^cwp#@@0^0^0^0^1
 #
-#@@Delete#@@Secure Deletion utilities for disks and files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_delete_generated.txt"^Files_-_Deletion_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_delete_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Delete#@@Secure Deletion utilities for disks and files.#@@f_menu_main_all_menus^$GUI^Files_-_Deletion_Menu^$CLI_DIR/apps_file.lib
 #
 #@@deurlname#@@Removes URL encoded characters from file names.#@@f_app_cmd^$GUI^deurlname#@@0^0^0^0^1
 #
@@ -761,13 +755,13 @@ VERSION="2021-07-01 11:28"
 #
 #@@igawk#@@gawk-like allows nested-includes.#@@f_app_cmd^$GUI^igawk#@@0^0^0^0^1
 #
-#@@Move-Copy#@@Rename/Move and copy utilities for files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_move_copy_generated.txt"^Files_-_Move-Copy_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_move_copy_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Move-Copy#@@Rename/Move and copy utilities for files.#@@f_menu_main_all_menus^$GUI^Files_-_Move-Copy_Menu^$CLI_DIR/apps_file.lib
 #
 #@@pipebench#@@Shows progress of data through pipeline with progress bar.#@@f_app_cmd^$GUI^pipebench#@@1^0^0^0^1
 #
 #@@pv#@@Shows progress of data through pipeline with progress bar.#@@f_app_cmd^$GUI^pv#@@1^0^0^0^1
 #
-#@@Recovery#@@Recovery utilities for disks and files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_recovery_generated.txt"^Files_-_Recovery_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_recovery_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Recovery#@@Recovery utilities for disks and files.#@@f_menu_main_all_menus^$GUI^Files_-_Recovery_Menu^$CLI_DIR/apps_file.lib
 #
 #@@sed#@@String substitution within a file without using an editor.#@@f_app_cmd^$GUI^sed#@@0^0^0^0^1
 #

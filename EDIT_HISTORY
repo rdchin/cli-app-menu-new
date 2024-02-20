@@ -1,9 +1,14 @@
 #!/bin/bash
 #
-# ©2022 Copyright 2022 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # Usage: sh EDIT_HISTORY
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+VERSION="2024-02-20 00:33"
 #
 # +----------------------------------------+
 # |         Function f_script_path         |
@@ -42,7 +47,7 @@ sed -n 's/^##//'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 # The "#LIC" at the beginning of lines below
 # are used to delineate the license and copyright.
 #
-#LIC ©2021 Copyright 2021 Robert D. Chin
+#LIC ©2024 Copyright 2024 Robert D. Chin
 #LIC Email: RDevChin@Gmail.com
 #LIC
 #LIC This program is free software: you can redistribute it and/or modify
@@ -65,6 +70,20 @@ sed -n 's/^##//'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 ##
 ## After each edit made, update Version History and version
 ## (date stamp string) of script.
+##
+## 2024-02-20 *Release Version 6.0 "Hannah"
+##            *cliappmenu.sh can be run by itself as a stand-alone script.
+##             This single file and an internet connection to GitHub.com
+##             is all you need to get started.
+##             When run, it will automatically download all the required
+##             files from either the GitHub Repository "cli-app-menu-new"
+##             website or a local LAN Repository.
+##            *This uses a new function to create the Main and sub-menus
+##             which uses far less passed parameters.
+##             This change makes the specifying of sub-menus much simpler
+##             using only 3 passed parameters.
+##            *f_menu_main_all_menus added replacing f_menu_main and is
+##             used for both the Main Menu and all sub-menus.
 ##
 ## 2022-07-24 *Release version 5.0 "Gail".
 ##             This is a total rewrite of the menu display process and

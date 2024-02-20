@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# ©2023 Copyright 2023 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2022-06-26 11:28"
+VERSION="2024-02-20 00:33"
 #
 # Set THIS_FILE_LIB to the name of this script library.
 THIS_FILE_LIB="apps_audio.lib"
@@ -40,31 +40,25 @@ THIS_FILE_LIB="apps_audio.lib"
 # |                                                                          |
 # +--------------------------------------------------------------------------+
 #
-#
-#
 #                 >>> !!!Warning!!! <<<
 #
 # The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
-# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than
+# and less-than signs.
 #
-# Forbidden characters include ; : * ' " & > <
+# Forbidden characters include ; : * ' " & > < \
 #
 # These characters will compromise the creation of arrays which
 # in turn creates the menu.
 #
+# Note: The single-quotes (') and double-quotes (") and back-slashes (\)
+#       are ignored when the arrays are created, even if they are included
+#       in the Menu Item Description.
+#
 # General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
 #
-# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
-#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
-#
-# List of inputs for f_create_a_menu_cliappmenu.
-#
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
-#          $3 - MENU_TITLE (Title of the sub-menu)
-#          $4 - TEMP_FILE (Temporary file).
-#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
-#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+# Format of <Corresponding function or action or command> when using f_menu_main_all_menus.
+#        f_menu_main_all_menus^"text", "dialog", or "whiptail"^Menu Name^Library name containing menu entries
 #
 #! +--------------------------------------------------------------+
 #! | Start Listing Audio Menu                                     |
@@ -73,17 +67,17 @@ THIS_FILE_LIB="apps_audio.lib"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@CD Rippers#@@Copy music off CD-ROM to files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_cdrippers_generated.txt"^Audio_-_CD_Rippers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_cdrippers_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@CD Rippers#@@Copy music off CD-ROM to files.#@@f_menu_main_all_menus^$GUI^Audio_-_CD_Rippers_Menu^$CLI_DIR/apps_audio.lib
 #
-#@@Editors#@@Audio editors/converters of file formats.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_editors_generated.txt"^Audio_-_Editors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_editors_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@Editors#@@Audio editors/converters of file formats.#@@f_menu_main_all_menus^$GUI^Audio_-_Editors_Menu^$CLI_DIR/apps_audio.lib
 #
-#@@Music Players#@@Play music CD-ROM or music files. Jukebox, playlists.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_generated.txt"^Audio_-_Music_Players_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@Music Players#@@Play music CD-ROM or music files. Jukebox, playlists.#@@f_menu_main_all_menus^$GUI^Audio_-_Music_Players_Menu^$CLI_DIR/apps_audio.lib
 #
-#@@Music Taggers #@@Audio music taggers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_taggers_generated.txt"^Audio_-_Music_Taggers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_taggers_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@Music Taggers #@@Audio music taggers.#@@f_menu_main_all_menus^$GUI^Audio_-_Music_Taggers_Menu^$CLI_DIR/apps_audio.lib
 #
-#@@Radio-Music#@@Listen to Internet radio stations and music sites.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_radio_generated.txt"^Audio_-_Radio_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_radio_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@Radio-Music#@@Listen to Internet radio stations and music sites.#@@f_menu_main_all_menus^$GUI^Audio_-_Radio_Menu^$CLI_DIR/apps_audio.lib
 #
-#@@Speech Synthesizers#@@Text-to-speech. Have text files read back to you.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_speech_synthesizers_generated.txt"^Audio_-_Speech_Synthesizers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_speech_synthesizers_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@Speech Synthesizers#@@Text-to-speech. Have text files read back to you.#@@f_menu_main_all_menus^$GUI^Audio_-_Speech_Synthesizers_Menu^$CLI_DIR/apps_audio.lib
 #
 #! End Listing Audio Menu (Required line, do not delete).
 #
@@ -198,7 +192,7 @@ THIS_FILE_LIB="apps_audio.lib"
 #
 #@@jac#@@CD player, creates playlist.#@@f_app_cmd^$GUI^jac#@@0^0^0^0^0
 #
-#@@MORE...#@@More music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_generated.txt"^Audio_-_Music_Players_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@MORE...#@@More music player applications.#@@f_menu_main_all_menus^$GUI^Audio_-_Music_Players_2_Menu^$CLI_DIR/apps_audio.lib
 #
 #! End Listing Audio - Music Players Menu (Required line, do not delete).
 #
@@ -239,7 +233,7 @@ THIS_FILE_LIB="apps_audio.lib"
 #
 #@@mussort#@@Sort music files by artist and album via tag information.#@@f_app_cmd^$GUI^mussort#@@0^0^0^0^1
 #
-#@@MORE...#@@More music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_3_generated.txt"^Audio_-_Music_Players_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_3_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@MORE...#@@More music player applications.#@@f_menu_main_all_menus^$GUI^Audio_-_Music_Players_3_Menu^$CLI_DIR/apps_audio.lib
 #
 #! End Listing Audio - Music Players 2 Menu (Required line, do not delete).
 #
@@ -280,7 +274,7 @@ THIS_FILE_LIB="apps_audio.lib"
 #
 #@@vitunes#@@vi-like music player.#@@f_app_cmd^$GUI^vitunes#@@0^0^0^0^1
 #
-#@@MORE...#@@More music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_generated.txt"^Audio_-_Music_Players_4_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@MORE...#@@More music player applications.#@@f_menu_main_all_menus^$GUI^Audio_-_Music_Players_4_Menu^$CLI_DIR/apps_audio.lib
 #
 #! End Listing Audio - Music Players 3 Menu (Required line, do not delete).
 #

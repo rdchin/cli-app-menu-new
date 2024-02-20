@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# ©2023 Copyright 2023 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2021-07-01 11:28"
+VERSION="2024-02-20 00:33"
 #
 # +----------------------------------------+
 # |            Brief Description           |
@@ -37,31 +37,25 @@ VERSION="2021-07-01 11:28"
 # |                                                                          |
 # +--------------------------------------------------------------------------+
 #
-#
-#
 #                 >>> !!!Warning!!! <<<
 #
 # The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
-# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than
+# and less-than signs.
 #
-# Forbidden characters include ; : * ' " & > <
+# Forbidden characters include ; : * ' " & > < \
 #
 # These characters will compromise the creation of arrays which
 # in turn creates the menu.
 #
+# Note: The single-quotes (') and double-quotes (") and back-slashes (\)
+#       are ignored when the arrays are created, even if they are included
+#       in the Menu Item Description.
+#
 # General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
 #
-# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
-#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
-#
-# List of inputs for f_create_a_menu_cliappmenu.
-#
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
-#          $3 - MENU_TITLE (Title of the sub-menu)
-#          $4 - TEMP_FILE (Temporary file).
-#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
-#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+# Format of <Corresponding function or action or command> when using f_menu_main_all_menus.
+#        f_menu_main_all_menus^"text", "dialog", or "whiptail"^Menu Name^Library name containing menu entries
 #
 #! +--------------------------------------------------------------+
 #! | Start Listing Games Menu                                     |
@@ -70,25 +64,25 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Arcade Games#@@Action controlled by keyboard and players reflexes.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_generated.txt"^Games_-_Arcade_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Arcade Games#@@Action controlled by keyboard and players reflexes.#@@f_menu_main_all_menus^$GUI^Games_-_Arcade_Menu^$CLI_DIR/apps_games.lib
 #
-#@@Board Games#@@Classic board games.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_board_generated.txt"^Games_-_Board_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_board_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Board Games#@@Classic board games.#@@f_menu_main_all_menus^$GUI^Games_-_Board_Menu^$CLI_DIR/apps_games.lib
 #
-#@@Card Games#@@Played with a deck of playing cards.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_card_generated.txt"^Games_-_Card_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_card_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Card Games#@@Played with a deck of playing cards.#@@f_menu_main_all_menus^$GUI^Games_-_Card_Menu^$CLI_DIR/apps_games.lib
 #
-#@@MUD Games#@@Multi-user dungeon adventure games.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_mud_generated.txt"^Games_-_Mud_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_mud_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@MUD Games#@@Multi-user dungeon adventure games.#@@f_menu_main_all_menus^$GUI^Games_-_Mud_Menu^$CLI_DIR/apps_games.lib
 #
-#@@Puzzles#@@Mastermind clones, suduku, mazes, create punch card/tapes.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_puzzle_generated.txt"^Games_-_Puzzle_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_puzzle_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Puzzles#@@Mastermind clones, suduku, mazes, create punch card/tapes.#@@f_menu_main_all_menus^$GUI^Games_-_Puzzle_Menu^$CLI_DIR/apps_games.lib
 #
-#@@Quiz Games#@@Challenge your mind.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_quiz_generated.txt"^Games_-_Quiz_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_quiz_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Quiz Games#@@Challenge your mind.#@@f_menu_main_all_menus^$GUI^Games_-_Quiz_Menu^$CLI_DIR/apps_games.lib
 #
-#@@RPG Games#@@Single-player role-playing games.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_rpg_generated.txt"^Games_-_RPG_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_rpg_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@RPG Games#@@Single-player role-playing games.#@@f_menu_main_all_menus^$GUI^Games_-_RPG_Menu^$CLI_DIR/apps_games.lib
 #
-#@@Sims/Anims#@@Simulations and animations. ASCII movies.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_sims_generated.txt"^Games_-_Simulation_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_sims_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Sims/Anims#@@Simulations and animations. ASCII movies.#@@f_menu_main_all_menus^$GUI^Games_-_Simulation_Menu^$CLI_DIR/apps_games.lib
 #
-#@@Strategy Games#@@1-2 Players.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_strategy_generated.txt"^Games_-_Strategy_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_strategy_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Strategy Games#@@1-2 Players.#@@f_menu_main_all_menus^$GUI^Games_-_Strategy_Menu^$CLI_DIR/apps_games.lib
 #
-#@@Word Games#@@Boggle, hangman, pig-latin, create banners.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_word_generated.txt"^Games_-_Word_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_word_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Word Games#@@Boggle, hangman, pig-latin, create banners.#@@f_menu_main_all_menus^$GUI^Games_-_Word_Menu^$CLI_DIR/apps_games.lib
 #
 #! End Listing Games Menu (Required line, do not delete).
 #
@@ -115,7 +109,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@nsnake#@@Variation of BSDs snake game.#@@f_app_cmd^$GUI^nsnake#@@0^0^0^0^0
 #
-#@@Pac-Man#@@Pac-Man clones.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_pacman_generated.txt"^Games_-_Pacman_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_pacman_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Pac-Man#@@Pac-Man clones.#@@f_menu_main_all_menus^$GUI^Games_-_Pacman_Menu^$CLI_DIR/apps_games.lib
 #
 #@@robots#@@Be chased by killer robots.#@@f_app_cmd^$GUI^robots#@@0^0^0^0^0
 #
@@ -123,11 +117,11 @@ VERSION="2021-07-01 11:28"
 #
 #@@spacezero#@@Space combat in real-time, 2-player network game.#@@f_app_cmd^$GUI^spacezero#@@0^0^0^0^0
 #
-#@@Tetris#@@Tetris clones.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_tetris_generated.txt"^Games_-_Tetris_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_tetris_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Tetris#@@Tetris clones.#@@f_menu_main_all_menus^$GUI^Games_-_Tetris_Menu^$CLI_DIR/apps_games.lib
 #
 #@@worm#@@Be a growing worm, dont crash into yourself.#@@f_app_cmd^$GUI^worm#@@0^0^0^9^0
 #
-#@@MORE...#@@More arcade game applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_2_generated.txt"^Games_-_Arcade_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_2_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@MORE...#@@More arcade game applications.#@@f_menu_main_all_menus^$GUI^Games_-_Arcade_2_Menu^$CLI_DIR/apps_games.lib
 #
 #! End Listing Games - Arcade Menu (Required line, do not delete).
 #

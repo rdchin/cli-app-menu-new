@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# ©2023 Copyright 2023 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2021-07-01 11:28"
+VERSION="2024-02-20 00:33"
 #
 # +----------------------------------------+
 # |            Brief Description           |
@@ -37,31 +37,25 @@ VERSION="2021-07-01 11:28"
 # |                                                                          |
 # +--------------------------------------------------------------------------+
 #
-#
-#
 #                 >>> !!!Warning!!! <<<
 #
 # The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
-# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than
+# and less-than signs.
 #
-# Forbidden characters include ; : * ' " & > <
+# Forbidden characters include ; : * ' " & > < \
 #
 # These characters will compromise the creation of arrays which
 # in turn creates the menu.
 #
+# Note: The single-quotes (') and double-quotes (") and back-slashes (\)
+#       are ignored when the arrays are created, even if they are included
+#       in the Menu Item Description.
+#
 # General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
 #
-# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
-#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
-#
-# List of inputs for f_create_a_menu_cliappmenu.
-#
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
-#          $3 - MENU_TITLE (Title of the sub-menu)
-#          $4 - TEMP_FILE (Temporary file).
-#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
-#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+# Format of <Corresponding function or action or command> when using f_menu_main_all_menus.
+#        f_menu_main_all_menus^"text", "dialog", or "whiptail"^Menu Name^Library name containing menu entries
 #
 #! +--------------------------------------------------------------+
 #! | Start Listing System Menu                                    |
@@ -70,25 +64,23 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Arcade Games#@@Action controlled by keyboard and players reflexes.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_generated.txt"^Games_-_Arcade_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_arcade_items_generated.txt"^$CLI_DIR/apps_games.lib
-
-#@@Backup#@@File Backup.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_file_backup_generated.txt"^System_-_Back-up_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_file_backup_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@Backup#@@File Backup.#@@f_menu_main_all_menus^$GUI^System_-_Back-up_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_file_backup_items_generated.txt"^$CLI_DIR/apps_system.lib
 #
-#@@Disks#@@Disk information.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_generated.txt"^System_-_Disks_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@Disks#@@Disk information.#@@f_menu_main_all_menus^$GUI^System_-_Disks_Menu^$CLI_DIR/apps_system.lib
 #
-#@@Health#@@Anti-virus scanners, root-kit detectors, stress tests etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_health_generated.txt"^System_-_Health_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_health_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@Health#@@Anti-virus scanners, root-kit detectors, stress tests etc.#@@f_menu_main_all_menus^$GUI^System_-_Health_Menu^$CLI_DIR/apps_system.lib
 #
-#@@Logs#@@Log file viewers, command line history, send mssg. to users.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_logs_generated.txt"^System_-_Logs_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_logs_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@Logs#@@Log file viewers, command line history, send mssg. to users.#@@f_menu_main_all_menus^$GUI^System_-_Logs_Menu^$CLI_DIR/apps_system.lib
 #
-#@@Mainboard#@@Information on PC mainboard, memory, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_mainboard_generated.txt"^System_-_Mainboard_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_mainboard_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@Mainboard#@@Information on PC mainboard, memory, etc.#@@f_menu_main_all_menus^$GUI^System_-_Mainboard_Menu^$CLI_DIR/apps_system.lib
 #
-#@@Monitors#@@Resources, and disk I/O monitors.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_generated.txt"^System_-_Monitors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@Monitors#@@Resources, and disk I/O monitors.#@@f_menu_main_all_menus^$GUI^System_-_Monitors_Menu^$CLI_DIR/apps_system.lib
 #
-#@@Linux#@@Linux information and configuration kernel configuration.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_linux_generated.txt"^System_-_Linux_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_linux_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@Linux#@@Linux information and configuration kernel configuration.#@@f_menu_main_all_menus^$GUI^System_-_Linux_Menu^$CLI_DIR/apps_system.lib
 #
-#@@Peripherals#@@Information on PC peripherals, PCI devices, hard drives, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_generated.txt"^System_-_Peripherals_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@Peripherals#@@Information on PC peripherals, PCI devices, hard drives, etc.#@@f_menu_main_all_menus^$GUI^System_-_Peripherals_Menu^$CLI_DIR/apps_system.lib
 #
-#@@Process#@@System process monitoring, killing.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_process_generated.txt"^System_-_Process_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_process_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@Process#@@System process monitoring, killing.#@@f_menu_main_all_menus^$GUI^System_-_Process_Menu^$CLI_DIR/apps_system.lib
 #
 #! End Listing System Menu (Required line, do not delete).
 #
@@ -144,7 +136,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@hdparm#@@Show/set disk parameters, settings. #@@f_app_cmd^$GUI^hdparm#@@0^0^0^0^1
 #
-#@@MORE...#@@More system disk applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_2_generated.txt"^System_-_Disks_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_disks_2_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@MORE...#@@More system disk applications.#@@f_menu_main_all_menus^$GUI^System_-_Disks_2_Menu^$CLI_DIR/apps_system.lib
 #
 #! End Listing System - Disks Menu (Required line, do not delete).
 #
@@ -210,7 +202,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@smb-nat#@@Netbios audit servers running NetBIOS file sharing services.#@@f_app_cmd^$GUI^smb-nat#@@1^0^0^0^1
 #
-#@@MORE...#@@More system health applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_health_2_generated.txt"^System_-_Health_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_health_2_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@MORE...#@@More system health applications.#@@f_menu_main_all_menus^$GUI^System_-_Health_2_Menu^$CLI_DIR/apps_system.lib
 #
 #! End Listing System - Health Menu (Required line, do not delete).
 #
@@ -340,7 +332,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@nmon#@@CPU usage, memory, network, disk usage, processes, resources.#@@f_app_cmd^$GUI^nmon#@@0^0^0^0^0
 #
-#@@MORE...#@@More system monitor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_2_generated.txt"^System_-_Monitors_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_monitors_2_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@MORE...#@@More system monitor applications.#@@f_menu_main_all_menus^$GUI^System_-_Monitors_2_Menu^$CLI_DIR/apps_system.lib
 
 #
 #! End Listing System - Monitors Menu (Required line, do not delete).
@@ -442,7 +434,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@mzip#@@Change protection mode and eject disk on Zip/Jaz drive.#@@f_app_cmd^$GUI^mzip#@@0^0^0^0^1
 #
-#@@MORE...#@@More peripheral system applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_2_generated.txt"^System_-_Peripherals_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_peripherals_2_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@MORE...#@@More peripheral system applications.#@@f_menu_main_all_menus^System_-_Peripherals_2_Menu^$CLI_DIR/apps_system.lib
 #
 #
 #! End Listing System - Peripherals Menu (Required line, do not delete).
@@ -505,7 +497,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@pswatcher#@@Execute commands when certain processes are run.#@@f_app_cmd^$GUI^pswatcher#@@0^0^0^0^1
 #
-#@@MORE...#@@More system process applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_process_2_generated.txt"^System_-_Process_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_process_2_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@MORE...#@@More system process applications.#@@f_menu_main_all_menus^$GUI^System_-_Process_2_Menu^$CLI_DIR/apps_system.lib
 #
 #
 #! End Listing System - Process Menu (Required line, do not delete).

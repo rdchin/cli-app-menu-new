@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ©2023 Copyright 2023 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # Usage: source menu_module_main.lib
@@ -23,7 +23,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2023-06-21 11:58"
+VERSION="2024-02-20 00:33"
 #
 # Set THIS_FILE_LIB to the name of this script library.
 THIS_FILE_LIB=$(basename $0)
@@ -71,31 +71,25 @@ THIS_FILE_LIB=$(basename $0)
 # |                                                                          |
 # +--------------------------------------------------------------------------+
 #
-#
-#
 #                 >>> !!!Warning!!! <<<
 #
 # The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
-# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than
+# and less-than signs.
 #
-# Forbidden characters include ; : * ' " & > <
+# Forbidden characters include ; : * ' " & > < \
 #
 # These characters will compromise the creation of arrays which
 # in turn creates the menu.
 #
+# Note: The single-quotes (') and double-quotes (") and back-slashes (\)
+#       are ignored when the arrays are created, even if they are included
+#       in the Menu Item Description.
+#
 # General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
 #
-# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
-#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
-#
-# List of inputs for f_create_a_menu_cliappmenu.
-#
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
-#          $3 - MENU_TITLE (Title of the sub-menu)
-#          $4 - TEMP_FILE (Temporary file).
-#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
-#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+# Format of <Corresponding function or action or command> when using f_menu_main_all_menus.
+#        f_menu_main_all_menus^"text", "dialog", or "whiptail"^Menu Name^Library name containing menu entries
 #
 # There are two components involving a consistent Menu Title:
 # 1. The comment line "Start Listing <Menu Title> Menu".
@@ -110,6 +104,10 @@ THIS_FILE_LIB=$(basename $0)
 #
 #
 # DEBUGGING HINT:
+#
+# Note: ***If Menu title contains spaces,
+#       ***the size of the menu window will be too narrow.
+# Menu title MUST use underscores instead of spaces.
 #
 # If the script hangs or ceases to respond after you select a menu choice
 # which is invoking a sub-menu, or if you see any of these error messages,
@@ -142,6 +140,8 @@ THIS_FILE_LIB=$(basename $0)
 #@@Configure#@@Update software, manage modules, change colors, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_configuration_generated.txt"^Configuration_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_configuration_generated.txt"^$THIS_DIR/cliappmenu.lib
 #
 #@@Information#@@About, version, documentation, code history, license.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_information_generated.txt"^Information_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_information_generated.txt"^$THIS_DIR/cliappmenu.lib
+#
+#@@Version Update#@@Check for updates to this script and download.#@@f_check_version^$GUI
 #
 #@@Help#@@Display help message.#@@f_help_message^$GUI
 #
@@ -225,77 +225,133 @@ THIS_FILE_LIB=$(basename $0)
 #! End Listing Information Menu (Required line, do not delete).
 #
 # +----------------------------------------+
-# |   Function f_create_a_menu_cliappmenu  |
+# |        Function f_check_version        |
 # +----------------------------------------+
 #
-#     Rev: 2022-12-02
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
-#          $3 - MENU_TITLE (Title of the sub-menu)
-#          $4 - TEMP_FILE (Temporary file).
-#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
-#          $6 - ARRAY_SOURCE_FILE (Not a temporay file) includes menu items from multiple menus.
-#    Uses: None.
-# Outputs: None.
+#     Rev: 2024-01-16
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
+#          $2 - [OPTIONAL] File name to compare.
+#          $3 - [OPTIONAL] 1=Silent mode.
+#          FILE_TO_COMPARE.
+#    Uses: SERVER_DIR, MP_DIR, LOCAL_REPO_DIR, $FILE_TO_COMPARE, FILE_LIST,
+#          VERSION, TEMP_FILE, ERROR.
+# Outputs: ERROR.
 #
-# Summary: Display sub-menu. This may replace f_menu_sub_TEMPLATE.
+# Summary: Check the version of a single, local file or script,
+#          FILE_TO_COMPARE with the version of repository file.
+#          If the repository file has latest version, then copy all
+#          dependent files and libraries from the repository to local PC.
 #
-# Dependencies: f_menu_make, f_menu_arrays, f_create_show_menu.
+# TO DO enhancement: If local (LAN) repository is unavailable, then
+#          connect to repository on the web if available.
 #
-f_create_a_menu_cliappmenu  () {
+# Dependencies: f_version_compare.
+#
+f_check_version () {
       #
-      # Source ARRAY_SOURCE_FILE which contains menu items in comment lines.
-      source $6
       #
-      # Define ARRAY_SOURCE_FILE for f_app_cmd so that APP_CODE may be processed.
-      ARRAY_SOURCE_FILE=$6
+      #=================================================================
+      # EDIT THE LINES BELOW TO DEFINE THE LAN FILE SERVER DIRECTORY,
+      # LOCAL MOUNTPOINT DIRECTORY, LOCAL REPOSITORY DIRECTORY AND
+      # FILE TO COMPARE BETWEEN THE LOCAL PC AND (LAN) LOCAL REPOSITORY.
+      #=================================================================
       #
-      # Create $ARRAY_FILE from Array Source File.
-      f_menu_make $1 $3 $5 $6
       #
-      # Create arrays from data.
-      f_menu_arrays $5
+      # LAN File Server shared directory.
+      # SERVER_DIR="[FILE_SERVER_DIRECTORY_NAME_GOES_HERE]"
+        SERVER_DIR="//file_server/files"
       #
-      # Calculate longest line length to find maximum menu width
-      # for Dialog or Whiptail using lengths calculated by f_menu_arrays.
-      # f_menu_arrays sets MAX_CHOICE_LENGTH and MAX_SUMMARY_LENGTH.
-      # So this calculation must come after call to f_menu_arrays.
-      let MAX_LENGTH=$MAX_CHOICE_LENGTH+$MAX_SUMMARY_LENGTH
+      # Local PC mount-point directory.
+      # MP_DIR="[LOCAL_MOUNT-POINT_DIRECTORY_NAME_GOES_HERE]"
+        MP_DIR="/mnt/file_server/files"
       #
-      if [ "$1" = "text" ] ; then
-         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
-         # Why needed? Function f_message uses application "Less" to display pages of text.
-         # But "Less" resets the terminal's colors to white on black.
-         f_configure_use $1
+      # Local PC mount-point with LAN File Server Local Repository full directory path.
+      # Example:
+      #                   File server shared directory is "//file_server/files".
+      # Repository directory under the shared directory is "scripts/BASH/Repository".
+      #                 Local PC Mount-point directory is "/mnt/file_server/files".
+      #
+      # Local PC mount-point with LAN File Server Local Repository full directory path.
+      # LOCAL_REPO_DIR="$MP_DIR/[DIRECTORY_PATH_TO_LOCAL_REPOSITORY]"
+        LOCAL_REPO_DIR="$MP_DIR/LIBRARY/PC-stuff/PC-software/BASH_Scripting_Projects/Repository"
+      #
+      # Local PC file to be compared.
+      if [ $# -eq 2 ] ; then
+         # There are 2 arguments that have been passed to this function.
+         # $2 contains the file name to compare.
+         FILE_TO_COMPARE=$2
+      else
+         # $2 is null, so specify file name.
+         if [ -z "$FILE_TO_COMPARE" ] ; then
+            # FILE_TO_COMPARE is undefined so specify file name.
+            FILE_TO_COMPARE=$(basename $0)
+         fi
       fi
       #
-      # Create generated menu script from array data.
-      #  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-      #          $2 - GENERATED_FILE.
-      #          $3 - Menu Title.
-      #                  (String must either begin and end with double-quotes
-      #                  or must have underscores substituting for spaces).
-      #          $4 - MAX_LENGTH.
-      #          $5 - MAX_LINES.
-      #          $6 - MAX_CHOICE_LENGTH
-      #          $7 - TEMP_FILE
-      f_create_show_menu $1 $2 $3 $MAX_LENGTH $MAX_LINES $MAX_CHOICE_LENGTH $4
+      # Version of Local PC file to be compared.
+      VERSION=$(grep --max-count=1 "VERSION" $FILE_TO_COMPARE)
       #
-      clear  # Blank the screen.
+      # Initialize variables.
+      FILE_LIST=$THIS_DIR/$THIS_FILE"_file_temp.txt"
+      ERROR=0
       #
-      if [ -r $2 ] ; then
-         rm $2
+      # Delete any existing file.
+      # This assures that FILE_LIST is not appended to but is newly created
+      # in the code below. Added because typo may occur when using redirection
+      # where typo ">>" is used instead of ">" at FILE NAME1.
+      # i.e. typo at echo "[ FILE NAME1 GOES HERE ]"  >> $FILE_LIST
+      if [ -e $FILE_LIST ] ; then
+         rm $FILE_LIST
       fi
       #
-      if [ -r $4 ] ; then
-         rm $4
+      #
+      #=================================================================
+      # EDIT THE LINES BELOW TO SPECIFY THE FILE NAMES TO UPDATE.
+      # FILE NAMES INCLUDE ALL DEPENDENT SCRIPTS AND LIBRARIES.
+      #=================================================================
+      #
+      #
+      # Create list of files to update and write to temporary file, FILE_LIST.
+      #
+      echo "cliappmenu.sh"                 > $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "cliappmenu.lib"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_audio.lib"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_databases.lib"           >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_development.lib"         >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_education.lib"           >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_environment.lib"         >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_file.lib"                >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_games.lib"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_graphics.lib"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_internet.lib"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_network.lib"             >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_office.lib"              >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_packages.lib"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_screensavers.lib"        >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_screens.lib"             >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_screen_tools.lib"        >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_system.lib"              >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "apps_video.lib"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "cli-common.lib"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "cli-favorites.lib"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "cli-web-sites.lib"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "COPYING"                      >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "EDIT_HISTORY"                 >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "LICENSE"                      >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "main_search_results.lib.save" >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "README"                       >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "README.md"                    >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      echo "common_bash_function.lib"     >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+      #
+      f_version_compare $1 "$SERVER_DIR" "$MP_DIR" "$LOCAL_REPO_DIR" "$FILE_TO_COMPARE" "$VERSION" "$FILE_LIST" $3
+      #
+      if [ -r  $FILE_LIST ] ; then
+         rm  $FILE_LIST
       fi
       #
-      if [ -e $5 ] ; then
-         rm $5
-      fi
+      unset FILE_LIST
       #
-}  # End of function f_create_a_menu_cliappmenu.
+}  # End of function f_check_version_TEMPLATE.
 #
 # +----------------------------------------+
 # |        Function f_about_cliappmenu     |

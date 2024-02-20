@@ -1,9 +1,14 @@
 #!/bin/bash
 #
-# ©2021 Copyright 2021 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # Usage: bash README
+#
+# +----------------------------------------+
+# |        Default Variable Values         |
+# +----------------------------------------+
+VERSION="2024-02-20 00:33"
 #
 # +----------------------------------------+
 # |         Function f_script_path         |
@@ -141,7 +146,7 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:    I'd give back to the community and perhaps others could build on and
 #:    improve on what I've started.
 #:
-#: Please enjoy . . . bob chin (2014...2021).
+#: Please enjoy . . . bob chin (2014...2024).
 #:                    RDevChin@Gmail.com.
 #:
 #:
@@ -386,13 +391,13 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:  System Menu       ~/cliapp-dir/apps_system.lib.generated
 #:  Monitor Menu      ~/cliapp-dir/apps_system_monitors.lib.generated
 #:
-#: *Version 5 uses the menu titles themselves to differentiate the menu data
-#:  for each menu. There are over 140 sub-menus in this application.
+#: *Version 5 and above uses the menu titles themselves to differentiate
+#:  the menu data for each menu. This application contains 140 sub-menus.
 #:
 #:  The menu title must be used in a header and footer around the menu data.
 #:  The code to display the menu uses grep to search for the menu title and
-#:  once found, the menu data between the header and footer is extracted and
-#:  is used to display the menu.
+#:  once found, the menu data between the header and footer is extracted
+#:  and is used to display the menu.
 #:
 #:    MENU                LIBRARY FILE CONTAINING MENU OPTION DATA
 #:
@@ -634,7 +639,7 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:    Semi-colons, colons, asterisks, single-quotes, double-quotes,
 #:    greater-than, less-than, ampersands ARE NOT OK.
 #:
-#:    Forbidden characters include ; : * ' " > < &
+#:    Forbidden characters include ; : * ' " > < & \
 #:
 #:    Example:
 #:    Ampersands are not OK and will mess up the menu display.

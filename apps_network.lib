@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# ©2023 Copyright 2023 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2021-07-01 11:28"
+VERSION="2024-02-20 00:33"
 #
 # +----------------------------------------+
 # |            Brief Description           |
@@ -37,31 +37,25 @@ VERSION="2021-07-01 11:28"
 # |                                                                          |
 # +--------------------------------------------------------------------------+
 #
-#
-#
 #                 >>> !!!Warning!!! <<<
 #
 # The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
-# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than
+# and less-than signs.
 #
-# Forbidden characters include ; : * ' " & > <
+# Forbidden characters include ; : * ' " & > < \
 #
 # These characters will compromise the creation of arrays which
 # in turn creates the menu.
 #
+# Note: The single-quotes (') and double-quotes (") and back-slashes (\)
+#       are ignored when the arrays are created, even if they are included
+#       in the Menu Item Description.
+#
 # General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
 #
-# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
-#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
-#
-# List of inputs for f_create_a_menu_cliappmenu.
-#
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
-#          $3 - MENU_TITLE (Title of the sub-menu)
-#          $4 - TEMP_FILE (Temporary file).
-#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
-#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+# Format of <Corresponding function or action or command> when using f_menu_main_all_menus.
+#        f_menu_main_all_menus^"text", "dialog", or "whiptail"^Menu Name^Library name containing menu entries
 #
 #! +--------------------------------------------------------------+
 #! | Start Listing Network Menu                                   |
@@ -70,19 +64,19 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Firewalls#@@Configure firewalls.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_firewalls_generated.txt"^Network_-_Firewalls_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_firewalls_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@Firewalls#@@Configure firewalls.#@@f_menu_main_all_menus^$GUI^Network_-_Firewalls_Menu^$CLI_DIR/apps_network.lib
 #
-#@@LAN#@@Test local area network connectivity, display settings.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_lan_generated.txt"^Network_-_LAN_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_lan_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@LAN#@@Test local area network connectivity, display settings.#@@f_menu_main_all_menus^$GUI^Network_-_LAN_Menu^$CLI_DIR/apps_network.lib
 #
-#@@Monitors#@@LAN monitors, network mappers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_monitors_generated.txt"^Network_-_Monitors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_monitors_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@Monitors#@@LAN monitors, network mappers.#@@f_menu_main_all_menus^$GUI^Network_-_Monitors_Menu^$CLI_DIR/apps_network.lib
 #
-#@@NIC Tools#@@Configure wired/wireless cards, scan for wireless networks.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_nic_tools_generated.txt"^Network_-_NIC_Tools_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_nic_tools_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@NIC Tools#@@Configure wired/wireless cards, scan for wireless networks.#@@f_menu_main_all_menus^$GUI^Network_-_NIC_Tools_Menu^$CLI_DIR/apps_network.lib
 #
-#@@Packet Tools#@@Packet sniffers, packet analyzers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_packet_tools_generated.txt"^Network_-_Packet_Tools_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_packet_tools_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@Packet Tools#@@Packet sniffers, packet analyzers.#@@f_menu_main_all_menus^$GUI^Network_-_Packet_Tools_Menu^$CLI_DIR/apps_network.lib
 #
-#@@Sharing#@@Share files on NetWare / Microsoft Windows PCs/networks.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_sharing_generated.txt"^Network_-_Sharing_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_sharing_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@Sharing#@@Share files on NetWare / Microsoft Windows PCs/networks.#@@f_menu_main_all_menus^$GUI^Network_-_Sharing_Menu^$CLI_DIR/apps_network.lib
 #
-#@@WAN#@@Test wide-area network connectivity, speed, routing, DNS.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_generated.txt"^Network_-_WAN_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@WAN#@@Test wide-area network connectivity, speed, routing, DNS.#@@f_menu_main_all_menus^$GUI^Network_-_WAN_Menu^$CLI_DIR/apps_network.lib
 #
 #! End Listing Network Menu (Required line, do not delete).
 #
@@ -194,9 +188,9 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Bandwidth#@@Bandwidth monitors.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_bandwidth_generated.txt"^Network_-_Bandwidth_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_bandwidth_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@Bandwidth#@@Bandwidth monitors.#@@f_menu_main_all_menus^$GUI^Network_-_Bandwidth_Menu^$CLI_DIR/apps_network.lib
 #
-#@@Structure#@@Management, status, connections, devices, hosts.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_structure_generated.txt"^Network_-_Structure_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_structure_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@Structure#@@Management, status, connections, devices, hosts.#@@f_menu_main_all_menus^$GUI^Network_-_Structure_Menu^$CLI_DIR/apps_network.lib
 #
 #! End Listing Network - Monitors Menu (Required line, do not delete).
 #
@@ -233,7 +227,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@nictools-pci#@@NIC configuration of specific oem network cards.#@@f_app_cmd^$GUI^nictools-pci#@@0^0^0^0^1
 #
-#@@MORE...#@@More NIC Tools Applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_nic_tools_2_generated.txt"^Network_-_NIC_Tools_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_nic_tools_2_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@MORE...#@@More NIC Tools Applications.#@@f_menu_main_all_menus^$GUI^Network_-_NIC_Tools_2_Menu^$CLI_DIR/apps_network.lib
 #
 #! End Listing Network - NIC Tools Menu (Required line, do not delete).
 #
@@ -372,7 +366,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@nslookup#@@Query Internet domain name servers.#@@f_app_cmd^$GUI^nslookup^nslookup www.distrowatch.com#@@1^0^0^20:NC^1
 #
-#@@MORE...#@@More WAN applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_2_generated.txt"^Network_-_WAN_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_wan_2_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@MORE...#@@More WAN applications.#@@f_menu_main_all_menus^$GUI^Network_-_WAN_2_Menu^$CLI_DIR/apps_network.lib
 #
 #! End Listing Network - WAN Menu (Required line, do not delete).
 #

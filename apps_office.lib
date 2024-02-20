@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# ©2023 Copyright 2023 Robert D. Chin
+# ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
 # +----------------------------------------+
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2021-07-01 11:28"
+VERSION="2024-02-20 00:33"
 #
 # +----------------------------------------+
 # |            Brief Description           |
@@ -37,31 +37,25 @@ VERSION="2021-07-01 11:28"
 # |                                                                          |
 # +--------------------------------------------------------------------------+
 #
-#
-#
 #                 >>> !!!Warning!!! <<<
 #
 # The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
-# single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
+# single-quotes (apostrophes), double-quotes, ampersands, greater-than
+# and less-than signs.
 #
-# Forbidden characters include ; : * ' " & > <
+# Forbidden characters include ; : * ' " & > < \
 #
 # These characters will compromise the creation of arrays which
 # in turn creates the menu.
 #
+# Note: The single-quotes (') and double-quotes (") and back-slashes (\)
+#       are ignored when the arrays are created, even if they are included
+#       in the Menu Item Description.
+#
 # General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> <Corresponding function or action or command>
 #
-# Format of <Corresponding function or action or command> when using f_create_a_menu_cliappmenu.
-#        f_create_a_menu_cliappmenu^"text", "dialog", or "whiptail"^menu_generated.lib^Menu Name^Temporary File Name^Library name containing menu entries
-#
-# List of inputs for f_create_a_menu_cliappmenu.
-#
-#  Inputs: $1 - "text", "dialog" or "whiptail" The command-line user-interface application in use.
-#          $2 - GENERATED_FILE (The name of a temporary library file containing the suggested phrase "generated.lib" which contains the code to display the sub-menu).
-#          $3 - MENU_TITLE (Title of the sub-menu)
-#          $4 - TEMP_FILE (Temporary file).
-#          $5 - ARRAY_FILE (Temporary file) includes menu items imported from $ARRAY_SOURCE_FILE of a single menu.
-#          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items from multiple menus.
+# Format of <Corresponding function or action or command> when using f_menu_main_all_menus.
+#        f_menu_main_all_menus^"text", "dialog", or "whiptail"^Menu Name^Library name containing menu entries
 #
 #! +--------------------------------------------------------------+
 #! | Start Listing Office Menu                                    |
@@ -70,27 +64,27 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Accounting#@@Accounting [with with double-entry].#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_accounting_generated.txt"^Office_-_Accounting_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_accounting_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Accounting#@@Accounting [with with double-entry].#@@f_menu_main_all_menus^$GUI^Office_-_Accounting_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Calculators#@@Simple pocket calculators.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calculators_generated.txt"^Office_-_Calculators_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calculators_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Calculators#@@Simple pocket calculators.#@@f_menu_main_all_menus^$GUI^Office_-_Calculators_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Calendars#@@Calendars.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calendars_generated.txt"^Office_-_Calendars_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calendars_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Calendars#@@Calendars.#@@f_menu_main_all_menus^$GUI^Office_-_Calendars_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Clocks#@@Alarm clocks, specialized clocks.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_clocks_generated.txt"^Office_-_Clocks_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_clocks_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Clocks#@@Alarm clocks, specialized clocks.#@@f_menu_main_all_menus^$GUI^Office_-_Clocks_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Contacts#@@Contact/Address book lists.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_contacts_generated.txt"^Office_-_Contacts_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_contacts_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Contacts#@@Contact/Address book lists.#@@f_menu_main_all_menus^$GUI^Office_-_Contacts_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Notes#@@Notebooks, diaries, PIM [personal information manager].#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_notes_generated.txt"^Office_-_Notes_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_notes_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Notes#@@Notebooks, diaries, PIM [personal information manager].#@@f_menu_main_all_menus^$GUI^Office_-_Notes_Menu^$CLI_DIR/apps_office.lib
 #
-#@@PDF-PS documents#@@View, edit, compare, merge pdf and ps documents.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_pdf-ps_documents_generated.txt"^Office_-_PDF-PS_documents_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_pdf-ps_documents_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@PDF-PS documents#@@View, edit, compare, merge pdf and ps documents.#@@f_menu_main_all_menus^$GUI^Office_-_PDF-PS_documents_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Presenters#@@Text slideshow presentation.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_presenters_generated.txt"^Office_-_Presenters_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_presenters_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Presenters#@@Text slideshow presentation.#@@f_menu_main_all_menus^$GUI^Office_-_Presenters_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Spreadsheets#@@Basic spreadsheet.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_spreadsheets_generated.txt"^Office_-_Spreadsheets_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_spreadsheets_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Spreadsheets#@@Basic spreadsheet.#@@f_menu_main_all_menus^$GUI^Office_-_Spreadsheets_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Text#@@Create/Edit text files, text format converters, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_text_generated.txt"^Office_-_Text_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_text_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Text#@@Create/Edit text files, text format converters, etc.#@@f_menu_main_all_menus^$GUI^Office_-_Text_Menu^$CLI_DIR/apps_office.lib
 #
-#@@To Do#@@To-Do lists.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_todo_generated.txt"^Office_-_To-Do_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_todo_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@To Do#@@To-Do lists.#@@f_menu_main_all_menus^$GUI^Office_-_To-Do_Menu^$CLI_DIR/apps_office.lib
 #
 #! End Listing Office Menu (Required line, do not delete).
 #
@@ -187,7 +181,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@gcalcli#@@Google calendar.#@@f_app_cmd^$GUI^gcalcli#@@0^0^0^0^1
 #
-#@@MORE...#@@More calendar applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calendars_2_generated.txt"^Office_-_Calendars_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calendars_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@MORE...#@@More calendar applications.#@@f_menu_main_all_menus^$GUI^Office_-_Calendars_2_Menu^$CLI_DIR/apps_office.lib
 #
 #! End Listing Office - Calendars Menu (Required line, do not delete).
 #
@@ -334,7 +328,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@ps2ascii#@@Converts PS [PostScript] to text format.#@@f_app_cmd^$GUI^ps2ascii#@@0^0^0^0^1
 #
-#@@MORE...#@@More PDF and PS applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_PDF-PS_documents_2_generated.txt"^Office_-_PDF-PS documents_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_PDF-PS_documents_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@MORE...#@@More PDF and PS applications.#@@f_menu_main_all_menus^$GUI^Office_-_PDF-PS documents_2_Menu"^$CLI_DIR/apps_office.lib
 #
 #! End Listing Office - PDF-PS documents Menu (Required line, do not delete).
 #
@@ -392,17 +386,17 @@ VERSION="2021-07-01 11:28"
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Compare#@@Show differences between text files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_compare_generated.txt"^Text_-_Compare_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_calendars_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Compare#@@Show differences between text files.#@@f_menu_main_all_menus^$GUI^Text_-_Compare_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Converters#@@Convert between text document/file formats.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_converters_generated.txt"^Text_-_Converters_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_converters_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Converters#@@Convert between text document/file formats.#@@f_menu_main_all_menus^$GUI^Text_-_Converters_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Editors#@@Create/Edit text documents/files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_generated.txt"^Text_-_Editors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Editors#@@Create/Edit text documents/files.#@@f_menu_main_all_menus^$GUI^Text_-_Editors_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Markup Docs#@@Create a single source document, publish in many formats.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_markup_docs_generated.txt"^Text_-_Markup_Documents_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_markup_docs_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Markup Docs#@@Create a single source document, publish in many formats.#@@f_menu_main_all_menus^$GUI^Text_-_Markup_Documents_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Tools#@@Viewers, spell-check, dictionaries.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_tools_generated.txt"^Text_-_Tools_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_tools_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Tools#@@Viewers, spell-check, dictionaries.#@@f_menu_main_all_menus^$GUI^Text_-_Tools_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Word Processors#@@Word processors, word processor file format converters.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_word_processors_generated.txt"^Text_-_Word_Processors_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_word_processors_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Word Processors#@@Word processors, word processor file format converters.#@@f_menu_main_all_menus^$GUI^Text_-_Word_Processors_Menu^$CLI_DIR/apps_office.lib
 #
 #! End Listing Office - Text Menu (Required line, do not delete).
 #
@@ -505,7 +499,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@fte-console#@@fte for consoles, no internationalization I18N support.#@@f_app_cmd^$GUI^fte-console#@@0^0^0^0^0
 #
-#@@MORE...#@@More text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_2_generated.txt"^Text_-_Editors_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@MORE...#@@More text editor applications.#@@f_menu_main_all_menus^$GUI^Text_-_Editors_2_Menu^$CLI_DIR/apps_office.lib
 #
 #! End Listing Text - Editors Menu (Required line, do not delete).
 #
@@ -546,7 +540,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@mped#@@Text editor, ncurses-based.#@@f_app_cmd^$GUI^mped#@@0^0^0^0^0
 #
-#@@MORE...#@@More text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_3_generated.txt"^Text_-_Editors_3_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_3_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@MORE...#@@More text editor applications.#@@f_menu_main_all_menus^$GUI^Text_-_Editors_3_Menu^$CLI_DIR/apps_office.lib
 #
 #! End Listing Text - Editors 2 Menu (Required line, do not delete).
 #
@@ -587,7 +581,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@vim-latexsuite#@@LaTeX plug-in for vim.#@@f_app_cmd^$GUI^vim-latexsuite#@@0^0^0^14^0
 #
-#@@MORE...#@@More text editor applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_4_generated.txt"^Text_-_Editors_4_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_text_editors_4_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@MORE...#@@More text editor applications.#@@f_menu_main_all_menus^$GUI^Text_-_Editors_4_Menu^$CLI_DIR/apps_office.lib
 #
 #! End Listing Text - Editors 3 Menu (Required line, do not delete).
 #
@@ -714,7 +708,7 @@ VERSION="2021-07-01 11:28"
 #
 #@@w2do#@@To-Do with support for group, due date and priority categories.#@@f_app_cmd^$GUI^w2do#@@0^0^0^0^1
 #
-#@@MORE...#@@More To-Do applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_to-do_2_generated.txt"^Office_-_To-Do_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_to-do_2_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@MORE...#@@More To-Do applications.#@@f_menu_main_all_menus^$GUI^Office_-_To-Do_2_Menu^$CLI_DIR/apps_office.lib
 #
 #! End Listing Office - To-Do Menu (Required line, do not delete).
 #
