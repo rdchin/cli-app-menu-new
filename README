@@ -8,7 +8,7 @@
 # +----------------------------------------+
 # |        Default Variable Values         |
 # +----------------------------------------+
-VERSION="2024-02-20 00:33"
+VERSION="2024-02-20 22:48"
 #
 # +----------------------------------------+
 # |         Function f_script_path         |
@@ -234,10 +234,10 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:  Beginning of excerpt from script cliappmenu.sh:
 #: _______________________________
 #:
-#: #================================================================================
+#: #=======================================================================
 #: # EDIT THE LINE BELOW TO SET THE DIRECTORY OF THE SUB-MENU "cliapp-dir"
 #: # WHICH CONTAINS ALL THE SUB-MENU LIBRARY FILES.
-#: #================================================================================
+#: #=======================================================================
 #: #
 #: #
 #: # Set the location of the "cliapp-dir" sub-directory.
@@ -399,8 +399,6 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:  once found, the menu data between the header and footer is extracted
 #:  and is used to display the menu.
 #:
-#:    MENU                LIBRARY FILE CONTAINING MENU OPTION DATA
-#:
 #:  This makes it very easy to add new sub-menus. If you wish to create
 #:  your own custom sub-menu, just create a new sub-menu section using an
 #:  existing sub-menu section as a template.
@@ -418,6 +416,114 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #: *More fun than just a list of CLI applications!!!
 #:
 #:
+#: +----------------------------------------+
+#: |          HOW-TO Add a new menu         |
+#: +----------------------------------------+
+#:
+#: Use function "f_menu_main_all_menus".
+#:
+#:  Inputs: $1 - "text", "dialog" or "whiptail" the preferred
+#:               user-interface.
+#:          $2 - MENU_TITLE Title of menu which must also match the header
+#:               and tail strings of the menu data in the ARRAY_SOURCE_FILE.
+#:               !!!Menu title MUST use underscores instead of spaces!!!
+#:          $3 - ARRAY_SOURCE_FILE is the file name where the menu items
+#:               listing is stored. This can be the run-time script or in
+#:               a separate *.lib library file.
+#:
+#: Summary: Display any menu. Use this same function to display
+#:          both Main-Menu and any sub-menus. The Main Menu and all sub-menu
+#:          data are in a separate library file from the run-time script
+#:          or program.
+#:
+#:          A single library file contains data for multiple menus
+#:          (many menus/1 library file),
+#:
+#:          A single library file may also contain various functions in
+#:          addition to data listings for multiple menus.
+#:
+#:
+#: The function call to invoke the "Tasty Ice Cream Menu":
+#: f_menu_main_all_menus dialog Tasty_Ice_Cream_Menu all_ice_cream_menus.lib
+#:                              ^         ^        ^
+#:                              |         |        |
+#:                              Menu title MUST use
+#:                              underscores instead
+#:                                    of spaces.
+#:
+#: Note: ***If Menu title contains spaces,
+#:       ***the size of the Dialog/Whiptail menu window will be too narrow.
+#:
+#: The run-time script file, "ice_cream.sh" may also contain the data
+#: for both Main menu and sub-menus if it follows the same format below.
+#;
+#: If you have a lot of menus, you may want to have all the menu data
+#: in a separate library file.
+#:
+#: Example:
+#:
+#: The file "all_ice_cream_menus.lib" contains the data for both
+#: Main menu: "Tasty Ice Cream Menu"
+#: Sub-menu: "Ice Cream Toppings Menu".
+#:
+#: Each menu (Main Menu and sub-menus) must have Header and Tail strings.
+#: Main menu header/tail strings:
+#: Header string: "Start Listing Tasty Ice Cream Menu" (with spaces " ")
+#:   Tail string: "End Listing Tasty Ice Cream Menu"
+#:
+#:  Sub-menu header/tail strings:
+#:  Header string: "Start Listing Ice Cream Toppings Menu"
+#:    Tail string: "End Listing Ice Cream Toppings Menu"
+#:
+#:
+#: Example listing of all_ice_cream_menus.lib:
+#:
+#:                    This Menu Title must match
+#:                    with both the "End Listing"
+#:                    and f_menu_all_menus $2
+#:                    (but without the underscores)
+#:                    |            |             |
+#:                    v            v             v
+#: #! +--------------------------------------------------------------+
+#: #! | Start Listing Tasty Ice Cream Menu                           |
+#: #! |               (Required header, do not delete).              |
+#: #! +--------------------------------------------------------------+
+#:
+#: #@@Exit#@@Exit this menu.#@@break
+#: #
+#: #@@Chocolate#@@Rich dark chocolate.#@@f_dark_chocolate^$GUI
+#: #
+#: #@@Vanilla#@@Vanilla bean.#@@f_vanilla^$GUI
+#: #
+#: #@@Strawberry#@@Red strawberry.#@@strawberry^$GUI
+#: #
+#: #@@Ice Cream Toppings#@@Menu of ice cream toppings.#@@f_menu_main_all_menus^$GUI^Ice_Cream_Toppings_Menu^all_ice_cream_menus.lib
+#:                                                                              ^           ^           ^
+#:                                                                              |           |           |
+#:                                                                              This menu title must match with
+#:                                                                              "Start Listing" and "End Listing"
+#:                                                                              of the "Ice Cream Toppings Menu" listing
+#:                                                                              (This menu title must use underscores)
+#: # End Listing Tasty Ice Cream Menu (Required line, do not delete).
+#: #
+#: #! +--------------------------------------------------------------+
+#: #! | Start Listing Ice Cream Toppings Menu                        |
+#: #! |               (Required header, do not delete).              |
+#: #! +--------------------------------------------------------------+
+#: #
+#: #@@Return#@@Return to previous menu.#@@break
+#: #
+#: #@@Chocolate Sprinkles#@@Chocolate sprinkles galore.#@@f_chocolate_sprinkles^$GUI
+#: #
+#: #@@Color Sprinkles#@@Multiple color sprinkles.#@@f_color_sprinkles^$GUI
+#: #
+#: #@@Chocolate syrup#@@Yummy chocolate syrup.#@@f_chocolate_syrup^$GUI
+#: #
+#: #@@Butterscotch syrup#@@Delicious butterscotch syrup.#@@f_chocolate_syrup^$GUI
+#: #
+#: # End Listing Ice Cream Toppings Menu (Required line, do not delete).
+#: #
+#: #
 #: +----------------------------------------+
 #: |       HOW-TO Add a new menu item       |
 #: +----------------------------------------+
@@ -671,117 +777,14 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:    to be displayed in Dialog, Whiptail, and text with correct formatting
 #:    and with the Dialog/Whiptail box sizes automatically calculated.
 #:
-#: +----------------------------------------+
-#: |        HOW-TO Add a new sub-menu       |
-#: +----------------------------------------+
-#:
-#: Summary:
-#:
-#: The library file apps_audio.lib includes a menu option line within the
-#: "Audio - Music Players Menu" to go to the next sub-menu,
-#: "Audio - Music Players 2 Menu".
-#:
-#:
-#: 1. Add menu item option "MORE..." to the end of the music players menu
-#:    data in the file apps_audio_music_players.lib.
-#:
-#: General Format: <#@@> <Menu Option> <#@@> <Description of Menu Option> <#@@> f_create_a_menu_cliappmenu^<GUI>^<GENERATED FILE>^<MENU TITLE>^<TEMP FILE>^<ARRAY FILE>^<ARRAY SOURCE FILE>
-#:        (Scroll right to see entire code)
-#:
-#:        Example: #@@MORE...#@@For more music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_generated.txt"^Audio_-_Music_Players_2_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_2_items_generated.txt"^$CLI_DIR/apps_audio.lib
-#:        (Scroll right to see entire code)
-#:
-#: List of inputs for f_create_a_menu_cliappmenu.
-#:
-#:  Inputs: $1 - "text", "dialog" or "whiptail" The command-line
-#:                user-interface application in use.
-#:          $2 - GENERATED_FILE (The name of a temporary library file
-#:               ending with "generated.lib" which contains the code to
-#:               display the sub-menu).
-#:          $3 - MENU_TITLE (Title of the sub-menu)
-#:          $4 - TEMP_FILE (Temporary file).
-#:          $5 - ARRAY_FILE (Temporary file) includes menu items imported
-#:               from $ARRAY_SOURCE_FILE of a single menu.
-#:          $6 - ARRAY_SOURCE_FILE (Not a temporary file) includes menu items
-#:               from multiple menus.
-#:
-#:                 >>> !!!Warning!!! <<<
-#:
-#: The Menu Item Descriptions cannot have semi-colons, colons, asterisks,
-#: single-quotes (apostrophes), double-quotes, ampersands, greater-than and less-than signs.
-#:
-#: Forbidden characters include ; : * ' " & > <
-#:
-#: These characters will compromise the creation of arrays which
-#: in turn creates the menu.
-#:
-#: 2. Create the Menu section containing the menu items as per
-#:    "HOW-TO Add a new menu item" as noted above.
-#:    You can base the Menu section on an existing sub-menu using
-#:    it as a template.
-#:
-#:    Each Menu section must have a header and a footer as noted below.
-#:    The header must have "Start Listing [ Menu Title ]"
-#:    The footer must have "End Listing [ Menu Title ]"
-#:
-#:
-#:    >>> IMPORTANT HINT <<<
-#:
-#:    The Menu Title in the header "Start Listing", the tail "End Listing"
-#:    and in the menu item option (see step 1) must all match otherwise
-#:    the script will hang and/or give seemingly unrelated error messages.
-#:
-#:
-#: Example:
-#:
-#: Below is the last menu item in the "Audio - Music Players 3 Menu" which
-#: calls the sub-menu "Audio - Music Players 4 Menu".
-#:
-#: #@@MORE...#@@For more music player applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_generated.txt"^Audio_-_Music_Players_4_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_music_players_4_items_generated.txt"^$CLI_DIR/apps_audio.lib
-#:        (Scroll right to see entire code with note)                                                                                                    ^            ^             ^
-#:                                                                                                                                                       |            |             |
-#:                                                                                                                                                       This menu title must match with
-#:                                                                                                                                                       "Start Listing" and "End Listing"
-#:                                                                                                                                                       (This menu title must use underscores)
-#:
-#: Example of a Menu Section:
-#:
-#:                    This Menu Title must match
-#:                    with both the "End Listing"
-#:                    and the last menu item entry in
-#:                    "Audio - Music Players 3 Menu"
-#:                    (but without the underscores)
-#:                    |            |             |
-#:                    v            v             v
-#: #! +--------------------------------------------------------------+
-#: #! | Start Listing Audio - Music Players 4 Menu                   |
-#: #! |               (Required header, do not delete).              |
-#: #! +--------------------------------------------------------------+
-#:
-#: #@@Return#@@Return to previous menu.#@@break
-#: #
-#: #@@xmms2-client-cli#@@Front-end to XMMS2 music player.#@@f_app_cmd^$GUI^xmms2-client-cli#@@0^0^0^0^1
-#: #
-#: #@@yauap#@@Music player based on Gstreamer, MP3, network streams.#@@f_app_cmd^$GUI^yauap#@@0^0^0^0^1
-#: #
-#: #@@vux#@@Ogg and mp3 player.#@@f_app_cmd^$GUI^vux#@@0^0^0^0^1
-#: #
-#: #! End Listing Audio - Music Players 4 Menu (Required line, do not delete).
-#:                ^            ^             ^
-#:                |            |             |
-#:                This Menu Title must match
-#:                with both the "Start Listing"
-#:                and the last menu item entry in
-#:                "Audio - Music Players 3 Menu"
-#:                (but without the underscores)
-#:
 #:
 #: +----------------------------------------+
 #: |     Known problems and limitations     |
 #: +----------------------------------------+
 #:
 #: 1. The files cliappmenu.sh, cliappmenu.lib, and common_bash_function.lib
-#:    must be in the same folder. All other files must be in the sub-directory cliapp-dir
+#:    must be in the same folder. All other files must be in the
+#:    sub-directory cliapp-dir
 #:
 #: 2. Option for automatic software installation only for distributions which
 #:    use apt, rpm, slackpkg, and pacman; all others must install manually.
@@ -803,5 +806,8 @@ sed -n 's/^#://'p $SCRIPT_PATH/$THIS_FILE | less -P 'Page '%dm' (Spacebar, PgUp/
 #:
 #: *How to get help on an application is under "Help and Features".
 #:
-#: *This README is under "Documentation".
+#: *This README is under
+#:  Can be found in the sub-directory cliapp-dir.
 #:
+#:  or when you run, bash cliappmenu.sh
+#:  CLI Action Menu"-->"Information Menu"-->"Programmer Notes"

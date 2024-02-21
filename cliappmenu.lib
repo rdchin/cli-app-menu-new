@@ -3,7 +3,7 @@
 # ©2024 Copyright 2024 Robert D. Chin
 # Email: RDevChin@Gmail.com
 #
-# Usage: source menu_module_main.lib
+# Usage: source cliappmenu.lib
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2024-02-20 00:33"
+VERSION="2024-02-20 22:48"
 #
 # Set THIS_FILE_LIB to the name of this script library.
 THIS_FILE_LIB=$(basename $0)
@@ -34,12 +34,12 @@ THIS_FILE_LIB=$(basename $0)
 #
 #& Brief Description
 #&
-#& This Library of functions for the Demonstration Menu is a
+#& This Library of functions for the script, cliappmenu.sh is a
 #& child dependency used by the following scripts.
 #&
 #& Parent script: cliappmenu.sh.
 #&
-#& See script cliappmenu.sh for Edit History.
+#& See script cliappmenu.sh for Code Change History.
 #&
 #& Usage: source cliappmenu.lib
 #&
@@ -63,7 +63,7 @@ THIS_FILE_LIB=$(basename $0)
 #
 ## Code Change History
 ##
-## (Please see script "menu.sh" for Code History information.)
+## (Please see script "cliappmenu.sh" for Code History information.)
 #
 # +--------------------------------------------------------------------------+
 # |                                                                          |
@@ -131,15 +131,15 @@ THIS_FILE_LIB=$(basename $0)
 #
 #@@Exit#@@Exit this menu.#@@break
 #
-#@@Applications#@@Run an application.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_applications_generated.txt"^CLI_Application_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_applications_items_generated.txt"^$THIS_DIR/cliappmenu.lib
+#@@Applications#@@Run an application.#@@f_menu_main_all_menus^$GUI^CLI_Application_Menu^$THIS_DIR/cliappmenu.lib
 #
-#@@Favorites#@@Menu of favorite applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_favorites_generated.txt"^Favorites_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_favorites_generated.txt"^$CLI_DIR/cli-favorites.lib
+#@@Favorites#@@Menu of favorite applications.#@@f_menu_main_all_menus^$GUI^Favorites_Menu^$CLI_DIR/cli-favorites.lib
 #
 #@@Search#@@Find and run an application in active menus.#@@f_main_search^$GUI
 #
-#@@Configure#@@Update software, manage modules, change colors, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_configuration_generated.txt"^Configuration_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_configuration_generated.txt"^$THIS_DIR/cliappmenu.lib
+#@@Configure#@@Update software, manage modules, change colors, etc.#@@f_menu_main_all_menus^$GUI^Configuration_Menu^$THIS_DIR/cliappmenu.lib
 #
-#@@Information#@@About, version, documentation, code history, license.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_information_generated.txt"^Information_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_information_generated.txt"^$THIS_DIR/cliappmenu.lib
+#@@Information#@@About, version, documentation, code history, license.#@@f_menu_main_all_menus^$GUI^Information_Menu^$THIS_DIR/cliappmenu.lib
 #
 #@@Version Update#@@Check for updates to this script and download.#@@f_check_version^$GUI
 #
@@ -154,39 +154,39 @@ THIS_FILE_LIB=$(basename $0)
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@Audio#@@Music players, editors, utilities.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_generated.txt"^Audio_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_audio_items_generated.txt"^$CLI_DIR/apps_audio.lib
+#@@Audio#@@Music players, editors, utilities.#@@f_menu_main_all_menus^$GUI^Audio_Menu^$CLI_DIR/apps_audio.lib
 #
-#@@Databases#@@General and specialized databases.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_databases_generated.txt"^Database_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_databases_items_generated.txt"^$CLI_DIR/apps_databases.lib
+#@@Databases#@@General and specialized databases.#@@f_menu_main_all_menus^$GUI^Database_Menu^$CLI_DIR/apps_databases.lib
 #
-#@@Development#@@Tools to test code and track/report bugs.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_development_generated.txt"^Development_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_development_items_generated.txt"^$CLI_DIR/apps_development.lib
+#@@Development#@@Tools to test code and track/report bugs.#@@f_menu_main_all_menus^$GUI^Development_Menu^$CLI_DIR/apps_development.lib
 #
-#@@Education#@@Learn something.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_education_generated.txt"^Education_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_education_items_generated.txt"^$CLI_DIR/apps_education.lib
+#@@Education#@@Learn something.#@@f_menu_main_all_menus^$GUI^Education_Menu^$CLI_DIR/apps_education.lib
 #
-#@@Environment#@@Command Line shell and GUI, DOS and Nintendo emulators.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_environment_generated.txt"^Environment_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_environment_items_generated.txt"^$CLI_DIR/apps_environment.lib
+#@@Environment#@@Command Line shell and GUI, DOS and Nintendo emulators.#@@f_menu_main_all_menus^$GUI^Environment_Menu^$CLI_DIR/apps_environment.lib
 #
-#@@Files#@@Manage, backup, compare, edit, encrypt, find, files/dirs.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_file_generated.txt"^Files_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_file_items_generated.txt"^$CLI_DIR/apps_file.lib
+#@@Files#@@Manage, backup, compare, edit, encrypt, find, files/dirs.#@@f_menu_main_all_menus^$GUI^Files_Menu^$CLI_DIR/apps_file.lib
 #
-#@@Games#@@Fun time! Games, movies, and screen-savers.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_games_generated.txt"^Games_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_games_items_generated.txt"^$CLI_DIR/apps_games.lib
+#@@Games#@@Fun time! Games, movies, and screen-savers.#@@f_menu_main_all_menus^$GUI^Games_Menu^$CLI_DIR/apps_games.lib
 #
-#@@Graphics#@@View images and graphics files.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_generated.txt"^Graphics_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_graphics_items_generated.txt"^$CLI_DIR/apps_graphics.lib
+#@@Graphics#@@View images and graphics files.#@@f_menu_main_all_menus^$GUI^Graphics_Menu^$CLI_DIR/apps_graphics.lib
 #
-#@@Internet#@@Web, e-mail, chat, IM, RSS, ftp, torrents, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_generated.txt"^Internet_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_internet_items_generated.txt"^$CLI_DIR/apps_internet.lib
+#@@Internet#@@Web, e-mail, chat, IM, RSS, ftp, torrents, etc.#@@f_menu_main_all_menus^$GUI^Internet_Menu^$CLI_DIR/apps_internet.lib
 #
-#@@Network#@@Wireless connection, network monitoring, tools.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_network_generated.txt"^Network_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_network_items_generated.txt"^$CLI_DIR/apps_network.lib
+#@@Network#@@Wireless connection, network monitoring, tools.#@@f_menu_main_all_menus^$GUI^Network_Menu^$CLI_DIR/apps_network.lib
 #
-#@@Office#@@Editors, spreadsheets, presenter, organize, calcs, acctg.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_office_generated.txt"^Office_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_office_items_generated.txt"^$CLI_DIR/apps_office.lib
+#@@Office#@@Editors, spreadsheets, presenter, organize, calcs, acctg.#@@f_menu_main_all_menus^$GUI^Office_Menu^$CLI_DIR/apps_office.lib
 #
-#@@Packages#@@(Un)Install and manage software packages and applications.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_packages_generated.txt"^Packages_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_packages_items_generated.txt"^$CLI_DIR/apps_packages.lib
+#@@Packages#@@(Un)Install and manage software packages and applications.#@@f_menu_main_all_menus^$GUI^Packages_Menu^$CLI_DIR/apps_packages.lib
 #
-#@@Screens#@@Multiple screen sessions and terminal emulators.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_screens_generated.txt"^Screens_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_screens_items_generated.txt"^$CLI_DIR/apps_screens.lib
+#@@Screens#@@Multiple screen sessions and terminal emulators.#@@f_menu_main_all_menus^$GUI^Screens_Menu^$CLI_DIR/apps_screens.lib
 #
-#@@Screen-savers#@@For when youre away.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_screensavers_generated.txt"^Screen-savers_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_screensavers_items_generated.txt"^$CLI_DIR/apps_screensavers.lib
+#@@Screen-savers#@@For when youre away.#@@f_menu_main_all_menus^$GUI^Screen-savers_Menu^$CLI_DIR/apps_screensavers.lib
 #
-#@@Screen-Tools#@@Screen capture, record/play-back of screen activity etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_screen_tools_generated.txt"^Screen-Tools_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_screen_tools_items_generated.txt"^$CLI_DIR/apps_screen_tools.lib
+#@@Screen-Tools#@@Screen capture, record/play-back of screen activity etc.#@@f_menu_main_all_menus^$GUI^Screen-Tools_Menu^$CLI_DIR/apps_screen_tools.lib
 #
-#@@System#@@Monitor system processes, resources, utilities, etc.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_system_generated.txt"^System_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_system_items_generated.txt"^$CLI_DIR/apps_system.lib
+#@@System#@@Monitor system processes, resources, utilities, etc.#@@f_menu_main_all_menus^$GUI^System_Menu^$CLI_DIR/apps_system.lib
 #
-#@@Video#@@Video players, editors, utilities.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_apps_video_generated.txt"^Video_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_apps_video_items_generated.txt"^$CLI_DIR/apps_video.lib
+#@@Video#@@Video players, editors, utilities.#@@f_menu_main_all_menus^$GUI^Video_Menu^$CLI_DIR/apps_video.lib
 #
 #! End Listing CLI Application Menu (Required line, do not delete).
 #
@@ -197,9 +197,9 @@ THIS_FILE_LIB=$(basename $0)
 #
 #@@Return#@@Return to previous menu.#@@break
 #
-#@@CLI Font Colors#@@Configure Command-Line Interface font colors.#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_config_cli_font_color_generated.txt"^CLI_Font_Color_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_config_cli_font_color_items_generated.txt"^$CLI_DIR/cli-common.lib
+#@@CLI Font Colors#@@Configure Command-Line Interface font colors.#@@f_menu_main_all_menus^$GUI^CLI_Font_Color_Menu^$CLI_DIR/cli-common.lib
 #
-#@@User Interface#@@Change UI to Text, Whiptail, or Dialog#@@f_create_a_menu_cliappmenu^$GUI^$CLI_DIR/$THIS_FILE_LIB"_config_ui_generated.txt"^User-Interface_Menu^$TEMP_FILE^$CLI_DIR/$THIS_FILE_LIB"_config_ui_items_generated.txt"^$CLI_DIR/cli-common.lib
+#@@User Interface#@@Change UI to Text, Whiptail, or Dialog#@@f_menu_main_all_menus^$GUI^User-Interface_Menu^$CLI_DIR/cli-common.lib
 #
 #@@Show configuration#@@Show configuration file .cliappmenu.cfg.#@@f_configure_show^$GUI#@@0^0^0^0^0
 #
@@ -250,10 +250,28 @@ THIS_FILE_LIB=$(basename $0)
 f_check_version () {
       #
       #
+      #================================================================
+      #
+      # OPTIONAL:
+      #
+      # EDIT THE LINES BELOW TO SET REPOSITORY SERVERS AND DIRECTORIES
+      # AND TO INCLUDE ALL DEPENDENT SCRIPTS AND LIBRARIES TO DOWNLOAD.
+      #
+      # NOTE: SERVER_DIR, MP_DIR, and LOCAL_REPO_DIR only need to be
+      #       set if you wish to set up a repository if this code on
+      #       a file server. This script will use Samba to mount the
+      #       file server's share-point onto the local mount-point.
+      #
+      #       If any files/libraries are missing from the local PC,
+      #       they will be automatically downloaded from the local file
+      #       server or automatically downloaded from GitHub.
+      #================================================================
+      #
+      #
       #=================================================================
-      # EDIT THE LINES BELOW TO DEFINE THE LAN FILE SERVER DIRECTORY,
-      # LOCAL MOUNTPOINT DIRECTORY, LOCAL REPOSITORY DIRECTORY AND
-      # FILE TO COMPARE BETWEEN THE LOCAL PC AND (LAN) LOCAL REPOSITORY.
+      # EDIT THE LINES BELOW TO DEFINE THE
+      #                       LAN FILE SERVER DIRECTORY: SERVER_DIR
+      #                      LOCAL MOUNTPOINT DIRECTORY: MP_DIR
       #=================================================================
       #
       #
@@ -265,6 +283,29 @@ f_check_version () {
       # MP_DIR="[LOCAL_MOUNT-POINT_DIRECTORY_NAME_GOES_HERE]"
         MP_DIR="/mnt/file_server/files"
       #
+      # Test mount-point.
+      mountpoint $MP_DIR 2>$TEMP_FILE
+      ERROR=$?
+      if [ $ERROR -ne 0 ] ; then
+         echo >> $TEMP_FILE
+         echo "Cannot get updated file from the Local Repository." >> $TEMP_FILE
+         echo "Cannot access Local Repository, file server is not mounted." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Current value of SERVER_DIR=$SERVER_DIR"  >> $TEMP_FILE
+         echo "Current value of MP_DIR=$MP_DIR" >> $TEMP_FILE
+         echo "Current value of LOCAL_REPO_DIR=$LOCAL_REPO_DIR" >> $TEMP_FILE
+         f_message $1 "OK" "Error Finding Updated files" $TEMP_FILE
+         return 0
+      fi
+      #
+      #
+      #
+      #=================================================================
+      # EDIT THE LINES BELOW TO DEFINE THE
+      #                      LOCAL REPOSITORY DIRECTORY: LOCAL_REPO_DIR
+      #=================================================================
+      #
+      #
       # Local PC mount-point with LAN File Server Local Repository full directory path.
       # Example:
       #                   File server shared directory is "//file_server/files".
@@ -273,7 +314,21 @@ f_check_version () {
       #
       # Local PC mount-point with LAN File Server Local Repository full directory path.
       # LOCAL_REPO_DIR="$MP_DIR/[DIRECTORY_PATH_TO_LOCAL_REPOSITORY]"
-        LOCAL_REPO_DIR="$MP_DIR/LIBRARY/PC-stuff/PC-software/BASH_Scripting_Projects/Repository"
+        LOCAL_REPO_DIR="$MP_DIR/Repository"
+      #
+      # Test Local Repo directory.
+      if [ ! -d $LOCAL_REPO_DIR ] ; then
+         echo >> $TEMP_FILE
+         echo "Cannot get updated file from the Local Repository." >> $TEMP_FILE
+         echo "Cannot access Local Repository, directory does not exist." >> $TEMP_FILE
+         echo >> $TEMP_FILE
+         echo "Current value of SERVER_DIR=$SERVER_DIR" >> $TEMP_FILE
+         echo "Current value of MP_DIR=$MP_DIR" >> $TEMP_FILE
+         echo "Current value of LOCAL_REPO_DIR=$LOCAL_REPO_DIR" >> $TEMP_FILE
+         f_message $1 "OK" "Error Finding Updated files" $TEMP_FILE
+         return 0
+      fi
+      #
       #
       # Local PC file to be compared.
       if [ $# -eq 2 ] ; then
@@ -306,8 +361,8 @@ f_check_version () {
       #
       #
       #=================================================================
-      # EDIT THE LINES BELOW TO SPECIFY THE FILE NAMES TO UPDATE.
-      # FILE NAMES INCLUDE ALL DEPENDENT SCRIPTS AND LIBRARIES.
+      # EDIT THE LINES BELOW TO SPECIFY THE FILES TO UPDATE.
+      # THE FILE_LIST INCLUDES ALL DEPENDENT SCRIPTS AND LIBRARIES.
       #=================================================================
       #
       #
@@ -351,7 +406,7 @@ f_check_version () {
       #
       unset FILE_LIST
       #
-}  # End of function f_check_version_TEMPLATE.
+}  # End of function f_check_version.
 #
 # +----------------------------------------+
 # |        Function f_about_cliappmenu     |

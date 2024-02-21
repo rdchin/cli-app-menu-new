@@ -28,7 +28,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2024-02-20 00:33"
+VERSION="2024-02-20 22:48"
 #
 # Set THIS_FILE to the name of this script file.
 THIS_FILE=$(basename $0)
@@ -38,85 +38,6 @@ TEMP_FILE=$THIS_FILE"_temp.txt"
 #
 # Set to a file name used for the generated menu code.
 GENERATED_FILE=$THIS_FILE"_menu_generated.lib"
-#
-#================================================================
-# EDIT THE LINES BELOW TO SET REPOSITORY SERVERS AND DIRECTORIES
-# AND TO INCLUDE ALL DEPENDENT SCRIPTS AND LIBRARIES TO DOWNLOAD.
-#================================================================
-#
-#
-#--------------------------------------------------------------
-# Set variables to mount the Local Repository to a mount-point.
-#--------------------------------------------------------------
-#
-# LAN File Server shared directory.
-# SERVER_DIR="[FILE_SERVER_DIRECTORY_NAME_GOES_HERE]"
-  SERVER_DIR="//file_server/files"
-#
-# Local PC mount-point directory.
-# MP_DIR="[LOCAL_MOUNT-POINT_DIRECTORY_NAME_GOES_HERE]"
-  MP_DIR="/mnt/file_server/files"
-#
-# Local PC mount-point with LAN File Server Local Repository full directory path.
-# Example:
-#                   File server shared directory is "//file_server/files".
-# Repostory directory under the shared directory is "scripts/BASH/Repository".
-#                 Local PC Mount-point directory is "/mnt/file_server/files".
-#
-# LOCAL_REPO_DIR="$MP_DIR/[DIRECTORY_PATH_TO_LOCAL_REPOSITORY]"
-  LOCAL_REPO_DIR="$MP_DIR/LIBRARY/PC-stuff/PC-software/BASH_Scripting_Projects/Repository"
-#
-#
-#=================================================================
-# EDIT THE LINES BELOW TO SPECIFY THE FILE NAMES TO UPDATE.
-# FILE NAMES INCLUDE ALL DEPENDENT SCRIPTS LIBRARIES.
-#=================================================================
-#
-#
-# --------------------------------------------
-# Create a list of all dependent library files
-# and write to temporary file, FILE_LIST.
-# --------------------------------------------
-#
-# Temporary file FILE_LIST contains a list of file names of dependent
-# scripts and libraries.
-#
-FILE_LIST=$THIS_FILE"_file_temp.txt"
-#
-# Format: [File Name]^[Local/Web]^[Local repository directory]^[web repository directory]/
-#
-echo "cliappmenu.sh^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                 > $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "cliappmenu.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_audio.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_databases.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"           >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_development.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"         >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_education.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"           >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_environment.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"         >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_file.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_games.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_graphics.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_internet.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_network.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"             >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_office.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"              >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_packages.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_screensavers.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"        >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_screens.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"             >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_screen_tools.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"        >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_system.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"              >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_video.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "cli-common.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "cli-favorites.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "cli-web-sites.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "COPYING^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                      >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "EDIT_HISTORY^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                 >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "LICENSE^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                      >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "main_search_results.lib.save^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/" >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "README^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                       >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "README.md^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                    >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "common_bash_function.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"     >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-
-# Create a name for a temporary file which will have a list of files which need to be downloaded.
-FILE_DL_LIST=$THIS_FILE"_file_dl_temp.txt"
 #
 #
 # -----------------------------------------------
@@ -180,6 +101,100 @@ if [ ! -d "$CLI_DIR" ] ; then
    # Exit script and return to command-line.
    exit 1
 fi
+#
+#================================================================
+#
+# OPTIONAL:
+#
+# EDIT THE LINES BELOW TO SET REPOSITORY SERVERS AND DIRECTORIES
+# AND TO INCLUDE ALL DEPENDENT SCRIPTS AND LIBRARIES TO DOWNLOAD.
+#
+# NOTE: SERVER_DIR, MP_DIR, and LOCAL_REPO_DIR only need to be
+#       set if you wish to set up a repository if this code on
+#       a file server. This script will use Samba to mount the
+#       file server's share-point onto the local mount-point.
+#
+#       If any files/libraries are missing from the local PC,
+#       they will be automatically downloaded from the local file
+#       server or automatically downloaded from GitHub.
+#================================================================
+#
+#
+#--------------------------------------------------------------
+# Set variables to mount the Local Repository to a mount-point.
+#--------------------------------------------------------------
+#
+# LAN File Server shared directory.
+# SERVER_DIR="[FILE_SERVER_DIRECTORY_NAME_GOES_HERE]"
+  SERVER_DIR="//file_server/files"
+#
+# Local PC mount-point directory.
+# MP_DIR="[LOCAL_MOUNT-POINT_DIRECTORY_NAME_GOES_HERE]"
+  MP_DIR="/mnt/file_server/files"
+#
+# Local PC mount-point with LAN File Server Local Repository full directory path.
+# Example:
+#                   File server shared directory is "//file_server/files".
+# Repostory directory under the shared directory is "scripts/BASH/Repository".
+#                 Local PC Mount-point directory is "/mnt/file_server/files".
+#
+# LOCAL_REPO_DIR="$MP_DIR/[DIRECTORY_PATH_TO_LOCAL_REPOSITORY]"
+  LOCAL_REPO_DIR="$MP_DIR/Repository"
+#
+#
+#===========================================================================
+# EDIT THE LINES BELOW TO SPECIFY THE FILE NAMES TO UPDATE.
+# UPDATED FILES WILL BE COPIED FROM THE LOCAL REPOSITORY AT $LOCAL_REPO_DIR.
+#
+# ANY MISSING FILES WILL BE DOWNLOADED FROM EITHER THE LOCAL REPOSITORY OR
+# FROM GITHUB (IF THE LOCAL REPOSITORY IS UNAVAILABLE).
+#===========================================================================
+#
+#
+# --------------------------------------------
+# Create a list of all dependent library files
+# and write to temporary file, FILE_LIST.
+# --------------------------------------------
+#
+# Temporary file FILE_LIST contains a list of file names of dependent
+# scripts and libraries.
+#
+FILE_LIST=$THIS_FILE"_file_temp.txt"
+#
+# Format: [File Name]^[Local/Web]^[Local repository directory]^[web repository directory]/
+#
+echo "cliappmenu.sh^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                 > $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "cliappmenu.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_audio.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_databases.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"           >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_development.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"         >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_education.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"           >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_environment.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"         >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_file.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_games.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_graphics.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_internet.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_network.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"             >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_office.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"              >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_packages.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_screensavers.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"        >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_screens.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"             >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_screen_tools.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"        >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_system.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"              >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_video.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "cli-common.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "cli-favorites.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "cli-web-sites.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "COPYING^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                      >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "EDIT_HISTORY^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                 >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "LICENSE^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                      >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "main_search_results.lib.save^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/" >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "README^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                       >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "README.md^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                    >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "common_bash_function.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"     >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+
+# Create a name for a temporary file which will have a list of files which need to be downloaded.
+FILE_DL_LIST=$THIS_FILE"_file_dl_temp.txt"
 #
 # +----------------------------------------+
 # |          Source library files          |
@@ -311,7 +326,7 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ##
 ## Includes changes to cliappmenu.lib, cli-common.lib.
 ##
-## 2024-02-20 *Release Version 6.0 "Hannah"
+## 2024-02-20 *Release Version 6.1 "Hannah"
 ##
 ## 2024-02-19 *f_menu_main_all_menus added replacing f_menu_main.
 ##            *f_menu_main deleted in favor of f_menu_main_all_menus.
@@ -549,14 +564,15 @@ f_display_common () {
 # Outputs: None.
 #
 # Summary: Display any menu. Use this same function to display
-#          both Main-Menu and any sub-menus. The Main Menu and all sub-menu data
-#          are in a separte library file from the run-time script or program.
-#          A single library file contains data for multiple menus (many menus/1 library file),
-#          In this scheme, multiple menu data is in the library file,
-#          which may also contain various functions in addition to the menu data.
+#          both Main-Menu and any sub-menus. The Main Menu and all sub-menu
+#          data are in a separate library file from the run-time script
+#          or program.
 #
-#          Simply state the Path/Filename of the library file, ARRAY_SOURCE_FILE
-#          which contains the menu data.
+#          A single library file contains data for multiple menus
+#          (many menus/1 library file),
+#
+#          A single library file may also contain various functions in
+#          addition to data listings for multiple menus.
 #
 # Dependencies: f_menu_arrays, f_create_show_menu.
 #

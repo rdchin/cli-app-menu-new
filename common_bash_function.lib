@@ -23,7 +23,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2024-02-18 09:06"
+VERSION="2024-02-20 22:48"
 #
 # WARNING: Do not define $THIS_FILE within a library script.
 #
@@ -76,6 +76,8 @@ VERSION="2024-02-18 09:06"
 ## Code Change History
 ##
 ## (After each edit made, please update Code History and VERSION.)
+##
+## 2024-02-20 *f_msg_txt_file_ok bug fixed where title was not displayed.
 ##
 ## 2024-02-16 *f_show_mount_points added passed parameters.
 ##            *f_menu_main_all_menus_TEMPLATE improved comments.
@@ -4352,7 +4354,7 @@ f_msg_txt_str_nok () {
 # |  Function f_msg_txt_file_ok  |
 # +------------------------------+
 #
-#     Rev: 2021-03-07
+#     Rev: 2024-02-20
 #  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - "OK"  [OK] button at end of text.
 #               "NOK" No [OK] button or "Press Enter key to continue"
@@ -4373,10 +4375,14 @@ f_msg_txt_file_ok () {
       # If $2 is "OK" then use command "less".
       #
       clear  # Blank the screen.
+      echo $3 > $TEMP_FILE"_2.txt"
+      echo >> $TEMP_FILE"_2.txt"
+      cat $4 >> $TEMP_FILE"_2.txt"
       #
       # Display text file contents.
-      less -P '%P\% (Spacebar, PgUp/PgDn, Up/Dn arrows, press q to quit)' $4
+      less -P '%P\% (Spacebar, PgUp/PgDn, Up/Dn arrows, press q to quit)' $TEMP_FILE"_2.txt"
       #
+      rm $TEMP_FILE"_2.txt"
       clear  # Blank the screen.
       #
 }  # End of function f_msg_txt_file_ok
