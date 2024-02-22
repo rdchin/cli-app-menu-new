@@ -23,7 +23,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2024-02-20 22:48"
+VERSION="2024-02-21 20:48"
 #
 # Set THIS_FILE_LIB to the name of this script library.
 THIS_FILE_LIB=$(basename $0)
@@ -277,11 +277,13 @@ f_check_version () {
       #
       # LAN File Server shared directory.
       # SERVER_DIR="[FILE_SERVER_DIRECTORY_NAME_GOES_HERE]"
-        SERVER_DIR="//file_server/files"
+      # SERVER_DIR="//file_server/files"
+      SERVER_DIR="//file_server/files"
       #
       # Local PC mount-point directory.
       # MP_DIR="[LOCAL_MOUNT-POINT_DIRECTORY_NAME_GOES_HERE]"
-        MP_DIR="/mnt/file_server/files"
+      # MP_DIR="/mnt/file_server/files"
+      MP_DIR="/mnt/file_server/files"
       #
       # Test mount-point.
       mountpoint $MP_DIR 2>$TEMP_FILE
@@ -314,7 +316,9 @@ f_check_version () {
       #
       # Local PC mount-point with LAN File Server Local Repository full directory path.
       # LOCAL_REPO_DIR="$MP_DIR/[DIRECTORY_PATH_TO_LOCAL_REPOSITORY]"
-        LOCAL_REPO_DIR="$MP_DIR/Repository"
+      # LOCAL_REPO_DIR="$MP_DIR/Repository"
+      LOCAL_REPO_DIR="$MP_DIR/Repository"
+
       #
       # Test Local Repo directory.
       if [ ! -d $LOCAL_REPO_DIR ] ; then
