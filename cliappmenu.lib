@@ -23,7 +23,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2024-02-21 20:48"
+VERSION="2024-02-26 00:24"
 #
 # Set THIS_FILE_LIB to the name of this script library.
 THIS_FILE_LIB=$(basename $0)
@@ -228,10 +228,12 @@ THIS_FILE_LIB=$(basename $0)
 # |        Function f_check_version        |
 # +----------------------------------------+
 #
-#     Rev: 2024-01-16
+#     Rev: 2024-02-22
 #  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
 #          $2 - [OPTIONAL] File name to compare.
-#          $3 - [OPTIONAL] 1=Silent mode.
+#          $3 - [OPTIONAL] to control display of messages and interactive user questions.
+#                          null (default) - Display error and status messages and interactive user questions.
+#                          1              - Display error messages only (Silent mode).
 #          FILE_TO_COMPARE.
 #    Uses: SERVER_DIR, MP_DIR, LOCAL_REPO_DIR, $FILE_TO_COMPARE, FILE_LIST,
 #          VERSION, TEMP_FILE, ERROR.
@@ -246,6 +248,10 @@ THIS_FILE_LIB=$(basename $0)
 #          connect to repository on the web if available.
 #
 # Dependencies: f_version_compare.
+#
+# PLEASE NOTE: RENAME THIS FUNCTION WITHOUT SUFFIX "_TEMPLATE" AND COPY
+#              THIS FUNCTION INTO ANY SCRIPT WHICH DEPENDS ON THE
+#              LIBRARY FILE "common_bash_function.lib".
 #
 f_check_version () {
       #
@@ -269,44 +275,23 @@ f_check_version () {
       #
       #
       #=================================================================
-      # EDIT THE LINES BELOW TO DEFINE THE
-      #                       LAN FILE SERVER DIRECTORY: SERVER_DIR
-      #                      LOCAL MOUNTPOINT DIRECTORY: MP_DIR
+      # EDIT THE LINES BELOW TO DEFINE THE LAN FILE SERVER DIRECTORY,
+      # LOCAL MOUNTPOINT DIRECTORY, LOCAL REPOSITORY DIRECTORY AND
+      # FILE TO COMPARE BETWEEN THE LOCAL PC AND (LAN) LOCAL REPOSITORY.
       #=================================================================
       #
       #
       # LAN File Server shared directory.
       # SERVER_DIR="[FILE_SERVER_DIRECTORY_NAME_GOES_HERE]"
-      # SERVER_DIR="//file_server/files"
-      SERVER_DIR="//file_server/files"
+      if [ -z "$SERVER_DIR" ] ; then
+        SERVER_DIR="//file_server/files"
+      fi
       #
       # Local PC mount-point directory.
       # MP_DIR="[LOCAL_MOUNT-POINT_DIRECTORY_NAME_GOES_HERE]"
-      # MP_DIR="/mnt/file_server/files"
-      MP_DIR="/mnt/file_server/files"
-      #
-      # Test mount-point.
-      mountpoint $MP_DIR 2>$TEMP_FILE
-      ERROR=$?
-      if [ $ERROR -ne 0 ] ; then
-         echo >> $TEMP_FILE
-         echo "Cannot get updated file from the Local Repository." >> $TEMP_FILE
-         echo "Cannot access Local Repository, file server is not mounted." >> $TEMP_FILE
-         echo >> $TEMP_FILE
-         echo "Current value of SERVER_DIR=$SERVER_DIR"  >> $TEMP_FILE
-         echo "Current value of MP_DIR=$MP_DIR" >> $TEMP_FILE
-         echo "Current value of LOCAL_REPO_DIR=$LOCAL_REPO_DIR" >> $TEMP_FILE
-         f_message $1 "OK" "Error Finding Updated files" $TEMP_FILE
-         return 0
+      if [ -z "$MP_DIR" ] ; then
+        MP_DIR="/mnt/file_server/files"
       fi
-      #
-      #
-      #
-      #=================================================================
-      # EDIT THE LINES BELOW TO DEFINE THE
-      #                      LOCAL REPOSITORY DIRECTORY: LOCAL_REPO_DIR
-      #=================================================================
-      #
       #
       # Local PC mount-point with LAN File Server Local Repository full directory path.
       # Example:
@@ -316,23 +301,9 @@ f_check_version () {
       #
       # Local PC mount-point with LAN File Server Local Repository full directory path.
       # LOCAL_REPO_DIR="$MP_DIR/[DIRECTORY_PATH_TO_LOCAL_REPOSITORY]"
-      # LOCAL_REPO_DIR="$MP_DIR/Repository"
-      LOCAL_REPO_DIR="$MP_DIR/Repository"
-
-      #
-      # Test Local Repo directory.
-      if [ ! -d $LOCAL_REPO_DIR ] ; then
-         echo >> $TEMP_FILE
-         echo "Cannot get updated file from the Local Repository." >> $TEMP_FILE
-         echo "Cannot access Local Repository, directory does not exist." >> $TEMP_FILE
-         echo >> $TEMP_FILE
-         echo "Current value of SERVER_DIR=$SERVER_DIR" >> $TEMP_FILE
-         echo "Current value of MP_DIR=$MP_DIR" >> $TEMP_FILE
-         echo "Current value of LOCAL_REPO_DIR=$LOCAL_REPO_DIR" >> $TEMP_FILE
-         f_message $1 "OK" "Error Finding Updated files" $TEMP_FILE
-         return 0
+      if [ -z "$LOCAL_REPO_DIR" ] ; then
+        LOCAL_REPO_DIR="$MP_DIR/Local_Repository"
       fi
-      #
       #
       # Local PC file to be compared.
       if [ $# -eq 2 ] ; then
@@ -365,8 +336,8 @@ f_check_version () {
       #
       #
       #=================================================================
-      # EDIT THE LINES BELOW TO SPECIFY THE FILES TO UPDATE.
-      # THE FILE_LIST INCLUDES ALL DEPENDENT SCRIPTS AND LIBRARIES.
+      # EDIT THE LINES BELOW TO SPECIFY THE FILE NAMES TO UPDATE.
+      # FILE NAMES INCLUDE ALL DEPENDENT SCRIPTS AND LIBRARIES.
       #=================================================================
       #
       #

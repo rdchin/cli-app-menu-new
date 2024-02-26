@@ -28,7 +28,7 @@
 # |        Default Variable Values         |
 # +----------------------------------------+
 #
-VERSION="2024-02-21 20:48"
+VERSION="2024-02-26 00:24"
 #
 # Set THIS_FILE to the name of this script file.
 THIS_FILE=$(basename $0)
@@ -109,6 +109,8 @@ fi
 # EDIT THE LINES BELOW TO SET REPOSITORY SERVERS AND DIRECTORIES
 # AND TO INCLUDE ALL DEPENDENT SCRIPTS AND LIBRARIES TO DOWNLOAD.
 #
+# ALSO PLEASE EDIT f_check_version
+#
 # NOTE: SERVER_DIR, MP_DIR, and LOCAL_REPO_DIR only need to be
 #       set if you wish to set up a repository if this code on
 #       a file server. This script will use Samba to mount the
@@ -141,8 +143,14 @@ MP_DIR="/mnt/file_server/files"
 #                 Local PC Mount-point directory is "/mnt/file_server/files".
 #
 # LOCAL_REPO_DIR="$MP_DIR/[DIRECTORY_PATH_TO_LOCAL_REPOSITORY]"
-# LOCAL_REPO_DIR="$MP_DIR/Repository"
-LOCAL_REPO_DIR="$MP_DIR/Repository"
+# LOCAL_REPO_DIR="$MP_DIR/Local_Repository"
+LOCAL_REPO_DIR="$MP_DIR/Local_Repository"
+#
+# Web Repository i.e. Hosted by GitHub.com or another web site.
+# WEB_REPOSITORY_URL="raw.githubusercontent.com/user/project/branch"
+WEB_REPOSITORY_URL="raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"
+#
+# Warning: If the Github Repository is "Private", then anonymous downloads are not permitted.
 #
 #
 #===========================================================================
@@ -154,11 +162,6 @@ LOCAL_REPO_DIR="$MP_DIR/Repository"
 #===========================================================================
 #
 #
-# --------------------------------------------
-# Create a list of all dependent library files
-# and write to temporary file, FILE_LIST.
-# --------------------------------------------
-#
 # Temporary file FILE_LIST contains a list of file names of dependent
 # scripts and libraries.
 #
@@ -166,35 +169,35 @@ FILE_LIST=$THIS_FILE"_file_temp.txt"
 #
 # Format: [File Name]^[Local/Web]^[Local repository directory]^[web repository directory]/
 #
-echo "cliappmenu.sh^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                 > $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "cliappmenu.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_audio.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_databases.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"           >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_development.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"         >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_education.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"           >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_environment.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"         >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_file.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_games.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_graphics.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_internet.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_network.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"             >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_office.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"              >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_packages.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_screensavers.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"        >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_screens.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"             >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_screen_tools.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"        >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_system.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"              >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "apps_video.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "cli-common.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "cli-favorites.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "cli-web-sites.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "COPYING^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                      >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "EDIT_HISTORY^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                 >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "LICENSE^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                      >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "main_search_results.lib.save^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/" >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "README^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                       >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "README.md^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"                    >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
-echo "common_bash_function.lib^Local^$LOCAL_REPO_DIR^https://raw.githubusercontent.com/rdchin/cli-app-menu-new/main/"     >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "cliappmenu.sh^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"                 > $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "cliappmenu.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_audio.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_databases.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"           >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_development.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"         >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_education.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"           >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_environment.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"         >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_file.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"                >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_games.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_graphics.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_internet.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_network.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"             >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_office.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"              >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_packages.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_screensavers.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"        >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_screens.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"             >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_screen_tools.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"        >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_system.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"              >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "apps_video.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "cli-common.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"               >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "cli-favorites.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "cli-web-sites.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"            >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "COPYING^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"                      >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "EDIT_HISTORY^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"                 >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "LICENSE^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"                      >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "main_search_results.lib.save^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL" >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "README^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"                       >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "README.md^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"                    >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
+echo "common_bash_function.lib^Local^$LOCAL_REPO_DIR^$WEB_REPOSITORY_URL"     >> $FILE_LIST  # <<<--- INSERT ACTUAL FILE NAME HERE.
 
 # Create a name for a temporary file which will have a list of files which need to be downloaded.
 FILE_DL_LIST=$THIS_FILE"_file_dl_temp.txt"
@@ -328,6 +331,14 @@ TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
 ## (After each edit made, please update Code History and VERSION.)
 ##
 ## Includes changes to cliappmenu.lib, cli-common.lib.
+##
+## 2024-02-26 *Section "Default Variable Values" added $WEB_REPOSITORY_URL.
+##            *fdl_dwnld_file_from_local_repository
+##             fdl_dwnld_file_from_web_site improved informational messages.
+##            *fdl_mount_local improved user message.
+##            *Section "Main Program" added the deleting of file $FILE_LIST
+##             after checking for missing files. It was not getting deleted
+##             when script used CLI parameters that did not display a menu.
 ##
 ## 2024-02-21 *fdl_download_missing_scripts
 ##             fdl_mount_local
@@ -512,11 +523,15 @@ f_script_path () {
 # |     Function f_display_common      |
 # +------------------------------------+
 #
-#     Rev: 2021-03-31
-#  Inputs: $1=UI - "text", "dialog" or "whiptail" the preferred user-interface.
-#          $2=Delimiter of text to be displayed.
-#          $3="NOK", "OK", or null [OPTIONAL] to control display of "OK" button.
-#          $4=Pause $4 seconds [OPTIONAL]. If "NOK" then pause to allow text to be read.
+#     Rev: 2024-02-24
+#  Inputs: $1 - "text", "dialog" or "whiptail" the command-line user-interface in use.
+#          $2 - Delimiter of text to be displayed.
+#          $3 - [OPTIONAL] to control display of prompt to continue.
+#                          null (Default) - "OK" button or text prompt, display until either Enter key or "OK" button is pressed.
+#                          "OK"           - "OK" button or text prompt, display until either Enter key or "OK" button is pressed.
+#                          "NOK"          - No "OK" button or text prompt, display for $3 seconds before continuing automatically.
+#          $4 - [OPTIONAL] to control pause duration. Only used if $3="NOK".
+#                          $4 seconds pause to allow text to be read before continuing automatically.
 #          THIS_DIR, THIS_FILE, VERSION.
 #    Uses: X.
 # Outputs: None.
@@ -525,15 +540,31 @@ f_script_path () {
 #
 # Dependencies: f_message.
 #
-f_display_common () {
+# PLEASE NOTE: RENAME THIS FUNCTION WITHOUT SUFFIX "_TEMPLATE" AND COPY
+#              THIS FUNCTION INTO ANY SCRIPT WHICH DEPENDS ON THE
+#              LIBRARY FILE "common_bash_function.lib".
+#
+f_display_common_TEMPLATE () {
       #
-      # THIS_FILE is defined at the beginning of this script under the
-      # Section "Default Variable Values".
-      #
-      # THIS_FILE is used to display the "Brief Description", "Code History"
-      # and "Help and Usage" sections within this script.
+      # Set $THIS_FILE to the file name containing the text to be displayed.
       #
       # WARNING: Do not define $THIS_FILE within a library script.
+      #
+      # This prevents $THIS_FILE being inadvertently re-defined and set to
+      # the file name of the library when the command:
+      # "source [ LIBRARY_FILE.lib ]" is used.
+      #
+      # For that reason, all library files now have the line
+      # THIS_FILE="[LIBRARY_FILE.lib]" commented out or deleted.
+      #
+      #
+      #==================================================================
+      # EDIT THE LINE BELOW TO DEFINE $THIS_FILE AS THE ACTUAL FILE NAME
+      # CONTAINING THE BRIEF DESCRIPTION, CODE HISTORY, AND HELP MESSAGE.
+      #==================================================================
+      #
+      #
+      THIS_FILE="cliappmenu.sh"  # <<<--- INSERT ACTUAL FILE NAME HERE.
       #
       TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
       #
@@ -549,7 +580,7 @@ f_display_common () {
       # Display text (all lines beginning ("^") with $2 but do not print $2).
       # sed substitutes null for $2 at the beginning of each line
       # so it is not printed.
-      sed -n "s/$2//"p $THIS_DIR/$THIS_FILE >> $TEMP_FILE
+      sed --silent "s/$2//p" $THIS_DIR/$THIS_FILE >> $TEMP_FILE
       #
       case $3 in
            "NOK" | "nok")
@@ -563,10 +594,10 @@ f_display_common () {
 } # End of function f_display_common.
 #
 # +-----------------------------------------+
-# |     Function f_menu_main_all_menus      |
+# | Function f_menu_main_all_menus          |
 # +-----------------------------------------+
 #
-#     Rev: 2024-01-19
+#     Rev: 2024-02-15
 #  Inputs: $1 - "text", "dialog" or "whiptail" the preferred user-interface.
 #          $2 - MENU_TITLE Title of menu which must also match the header
 #               and tail strings for the menu data in the ARRAY_SOURCE_FILE.
@@ -577,15 +608,14 @@ f_display_common () {
 # Outputs: None.
 #
 # Summary: Display any menu. Use this same function to display
-#          both Main-Menu and any sub-menus. The Main Menu and all sub-menu
-#          data are in a separate library file from the run-time script
-#          or program.
+#          both Main-Menu and any sub-menus. The Main Menu and all sub-menu data
+#          may either be in the run-time script (*.sh) or a separate library (*.lib)
 #
-#          A single library file contains data for multiple menus
-#          (many menus/1 library file),
+#          A single script/library file contains data for multiple menus
+#          where there may be 1 or more menus within 1 file.
 #
-#          A single library file may also contain various functions in
-#          addition to data listings for multiple menus.
+#          Simply state the Path/Filename of the library file, ARRAY_SOURCE_FILE
+#          which contains the menu data.
 #
 # Dependencies: f_menu_arrays, f_create_show_menu.
 #
@@ -594,13 +624,6 @@ f_display_common () {
 #
 f_menu_main_all_menus () {
       #
-      #
-      if [ "$1" = "text" ] ; then
-         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
-         # Why needed? Function f_message uses application "Less" to display pages of text.
-         # But "Less" resets the terminal's colors to white on black.
-         f_configure_use $1
-      fi
       #
       #================================================================================
       # EDIT THE LINE BELOW TO DEFINE $ARRAY_SOURCE_FILE AS THE ACTUAL FILE NAME
@@ -638,47 +661,36 @@ f_menu_main_all_menus () {
       #
       # The MENU_TITLE must match the strings in the ARRAY_SOURCE_FILE.
       #
-      #       The run-time script file, "ice_cream.sh" may also contain the data
-      #       for both Main menu and sub-menus if it follows the same format below.
-      #
-      #       If you have a lot of menus, you may want to have all the menu data
-      #       in a separate library file.
-      #
-      #       Example:
-      #
-      #       The file "all_ice_cream_menus.lib" contains the data for both
-      #       Main menu: "Tasty Ice Cream Menu"
-      #        Sub-menu: "Ice Cream Toppings Menu".
-      #
-      #  Each menu (Main Menu and sub-menus) must have Header and Tail strings.
-      #  Main menu header/tail strings:
-      #  Header string: "Start Listing Tasty Ice Cream Menu" (with spaces " ")
-      #    Tail string: "End Listing Tasty Ice Cream Menu"
-      #
-      #  Sub-menu header/tail strings:
-      #  Header string: "Start Listing Ice Cream Toppings Menu"
-      #    Tail string: "End Listing Ice Cream Toppings Menu"
-      #
-      #
       #  Example:
+      #   The run-time script file, "ice_cream.sh" may also contain the data
+      #   for both Main menu and sub-menus.
       #
-      #  ARRAY_SOURCE_FILE="All_Ice_Cream_Menus.lib"
+      #     MENU_TITLE="All_Ice_Cream_Menu"
+      #     ARRAY_SOURCE_FILE="ice_cream.sh"
       #
-      #  Listing of $ARRAY_SOURCE_FILE (All_Ice_Cream_Menus.lib)
+      #   If you have a lot of menus, you may want to have all the menu data
+      #   for both Main menu and sub-menus in a separate library file,
+      #   "all_ice_cream_menus.lib".
+      #
+      #     MENU_TITLE="All_Ice_Cream_Menu"
+      #     ARRAY_SOURCE_FILE="all_ice_cream_menus.lib"
+      #
+      # Format for $ARRAY_SOURCE_FILE: ("ice_cream.sh" or "all_ice_cream_menus.lib")
+      #
+      #  Listing of $ARRAY_SOURCE_FILE ("ice_cream.sh" or "all_ice_cream_menus.lib")
       #          which includes menu item data:
       #
       #  Start Listing Tasty Ice Cream Menu (Required header, do not delete).
       #      Data for Menu item 1
       #      Data for Menu item 2
       #      Data for Menu item 3
-      #  End  Listing Tasty Ice Cream Menu (Required line, do not delete).
+      #  End Listing Tasty Ice Cream Menu (Required line, do not delete).
       #
       #  Start Listing Ice Cream Toppings Menu (Required header, do not delete).
       #      Data for Menu item 1
       #      Data for Menu item 2
       #      Data for Menu item 3
       #  End Listing Ice Cream Toppings Menu (Required line, do not delete).
-      #
       #
       TEMP_FILE=$THIS_DIR/$THIS_FILE"_menu_temp.txt"
       #
@@ -717,13 +729,13 @@ f_menu_main_all_menus () {
          rm  $GENERATED_FILE
       fi
       #
-} # End of function f_menu_main_all_menus
+} # End of function f_menu_main_all_menus.
 #
 # +----------------------------------------+
 # |  Function fdl_dwnld_file_from_web_site |
 # +----------------------------------------+
 #
-#     Rev: 2024-02-21
+#     Rev: 2024-02-25
 #  Inputs: $1 - GitHub Repository
 #          $2 - file name to download.
 #    Uses: None.
@@ -745,18 +757,21 @@ fdl_dwnld_file_from_web_site () {
       # Make downloaded file executable.
       chmod 755 $2
       #
-      # Move all files to sub-directory /home/[user]/cliapp-dir except those below.
-      if [ -e $2 ] && [ $2 != "cliappmenu.sh" ] && [ $2 != "cliappmenu.lib" ] && [ $2 != "common_bash_function.lib" ] ; then
-         mv $2 $CLI_DIR
-      fi
-      #
       if [ $ERROR -ne 0 ] ; then
             echo
             echo ">>>>>>>>>>>>>><<<<<<<<<<<<<<"
             echo ">>> wget download failed <<<"
             echo ">>>>>>>>>>>>>><<<<<<<<<<<<<<"
             echo
-            echo "Error copying from Web Repository file: \"$2.\""
+            echo "Error copying file: \"$2.\""
+            echo
+            echo "from GitHub Repository:"
+            echo "$WEB_REPOSITORY_URL"
+            echo
+            echo -e "Warning: If the Github Repository is \"Private\","
+            echo "         then anonymous downloads are not permitted."
+            echo
+            echo ">>>>>>>>>>>>>><<<<<<<<<<<<<<"
             echo
       fi
       #
@@ -766,7 +781,7 @@ fdl_dwnld_file_from_web_site () {
 # | Function fdl_dwnld_file_from_local_repository |
 # +-----------------------------------------------+
 #
-#     Rev: 2024-02-21
+#     Rev: 2024-02-25
 #  Inputs: $1 - Local Repository Directory.
 #          $2 - File to download.
 #    Uses: TEMP_FILE.
@@ -786,18 +801,18 @@ fdl_dwnld_file_from_local_repository () {
       # Make downloaded file executable.
       chmod 755 $2
       #
-      # Move all files to sub-directory /home/[user]/cliapp-dir except those below.
-      if [ -e $2 ] && [ $2 != "cliappmenu.sh" ] && [ $2 != "cliappmenu.lib" ] && [ $2 != "common_bash_function.lib" ] ; then
-         mv $2 $CLI_DIR
-      fi
-      #
       if [ $ERROR -ne 0 ] ; then
          echo
          echo ">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<"
          echo ">>> File Copy Error from Local Repository <<<"
          echo ">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<"
          echo
-         echo -e "Error copying from Local Repository file: \"$2.\""
+         echo -e "Error copying file: \"$2.\""
+         echo
+         echo "from Local Repository:"
+         echo "$LOCAL_REPO_DIR"
+         echo
+         echo ">>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<"
          echo
          ERROR=1
       fi
@@ -814,7 +829,7 @@ fdl_dwnld_file_from_local_repository () {
 # |       Function fdl_mount_local      |
 # +-------------------------------------+
 #
-#     Rev: 2024-02-21
+#     Rev: 2024-02-25
 #  Inputs: $1 - Server Directory.
 #          $2 - Local Mount Point Directory
 #          TEMP_FILE
@@ -831,7 +846,7 @@ fdl_mount_local () {
       #
       TEMP_FILE=$THIS_DIR/$THIS_FILE"_temp.txt"
       #
-      # Get status of mountpoint, mounted? Write any mountpoint command error messages to file $TEMP_FILE.
+      # Get status of mountpoint, mounted? Do not display status.
       mountpoint $2 >/dev/null
       ERROR=$?
       if [ $ERROR -eq 0 ] ; then
@@ -842,7 +857,7 @@ fdl_mount_local () {
       else
          # Mount failed, Do you want to try again?
          DEFAULT_ANS="Y"
-         QUES_STR="Failed to mount\n\nShare-point: $1\nonto\nMount-point: $2n\nTry another password to mount $1?"
+         QUES_STR="Failed to mount\n\nShare-point:\n$1\n\nonto\n\nMount-point:\n$2\n\nTry another password to mount $1?"
          #
          clear  # Blank screen.
          #
@@ -1295,6 +1310,11 @@ if [ -r  $FILE_DL_LIST ] || [ $ERROR -ne 0 ] ; then
            # process /bin/bash is created using up resources.
 fi
 #
+# Remove FILE_LIST since already checked for missing files/libraries.
+if [ -r  $FILE_LIST ] ; then
+   rm  $FILE_LIST
+fi
+#
 #***************************************************************
 # Process Any Optional Arguments and Set Variables THIS_DIR, GUI
 #***************************************************************
@@ -1368,9 +1388,9 @@ f_test_environment $GUI
 #
 f_about $GUI "NOK" 1
 #
-#*******************
-# Display Main Menu.
-#*******************
+#***************
+# Run Main Code.
+#***************
 #
 #  Inputs for f_menu_main_all_menus
 #
