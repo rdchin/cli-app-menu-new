@@ -625,6 +625,13 @@ f_display_common_TEMPLATE () {
 f_menu_main_all_menus () {
       #
       #
+      if [ "$1" = "text" ] ; then
+         # Restore user-selected CLI colors to terminal. Not applicable for "Dialog" or "Whiptail".
+         # Why needed? Function f_message uses application "Less" to display pages of text.
+         # But "Less" resets the terminal's colors to white on black.
+         f_configure_use $1
+      fi
+      #
       #================================================================================
       # EDIT THE LINE BELOW TO DEFINE $ARRAY_SOURCE_FILE AS THE ACTUAL FILE NAME
       # WHERE THE MENU ITEM DATA IS LOCATED. THE LINES OF DATA ARE PREFIXED BY "#@@".
@@ -757,6 +764,11 @@ fdl_dwnld_file_from_web_site () {
       # Make downloaded file executable.
       chmod 755 $2
       #
+      # Move all files to sub-directory /home/[user]/cliapp-dir except those below.
+      if [ -e $2 ] && [ $2 != "cliappmenu.sh" ] && [ $2 != "cliappmenu.lib" ] && [ $2 != "common_bash_function.lib" ] ; then
+         mv $2 $CLI_DIR
+      fi
+      #
       if [ $ERROR -ne 0 ] ; then
             echo
             echo ">>>>>>>>>>>>>><<<<<<<<<<<<<<"
@@ -800,6 +812,11 @@ fdl_dwnld_file_from_local_repository () {
       #
       # Make downloaded file executable.
       chmod 755 $2
+      #
+      # Move all files to sub-directory /home/[user]/cliapp-dir except those below.
+      if [ -e $2 ] && [ $2 != "cliappmenu.sh" ] && [ $2 != "cliappmenu.lib" ] && [ $2 != "common_bash_function.lib" ] ; then
+         mv $2 $CLI_DIR
+      fi
       #
       if [ $ERROR -ne 0 ] ; then
          echo
